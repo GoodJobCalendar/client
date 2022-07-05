@@ -6,15 +6,21 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./redux/configStore";
 import GlobalStyle from "./GlobalStyle";
 import reportWebVitals from "./reportWebVitals";
-
+import { BrowserView, MobileView } from "react-device-detect";
+import Mobile from "./Mobile";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <GlobalStyle />
-      <App />
-    </BrowserRouter>
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <BrowserView>
+        <GlobalStyle />
+        <App />
+      </BrowserView>
+      <MobileView>
+        <Mobile />
+      </MobileView>
+    </Provider>
+  </BrowserRouter>
 );
 
 reportWebVitals();
