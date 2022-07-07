@@ -10,13 +10,9 @@ const EmailSend = () => {
   const [authNumber, setAuthNumber] = useState();
   console.log(userInfo);
   const Submit = async () => {
-    //회원가입
+    // 인증번호 확인
     await axios
-      .post("http://localhost:5001/user", {
-        email: userInfo.email,
-        userName: userInfo.userName,
-        password: userInfo.password,
-        confirmPassword: userInfo.confirmPassword,
+      .post("http://14.34.139.253:3000/api/auth/local", {
         authNumber,
       })
       .then((res) => {
