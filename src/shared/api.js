@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const api = axios.create({
-  baseURL: "http://175.112.86.142:8088",
+  baseURL: "http://14.34.139.253:3000",
   // withCredentials: false,
 });
 //1. axios 인터셉터 생성
@@ -59,7 +59,6 @@ api.interceptors.response.use(
 );
 
 // export const TokenCheck = localStorage.getItem("token") ? true : false;
-
 
 // kakao 연결용
 const kakao_redirect_uri = "http://localhost:3000/api/auth/kakao/callback";

@@ -1,18 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { emailCheck } from "../shared/SignUpCheck";
 import { api } from "../shared/api";
 import { loginDB } from "./../redux/modules/user";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((user) => user);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const loginClick = async () => {
+  const loginClick = () => {
     if (email === "" || password === "") {
       window.alert("아이디와 비밀번호를 입력해주세요.");
       return;
@@ -21,24 +22,14 @@ const Login = () => {
       window.alert("이메일 형식이 맞지 않습니다.");
       return;
     }
-    try {
-      const response = await api.loginDB({
+    dispatch(
+      loginDB({
         email,
         password,
-      });
-      alert("로그인 성공");
-      navigate("/Home");
-    } catch (error) {
-      alert("로그인 다시시도");
-    }
+      })
+    );
   };
 
-  useEffect(() => {
-    console.log(user);
-    if (user.user.is_login === true) {
-      navigate("/Main");
-    }
-  }, [user.user.is_login]);
   return (
     <LoginWrap>
       <header>
