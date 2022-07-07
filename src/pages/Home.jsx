@@ -8,6 +8,9 @@ import "swiper/css/bundle";
 
 import { Pagination } from "swiper";
 import { Link } from "react-router-dom";
+
+import { KAKAO_AUTH_URL } from "../shared/api";
+
 const Home = () => {
   return (
     <HomeWrap>
@@ -41,7 +44,7 @@ const Home = () => {
       </main>
       <FooterWrap>
         <Link to="/signup">🍏 이메일로 시작</Link>
-        <Link to="/">🍑 카카오톡 간편 로그인</Link>
+        <a href={KAKAO_AUTH_URL}>🍑 카카오톡 간편 로그인</a>
         <Link to="/login">로그인 하기</Link>
       </FooterWrap>
     </HomeWrap>
