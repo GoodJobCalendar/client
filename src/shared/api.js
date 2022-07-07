@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const api = axios.create({
-  baseURL: "http://localhost:5001/user",
+  baseURL: "http://175.112.86.142:8088",
   // withCredentials: false,
 });
 //1. axios 인터셉터 생성

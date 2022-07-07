@@ -1,23 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const EmailSend = () => {
-  const useremail = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
-  console.log(useremail);
+  const [authNumber, setAuthNumber] = useState();
+  console.log(userInfo);
   const Submit = async () => {
-    //회원가입
+    // 인증번호 확인
     await axios
-      .post("http://localhost:5001/user", {
-        data: {
-          email: useremail.email,
-          userName: useremail.userName,
-          password: useremail.password,
-          confirmPassword: useremail.confirmPassword,
-        },
+      .post("http://14.34.139.253:3000/api/auth/local", {
+        authNumber,
       })
       .then((res) => {
         console.log(res);
@@ -34,10 +30,16 @@ const EmailSend = () => {
       <header>
         <h1>인증메일을 전송했어요!</h1>
         <p>인증 메일 확인하러 메일함으로 고고</p>
-        <span>{useremail.email}</span>
+        <span>{userInfo.email}</span>
       </header>
       <Main>
-        <input type="text" placeholder="인증번호 입력" />
+        <input
+          type="text"
+          placeholder="인증번호 입력"
+          onChange={(event) => {
+            setAuthNumber(event.target.value);
+          }}
+        />
         {/* <p>인증번호가 잘못되었어요!</p> */}
         <button onClick={Submit}>인증완료</button>
       </Main>

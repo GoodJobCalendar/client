@@ -33,36 +33,35 @@ const SignUp = () => {
       return;
     }
     // 이메일 중복 체크
-    await axios
-      .post(`http://localhost:5001/user`, {
-        data: {
-          email,
-        },
-      })
-      .then((mailcheck) => {
-        // 중복체크 성공했을 때
-        setMailCheckState(mailcheck.status);
-        emailRef.current.innerText = "사용 가능한 이메일입니다.";
-      })
-      .catch((error) => {
-        emailRef.current.innerText = "해당 이메일은 이미 사용되고 있어요";
-        console.log("Login Error", error);
-      });
+    // await axios
+    //   .post(`http://localhost:5001/user`, {
+    //     data: {
+    //       email,
+    //     },
+    //   })
+    //   .then((mailcheck) => {
+    //     // 중복체크 성공했을 때
+    //     setMailCheckState(mailcheck.status);
+    //     emailRef.current.innerText = "사용 가능한 이메일입니다.";
+    //   })
+    //   .catch((error) => {
+    //     emailRef.current.innerText = "해당 이메일은 이미 사용되고 있어요";
+    //     console.log("Login Error", error);
+    //   });
+    
     //회원가입
     await axios
-      .post("http://localhost:5001/user", {
-        data: {
+      .post("http://14.34.139.253:3000/api/auth/local", {
           email,
-          userName,
           password,
           confirmPassword,
-        },
+          userName,
       })
       .then((res) => {
         console.log(res);
         window.alert("회원가입을 축하합니다!");
         navigate("/emailsend");
-        dispatch(setUser({ email, userName, password, confirmPassword }));
+        dispatch(setUser({ email, password, confirmPassword, userName }));
       })
       .catch((error) => {
         window.alert("아이디, 닉네임 또는 비밀번호를 확인해주세요.");
