@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import video from "./images/work.mp4";
+import video from "./assets/img/work.mp4";
 // 컴포넌트
 import Mobile from "./Mobile";
 

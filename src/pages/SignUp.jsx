@@ -9,7 +9,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
-  const [userName, setUerName] = useState();
+  const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [mailCheckState, setMailCheckState] = useState();
@@ -35,9 +35,7 @@ const SignUp = () => {
     // 이메일 중복 체크
     await axios
       .post(`http://localhost:5001/user`, {
-        data: {
-          email,
-        },
+        email,
       })
       .then((mailcheck) => {
         // 중복체크 성공했을 때
@@ -51,12 +49,10 @@ const SignUp = () => {
     //회원가입
     await axios
       .post("http://localhost:5001/user", {
-        data: {
-          email,
-          userName,
-          password,
-          confirmPassword,
-        },
+        email,
+        userName,
+        password,
+        confirmPassword,
       })
       .then((res) => {
         console.log(res);
@@ -80,7 +76,7 @@ const SignUp = () => {
           type="text"
           placeholder="이름"
           onChange={(event) => {
-            setUerName(event.target.value);
+            setUserName(event.target.value);
           }}
         />
         <EmailCheck
