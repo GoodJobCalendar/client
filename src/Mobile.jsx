@@ -7,6 +7,8 @@ import EmailSend from "./pages/EmailSend";
 import PwSend from "./pages/PwSend";
 import PwCheck from "./pages/PwCheck";
 import Main from "./pages/Main";
+import KakaoOauth from "./shared/KakaoOauth";
+
 function Mobile() {
   return (
     <MobileWrap>
@@ -14,6 +16,7 @@ function Mobile() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/api/auth/kakao/callback" element={<KakaoOauth />} />
         <Route path="/emailsend" element={<EmailSend />} />
         <Route path="/pwsend" element={<PwSend />} />
         <Route path="/pwcheck" element={<PwCheck />} />

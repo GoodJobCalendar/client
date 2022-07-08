@@ -2,6 +2,7 @@ import { api, instances } from "../../shared/api";
 import { produce } from "immer";
 import { deleteCookie, setCookie, getCookie } from "./../../shared/Cookie";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 // initialState
 const initialState = {
   is_login: null,
@@ -27,7 +28,6 @@ export function tokenUser(payload) {
   return { type: TOKEN_USER, payload };
 }
 
-/* ----------------- 리듀서 ------------------ */
 //middleware
 export const loginDB = (payload) => {
   return function (dispatch) {
@@ -47,31 +47,17 @@ export const loginDB = (payload) => {
 
 export const kakaoLoginDB = (code) => {
   console.log(code);
-  return async function (dispatch, getState, { history }) {
-    await axios
-      .get(`http://175.112.86.142:8088/api/user/kakao/callback?code=${code}`)
+  return  function (dispatch, getState) {
+    axios
+      .get(`http://14.34.139.253:3000/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
-        console.log("카카오 로그인 성공", response);
-        if (Math.floor(response.status / 100) === 2) {
           console.log("카카오 로그인 성공", response);
-          const userToken = response.headers?.authorization?.split(" ")[1];
-          // const decoded = jwt_decode(userToken);
-          setCookie("userToken", userToken);
-          // dispatch(
-          //   logIn({
-          //     expiredDate: decoded.EXPIRED_DATE,
-          //     email: decoded.USER_EMAIL,
-          //     name: decoded.USER_NAME,
-          //     level: decoded.USER_LEVEL,
-          //   })
-          // );
-          history.replace("/");
-        }
+          dispatch(setUser());
+          setCookie("token", response.data.token, 5);
       })
       .catch((err) => {
         console.log("카카오 로그인 에러", err);
-        window.alert("로그인에 실패하였습니다.");
-        history.replace("/");
+        window.alert("어림없어 돌아가.");
       });
   };
 };
