@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import EmailSend from "./pages/EmailSend";
 import PwSend from "./pages/PwSend";
 import PwCheck from "./pages/PwCheck";
+import Main from "./pages/Main";
 function Mobile() {
   return (
     <MobileWrap>
@@ -16,6 +17,7 @@ function Mobile() {
         <Route path="/emailsend" element={<EmailSend />} />
         <Route path="/pwsend" element={<PwSend />} />
         <Route path="/pwcheck" element={<PwCheck />} />
+        <Route path="/main" element={<Main />} />
       </Routes>
     </MobileWrap>
   );

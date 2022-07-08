@@ -2,10 +2,12 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-export const setCookie = (name, value, exp = 5) => {
+export const setCookie = (cName, cValue, expDays) => {
   let date = new Date();
-  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
-  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/;`;
+  date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000);
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+
   // return cookies.set(name, value, { ...option });
 };
 

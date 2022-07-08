@@ -1,7 +1,7 @@
 import { api, instances } from "../../shared/api";
 import { produce } from "immer";
 import { deleteCookie, setCookie } from "./../../shared/Cookie";
-import { axios } from "axios";
+import axios from "axios";
 // initialState
 const initialState = {
   is_login: null,
@@ -36,19 +36,12 @@ export const loginDB = (payload) => {
       .post("http://14.34.139.253:3000/api/auth", payload)
       .then((response) => {
         console.log(response);
-        dispatch(
-          loginUser({
-            is_login: true,
-            token: response.headers.authorization,
-          })
-        );
-        setCookie(
-          "authorization",
-          response.headers.Authorization.split(" ")[1]
-        );
+        dispatch(setUser(payload));
+        setCookie("token", response.data.token, 5);
         // setCookie("email", email);
       })
       .catch((error) => {
+        console.error(error);
         window.alert("이메일 또는 비밀번호를 확인해주세요.");
       });
   };

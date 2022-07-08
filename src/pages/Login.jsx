@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { emailCheck } from "../shared/SignUpCheck";
-import { api } from "../shared/api";
 import { loginDB } from "./../redux/modules/user";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const user = useSelector((user) => user);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
