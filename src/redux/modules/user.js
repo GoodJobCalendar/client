@@ -1,6 +1,6 @@
 import { api, instances } from "../../shared/api";
 import { produce } from "immer";
-import { deleteCookie, setCookie } from "./../../shared/Cookie";
+import { deleteCookie, setCookie, getCookie } from "./../../shared/Cookie";
 import axios from "axios";
 // initialState
 const initialState = {
@@ -31,11 +31,9 @@ export function tokenUser(payload) {
 //middleware
 export const loginDB = (payload) => {
   return function (dispatch) {
-    console.log(payload);
     axios
-      .post("http://14.34.139.253:3000/api/auth", payload)
-      .then((response) => {
-        console.log(response);
+    .post("http://14.34.139.253:3000/api/auth", payload)
+    .then((response) => {
         dispatch(setUser(payload));
         setCookie("token", response.data.token, 5);
         // setCookie("email", email);
