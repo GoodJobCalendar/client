@@ -7,7 +7,8 @@ import { loginDB } from "./../redux/modules/user";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const user = useSelector((user) => user);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.is_login);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -27,11 +28,19 @@ const Login = () => {
       })
     );
   };
-
+  useEffect(() => {
+    if (user) {
+      alert("로그인 완료");
+      navigate("/main");
+    }
+  }, [user]);
   return (
     <LoginWrap>
       <header>
-        <img src="http://company.jobkorea.co.kr/img/common/jk_logo.png" />
+        <img
+          src="http://company.jobkorea.co.kr/img/common/jk_logo.png"
+          alt="로고"
+        />
       </header>
       <InputWrap>
         <input
@@ -50,7 +59,8 @@ const Login = () => {
         />
         <button onClick={loginClick}>로그인</button>
         <p>
-          비밀번호를 혹시 잊어버리셨나요? <button>인증메일 보내기</button>
+          비밀번호를 혹시 잊어버리셨나요?
+          <Link to="/pwsend">인증메일 보내기</Link>
         </p>
       </InputWrap>
       <footer>

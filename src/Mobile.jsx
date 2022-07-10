@@ -21,6 +21,7 @@ function Mobile() {
         <Route path="/pwsend" element={<PwSend />} />
         <Route path="/pwcheck" element={<PwCheck />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/pwsend" element={<PwSend />} />
       </Routes>
     </MobileWrap>
   );
@@ -36,9 +37,6 @@ const MobileWrap = styled.div`
   background-color: #fff;
   width: 375px;
   height: 90%;
-  ::-webkit-scrollbar {
-    display: none;
-  }
   scrollbar-width: none;
   border-radius: 20px;
 `;
