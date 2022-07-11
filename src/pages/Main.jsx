@@ -16,8 +16,8 @@ function Main() {
       </FixBox>
       {addSchedule ? (
         <AddSchedule
-          addSchedule={addSchedule}
-          SetAddSchedule={SetAddSchedule}
+          addSchedule={addSchedule?.addSchedule}
+          SetAddSchedule={SetAddSchedule?.SetAddSchedule}
         />
       ) : (
         ""

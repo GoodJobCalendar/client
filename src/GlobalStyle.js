@@ -1,10 +1,14 @@
 import { createGlobalStyle } from "styled-components";
+
 const GlobalStyle = createGlobalStyle`
+@import url("https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.4/static/pretendard.css");
 * {
     margin: 0;
     padding: 0;
     list-style: none;
     text-decoration: none; 
+    font-family: Pretendard;
+    color: var(--black);
 }
 :root{
   --gray1:#EFEFEF;
@@ -24,6 +28,12 @@ const GlobalStyle = createGlobalStyle`
 }
 *::-webkit-scrollbar {
     display: none;
+  }
+  button{
+    border: 0;
+  }
+  a{
+    color: inherit;
   }
 .rc-time-picker-panel ,.rc-time-picker-panel-column-3 ,.rc-time-picker-panel-placement-bottomLeft ,.rc-time-picker-panel{
   left: 50%!important;

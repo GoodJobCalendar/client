@@ -26,7 +26,6 @@ const TimePick = ({ value, onChange, ...others }) => {
         onChange={handleValueChange}
         format="a HH:mm"
         showTime={{ use12Hours: true, format: "a HH:mm" }}
-        clearIcon={true}
       />
     </Div>
   );

@@ -5,6 +5,7 @@ import axios from "axios";
 import { emailCheck } from "../shared/SignUpCheck";
 import { useDispatch } from "react-redux";
 import { setUser } from "./../redux/modules/user";
+import banner from "../assets/img/icon/banner.png";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,26 +14,12 @@ const SignUp = () => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [mailCheckState, setMailCheckState] = useState();
-  const emailRef = useRef();
-
+  const [errorCheck, serError] = useState();
   const Submit = async () => {
-    //빈칸 확인
-    if (
-      email === "" ||
-      userName === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
-      window.alert("아이디,비밀번호,닉네임을 모두 입력해주세요!");
-      return;
-    }
-
     //이메일 형식 체크
     if (!emailCheck(email)) {
-      window.alert("올바른 이메일 형식을 작성해주세요");
-      return;
+      return serError("올바른 이메일 형식이 아닙니다.");
     }
-
     //회원가입
     await axios
       .post("http://14.34.139.253:3000/api/auth/local", {
@@ -42,24 +29,26 @@ const SignUp = () => {
         userName,
       })
       .then((res) => {
-        console.log(res);
-        window.alert("회원가입을 축하합니다!");
         navigate("/emailsend");
         dispatch(setUser({ email, password, confirmPassword, userName }));
       })
       .catch((error) => {
-        window.alert("아이디, 닉네임 또는 비밀번호를 확인해주세요.");
-        console.log("회원가입 DB Error", error);
+        serError(error);
       });
   };
   return (
     <SignUpWrap>
       <header>
-        <h1>굿잡 회원가입</h1>
-        <p>당신의 취준 일정을 즐겁고 활기차게</p>
+        <img src={banner} alt="" />
+        <Title>회원가입을 환영합니다.</Title>
+        <SubTitle>
+          당신의 <span>취준메이트,</span>
+          <br />
+          굿잡캘린더와 함께해보세요!
+        </SubTitle>
       </header>
       <InputWrap>
-        <SignUpInput
+        <input
           type="text"
           placeholder="이름"
           onChange={(event) => {
@@ -74,7 +63,7 @@ const SignUp = () => {
             setEmail(event.target.value);
           }}
         />
-        <PassWord
+        <input
           type="password"
           placeholder="비밀번호"
           password={password}
@@ -92,51 +81,132 @@ const SignUp = () => {
             setConfirmPassword(event.target.value);
           }}
         />
-        <p ref={emailRef}></p>
-        <button onClick={Submit}>이메일 인증받고 가입하기</button>
+        <Check>
+          {email === "" ||
+          userName === "" ||
+          password === "" ||
+          confirmPassword === ""
+            ? "이메일,이름, 비밀번호 모두 입력해주세요!"
+            : ""}
+          {confirmPassword && password !== confirmPassword
+            ? "비밀번호를 바르게 입력해주세요"
+            : errorCheck
+            ? errorCheck
+            : ""}
+        </Check>
+        <SignUpBtn onClick={Submit}>
+          <Link to="/emailsend">이메일 인증받고 가입하기</Link>
+        </SignUpBtn>
       </InputWrap>
-      <footer>
+      <Footer>
         <p>
           이미가입하셨다면? <Link to="/login">로그인</Link>
         </p>
-      </footer>
+      </Footer>
     </SignUpWrap>
   );
 };
 
 export default SignUp;
 const SignUpWrap = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
+  height: 100%;
+  padding: 0 35px;
+  background-color: var(--blue1);
+  input {
+    outline: none;
+    padding: 18px 23px;
+    background: #ffffff;
+    border: 1px solid var(--blue2);
+    border-radius: 6px;
+    color: var(--blue3);
+
+    ::placeholder {
+      color: var(--blue3);
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
 `;
 const InputWrap = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 15px;
+  gap: 8px;
 `;
-const SignUpInput = styled.input`
-  outline: none;
+const Title = styled.h1`
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 9px;
+`;
+const SubTitle = styled.p`
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gray4);
+  margin-bottom: 43px;
+  span {
+    font-weight: 700;
+    color: var(--gray4);
+  }
+`;
+const SignUpBtn = styled.button`
+  background: var(--blue4);
+  border-radius: 6px;
+  padding: 17px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 78px;
+  > a {
+    font-weight: 400;
+    font-size: 18px;
+    color: #fff !important;
+  }
 `;
 const EmailCheck = styled.input`
-  outline: none;
   border: ${(props) =>
     props.mailCheckState && props.mailCheckState !== 201
-      ? "1px solid red"
-      : ""};
+      ? "2px solid var(--point3)"
+      : ""}!important;
   color: ${(props) =>
-    props.mailCheckState && props.mailCheckState !== 201 ? "red" : ""};
+    props.mailCheckState && props.mailCheckState !== 201
+      ? "var(--point3)"
+      : ""};
 `;
 const PassWord = styled.input`
-  outline: none;
   border: ${(props) =>
-    props.password && props.password !== props.confirmPassword
-      ? "1px solid red"
-      : ""};
+    props.confirmPassword && props.password !== props.confirmPassword
+      ? "2px solid var(--point3)"
+      : ""}!important;
   color: ${(props) =>
-    props.password && props.password !== props.confirmPassword ? "red" : ""};
+    props.password && props.password !== props.confirmPassword
+      ? "var(--point3)"
+      : ""};
+`;
+const Check = styled.p`
+  text-align: center;
+  color: var(--blue3);
+  font-weight: 600;
+  font-size: 14px;
+  padding-top: 30px;
+  padding-bottom: 24px;
+`;
+const Footer = styled.footer`
+  border-top: 1px solid var(--blue2);
+  padding: 15px 0;
+  p {
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    color: #5f9fff;
+    a {
+      font-weight: 600;
+      font-size: 14px;
+      margin-left: 11px;
+    }
+  }
 `;

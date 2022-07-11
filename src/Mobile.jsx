@@ -29,14 +29,6 @@ function Mobile() {
 
 export default Mobile;
 const MobileWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow-y: scroll;
-  background-color: #fff;
-  width: 375px;
-  height: 90%;
-  scrollbar-width: none;
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
 `;
