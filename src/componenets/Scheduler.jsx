@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 import "../Calendar.css";
 import moment from "moment";
 import "moment/locale/ko";
+import ScheduleList from "./ScheduleList";
 const Scheduler = () => {
   const [value, onChange] = useState(new Date());
   return (
@@ -30,56 +30,9 @@ const Scheduler = () => {
           );
         }}
       />
-      <div>
-        <ScheduleBox>
-          <Flex>
-            <p>{moment(value).format("YYYY년 MM월 DD일 dddd")}</p>
-            <p>D-1</p>
-          </Flex>
-          <ScheduleItem>
-            <Flex>
-              <TimeText>11:30</TimeText>
-              <Color></Color>
-              <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
-            </Flex>
-            <AdrressText>
-              서울특별시 강남구 삼성1동 영동대로 517 20층
-            </AdrressText>
-          </ScheduleItem>
-        </ScheduleBox>
-      </div>
+      <ScheduleList value={value} />
     </>
   );
 };
 
 export default Scheduler;
-const ScheduleBox = styled.div`
-  width: 100%;
-  height: 75px;
-  border-radius: 6px;
-  margin-top: 20px;
-`;
-const ScheduleItem = styled.div`
-  padding: 20px 12px;
-`;
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-const Color = styled.div`
-  width: 3px;
-  background-color: var(--point3);
-`;
-const TimeText = styled.div`
-  font-size: 12px;
-  text-align: center;
-`;
-const Text = styled.div`
-  float: right;
-  width: 85%;
-`;
-const AdrressText = styled.div`
-  float: right;
-  width: 85%;
-  font-size: 12px;
-`;

@@ -11,6 +11,7 @@ const initialState = {
 // action
 const SET_USER = "user_reducer/SET_USER";
 const LOGIN_USER = "user_reducer/LOGIN_USER";
+const PW_USER = "user_reducer/PW_USER";
 const LOGOUT_USER = "user_reducer/LOGOUT_USER";
 const TOKEN_USER = "user_reducer/TOKEN_USER";
 
@@ -20,6 +21,9 @@ export function setUser(payload) {
 }
 export function loginUser(payload) {
   return { type: LOGIN_USER, payload };
+}
+export function pwUser(payload) {
+  return { type: PW_USER, payload };
 }
 export function logoutUser(payload) {
   return { type: LOGOUT_USER, payload };
@@ -41,6 +45,15 @@ export const loginDB = (payload) => {
         console.error(error);
         window.alert("이메일 또는 비밀번호를 확인해주세요.");
       });
+  };
+};
+export const pwEmailUser = (email, userName) => {
+  return function (dispatch) {
+    const data = {
+      email,
+      userName,
+    };
+    dispatch(pwUser(data));
   };
 };
 
@@ -78,6 +91,11 @@ export default function userReducer(state = initialState, action) {
         draft.token = action.payload.user.token;
         draft.user = action.payload.user.user;
         draft.is_login = true;
+      });
+    }
+    case PW_USER: {
+      return produce(state, (draft) => {
+        draft.user = action.payload;
       });
     }
     case LOGOUT_USER: {

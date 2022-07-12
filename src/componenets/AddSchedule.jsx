@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import DatePick from "./DatePicker";
-import TimePick from "./TimePick";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import img1 from "../assets/img/sticker/Group 1.png";
 import img2 from "../assets/img/sticker/Group 2.png";
 import img3 from "../assets/img/sticker/Group 3.png";
@@ -18,14 +18,46 @@ import cover5 from "../assets/img/cover/cover5.jpg";
 import cover6 from "../assets/img/cover/cover6.jpg";
 import cover7 from "../assets/img/cover/cover7.jpg";
 import cover8 from "../assets/img/cover/cover8.jpg";
-const AddSchedule = ({ addSchedule, SetAddSchedule }) => {
+import { SchduleDB } from "../redux/modules/post";
+import "date-fns";
+import DatePicker from "react-datepicker";
+import ko from "date-fns/locale/ko";
+import "react-datepicker/dist/react-datepicker.css";
+import TimePicker from "rc-time-picker";
+import "rc-time-picker/assets/index.css";
+import moment from "moment";
+const AddSchedule = ({
+  addSchedule,
+  SetAddSchedule,
+  value,
+  onChange,
+  ...others
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [colorPickerShow, setColorPickerShow] = useState(false);
   const [stickerShow, setStickerShow] = useState(false);
   const [coverShow, setCoverShow] = useState(false);
+
   const [color, setColor] = useState("");
   const [sticker, setSticker] = useState("");
+  const [image, setImage] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [place, setPlace] = useState("");
+  const [memo, setMemo] = useState("");
   const [cover, setCover] = useState("https://ifh.cc/g/rRCaTb.jpg");
-  console.log(cover);
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [dispatchTime, setDispatchTime] = useState(moment());
+  const now = moment().hour(0).minute(0);
+
+  const handleValueChange = (value) => {
+    setDispatchTime(value);
+    console.log("value" + value);
+  };
   const addClick = () => {
     SetAddSchedule(!addSchedule);
   };
@@ -49,17 +81,31 @@ const AddSchedule = ({ addSchedule, SetAddSchedule }) => {
   };
   const coverChange = (e) => {
     setCover(e.target.value);
+    setImage(e.target.id);
     console.log(e.target);
     setCoverShow(!coverShow);
   };
-
+  setDate(startDate + dispatchTime);
+  const addScheduleBtn = async (e) => {
+    dispatch(
+      SchduleDB({
+        image,
+        companyName,
+        title,
+        sticker,
+        date,
+        place,
+        memo,
+      })
+    );
+    navigate("/main");
+  };
   return (
     <AddSchesuleWrap>
       <Header style={{ backgroundImage: `url(${cover})` }}>
-        {/* <CoverCheckImg src={`${cover}`} alt="" /> */}
         <AddFlex>
           <button onClick={addClick}>&lt;</button>
-          <button onClick={addClick}>저장</button>
+          <button onClick={addScheduleBtn}>저장</button>
         </AddFlex>
         <BtnFlex>
           <TitleInput>
@@ -235,9 +281,21 @@ const AddSchedule = ({ addSchedule, SetAddSchedule }) => {
         </BtnFlex>
       </Header>
       <AddList>
-        <InputText type="text" placeholder="회사 이름" />
+        <InputText
+          type="text"
+          placeholder="회사 이름"
+          onChange={(event) => {
+            setCompanyName(event.target.value);
+          }}
+        />
         <TitleInput>
-          <InputText type="text" placeholder="제목" />
+          <InputText
+            type="text"
+            placeholder="제목"
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
+          />
           <ColorPicker onClick={ColorClick} color={color} />
           {colorPickerShow ? (
             <List>
@@ -305,11 +363,44 @@ const AddSchedule = ({ addSchedule, SetAddSchedule }) => {
           )}
         </TitleInput>
         <Pick>
-          <DatePick />
-          <TimePick />
+          <DateWrap>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              dateFormat="MM-dd (eee)"
+              locale={ko}
+            />
+          </DateWrap>
+          <Div>
+            <TimePicker
+              locale={ko}
+              showSecond={false}
+              minuteStep={5}
+              {...others}
+              use12Hours={true}
+              value={dispatchTime}
+              defaultValue={now}
+              onChange={handleValueChange}
+              format="a HH:mm"
+              showTime={{ use12Hours: true, format: "a HH:mm" }}
+            />
+          </Div>
         </Pick>
-        <InputText type="text" placeholder="장소" />
-        <InputText type="text" placeholder="메모" />
+
+        <InputText
+          type="text"
+          placeholder="장소"
+          onChange={(event) => {
+            setPlace(event.target.value);
+          }}
+        />
+        <InputText
+          type="text"
+          placeholder="메모"
+          onChange={(event) => {
+            setMemo(event.target.value);
+          }}
+        />
       </AddList>
     </AddSchesuleWrap>
   );
@@ -324,6 +415,19 @@ const AddSchesuleWrap = styled.div`
   background-color: #fff;
   width: 100%;
   height: 100%;
+  z-index: 999;
+  input {
+    outline: none;
+    padding: 18px 23px;
+    background: #ffffff;
+    border: 1px solid var(--blue2);
+    border-radius: 6px;
+    ::placeholder {
+      color: var(--blue3);
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
 `;
 const AddList = styled.section`
   width: 90%;
@@ -459,11 +563,76 @@ const CoverImg = styled.img`
   width: 100px;
   border-radius: 10px;
 `;
-const CoverCheckImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+const DateWrap = styled.div`
+  .react-datepicker-popper {
+    width: 90%;
+  }
+  .react-datepicker__triangle {
+    display: none;
+  }
+  .react-datepicker {
+    border: 1px solid #ccc;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .react-datepicker__header {
+    padding-top: 0.8em;
+    background-color: white;
+    width: 100%;
+    max-width: 330px;
+    margin: auto;
+    border: none;
+  }
+  .react-datepicker__month {
+    margin: 0.4em;
+  }
+  .react-datepicker__day-name {
+    margin: 3%;
+    font-size: 12px;
+    font-weight: 500;
+    color: #959595;
+  }
+  .react-datepicker__month {
+    margin: 0;
+  }
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 25px;
+  }
+  .react-datepicker__day {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+    margin: 3%;
+    line-height: 1.8;
+    text-align: center;
+    background-color: #fff;
+  }
+  .react-datepicker__day:hover {
+    background-color: transparent;
+  }
+  .fomrmatDate {
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .react-datepicker__day--selected {
+    background-color: var(--blue4);
+    border-radius: 100%;
+    border: none;
+    font-weight: 700;
+    text-align: center;
+    line-height: 25px;
+  }
+  .react-datepicker__day--keyboard-selected {
+    color: #000;
+  }
+  .react-datepicker__input-container {
+    cursor: pointer;
+  }
+`;
+const Div = styled.div`
+  position: relative !important;
 `;

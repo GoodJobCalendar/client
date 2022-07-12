@@ -2,60 +2,159 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { emailCheck } from "../shared/SignUpCheck";
+import { pwEmailUser } from "../redux/modules/user";
+import { useDispatch } from "react-redux";
 
 const PwSend = () => {
+  const [userName, setUerName] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorcheck, setError] = useState("");
+
   const navigate = useNavigate();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [authNumber, setAuthNumber] = useState();
-  const Submit = async () => {
-    // 인증번호 확인 & 회원가입완료
+  const dispatch = useDispatch();
+  const Submit = async (e) => {
+    e.preventDefault();
+    //빈칸 확인
+    if (email === "" || userName === "") {
+      return setError("이메일,이름, 비밀번호 모두 입력해주세요!");
+    }
+    //이메일 형식 체크
+    else if (!emailCheck(email)) {
+      return setError("이메일 형식이 아닙니다.");
+    }
     await axios
-      .post("http://14.34.139.253:3000/api/auth/verifyNumberForNew", {
-        authNumber,
+      .post("http://14.34.139.253:3000/api/auth/lostPassword", {
+        userName,
+        email,
       })
       .then((res) => {
         console.log(res);
         navigate("/pwcheck");
+        dispatch(pwEmailUser(email, userName));
       })
       .catch((error) => {
+        setError(error.response.data.msg);
         console.error(error);
       });
   };
+
   return (
-    <PwWrap>
-      <header>
-        <h1>인증메일을 전송했어요!</h1>
-        <p>인증 메일 확인하러 메일함으로 고고</p>
-        <span>이메일임</span>
-      </header>
+    <EmailWrap>
+      <Header>
+        <Title>인증메일을 보내드려요</Title>
+        <SubTitle>계정을 찾아드릴게요!</SubTitle>
+      </Header>
       <Main>
-        <input
+        <Input
           type="text"
-          placeholder="인증번호 입력"
+          placeholder="이름"
           onChange={(event) => {
-            setAuthNumber(event.target.value);
+            setUerName(event.target.value);
           }}
+          errorcheck={errorcheck}
         />
-        {/* <p>인증번호가 잘못되었어요!</p> */}
-        <button onClick={Submit}>비밀번호 변경하기</button>
+        <Input
+          type="text"
+          placeholder="이메일"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+          errorcheck={errorcheck}
+        />
+        {errorcheck ? (
+          <>
+            <ErrorCheck>{errorcheck}</ErrorCheck>
+            <SignUpBtn onClick={Submit}>인증메일 재발송하기</SignUpBtn>
+          </>
+        ) : (
+          <SignUpBtn onClick={Submit}>인증번호 발송하기</SignUpBtn>
+        )}
       </Main>
-    </PwWrap>
+    </EmailWrap>
   );
 };
 
 export default PwSend;
-const PwWrap = styled.div`
-  height: 100%;
+const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  height: 100%;
+  padding: 0 35px;
+  background-color: var(--blue1);
+  input {
+    outline: none;
+    padding: 18px 23px;
+    background: #ffffff;
+    border: 1px solid var(--blue2);
+    border-radius: 6px;
+    ::placeholder {
+      color: var(--blue3);
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+`;
+const Header = styled.header`
+  width: 100%;
+  margin-bottom: 82px;
   text-align: center;
 `;
+
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 24px;
+`;
+const SubTitle = styled.p`
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gray4);
+  margin-top: 16px;
+`;
+
 const Main = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+`;
+const SignUpBtn = styled.button`
+  background: var(--blue4);
+  border-radius: 6px;
+  padding: 17px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff !important;
+  margin-bottom: 8px;
+  margin-top: 80px;
+`;
+
+const Input = styled.input`
+  margin-top: 16px;
+  border: ${(props) =>
+    props.errorcheck && props.errorcheck !== ""
+      ? "2px solid var(--point3)"
+      : ""}!important;
+  color: ${(props) =>
+    props.errorcheck && props.errorcheck !== ""
+      ? "var(--point3)"
+      : ""}!important;
+  ::placeholder {
+    color: ${(props) =>
+      props.errorcheck && props.errorcheck !== ""
+        ? "var(--point3)"
+        : ""}!important;
+  }
+`;
+const ErrorCheck = styled.p`
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--blue3);
+  margin: 40px 0;
   text-align: center;
 `;
