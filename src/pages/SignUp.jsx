@@ -9,32 +9,49 @@ import banner from "../assets/img/icon/banner.png";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState();
-  const [userName, setUerName] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [mailCheckState, setMailCheckState] = useState();
-  const [errorCheck, serError] = useState();
-  const Submit = async () => {
-    //이메일 형식 체크
-    if (!emailCheck(email)) {
-      return serError("올바른 이메일 형식이 아닙니다.");
+  const [email, setEmail] = useState("");
+  const [userName, setUerName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorCheck, setCheck] = useState("");
+
+  const Submit = async (e) => {
+    e.preventDefault();
+    //빈칸 확인
+    if (
+      email === "" ||
+      userName === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      return setCheck("이메일,이름, 비밀번호 모두 입력해주세요!");
     }
-    //회원가입
-    await axios
-      .post("http://14.34.139.253:3000/api/auth/local", {
-        email,
-        password,
-        confirmPassword,
-        userName,
-      })
-      .then((res) => {
-        navigate("/emailsend");
-        dispatch(setUser({ email, password, confirmPassword, userName }));
-      })
-      .catch((error) => {
-        serError(error);
-      });
+    //이메일 형식 체크
+    else if (!emailCheck(email)) {
+      return setCheck("이메일 형식이 아닙니다.");
+    }
+    //비밀번호 확인
+    else if (confirmPassword && password !== confirmPassword) {
+      return setCheck("비밀번호가 일치하지 않습니다.");
+    } else {
+      //회원가입
+      await axios
+        .post("http://14.34.139.253:3000/api/auth/local", {
+          email,
+          password,
+          confirmPassword,
+          userName,
+        })
+        .then((res) => {
+          console.log(res);
+          dispatch(setUser({ email, password, confirmPassword, userName }));
+          navigate("/emailsend");
+        })
+        .catch((error) => {
+          console.log(error);
+          setCheck(error.response.data.msg);
+        });
+    }
   };
   return (
     <SignUpWrap>
@@ -58,7 +75,7 @@ const SignUp = () => {
         <EmailCheck
           type="email"
           placeholder="이메일"
-          mailCheckState={mailCheckState}
+          email={email}
           onChange={(event) => {
             setEmail(event.target.value);
           }}
@@ -81,22 +98,8 @@ const SignUp = () => {
             setConfirmPassword(event.target.value);
           }}
         />
-        <Check>
-          {email === "" ||
-          userName === "" ||
-          password === "" ||
-          confirmPassword === ""
-            ? "이메일,이름, 비밀번호 모두 입력해주세요!"
-            : ""}
-          {confirmPassword && password !== confirmPassword
-            ? "비밀번호를 바르게 입력해주세요"
-            : errorCheck
-            ? errorCheck
-            : ""}
-        </Check>
-        <SignUpBtn onClick={Submit}>
-          <Link to="/emailsend">이메일 인증받고 가입하기</Link>
-        </SignUpBtn>
+        <Check>{errorCheck ? errorCheck : ""}</Check>
+        <SignUpBtn onClick={Submit}>이메일 인증받고 가입하기</SignUpBtn>
       </InputWrap>
       <Footer>
         <p>
@@ -121,8 +124,6 @@ const SignUpWrap = styled.div`
     background: #ffffff;
     border: 1px solid var(--blue2);
     border-radius: 6px;
-    color: var(--blue3);
-
     ::placeholder {
       color: var(--blue3);
       font-weight: 500;
@@ -161,11 +162,9 @@ const SignUpBtn = styled.button`
   justify-content: center;
   align-items: center;
   margin-bottom: 78px;
-  > a {
-    font-weight: 400;
-    font-size: 18px;
-    color: #fff !important;
-  }
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff !important;
 `;
 const EmailCheck = styled.input`
   border: ${(props) =>

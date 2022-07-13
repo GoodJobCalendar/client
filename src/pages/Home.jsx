@@ -72,8 +72,10 @@ const Home = () => {
           <Link to="/signup">이메일로 시작</Link>
         </EmailBtn>
         <KaKaoBtn>
-          <img src={kakaologo} alt="" />
-          <Link to={KAKAO_AUTH_URL}>카카오톡 간편 로그인</Link>
+          <Link to={KAKAO_AUTH_URL}>
+            <img src={kakaologo} alt="" />
+            카카오톡 간편 로그인
+          </Link>
         </KaKaoBtn>
         <LoginBtn>
           <Link to="/login">로그인 하기</Link>
@@ -165,18 +167,19 @@ const Logo = styled.div`
 const EmailBtn = styled.button`
   background: #ffffff;
   border-radius: 6px;
-  padding: 17px 0;
   width: 100%;
   > a {
     font-weight: 400;
     font-size: 18px;
+    padding: 17px 0;
+    width: 100%;
     color: var(--blue3) !important;
+    display: block;
   }
 `;
 const KaKaoBtn = styled.button`
   background: #f8e041;
   border-radius: 6px;
-  padding: 17px 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -185,24 +188,29 @@ const KaKaoBtn = styled.button`
   margin-top: 8px;
   margin-bottom: 24px;
   > a {
+    padding: 17px 0;
     font-weight: 400;
     font-size: 18px;
+    width: 100%;
     color: #371f1e !important;
+    display: block;
   }
 `;
 const LoginBtn = styled.button`
   background: var(--blue4);
   border-radius: 6px;
-  padding: 17px 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   > a {
+    padding: 17px 0;
     font-weight: 400;
     font-size: 18px;
     color: #fff !important;
+    width: 100%;
+    display: block;
   }
 `;
 const FooterWrap = styled.footer`

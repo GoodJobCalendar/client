@@ -1,90 +1,71 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import banner from "../assets/img/cover/cover1.jpg";
 
-const EmailSend = () => {
+const PwChange = () => {
   const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
-  const [authNumber, setAuthNumber] = useState();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errorcheck, setError] = useState("");
-
-  const Mailsend = async () => {
+  const ChangePw = async () => {
+    if (password === "" || confirmPassword === "") {
+      return setError("인증번호를 입력해주세요.");
+    }
     await axios
-      .post("http://14.34.139.253:3000/api/auth/local", {
+      .patch("http://14.34.139.253:3000api/auth/newPassword", {
         email: userInfo.email,
-        password: userInfo.password,
-        confirmPassword: userInfo.password,
-        userName: userInfo.userName,
+        password,
+        confirmPassword,
       })
       .then((res) => {
         console.log(res);
-        navigate("/emailsend");
+        navigate("/pwchangesuccess");
       })
       .catch((error) => {
-        console.log(error);
-        setError(error.response.data.msg);
-      });
-  };
-
-  const Submit = async () => {
-    // 인증번호 확인 & 회원가입완료
-    await axios
-      .post("http://14.34.139.253:3000/api/auth/verifyNumberForNew", {
-        authNumber,
-        email: userInfo.email,
-        password: userInfo.password,
-        confirmPassword: userInfo.password,
-        userName: userInfo.userName,
-      })
-      .then((res) => {
-        console.log(res);
-        navigate("/signupsuccess");
-      })
-      .catch((error) => {
-        setError(error.response.data.msg);
         console.error(error);
+        setError(error.response.data.msg);
       });
   };
   return (
-    <EmailWrap>
+    <PwWrap>
       <Header>
-        <Banner src={banner} alt="" />
         <TitleText>
-          <Title>인증메일을 전송했어요!</Title>
-          <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>
+          <Title>굿잡 비밀번호 변경</Title>
+          <SubTitle>이번 비밀번호는 기억해보는걸로!</SubTitle>
         </TitleText>
       </Header>
       <Main>
-        <Email>{userInfo?.email}</Email>
-
         <Input
-          type="text"
-          placeholder="인증번호 입력"
-          onChange={(event) => {
-            setAuthNumber(event.target.value);
-          }}
+          type="password"
+          placeholder="비밀번호"
           errorcheck={errorcheck}
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
         />
-        {errorcheck ? (
-          <>
-            <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Mailsend}>인증메일 재발송하기</SignUpBtn>
-          </>
-        ) : (
-          ""
-        )}
+        <Input
+          type="password"
+          placeholder="비밀번호 확인"
+          errorcheck={errorcheck}
+          onChange={(event) => {
+            setConfirmPassword(event.target.value);
+          }}
+        />
 
-        <SignUpBtn onClick={Submit}>인증번호 확인하기</SignUpBtn>
+        <ErrorCheck>{errorcheck}</ErrorCheck>
+
+        <SignUpBtn onClick={ChangePw}>비밀번호 변경하기</SignUpBtn>
       </Main>
-    </EmailWrap>
+    </PwWrap>
   );
 };
 
-export default EmailSend;
-const EmailWrap = styled.div`
+export default PwChange;
+
+const PwWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -128,10 +109,6 @@ const SubTitle = styled.p`
   color: var(--gray4);
   margin-top: 16px;
 `;
-const Banner = styled.img`
-  width: 100%;
-  border-radius: 26px;
-`;
 const Main = styled.main`
   display: flex;
   flex-direction: column;
@@ -151,13 +128,6 @@ const SignUpBtn = styled.button`
   color: #fff !important;
   margin-bottom: 8px;
 `;
-const Email = styled.p`
-  font-weight: 800;
-  font-size: 16px;
-  color: var(--blue3);
-  text-align: center;
-  margin-bottom: 55px;
-`;
 const ErrorCheck = styled.p`
   font-weight: 600;
   font-size: 14px;
@@ -165,6 +135,13 @@ const ErrorCheck = styled.p`
   text-align: center;
   margin-top: 39px;
   margin-bottom: 24px;
+`;
+const Email = styled.p`
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--blue3);
+  text-align: center;
+  margin-bottom: 55px;
 `;
 const Input = styled.input`
   border: ${(props) =>
@@ -176,4 +153,5 @@ const Input = styled.input`
         ? "var(--point3)"
         : ""}!important;
   }
+  margin-bottom: 72px;
 `;

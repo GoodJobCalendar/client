@@ -8,6 +8,14 @@ import PwSend from "./pages/PwSend";
 import PwCheck from "./pages/PwCheck";
 import Main from "./pages/Main";
 import KakaoOauth from "./shared/KakaoOauth";
+import SignupSucess from "./pages/SignUpSuccess";
+import PwChangeSuccess from "./pages/PwChangeSuccess";
+import PwChange from "./pages/PwChange";
+
+// import AddSchedule from "./componenets/AddSchedule";
+import Job from "./pages/Job";
+import JobDetail from "./pages/JobDetail";
+import JobCategory from "./pages/JobCategory";
 
 function Mobile() {
   return (
@@ -22,6 +30,12 @@ function Mobile() {
         <Route path="/pwcheck" element={<PwCheck />} />
         <Route path="/main" element={<Main />} />
         <Route path="/pwsend" element={<PwSend />} />
+        <Route path="/signupsuccess" element={<SignupSucess />} />
+        <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
+        <Route path="/pwchange" element={<PwChange />} />
+        <Route path="/job" element={<Job />} />
+        <Route path="/jobDetail" element={<JobDetail />} />
+        <Route path="/jobCategory" element={<JobCategory />} />
       </Routes>
     </MobileWrap>
   );
