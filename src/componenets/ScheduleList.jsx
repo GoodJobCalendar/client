@@ -19,7 +19,7 @@ const ScheduleList = ({ value }) => {
               <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
             </Flex>
             <AdrressWrap>
-              <img src={location} alt="" />
+              <img src={location} alt="위치아이콘" />
               <AdrressText>
                 서울특별시 강남구 삼성1동 영동대로 517 20층
               </AdrressText>

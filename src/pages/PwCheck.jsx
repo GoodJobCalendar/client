@@ -51,7 +51,7 @@ const PwCheck = () => {
   return (
     <PwWrap>
       <Header>
-        <Banner src={banner} alt="" />
+        <Banner src={banner} alt="배너" />
         <TitleText>
           <Title>인증메일을 전송했어요!</Title>
           <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>

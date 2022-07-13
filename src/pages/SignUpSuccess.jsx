@@ -9,7 +9,7 @@ const SignupSucess = () => {
   return (
     <EmailWrap>
       <Header>
-        <Banner src={banner} alt="" />
+        <Banner src={banner} alt="배너" />
         <TitleText>
           <Title>회원가입이 완료되었어요!</Title>
           <SubTitle>
