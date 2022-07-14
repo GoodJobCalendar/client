@@ -151,7 +151,6 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
   animation: hideSplashScreen 0.4s ease-in-out forwards;
   animation-delay: 1s;
   @keyframes hideSplashScreen {

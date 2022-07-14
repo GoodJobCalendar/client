@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import location from "../assets/img/icon/Location.png";
+import { useSelector } from "react-redux";
 const ScheduleList = ({ value }) => {
+  const postContent = useSelector((state) => state.post.post);
+  console.log("제발되라", postContent);
   const array1 = [0, 0, 0, 0];
   return (
     <ScheduleBox>
@@ -11,11 +14,11 @@ const ScheduleList = ({ value }) => {
         <Dday>D-1</Dday>
       </DayFlex>
       <ScheduleListWrap>
-        {array1.map((key, value) => (
-          <ScheduleItem key={value}>
-            <TimeText>11:30</TimeText>
-            <Color></Color>
-            <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
+        {array1.map((value, idx) => (
+          <ScheduleItem key={idx}>
+            <TimeText>{value.date}</TimeText>
+            <Color color={value.color}></Color>
+            <Text>{value.title}</Text>
           </ScheduleItem>
         ))}
       </ScheduleListWrap>

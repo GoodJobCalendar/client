@@ -81,4 +81,5 @@ const Month = () => {
 export default Month;
 const MonthWrap = styled.div`
   width: 100%;
+  z-index: 1;
 `;

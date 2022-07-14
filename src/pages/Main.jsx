@@ -6,12 +6,13 @@ import Scheduler from "./../componenets/Scheduler";
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
 import Nav from "../componenets/Nav";
+import { useNavigate } from "react-router-dom";
 function Main() {
-  const [addSchedule, SetAddSchedule] = useState(false);
+  const navigate = useNavigate();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
   const addClick = () => {
-    SetAddSchedule(!addSchedule);
+    navigate("/addschedule");
   };
 
   return (
@@ -60,15 +61,6 @@ function Main() {
           </WeekMonth>
         </ToggleBtn>
         <Scheduler weekMonth={weekMonth} />
-
-        {addSchedule ? (
-          <AddSchedule
-            addSchedule={addSchedule}
-            SetAddSchedule={SetAddSchedule}
-          />
-        ) : (
-          ""
-        )}
       </ContentWrap>
     </MainWrap>
   );

@@ -8,6 +8,7 @@ const Dates = (props) => {
   const [userInput, setUserInput] = useState({});
   const [evtList, setEvtList] = useState([]);
   const [isActive, setIsActive] = useState(false);
+
   let dateKey = `${month}` + `${elm}`;
   const registEvent = (value) => {
     setEvtList([...evtList, value]);
@@ -40,7 +41,6 @@ const Dates = (props) => {
             {String(elm).padStart(2, "0")}
           </CheckDay>
         </DateNum>
-
         {Boolean(evtList[0]) && (
           <Lists>
             {evtList.map((list, index) => {
@@ -79,7 +79,7 @@ const DateNum = styled.div``;
 
 const TodayCSS = styled.input`
   display: none;
-
+  z-index: 1;
   :checked + label {
     background-color: ${(props) => (props.isActive ? "var(--blue4)" : "")};
     color: ${(props) => (props.isActive ? "#fff!important" : "")};
@@ -87,6 +87,8 @@ const TodayCSS = styled.input`
 `;
 
 const CheckDay = styled.label`
+  z-index: 1;
+
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
   font-weight: 500;
   font-size: 12px;
