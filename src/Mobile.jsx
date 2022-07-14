@@ -11,6 +11,7 @@ import KakaoOauth from "./shared/KakaoOauth";
 import SignupSucess from "./pages/SignUpSuccess";
 import PwChangeSuccess from "./pages/PwChangeSuccess";
 import PwChange from "./pages/PwChange";
+import Month from "./componenets/month/Month";
 
 // import AddSchedule from "./componenets/AddSchedule";
 import Job from "./pages/Job";
@@ -36,6 +37,7 @@ function Mobile() {
         <Route path="/job" element={<Job />} />
         <Route path="/jobDetail" element={<JobDetail />} />
         <Route path="/jobCategory" element={<JobCategory />} />
+        <Route path="/month" element={<Month />} />
       </Routes>
     </MobileWrap>
   );

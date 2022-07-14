@@ -8,18 +8,24 @@ import GlobalStyle from "./GlobalStyle";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserView, MobileView } from "react-device-detect";
 import Mobile from "./Mobile";
+import { ThemeProvider } from "styled-components";
+
+import Theme from "./styles/Theme";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <BrowserView>
-        <GlobalStyle />
-        <App />
-      </BrowserView>
-      <MobileView>
-        <Mobile />
-      </MobileView>
-    </Provider>
+    <ThemeProvider theme={Theme}>
+      <Provider store={store}>
+        <BrowserView>
+          <GlobalStyle />
+          <App />
+        </BrowserView>
+        <MobileView>
+          <Mobile />
+        </MobileView>
+      </Provider>
+    </ThemeProvider>
   </BrowserRouter>
 );
 
