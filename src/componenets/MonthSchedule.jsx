@@ -7,7 +7,7 @@ import "moment/locale/ko";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 
-const MonthSchedule = ({ value, onChange }) => {
+const MonthSchedule = ({ value, onChange, test, setTest }) => {
   const mark = [0, 0, 0];
   return (
     <MonthWrap>

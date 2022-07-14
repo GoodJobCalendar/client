@@ -50,6 +50,7 @@ const AddSchedule = ({
   const [cover, setCover] = useState("https://ifh.cc/g/rRCaTb.jpg");
 
   const [startDate, setStartDate] = useState(new Date());
+  console.log(startDate)
   const [dispatchTime, setDispatchTime] = useState(moment());
 
   const now = moment().hour(0).minute(0);

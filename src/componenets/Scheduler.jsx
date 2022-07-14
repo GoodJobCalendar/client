@@ -29,6 +29,12 @@ const Scheduler = ({ weekMonth }) => {
     if (week === "Sat") return "7";
   };
   const weekNumber = `${Week(week)}`;
+  
+  const [test, setTest] = React.useState(false);
+  
+  console.log(test)
+
+  // value !== new Date() ? setTest(false) : setTest(true)
 
   return (
     <>

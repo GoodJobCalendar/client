@@ -13,6 +13,11 @@ import PwChangeSuccess from "./pages/PwChangeSuccess";
 import PwChange from "./pages/PwChange";
 import Month from "./componenets/month/Month";
 
+// import AddSchedule from "./componenets/AddSchedule";
+import Job from "./pages/Job";
+import JobDetail from "./pages/JobDetail";
+import JobCategory from "./pages/JobCategory";
+
 function Mobile() {
   return (
     <MobileWrap>
@@ -29,6 +34,9 @@ function Mobile() {
         <Route path="/signupsuccess" element={<SignupSucess />} />
         <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
         <Route path="/pwchange" element={<PwChange />} />
+        <Route path="/job" element={<Job />} />
+        <Route path="/jobDetail" element={<JobDetail />} />
+        <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/month" element={<Month />} />
       </Routes>
     </MobileWrap>
