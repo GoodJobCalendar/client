@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+// 컴포넌트
 import { emailCheck } from "../shared/SignUpCheck";
 import { loginDB } from "./../redux/modules/user";
+
+// 카카오
 import { KAKAO_AUTH_URL } from "../shared/api";
+
+// 이미지
 import kakaologo from "../assets/img/icon/kakaobtn.png";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  // 로그인
   const loginClick = () => {
     if (email === "" || password === "") {
       window.alert("아이디와 비밀번호를 입력해주세요.");
@@ -35,7 +44,7 @@ const Login = () => {
       <Header>
         <img
           src="https://i.jobkorea.kr/content/images/ver_1/gnb/jk_logo.png?20190718"
-          alt=""
+          alt="로고"
         />
       </Header>
       <InputWrap>
@@ -63,7 +72,7 @@ const Login = () => {
         <Atherlogin>다른 서비스 계정을 로그인</Atherlogin>
         <KaKaoBtn>
           <Link to={KAKAO_AUTH_URL}>
-            <img src={kakaologo} alt="" />
+            <img src={kakaologo} alt="카카오로고" />
             카카오톡 간편 로그인
           </Link>
         </KaKaoBtn>

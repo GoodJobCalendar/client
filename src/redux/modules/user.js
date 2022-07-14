@@ -2,7 +2,6 @@ import { api, instances } from "../../shared/api";
 import { produce } from "immer";
 import { deleteCookie, setCookie, getCookie } from "./../../shared/Cookie";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 // initialState
 const initialState = {
   is_login: null,

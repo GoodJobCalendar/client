@@ -56,7 +56,7 @@ const SignUp = () => {
   return (
     <SignUpWrap>
       <header>
-        <img src={banner} alt="" />
+        <img src={banner} alt="배너" />
         <Title>회원가입을 환영합니다.</Title>
         <SubTitle>
           당신의 <span>취준메이트,</span>

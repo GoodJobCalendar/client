@@ -45,7 +45,6 @@ const AddSchedule = ({
   const [image, setImage] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
   const [cover, setCover] = useState("https://ifh.cc/g/rRCaTb.jpg");
@@ -53,9 +52,8 @@ const AddSchedule = ({
   const [startDate, setStartDate] = useState(new Date());
   console.log(startDate)
   const [dispatchTime, setDispatchTime] = useState(moment());
-  console.log(dispatchTime)
-  const now = moment().hour(0).minute(0);
 
+  const now = moment().hour(0).minute(0);
   const handleValueChange = (value) => {
     setDispatchTime(value);
     console.log("value" + value);
@@ -87,21 +85,39 @@ const AddSchedule = ({
     console.log(e.target);
     setCoverShow(!coverShow);
   };
-  // setDate(startDate + dispatchTime);
-  const addScheduleBtn = async (e) => {
+  let [week, month, day, year, sTime] = startDate.toString().split(" ");
+  let Month = (month) => {
+    if (month === "Jan") return "1";
+    if (month === "Feb") return "2";
+    if (month === "Mar") return "3";
+    if (month === "Apr") return "4";
+    if (month === "May") return "5";
+    if (month === "Jun") return "6";
+    if (month === "Jul") return "7";
+    if (month === "Aug") return "8";
+    if (month === "Sep") return "9";
+    if (month === "Oct") return "10";
+    if (month === "Nov") return "11";
+    if (month === "Dec") return "12";
+  };
+  let [hour, minute, second] = dispatchTime.toString().split(" ")[4].split(":");
+
+  const allDate = `${year}-${Month(month)}-${day} ${hour}:${minute}`;
+  const addScheduleBtn = async () => {
     dispatch(
       SchduleDB({
-        image,
+        image: Number(image),
         companyName,
         title,
         sticker,
-        date,
+        date: allDate,
         place,
         memo,
       })
     );
     navigate("/main");
   };
+
   return (
     <AddSchesuleWrap>
       <Header style={{ backgroundImage: `url(${cover})` }}>
@@ -114,11 +130,11 @@ const AddSchedule = ({
             <button onClick={StickerClick}>스티커 추가</button>
             {stickerShow ? (
               <List>
-                <label htmlFor="sticker1">
+                <label htmlFor="1">
                   <Input
                     type="radio"
                     name="sticker"
-                    id="sticker1"
+                    id="1"
                     onChange={stickerChange}
                   />
                   <StickerImg src={img1} />
@@ -195,11 +211,11 @@ const AddSchedule = ({
             <button onClick={coverClick}>커버 변경</button>
             {coverShow ? (
               <List>
-                <label htmlFor="cover1">
+                <label htmlFor="1">
                   <Input
                     type="radio"
                     name="cover"
-                    id="cover1"
+                    id="1"
                     value="https://ifh.cc/g/rRCaTb.jpg"
                     onChange={coverChange}
                   />

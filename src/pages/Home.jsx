@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+
 // 스와이퍼
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/bundle";
-
 import { Pagination } from "swiper";
 import { Link } from "react-router-dom";
 
+// 카카오
 import { KAKAO_AUTH_URL } from "../shared/api";
 
 // 이미지
@@ -17,13 +18,14 @@ import illust1 from "../assets/img/sticker/Group 4.png";
 import illust2 from "../assets/img/sticker/Group 2.png";
 import illust3 from "../assets/img/sticker/Group 3.png";
 import kakaologo from "../assets/img/icon/kakaobtn.png";
+
 const Home = () => {
   return (
     <HomeWrap>
       <header>
         <img
           src="https://i.jobkorea.kr/content/images/ver_1/gnb/jk_logo.png?20190718"
-          alt=""
+          alt="로고"
         />
         <Title>당신의 취준 메이트</Title>
         <SubTitle>굿잡 캘린더</SubTitle>
@@ -44,27 +46,27 @@ const Home = () => {
           <SwiperSlide>
             <SlideBox>
               <div>
-                <SlideImg src={illust1} alt="" />
+                <SlideImg src={illust1} alt="일러스트" />
               </div>
             </SlideBox>
           </SwiperSlide>
           <SwiperSlide>
             <SlideBox>
               <div>
-                <SlideImg src={illust2} alt="" />
+                <SlideImg src={illust2} alt="일러스트" />
               </div>
             </SlideBox>
           </SwiperSlide>
           <SwiperSlide>
             <SlideBox>
               <div>
-                <SlideImg src={illust3} alt="" />
+                <SlideImg src={illust3} alt="일러스트" />
               </div>
             </SlideBox>
           </SwiperSlide>
         </Swiper>
         <Logo>
-          <img src={logo} alt="" />
+          <img src={logo} alt="로고" />
         </Logo>
       </main>
       <FooterWrap>
@@ -73,7 +75,7 @@ const Home = () => {
         </EmailBtn>
         <KaKaoBtn>
           <Link to={KAKAO_AUTH_URL}>
-            <img src={kakaologo} alt="" />
+            <img src={kakaologo} alt="카카오로고" />
             카카오톡 간편 로그인
           </Link>
         </KaKaoBtn>
@@ -152,7 +154,6 @@ const Logo = styled.div`
   z-index: 999;
   animation: hideSplashScreen 0.4s ease-in-out forwards;
   animation-delay: 1s;
-
   @keyframes hideSplashScreen {
     from {
       opacity: 1;

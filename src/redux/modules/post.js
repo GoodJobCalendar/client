@@ -24,12 +24,20 @@ export function schedulePost(payload) {
 
 //middleware
 export const SchduleDB = (payload) => {
+  console.log(payload);
   return function (dispatch) {
+    const token = getCookie("token");
+
+    const config = {
+      headers: {
+        Authorization: token,
+      },
+    };
     axios
-      .post("http://14.34.139.253:3000/api/schedule", payload)
+      .post("http://14.34.139.253:3000/api/schedule", payload, config)
       .then((response) => {
+        console.log(response);
         dispatch(schedulePost(payload));
-        setCookie("token", response.data.token, 5);
       })
       .catch((error) => {
         console.error(error);
