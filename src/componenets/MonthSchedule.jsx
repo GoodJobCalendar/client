@@ -1,5 +1,6 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import $ from "jquery";
 
 import moment from "moment";
 import "moment/locale/ko";
@@ -15,7 +16,6 @@ const MonthSchedule = ({ value, onChange }) => {
         formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
         value={value}
         navigationLabel={null}
-        className="month"
         tileContent={({ date, view }) => {
           if (mark.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
             return (

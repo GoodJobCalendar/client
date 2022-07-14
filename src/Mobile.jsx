@@ -11,6 +11,7 @@ import KakaoOauth from "./shared/KakaoOauth";
 import SignupSucess from "./pages/SignUpSuccess";
 import PwChangeSuccess from "./pages/PwChangeSuccess";
 import PwChange from "./pages/PwChange";
+import Month from "./componenets/month/Month";
 
 function Mobile() {
   return (
@@ -28,6 +29,7 @@ function Mobile() {
         <Route path="/signupsuccess" element={<SignupSucess />} />
         <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
         <Route path="/pwchange" element={<PwChange />} />
+        <Route path="/month" element={<Month />} />
       </Routes>
     </MobileWrap>
   );
