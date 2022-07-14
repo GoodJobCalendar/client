@@ -60,17 +60,19 @@ const Dates = (props) => {
 };
 const Form = styled.li`
   width: calc(100% / 7);
-  padding: 6px;
+  padding: 13px 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  border-bottom: 1px solid #e4e3e6;
-  border-left: 1px solid #e4e3e6;
   box-sizing: border-box;
 
-  /* :nth-child(7n - 1),
-  :nth-child(7n) {
-    color: #969696;
-    background-color: #f5f5f5;
-  } */
+  :nth-child(7n + 1) div label {
+    color: var(--blue3);
+  }
+  :nth-child(7n) div label {
+    color: var(--point3);
+  }
 `;
 
 const DateNum = styled.div``;
@@ -80,14 +82,15 @@ const TodayCSS = styled.input`
 
   :checked + label {
     background-color: ${(props) => (props.isActive ? "var(--blue4)" : "")};
-    color: ${(props) => (props.isActive ? "#fff" : "")};
+    color: ${(props) => (props.isActive ? "#fff!important" : "")};
   }
 `;
 
 const CheckDay = styled.label`
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
-
-  padding: 6px;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 10px;
   width: 33px;
   height: 33px;
   border-radius: 100%;
@@ -97,11 +100,6 @@ const Lists = styled.div`
   flex-direction: column;
   text-align: left;
 `;
-const List = styled.span`
-  margin-top: 0.3vw;
-  padding-left: 0.5vw;
-  background-color: #f7ced9;
-  border-radius: 5px;
-`;
+const List = styled.span``;
 
 export default Dates;

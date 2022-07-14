@@ -97,6 +97,8 @@ const WeekMonth = styled.button`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  box-shadow: 0px 0px 8px 0px #3284ff45 inset;
+  box-shadow: 0px -1px 2px 0px #ffffff75;
   justify-content: ${(props) => (props.weekMonth ? "flex-end" : "flex-start")};
 `;
 const Circle = styled.span`
@@ -121,14 +123,21 @@ const FixBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px -7px 11px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px -7px 11px rgba(50, 132, 255, 0.1);
   background-color: #fff;
   z-index: 999;
 `;
 const Search = styled.input`
-  padding: 18px 27px;
-  border: 1px solid #d1d1d1;
+  padding: 18px 0;
+  border: 1px solid var(--blue2);
   border-radius: 32px;
+  width: 243px;
+  padding-left: 27px;
+  ::placeholder {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--blue3);
+  }
   &:focus {
     outline: none;
   }
@@ -137,7 +146,7 @@ const Search = styled.input`
 const AddButtoon = styled.button`
   width: 60px;
   height: 60px;
-  background-color: #777;
+  background-color: var(--blue4);
   text-align: center;
   font-size: 20px;
   color: #fff;

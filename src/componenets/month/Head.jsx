@@ -27,10 +27,10 @@ const Head = (props) => {
       <Nav>
         <BtnBox>
           <Btn onClick={monthMius}>&lt;</Btn>
-          <Flex>
-            <Year>{year}</Year>
-            <Year>{String(month).padStart(2, "0")}월</Year>
-          </Flex>
+          <YearMonth>
+            {/* <span>{year}</span> */}
+            <p>{String(month).padStart(2, "0")}월</p>
+          </YearMonth>
           {/* <Btn width="3vw" onClick={() => goToday()}>
             오늘
           </Btn> */}
@@ -50,46 +50,59 @@ const Form = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 2px solid #e4e3e6;
   border-radius: 2px;
 `;
 const Nav = styled.section``;
-const Flex = styled.div`
+
+const YearMonth = styled.h2`
   display: flex;
   flex-direction: column;
-`;
-const Year = styled.div`
-  font-weight: 700;
-  font-size: 14px;
   text-align: center;
+  p {
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--blue4);
+    line-height: 30px;
+  }
+
+  span {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--blue3);
+    margin-right: 10px;
+  }
 `;
 const BtnBox = styled.div`
-  ${({ theme }) => theme.flexSet("space-between", "center")}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 `;
-const Btn = styled.li`
-  padding: 5px;
-  width: ${(props) => {
-    return props.width || "1.3vw";
-  }};
-  border: 0.5px solid #e4e3e6;
-  border-radius: 5px;
+const Btn = styled.button`
   text-align: center;
-  font-size: 0.78rem;
   cursor: pointer;
+  color: var(--blue3);
 `;
 const Days = styled.div`
   display: flex;
-  margin-bottom: 0.5vw;
+  background-color: #fff;
+  border-radius: 7px 7px 0 0;
 `;
 const Day = styled.li`
+  padding: 13px 17px;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--gray3);
+  :not(:last-child) {
+    border-right: 0;
+  }
   width: calc(100% / 7);
-  text-align: center;
-  cursor: pointer;
-
-  /* :nth-child(7n + 1),
+  :nth-child(7n + 1) {
+    color: var(--blue3);
+  }
   :nth-child(7n) {
-    color: #969696;
-  } */
+    color: var(--point3);
+  }
 `;
 
 const DAY = ["일", "월", "화", "수", "목", "금", "토"];
