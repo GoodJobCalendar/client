@@ -7,10 +7,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     list-style: none;
     text-decoration: none; 
-    font-family: ‘Pretendard’;
+    font-family: Pretendard;
     color: var(--black);
 }
-
 :root{
   --gray1:#EFEFEF;
   --gray2:#D1D1D1;

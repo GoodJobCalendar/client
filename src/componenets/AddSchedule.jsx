@@ -10,9 +10,14 @@ import img5 from "../assets/img/sticker/Group 5.png";
 import img6 from "../assets/img/sticker/Group 6.png";
 import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
-import time from "../assets/img/icon/Time.png";
-import location from "../assets/img/icon/Location.png";
-import element from "../assets/img/icon/element-4.png";
+import cover1 from "../assets/img/cover/cover1.jpg";
+import cover2 from "../assets/img/cover/cover2.jpg";
+import cover3 from "../assets/img/cover/cover3.jpg";
+import cover4 from "../assets/img/cover/cover4.jpg";
+import cover5 from "../assets/img/cover/cover5.jpg";
+import cover6 from "../assets/img/cover/cover6.jpg";
+import cover7 from "../assets/img/cover/cover7.jpg";
+import cover8 from "../assets/img/cover/cover8.jpg";
 import { SchduleDB } from "../redux/modules/post";
 import "date-fns";
 import DatePicker from "react-datepicker";
@@ -36,16 +41,16 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
-  const [cover, setCover] = useState(
-    "https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"
-  );
+  const [cover, setCover] = useState("https://ifh.cc/g/rRCaTb.jpg");
 
   const [startDate, setStartDate] = useState(new Date());
+  console.log(startDate);
   const [dispatchTime, setDispatchTime] = useState(moment());
 
   const now = moment().hour(0).minute(0);
   const handleValueChange = (value) => {
     setDispatchTime(value);
+    console.log("value" + value);
   };
   const addClick = () => {
     navigate("/main");
@@ -71,6 +76,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const coverChange = (e) => {
     setCover(e.target.value);
     setImage(e.target.id);
+    console.log(e.target);
     setCoverShow(!coverShow);
   };
   let [week, month, day, year, sTime] = startDate.toString().split(" ");
@@ -204,48 +210,80 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="1"
-                    value="https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"
+                    value="https://ifh.cc/g/rRCaTb.jpg"
                     onChange={coverChange}
                   />
-                  <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80" />
-                  </CoverImg>
+                  <CoverImg src={cover1} />
                 </label>
                 <label htmlFor="2">
                   <Input
                     type="radio"
                     name="cover"
                     id="2"
-                    value="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                    value="https://ifh.cc/g/46sJrK.jpg"
                     onChange={coverChange}
                   />
-                  <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
-                  </CoverImg>
+                  <CoverImg src={cover2} />
                 </label>
                 <label htmlFor="3">
                   <Input
                     type="radio"
                     name="cover"
                     id="3"
-                    value="https://images.unsplash.com/photo-1522836924445-4478bdeb860c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+                    value="https://ifh.cc/g/nxGmlc.jpg"
                     onChange={coverChange}
                   />
-                  <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1522836924445-4478bdeb860c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-                  </CoverImg>
+                  <CoverImg src={cover3} />
                 </label>
                 <label htmlFor="4">
                   <Input
                     type="radio"
                     name="cover"
                     id="4"
-                    value="https://images.unsplash.com/photo-1616400619175-5beda3a17896?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                    value="https://ifh.cc/g/pYVt1o.jpg"
                     onChange={coverChange}
                   />
-                  <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1616400619175-5beda3a17896?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
-                  </CoverImg>
+                  <CoverImg src={cover4} />
+                </label>
+                <label htmlFor="5">
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="5"
+                    value="https://ifh.cc/g/o2h5z4.jpg"
+                    onChange={coverChange}
+                  />
+                  <CoverImg src={cover5} />
+                </label>
+                <label htmlFor="6">
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="6"
+                    value="https://ifh.cc/g/z3jLkW.jpg"
+                    onChange={coverChange}
+                  />
+                  <CoverImg src={cover6} />
+                </label>
+                <label htmlFor="7">
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="7"
+                    value="https://ifh.cc/g/PJ5SXW.jpg"
+                    onChange={coverChange}
+                  />
+                  <CoverImg src={cover7} />
+                </label>
+                <label htmlFor="8">
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="8"
+                    value="https://ifh.cc/g/V1yarv.jpg"
+                    onChange={coverChange}
+                  />
+                  <CoverImg src={cover8} />
                 </label>
               </List>
             ) : (
@@ -272,7 +310,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           />
           <ColorPicker onClick={ColorClick} color={color} />
           {colorPickerShow ? (
-            <ColorList>
+            <List>
               <Color1 htmlFor="#fff"></Color1>
               <Input
                 type="radio"
@@ -331,7 +369,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 id="rgba(154, 154, 154, 1)"
                 onChange={colorChange}
               />
-            </ColorList>
+            </List>
           ) : (
             ""
           )}
@@ -412,11 +450,8 @@ const AddSchesuleWrap = styled.div`
 const Btn = styled.button`
   font-weight: 700;
   font-size: 12px;
-  color: #fff;
-  background-color: var(--blue4);
-  border: 1px solid #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
+  color: var(--gray4);
+  background-color: transparent;
 `;
 const AddBtn = styled.button`
   font-weight: 700;
@@ -512,25 +547,11 @@ const List = styled.div`
   border-radius: 15px;
   padding: 8px 12px;
   width: 185px;
-  z-index: 99;
-`;
 
-const ColorList = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 59px;
-  padding: 16px;
-  width: 100%;
-  border-radius: 6px;
-  background: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
-  z-index: 99;
+  z-index: 99999;
+
+  label {
+  }
 `;
 const Input = styled.input`
   display: none;
@@ -603,14 +624,9 @@ const StickerImg = styled.img`
   width: 50px;
   height: 50px;
 `;
-const CoverImg = styled.div`
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
+const CoverImg = styled.img`
+  width: 100px;
   border-radius: 10px;
-  img {
-    height: 100%;
-  }
 `;
 const DateWrap = styled.div`
   .react-datepicker-wrapper {

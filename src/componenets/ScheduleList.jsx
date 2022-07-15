@@ -16,9 +16,9 @@ const ScheduleList = ({ value }) => {
       <ScheduleListWrap>
         {array1.map((value, idx) => (
           <ScheduleItem key={idx}>
-            <TimeText>11:30</TimeText>
+            <TimeText>{value.date}</TimeText>
             <Color color={value.color}></Color>
-            <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
+            <Text>{value.title}</Text>
           </ScheduleItem>
         ))}
       </ScheduleListWrap>
@@ -29,7 +29,8 @@ const ScheduleList = ({ value }) => {
 export default ScheduleList;
 const ScheduleBox = styled.div`
   width: 100%;
-  padding-top: 36px;
+  margin-top: 36px;
+  height: 150px;
   overflow-y: scroll;
 `;
 const ScheduleListWrap = styled.div`
@@ -47,11 +48,6 @@ const ScheduleItem = styled.div`
   align-items: center;
   text-align: center;
   padding: 20px 12px;
-  > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 const DayFlex = styled.div`
   display: flex;
@@ -85,6 +81,19 @@ const TimeText = styled.div`
 const Text = styled.div`
   font-weight: 700;
   font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+const AdrressWrap = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-top: 3px;
+`;
+const AdrressText = styled.p`
+  font-weight: 500;
+  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
