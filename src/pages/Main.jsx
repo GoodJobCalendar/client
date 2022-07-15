@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AddSchedule from "../componenets/AddSchedule";
 import Scheduler from "./../componenets/Scheduler";
 
 import zoomin from "../assets/img/icon/zoomin.png";
@@ -66,14 +65,17 @@ function Main() {
   );
 }
 export default Main;
-const MainWrap = styled.div``;
+const MainWrap = styled.div`
+  overflow-y: scroll;
+`;
 const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 18px 12px;
   background-color: var(--blue1);
-  position: relative;
+  height: 590px;
+  overflow: hidden;
 `;
 const ToggleBtn = styled.div`
   display: flex;
@@ -140,7 +142,11 @@ const AddButtoon = styled.button`
   height: 60px;
   background-color: var(--blue4);
   text-align: center;
-  font-size: 20px;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 60px;
   color: #fff;
   border-radius: 100%;
   border: none;

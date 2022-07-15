@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Dates = (props) => {
-  const { lastDate, firstDate, elm, findToday, month, year, idx, holiday } =
-    props;
+  const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
 
   const [userInput, setUserInput] = useState({});
   const [evtList, setEvtList] = useState([]);

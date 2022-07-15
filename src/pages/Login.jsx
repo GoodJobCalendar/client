@@ -88,7 +88,7 @@ const LoginWrap = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 0 35px;
+  padding: 0 25px;
   background-color: var(--blue1);
   input {
     outline: none;
