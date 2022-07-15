@@ -120,6 +120,7 @@ const BtnBox = styled.div`
 const Btn = styled.button`
   text-align: center;
   cursor: pointer;
+  color: var(--blue3);
 `;
 const Days = styled.div`
   display: flex;

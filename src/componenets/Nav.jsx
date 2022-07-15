@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import calendar from "../assets/img/icon/calendar.png";
 import element from "../assets/img/icon/element-4.png";
-
 const Nav = () => {
   const [nav, setNav] = useState(true);
   const toggleBtn = () => {
