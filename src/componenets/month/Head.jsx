@@ -25,26 +25,17 @@ const Head = (props) => {
   return (
     <Form>
       <Nav>
-        <BtnWrap>
-          <YearBtnBox>
-            <Btn>&lt;</Btn>
-            <Year>
-              <p>{year}</p>
-            </Year>
-            <Btn>&gt;</Btn>
-          </YearBtnBox>
-          <BtnBox>
-            <Btn onClick={monthMius}>&lt;</Btn>
-            <Month>
-              {/* <span>{year}</span> */}
-              <p>{String(month).padStart(2, "0")}월</p>
-            </Month>
-            {/* <Btn width="3vw" onClick={() => goToday()}>
+        <BtnBox>
+          <Btn onClick={monthMius}>&lt;</Btn>
+          <YearMonth>
+            {/* <span>{year}</span> */}
+            <p>{String(month).padStart(2, "0")}월</p>
+          </YearMonth>
+          {/* <Btn width="3vw" onClick={() => goToday()}>
             오늘
           </Btn> */}
-            <Btn onClick={monthPlus}>&gt;</Btn>
-          </BtnBox>
-        </BtnWrap>
+          <Btn onClick={monthPlus}>&gt;</Btn>
+        </BtnBox>
       </Nav>
       <Days>
         {DAY.map((elm, idx) => {
@@ -61,23 +52,9 @@ const Form = styled.section`
   width: 100%;
   border-radius: 2px;
 `;
-const Nav = styled.section`
-  display: flex;
-  justify-content: flex-end;
-`;
+const Nav = styled.section``;
 
-const Year = styled.h2`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  p {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--blue3);
-    margin-right: 10px;
-  }
-`;
-const Month = styled.h2`
+const YearMonth = styled.h2`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -87,18 +64,8 @@ const Month = styled.h2`
     color: var(--blue4);
     line-height: 30px;
   }
-`;
-const BtnWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-`;
-const YearBtnBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 23px;
-  button {
+
+  span {
     font-weight: 700;
     font-size: 14px;
     color: var(--blue3);
@@ -107,15 +74,9 @@ const YearBtnBox = styled.div`
 `;
 const BtnBox = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin: 30px 0;
-  gap: 25px;
-  button {
-    font-weight: 600;
-    font-size: 22px;
-    color: var(--blue4);
-    line-height: 30px;
-  }
+  margin-bottom: 30px;
 `;
 const Btn = styled.button`
   text-align: center;
