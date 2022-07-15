@@ -94,7 +94,7 @@ const HomeWrap = styled.div`
   justify-content: center;
   text-align: center;
   height: 100%;
-  padding: 0 35px;
+  padding: 0 30px;
   background-color: var(--blue1);
   .mySwiper1 {
     margin-top: 34px;
