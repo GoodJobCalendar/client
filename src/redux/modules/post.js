@@ -54,7 +54,7 @@ export default function postReducer(state = initialState, action) {
       return produce(state, (draft) => {
         setCookie("is_login", "true");
         draft.is_login = true;
-        draft.user = action.payload;
+        draft.post = action.payload;
       });
     }
     default:

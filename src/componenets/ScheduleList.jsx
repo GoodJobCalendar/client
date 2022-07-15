@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import location from "../assets/img/icon/Location.png";
+import { useSelector } from "react-redux";
 const ScheduleList = ({ value }) => {
+  const postContent = useSelector((state) => state.post.post);
+  console.log("제발되라", postContent);
   const array1 = [0, 0, 0, 0];
   return (
     <ScheduleBox>
@@ -11,19 +14,11 @@ const ScheduleList = ({ value }) => {
         <Dday>D-1</Dday>
       </DayFlex>
       <ScheduleListWrap>
-        {array1.map((key, value) => (
-          <ScheduleItem key={value}>
-            <Flex>
-              <TimeText>11:30</TimeText>
-              <Color></Color>
-              <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
-            </Flex>
-            <AdrressWrap>
-              <img src={location} alt="위치아이콘" />
-              <AdrressText>
-                서울특별시 강남구 삼성1동 영동대로 517 20층
-              </AdrressText>
-            </AdrressWrap>
+        {array1.map((value, idx) => (
+          <ScheduleItem key={idx}>
+            <TimeText>11:30</TimeText>
+            <Color color={value.color}></Color>
+            <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
           </ScheduleItem>
         ))}
       </ScheduleListWrap>
@@ -34,8 +29,7 @@ const ScheduleList = ({ value }) => {
 export default ScheduleList;
 const ScheduleBox = styled.div`
   width: 100%;
-  margin-top: 36px;
-  height: 308px;
+  padding-top: 36px;
   overflow-y: scroll;
 `;
 const ScheduleListWrap = styled.div`
@@ -46,18 +40,22 @@ const ScheduleListWrap = styled.div`
   margin-top: 16px;
 `;
 const ScheduleItem = styled.div`
-  padding: 20px 12px;
   background-color: #fff;
   border-radius: 6px;
-`;
-const DayFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  padding: 20px 12px;
+  > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
-const Flex = styled.div`
+const DayFlex = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 `;
@@ -70,12 +68,12 @@ const Color = styled.div`
 const Day = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: #9a9a9a;
+  color: var(--blue4);
 `;
 const Dday = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: #9a9a9a;
+  color: var(--point2);
 `;
 const TimeText = styled.div`
   font-weight: 500;
@@ -87,21 +85,6 @@ const TimeText = styled.div`
 const Text = styled.div`
   font-weight: 700;
   font-size: 16px;
-  padding: 0 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-const AdrressWrap = styled.div`
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  padding-left: 68px;
-  margin-top: 3px;
-`;
-const AdrressText = styled.p`
-  font-weight: 500;
-  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -3,12 +3,6 @@ import $ from "jquery";
 import styled from "styled-components";
 import Calendar from "short-react-calendar";
 const WeekSchedule = ({ value, onChange, weekNumber }) => {
-  console.log(
-    $(
-      ".react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
-    ).text()
-  );
-
   return (
     <WeekWrap weekNumber={weekNumber}>
       <Calendar

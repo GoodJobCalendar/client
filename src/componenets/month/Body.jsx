@@ -32,7 +32,10 @@ const Body = (props) => {
 
 const Form = styled.div`
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   width: 100%;
+  background-color: #fff;
+  border-radius: 0 0 7px 7px;
+  box-shadow: 0px 3px 9px 0px rgba(116, 160, 227, 0.14);
 `;
 export default Body;
