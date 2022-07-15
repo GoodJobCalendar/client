@@ -3,86 +3,68 @@ import styled from "styled-components";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import banner from "../assets/img/cover/cover1.jpg";
 
-const PwCheck = () => {
+const PwChange = () => {
   const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
-  const [authNumber, setAuthNumber] = useState();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errorcheck, setError] = useState("");
-  if (authNumber === "") {
-    return setError("인증번호를 입력해주세요.");
-  }
-  // 인증번호 재발송
-  const Mailsend = async () => {
-    if (authNumber === "") {
+  const ChangePw = async () => {
+    if (password === "" || confirmPassword === "") {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .post("http://14.34.139.253:3000/api/auth/lostPassword", {
+      .patch("http://14.34.139.253:3000api/auth/newPassword", {
         email: userInfo.email,
-        userName: userInfo.userName,
+        password,
+        confirmPassword,
       })
       .then((res) => {
         console.log(res);
+        navigate("/pwchangesuccess");
       })
       .catch((error) => {
         console.error(error);
         setError(error.response.data.msg);
       });
   };
-
-  const Submit = async () => {
-    // 인증번호 확인
-    await axios
-      .delete("http://14.34.139.253:3000/api/auth/verifyNumberForOld", {
-        email: userInfo.email,
-        authNumber,
-      })
-      .then((res) => {
-        console.log(res);
-        navigate("/pwchange");
-      })
-      .catch((error) => {
-        setError(error);
-        console.error(error);
-      });
-  };
   return (
     <PwWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
         <TitleText>
-          <Title>인증메일을 전송했어요!</Title>
-          <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>
+          <Title>굿잡 비밀번호 변경</Title>
+          <SubTitle>이번 비밀번호는 기억해보는걸로!</SubTitle>
         </TitleText>
       </Header>
       <Main>
-        <Email>{userInfo.email}</Email>
         <Input
           type="password"
-          placeholder="인증번호 입력"
+          placeholder="비밀번호"
           errorcheck={errorcheck}
           onChange={(event) => {
-            setAuthNumber(event.target.value);
+            setPassword(event.target.value);
           }}
         />
-        {errorcheck ? (
-          <>
-            <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Mailsend}>인증메일 재발송하기</SignUpBtn>
-          </>
-        ) : (
-          ""
-        )}
+        <Input
+          type="password"
+          placeholder="비밀번호 확인"
+          errorcheck={errorcheck}
+          onChange={(event) => {
+            setConfirmPassword(event.target.value);
+          }}
+        />
 
-        <SignUpBtn onClick={Submit}>비밀번호 변경하기</SignUpBtn>
+        <ErrorCheck>{errorcheck}</ErrorCheck>
+
+        <SignUpBtn onClick={ChangePw}>비밀번호 변경하기</SignUpBtn>
       </Main>
     </PwWrap>
   );
 };
 
-export default PwCheck;
+export default PwChange;
+
 const PwWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,10 +108,6 @@ const SubTitle = styled.p`
   font-size: 14px;
   color: var(--gray4);
   margin-top: 16px;
-`;
-const Banner = styled.img`
-  width: 100%;
-  border-radius: 26px;
 `;
 const Main = styled.main`
   display: flex;

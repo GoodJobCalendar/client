@@ -6,6 +6,19 @@ import Login from "./pages/Login";
 import EmailSend from "./pages/EmailSend";
 import PwSend from "./pages/PwSend";
 import PwCheck from "./pages/PwCheck";
+import Main from "./pages/Main";
+import KakaoOauth from "./shared/KakaoOauth";
+import SignupSucess from "./pages/SignUpSuccess";
+import PwChangeSuccess from "./pages/PwChangeSuccess";
+import PwChange from "./pages/PwChange";
+import Month from "./componenets/month/Month";
+
+// import AddSchedule from "./componenets/AddSchedule";
+import Job from "./pages/Job";
+import JobDetail from "./pages/JobDetail";
+import JobCategory from "./pages/JobCategory";
+import AddSchedule from "./componenets/AddSchedule";
+
 function Mobile() {
   return (
     <MobileWrap>
@@ -13,9 +26,20 @@ function Mobile() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/api/auth/kakao/callback" element={<KakaoOauth />} />
         <Route path="/emailsend" element={<EmailSend />} />
         <Route path="/pwsend" element={<PwSend />} />
         <Route path="/pwcheck" element={<PwCheck />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/pwsend" element={<PwSend />} />
+        <Route path="/signupsuccess" element={<SignupSucess />} />
+        <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
+        <Route path="/pwchange" element={<PwChange />} />
+        <Route path="/job" element={<Job />} />
+        <Route path="/jobDetail" element={<JobDetail />} />
+        <Route path="/jobCategory" element={<JobCategory />} />
+        <Route path="/month" element={<Month />} />
+        <Route path="/addschedule" element={<AddSchedule />} />
       </Routes>
     </MobileWrap>
   );
@@ -23,17 +47,6 @@ function Mobile() {
 
 export default Mobile;
 const MobileWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow-y: scroll;
-  background-color: #fff;
-  width: 375px;
-  height: 90%;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
 `;
