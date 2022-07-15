@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { loadJobList, loadCategoryList } from '../redux/modules/job';
 
 import location from "../assets/img/icon/Location.png";
 
 const Job = () => {
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadJobList());
+  }, []);
+
+  const jobDataList = useSelector((state) => state.job.list?.data);
+
+  console.log(jobDataList)
+
+  // const Time = jobDataList.deadline.split(' ')[0]
 
   return (
     <>
@@ -16,59 +30,29 @@ const Job = () => {
         <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
       </TeamNameList>
 
-      <JobCard onClick={() => navigate("/jobDetail")}>
-        <EndDateBox>
-          <EndDate>마감일</EndDate>
-          <EndTime>22.07.19</EndTime>
-        </EndDateBox>
-        <CompanyName>터크코리아</CompanyName>
-        <JobTitle>(주) 터크코리아 영업지원 신입/경력 직원 채용</JobTitle>
-        <JobTagsWrap>
-          <JobTags>신입</JobTags>
-          <JobTags>중소기업</JobTags>
-          <JobTags>학력무관</JobTags>
-        </JobTagsWrap>
-        <JobAdrress>
-          <AdrressImg src={location} />
-          경기도 광명시 외
-        </JobAdrress>
-      </JobCard>
-
-      <JobCard>
-        <EndDateBox>
-          <EndDate>마감일</EndDate>
-          <EndTime>22.07.19</EndTime>
-        </EndDateBox>
-        <CompanyName>터크코리아</CompanyName>
-        <JobTitle>(주) 터크코리아 영업지원 신입/경력 직원 채용</JobTitle>
-        <JobTagsWrap>
-          <JobTags>신입</JobTags>
-          <JobTags>중소기업</JobTags>
-          <JobTags>학력무관</JobTags>
-        </JobTagsWrap>
-        <JobAdrress>
-          <AdrressImg src={location} />
-          경기도 광명시 외
-        </JobAdrress>
-      </JobCard>
-
-      <JobCard>
-        <EndDateBox>
-          <EndDate>마감일</EndDate>
-          <EndTime>22.07.19</EndTime>
-        </EndDateBox>
-        <CompanyName>터크코리아</CompanyName>
-        <JobTitle>(주) 터크코리아 영업지원 신입/경력 직원 채용</JobTitle>
-        <JobTagsWrap>
-          <JobTags>신입</JobTags>
-          <JobTags>중소기업</JobTags>
-          <JobTags>학력무관</JobTags>
-        </JobTagsWrap>
-        <JobAdrress>
-          <AdrressImg src={location} />
-          경기도 광명시 외
-        </JobAdrress>
-      </JobCard>
+      {
+        jobDataList?.map((tasksData, idx)=>{
+          return(
+            <JobCard onClick={() => navigate("/jobDetail")}>
+            <EndDateBox>
+              <EndDate>마감일</EndDate>
+              <EndTime>{tasksData.deadline.split(' ')[0]}</EndTime>
+            </EndDateBox>
+            <CompanyName>{tasksData.companyName}</CompanyName>
+            <JobTitle>{tasksData.title}</JobTitle>
+            <JobTagsWrap>
+              <JobTags>{tasksData.career}</JobTags>
+              <JobTags>{tasksData.companyType}</JobTags>
+              {/* <JobTags>학력무관</JobTags> */}
+            </JobTagsWrap>
+            <JobAdrress>
+              <AdrressImg src={location} />
+              {tasksData.city}
+            </JobAdrress>
+          </JobCard>
+          )
+        })
+      }
     </>
   );
 };
@@ -130,7 +114,7 @@ display : inline-block;
 background: white;
 border-radius : 0 15px 15px 0;
 font-weight: 500;
-font-size: 14px;
+font-size: 12px;
 position: relative;
 z-index: 2;
 margin-left : -10px;
@@ -147,6 +131,7 @@ padding-left : 20px;
 `
 
 const JobTitle = styled.div`
+height: 20px;
 font-weight: 500;
 font-size: 16px;
 color: #111111;
