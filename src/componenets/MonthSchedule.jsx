@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import $ from "jquery";
 
 import moment from "moment";
 import "moment/locale/ko";

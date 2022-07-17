@@ -1,15 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-@import url("https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.4/static/pretendard.css");
 * {
     margin: 0;
     padding: 0;
     list-style: none;
     text-decoration: none; 
-    font-family: Pretendard;
+    font-family: ‘Pretendard’;
     color: var(--black);
 }
+
 :root{
   --gray1:#EFEFEF;
   --gray2:#D1D1D1;

@@ -94,8 +94,9 @@ const HomeWrap = styled.div`
   justify-content: center;
   text-align: center;
   height: 100%;
-  padding: 0 35px;
+  padding: 0 30px;
   background-color: var(--blue1);
+  overflow: hidden;
   .mySwiper1 {
     margin-top: 34px;
     margin-bottom: 77px;
@@ -151,7 +152,6 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
   animation: hideSplashScreen 0.4s ease-in-out forwards;
   animation-delay: 1s;
   @keyframes hideSplashScreen {
