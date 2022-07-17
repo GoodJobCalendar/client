@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Scheduler from "./../componenets/Scheduler";
 
@@ -6,6 +6,7 @@ import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
 import Nav from "../componenets/Nav";
 import { useNavigate } from "react-router-dom";
+import { monthList } from "../redux/modules/schedule";
 function Main() {
   const navigate = useNavigate();
   const [weekMonth, setWeekMonth] = useState(true);
