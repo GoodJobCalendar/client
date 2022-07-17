@@ -18,7 +18,7 @@ const Nav = () => {
             <Line></Line>
           </LineList>
         </Ham>
-        <p>취준생캘린더</p>
+        <span>취준생캘린더</span>
         <Ham>
           <LineList>
             <Line></Line>
@@ -31,13 +31,13 @@ const Nav = () => {
         <NavItem nav={nav}>
           <NavLink to="/main" onClick={toggleBtn}>
             <img src={calendar} alt="캘린더" />
-            <p>캘린더</p>
+            <span>캘린더</span>
           </NavLink>
         </NavItem>
         <NavItem nav={nav}>
           <NavLink to="/job" onClick={toggleBtn}>
             <img src={element} alt="추천채용" />
-            <p>추천채용</p>
+            <span>추천채용</span>
           </NavLink>
         </NavItem>
       </NavList>

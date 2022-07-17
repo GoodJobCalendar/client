@@ -36,7 +36,7 @@ function Mobile() {
         <Route path="/signupsuccess" element={<SignupSucess />} />
         <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
         <Route path="/pwchange" element={<PwChange />} />
-        <Route path="/job" element={<Job />} />
+        {/* <Route path="/job" element={<Job />} /> */}
         <Route path="/jobDetail" element={<JobDetail />} />
         <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/month" element={<Month />} />

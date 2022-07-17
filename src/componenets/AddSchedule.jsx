@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import moment from "moment";
+import { monthList } from "../redux/modules/schedule";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [cover, setCover] = useState(
     "https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"
   );
+  const [colorPick, setColorPick] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
   const [dispatchTime, setDispatchTime] = useState(moment());
@@ -62,6 +64,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   const colorChange = (e) => {
     setColor(e.target.id);
+    setColorPick(e.target.value);
     setColorPickerShow(!colorPickerShow);
   };
   const stickerChange = (e) => {
@@ -90,17 +93,19 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   };
   let [hour, minute, second] = dispatchTime.toString().split(" ")[4].split(":");
 
-  const allDate = `${year}-${Month(month)}-${day} ${hour}:${minute}`;
+  const allDate = `${year}-${Month(month)}-${day} ${hour}:${minute}:00`;
+
   const addScheduleBtn = async () => {
     dispatch(
       SchduleDB({
         image: Number(image),
         companyName,
         title,
-        sticker,
+        sticker: Number(sticker),
         date: allDate,
         place,
         memo,
+        color: Number(color),
       })
     );
     navigate("/main");
@@ -270,65 +275,72 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               setTitle(event.target.value);
             }}
           />
-          <ColorPicker onClick={ColorClick} color={color} />
+          <ColorPicker onClick={ColorClick} colorPick={colorPick} />
           {colorPickerShow ? (
             <ColorList>
-              <Color1 htmlFor="#fff"></Color1>
+              <Color1 htmlFor="1"></Color1>
               <Input
                 type="radio"
                 name="color"
-                id="#fff"
-                onChange={colorChange}
-                checked
-              />
-              <Color2 htmlFor="var(--point3)"></Color2>
-              <Input
-                type="radio"
-                name="color"
-                id="var(--point3)"
+                id="1"
+                value="#fff"
                 onChange={colorChange}
               />
-              <Color3 htmlFor="rgba(253, 187, 110, 1)"></Color3>
+              <Color2 htmlFor="2"></Color2>
               <Input
                 type="radio"
                 name="color"
-                id="rgba(253, 187, 110, 1)"
+                id="2"
+                value="var(--point3)"
                 onChange={colorChange}
               />
-              <Color4 htmlFor="rgba(253, 247, 110, 1)"></Color4>
+              <Color3 htmlFor="3"></Color3>
               <Input
                 type="radio"
                 name="color"
-                id="rgba(253, 247, 110, 1)"
+                id="3"
+                value="rgba(253, 187, 110, 1)"
+                onChange={colorChange}
+              />
+              <Color4 htmlFor="4"></Color4>
+              <Input
+                type="radio"
+                name="color"
+                id="4"
+                value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
 
-              <Color5 htmlFor="rgba(110, 253, 150, 1)"></Color5>
+              <Color5 htmlFor="5"></Color5>
               <Input
                 type="radio"
                 name="color"
-                id="rgba(110, 253, 150, 1)"
+                id="5"
+                value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
-              <Color6 htmlFor="rgba(110, 218, 253, 1)"></Color6>
+              <Color6 htmlFor="6"></Color6>
               <Input
                 type="radio"
                 name="color"
-                id="rgba(110, 218, 253, 1)"
+                id="6"
+                value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
-              <Color7 htmlFor="rgba(130, 110, 253, 1)"></Color7>
+              <Color7 htmlFor="7"></Color7>
               <Input
                 type="radio"
                 name="color"
-                id="rgba(130, 110, 253, 1)"
+                id="7"
+                value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
-              <Color8 htmlFor="rgba(154, 154, 154, 1)"></Color8>
+              <Color8 htmlFor="8"></Color8>
               <Input
                 type="radio"
                 name="color"
-                id="rgba(154, 154, 154, 1)"
+                id="8"
+                value="rgba(154, 154, 154, 1)"
                 onChange={colorChange}
               />
             </ColorList>
@@ -492,7 +504,8 @@ const TitleInput = styled.label`
 const ColorPicker = styled.button`
   width: 24px;
   height: 24px;
-  background-color: ${(props) => (props.color ? props.color : "var(--gray2)")};
+  background-color: ${(props) =>
+    props.colorPick ? props.colorPick : "var(--gray2)"};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;

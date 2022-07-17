@@ -96,6 +96,7 @@ const HomeWrap = styled.div`
   height: 100%;
   padding: 0 30px;
   background-color: var(--blue1);
+  overflow: hidden;
   .mySwiper1 {
     margin-top: 34px;
     margin-bottom: 77px;

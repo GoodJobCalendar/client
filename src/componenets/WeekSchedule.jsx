@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import $ from "jquery";
 import styled from "styled-components";
 import Calendar from "short-react-calendar";
 const WeekSchedule = ({ value, onChange, weekNumber }) => {

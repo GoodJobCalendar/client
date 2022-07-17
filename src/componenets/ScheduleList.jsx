@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import location from "../assets/img/icon/Location.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { monthList } from "../redux/modules/schedule";
 const ScheduleList = ({ value }) => {
-  const postContent = useSelector((state) => state.post.post);
-  console.log("제발되라", postContent);
+  const dispatch = useDispatch();
+
+  const monthSchdule = useSelector((state) => state.schedule.month);
+  console.log(monthSchdule);
   const array1 = [0, 0, 0, 0];
+  useEffect(() => {
+    dispatch(monthList("2022-07-01: 00:00:00"));
+  }, []);
   return (
     <ScheduleBox>
       <DayFlex>

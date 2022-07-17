@@ -4,15 +4,10 @@ import styled from "styled-components";
 const Dates = (props) => {
   const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
 
-  const [userInput, setUserInput] = useState({});
   const [evtList, setEvtList] = useState([]);
   const [isActive, setIsActive] = useState(false);
-
   let dateKey = `${month}` + `${elm}`;
-  const registEvent = (value) => {
-    setEvtList([...evtList, value]);
-    setUserInput("");
-  };
+
   return (
     <>
       <Form
