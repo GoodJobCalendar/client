@@ -7,8 +7,9 @@ const initialState = {};
 
 // action
 const MONTH_LIST = "schedule_reducer/MONTH_LIST";
+
 // action creator
-export function Munth(payload) {
+export function loadMonth(payload) {
   return { type: MONTH_LIST, payload };
 }
 //middleware
@@ -22,14 +23,15 @@ export const monthList = (payload) => {
     await axios({
       method: "get",
       url: "http://14.34.139.253:3000/api/schedule/monthly",
-      data: payload,
+      params: { startDate: payload },
       headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
-        console.log(res);
+        dispatch(loadMonth(res.data.data));
+        console.log(res.data.data);
       })
-      .catch((err) => {
-        console.log("카테고리 선택 에러 : ", err);
+      .catch((error) => {
+        console.error(error);
       });
   };
 };

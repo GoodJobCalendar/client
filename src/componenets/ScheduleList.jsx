@@ -1,33 +1,38 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import moment from "moment";
 import location from "../assets/img/icon/Location.png";
 import { useSelector, useDispatch } from "react-redux";
 import { monthList } from "../redux/modules/schedule";
-const ScheduleList = ({ value }) => {
+import Dayjs from "dayjs";
+import "dayjs/locale/ko";
+const ScheduleList = ({ dateTotal }) => {
   const dispatch = useDispatch();
 
-  const monthSchdule = useSelector((state) => state.schedule.month);
-  console.log(monthSchdule);
   const array1 = [0, 0, 0, 0];
   useEffect(() => {
-    dispatch(monthList("2022-07-01: 00:00:00"));
+    dispatch(monthList(dateTotal));
   }, []);
+  Dayjs.locale("ko");
+  const monthSchdule = useSelector((state) => state.schedule.month);
+  console.log(dateTotal);
+  console.log(monthSchdule);
   return (
     <ScheduleBox>
-      <DayFlex>
-        <Day>{moment(value).format("YYYY년 MM월 DD일 dddd")}</Day>
-        <Dday>D-1</Dday>
-      </DayFlex>
-      <ScheduleListWrap>
-        {array1.map((value, idx) => (
-          <ScheduleItem key={idx}>
-            <TimeText>11:30</TimeText>
-            <Color color={value.color}></Color>
-            <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
-          </ScheduleItem>
-        ))}
-      </ScheduleListWrap>
+      {array1.map((value, idx) => (
+        <>
+          <DayFlex>
+            <Day>2022년 07월 17일 일요일</Day>
+            <Dday>D-1</Dday>
+          </DayFlex>
+          <ScheduleListWrap>
+            <ScheduleItem key={idx}>
+              <TimeText>11:30</TimeText>
+              <Color color={value.color}></Color>
+              <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
+            </ScheduleItem>
+          </ScheduleListWrap>
+        </>
+      ))}
     </ScheduleBox>
   );
 };

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-import moment from "moment";
-import "moment/locale/ko";
+import { Dayjs } from "dayjs";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 
@@ -12,11 +10,11 @@ const MonthSchedule = ({ value, onChange, test, setTest }) => {
     <MonthWrap>
       <Calendar
         onChange={onChange} // useState로 포커스 변경 시 현재 날짜 받아오기
-        formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
+        formatDay={(locale, date) => Dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
         value={value}
         navigationLabel={null}
         tileContent={({ date, view }) => {
-          if (mark.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+          if (mark.find((x) => x === Dayjs(date).format("YYYY-MM-DD"))) {
             return (
               <>
                 <div className="flex justify-center items-center absoluteDiv">

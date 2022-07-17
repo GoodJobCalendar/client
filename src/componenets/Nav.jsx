@@ -65,8 +65,9 @@ const NavTitle = styled.p`
   justify-content: space-between;
   flex: 7;
   padding: 0 17px;
-  p {
+  span {
     font-weight: 700;
+    display: block;
   }
 `;
 const NavList = styled.ul`
@@ -106,14 +107,16 @@ const NavLink = styled(Link)`
 `;
 const NavItem = styled.li`
   :nth-of-type(1) {
-    p {
+    span {
+      display: block;
       padding: 8px;
       border-bottom: ${(props) => (props.nav ? "2px solid var(--point1)" : "")};
       color: ${(props) => (props.nav ? "var(--point1)" : "")};
     }
   }
   :nth-of-type(2) {
-    p {
+    span {
+      display: block;
       padding: 8px;
       border-bottom: ${(props) => (props.nav ? "" : "2px solid var(--point1)")};
       color: ${(props) => (props.nav ? "" : "var(--point1)")};

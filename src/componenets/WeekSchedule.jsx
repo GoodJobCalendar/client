@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Calendar from "short-react-calendar";
 const WeekSchedule = ({ value, onChange, weekNumber }) => {
+  useEffect(() => {
+    onChange(value);
+  }, [value]);
   return (
     <WeekWrap weekNumber={weekNumber}>
       <Calendar

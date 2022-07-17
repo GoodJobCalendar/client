@@ -20,8 +20,8 @@ import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
-import moment from "moment";
 import { monthList } from "../redux/modules/schedule";
+import Dayjs from "dayjs";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,9 +43,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [colorPick, setColorPick] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
-  const [dispatchTime, setDispatchTime] = useState(moment());
+  const [dispatchTime, setDispatchTime] = useState(Dayjs());
 
-  const now = moment().hour(0).minute(0);
+  const now = Dayjs().hour(0).minute(0);
   const handleValueChange = (value) => {
     setDispatchTime(value);
   };
