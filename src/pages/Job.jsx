@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 // import React, { useEffect } from "react";
 // import styled from "styled-components";
 // import { useNavigate } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
+=======
+import React, { useEffect } from 'react';
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { loadJobList, loadCategoryList } from '../redux/modules/job';
+>>>>>>> f7fe01f7e9aa7c68cf31af70a0ca3988989eb428
 
 // import { loadJobList, loadCategoryList } from "../redux/modules/job";
 
@@ -11,6 +20,7 @@
 // const Job = () => {
 //   const navigate = useNavigate();
 
+<<<<<<< HEAD
 //   const dispatch = useDispatch();
 
 //   useEffect(() => {
@@ -20,6 +30,53 @@
 //   const jobDataList = useSelector((state) => state.job.list?.data);
 
 //   console.log(jobDataList);
+=======
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadJobList());
+  }, []);
+
+  const jobDataList = useSelector((state) => state.job.list?.data);
+
+  console.log(jobDataList)
+
+  // const Time = jobDataList.deadline.split(' ')[0]
+
+  return (
+    <>
+      <TeamNameList>
+        <UpdateTime>2022년 7월 12일 업데이트 됨</UpdateTime>
+        <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
+      </TeamNameList>
+
+      {
+        jobDataList?.map((tasksData, idx)=>{
+          return(
+            <JobCard onClick={() => navigate("/jobDetail")}>
+            <EndDateBox>
+              <EndDate>마감일</EndDate>
+              <EndTime>{tasksData.deadline.split(' ')[0]}</EndTime>
+            </EndDateBox>
+            <CompanyName>{tasksData.companyName}</CompanyName>
+            <JobTitle>{tasksData.title}</JobTitle>
+            <JobTagsWrap>
+              <JobTags>{tasksData.career}</JobTags>
+              <JobTags>{tasksData.companyType}</JobTags>
+              {/* <JobTags>학력무관</JobTags> */}
+            </JobTagsWrap>
+            <JobAdrress>
+              <AdrressImg src={location} />
+              {tasksData.city}
+            </JobAdrress>
+          </JobCard>
+          )
+        })
+      }
+    </>
+  );
+};
+>>>>>>> f7fe01f7e9aa7c68cf31af70a0ca3988989eb428
 
 //   // const Time = jobDataList.deadline.split(' ')[0]
 
@@ -74,6 +131,7 @@
 //   cursor: pointer;
 // `;
 
+<<<<<<< HEAD
 // const JobCard = styled.div`
 //   width: 343px;
 //   height: 137px;
@@ -83,6 +141,20 @@
 //   position: relative;
 //   cursor: pointer;
 // `;
+=======
+const EndTime = styled.div`
+width: 90px;
+height: 25px;
+display : inline-block;
+background: white;
+border-radius : 0 15px 15px 0;
+font-weight: 500;
+font-size: 12px;
+position: relative;
+z-index: 2;
+margin-left : -10px;
+`
+>>>>>>> f7fe01f7e9aa7c68cf31af70a0ca3988989eb428
 
 // const EndDateBox = styled.div`
 //   width: 120px;
@@ -95,6 +167,7 @@
 //   right: 0;
 // `;
 
+<<<<<<< HEAD
 // const EndDate = styled.div`
 //   width: 40px;
 //   display: inline-block;
@@ -107,6 +180,16 @@
 //   position: relative;
 //   z-index: 3;
 // `;
+=======
+const JobTitle = styled.div`
+height: 20px;
+font-weight: 500;
+font-size: 16px;
+color: #111111;
+margin-bottom : 10px;
+padding-left : 20px;
+`
+>>>>>>> f7fe01f7e9aa7c68cf31af70a0ca3988989eb428
 
 // const EndTime = styled.div`
 //   width: 90px;
