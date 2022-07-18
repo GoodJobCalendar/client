@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadJobList, loadCategoryList } from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
 import location from "../assets/img/icon/Location.png";
 
@@ -33,7 +33,8 @@ const Job = () => {
 
       {jobDataList?.map((tasksData, idx) => {
         return (
-          <JobCard onClick={() => navigate("/jobDetail")}>
+          // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
+          <JobCard onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
             <EndDateBox>
               <EndDate>마감일</EndDate>
               <EndTime>{tasksData.deadline.split(" ")[0]}</EndTime>

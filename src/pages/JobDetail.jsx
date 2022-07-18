@@ -1,41 +1,59 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
+
+import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
 const JobDetail = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+
+  const params = useParams();
+
+  const id = params.id;
+
+  useEffect(() => {
+    dispatch(loadJobDetails(id));
+  }, []); 
+
+  const jobDetail = useSelector((state) => state.job.details.data);
+
+  console.log(jobDetail);
+
   return (
     <>
       <CompanyWrap>
-        <CompanyName>주식회사 터크코리아</CompanyName>
-        <CompanySize>중소-중견기업</CompanySize>
+        <CompanyName>{jobDetail.companyName}</CompanyName>
+        <CompanySize>{jobDetail.companyType}</CompanySize>
       </CompanyWrap>
 
-      <JobTitle>(주)터크코리아 영업사원 신입/경력 직원 채용</JobTitle>
+      <JobTitle>{jobDetail.title}</JobTitle>
 
       <Line />
 
       <JobInfo>
         <p>모집마감일자</p>
-        <p>2022.07.19 (화)</p>
+        <p>{jobDetail.deadline.split(" ")[0]}</p>
       </JobInfo>
 
       <JobInfo>
         <p>지원 자격</p>
-        <p>경력</p>
+        <p>{jobDetail.career}</p>
       </JobInfo>
 
       <JobInfo>
         <p>직무</p>
-        <p>영업</p>
+        <p>{jobDetail.job}</p>
       </JobInfo>
 
       <JobInfo>
         <p>지역</p>
-        <p>경기도 광명시 외</p>
+        <p>{jobDetail.city}</p>
       </JobInfo>
 
       <BtnWrap>
@@ -43,7 +61,7 @@ const JobDetail = () => {
         <ScrapBtn>캘린더로 스크랩</ScrapBtn>
       </BtnWrap>
 
-      <JobKoreabtn>
+      <JobKoreabtn href = {jobDetail.url}>
         자세한 공고 잡코리아에서 확인
       </JobKoreabtn>
     </>

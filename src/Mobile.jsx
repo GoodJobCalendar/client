@@ -36,8 +36,8 @@ function Mobile() {
         <Route path="/signupsuccess" element={<SignupSucess />} />
         <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
         <Route path="/pwchange" element={<PwChange />} />
-        {/* <Route path="/job" element={<Job />} /> */}
-        <Route path="/jobDetail" element={<JobDetail />} />
+        <Route path="/job" element={<Job />} />
+        <Route path="/jobDetail/:id" element={<JobDetail />} />
         <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/month" element={<Month />} />
         <Route path="/addschedule" element={<AddSchedule />} />
@@ -52,3 +52,5 @@ const MobileWrap = styled.div`
   width: 100%;
   height: 100%;
 `;
+
+
