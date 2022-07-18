@@ -77,16 +77,25 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     setCoverShow(!coverShow);
   };
   let [week, month, day, year, sTime] = startDate.toString().split(" ");
+  let Week = (week) => {
+    if (week === "Sun") return "01";
+    if (week === "Mon") return "02";
+    if (week === "Tue") return "03";
+    if (week === "Wed") return "04";
+    if (week === "Thu") return "05";
+    if (week === "Fri") return "06";
+    if (week === "Sat") return "07";
+  };
   let Month = (month) => {
-    if (month === "Jan") return "1";
-    if (month === "Feb") return "2";
-    if (month === "Mar") return "3";
-    if (month === "Apr") return "4";
-    if (month === "May") return "5";
-    if (month === "Jun") return "6";
-    if (month === "Jul") return "7";
-    if (month === "Aug") return "8";
-    if (month === "Sep") return "9";
+    if (month === "Jan") return "01";
+    if (month === "Feb") return "02";
+    if (month === "Mar") return "03";
+    if (month === "Apr") return "04";
+    if (month === "May") return "05";
+    if (month === "Jun") return "06";
+    if (month === "Jul") return "07";
+    if (month === "Aug") return "08";
+    if (month === "Sep") return "09";
     if (month === "Oct") return "10";
     if (month === "Nov") return "11";
     if (month === "Dec") return "12";
@@ -99,11 +108,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     dispatch(
       SchduleDB({
         image: Number(image),
-        companyName,
-        title,
+        companyName, //필수입력
+        title, //필수입력
         sticker: Number(sticker),
-        date: allDate,
-        place,
+        date: allDate, //필수입력
+        place, //필수입력
         memo,
         color: Number(color),
       })
@@ -383,8 +392,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             setPlace(event.target.value);
           }}
         />
-        <InputText
-          type="text"
+        <TextArea
           placeholder="메모"
           onChange={(event) => {
             setMemo(event.target.value);
@@ -497,6 +505,19 @@ const BtnFlex = styled.div`
 const InputText = styled.input`
   width: 90%;
   padding: 10px;
+`;
+const TextArea = styled.textarea`
+  width: 90%;
+  padding: 18px;
+  border: 0;
+  ::placeholder {
+    color: var(--blue3);
+    font-weight: 500;
+    font-size: 16px;
+  }
+  :focus {
+    outline: none;
+  }
 `;
 const TitleInput = styled.label`
   position: relative;

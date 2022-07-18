@@ -5,44 +5,40 @@ import { useSelector, useDispatch } from "react-redux";
 import { monthList } from "../redux/modules/schedule";
 import Dayjs from "dayjs";
 import "dayjs/locale/ko";
-const ScheduleList = ({ dateTotal }) => {
-  const dispatch = useDispatch();
-
-  const array1 = [0, 0, 0, 0];
-  useEffect(() => {
-    dispatch(monthList(dateTotal));
-  }, []);
+import AutoList from "./AutoList";
+const ScheduleList = ({ monthDate }) => {
   Dayjs.locale("ko");
   const monthSchdule = useSelector((state) => state.schedule.month);
-  console.log(dateTotal);
-  console.log(monthSchdule);
-  return (
-    <ScheduleBox>
-      {array1.map((value, idx) => (
-        <>
-          <DayFlex>
-            <Day>2022년 07월 17일 일요일</Day>
-            <Dday>D-1</Dday>
-          </DayFlex>
-          <ScheduleListWrap>
-            <ScheduleItem key={idx}>
-              <TimeText>11:30</TimeText>
-              <Color color={value.color}></Color>
-              <Text>하이퍼커넥트 현직자 면접 인터뷰</Text>
-            </ScheduleItem>
-          </ScheduleListWrap>
-        </>
-      ))}
-    </ScheduleBox>
-  );
+  const manual1 = monthSchdule?.manual;
+  console.log("으1", manual1);
+  const auto = monthSchdule?.auto;
+  console.log("으2", auto);
+  console.log("으악", ...manual1);
+  // const ddd = [...manual1, ...auto];
+  // console.log("으3", ddd);
+
+  const manual = monthSchdule?.manual.map((value, idx) => (
+    <div key={idx}>
+      <DayFlex>
+        <Day>{value.date}</Day>
+        <Dday>D-1</Dday>
+      </DayFlex>
+      <ScheduleListWrap>
+        <ScheduleItem>
+          <TimeText>{value.date}</TimeText>
+          <Color color={value.color}></Color>
+          <Text>{value.title}</Text>
+        </ScheduleItem>
+        <AutoList monthSchdule={monthSchdule} date={value.date} />
+      </ScheduleListWrap>
+    </div>
+  ));
+
+  return <>{manual}</>;
 };
 
 export default ScheduleList;
-const ScheduleBox = styled.div`
-  width: 100%;
-  padding-top: 36px;
-  overflow-y: scroll;
-`;
+
 const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;

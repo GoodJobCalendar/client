@@ -12,6 +12,7 @@ const MONTH_LIST = "schedule_reducer/MONTH_LIST";
 export function loadMonth(payload) {
   return { type: MONTH_LIST, payload };
 }
+
 //middleware
 
 //월간일정 조회
@@ -42,7 +43,7 @@ export default function scheduleReducer(state = initialState, action) {
   switch (action.type) {
     case MONTH_LIST: {
       return produce(state, (draft) => {
-        draft.month = action.payload.month;
+        draft.month = action.payload;
       });
     }
     default:

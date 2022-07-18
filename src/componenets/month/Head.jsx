@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { monthList } from "../../redux/modules/schedule";
 
 const Head = (props) => {
   const { year, month, setYear, setMonth, goToday } = props;
+  const dispatch = useDispatch();
+
+  const yearPlus = () => {
+    const y = Number(year) + 1;
+    setYear(y);
+  };
+  const yearMius = () => {
+    const y = Number(year) - 1;
+    setYear(y);
+  };
   const monthPlus = () => {
     setMonth(month + 1);
     if (month > 11) {
@@ -19,19 +31,24 @@ const Head = (props) => {
       setYear(y);
     }
   };
-  console.log(year + "년" + month + "월");
   // 오늘날짜소환! goToday();
+  const mm = String(month).padStart(2, "0");
+  const fullDate = `${year}-${mm}-01 00:00:00`;
+  console.log(fullDate);
 
+  useEffect(() => {
+    dispatch(monthList(`${year}-${mm}-01 00:00:00`));
+  }, [mm]);
   return (
     <Form>
       <Nav>
         <BtnWrap>
           <YearBtnBox>
-            <Btn>&lt;</Btn>
+            <Btn onClick={yearMius}>&lt;</Btn>
             <Year>
               <p>{year}</p>
             </Year>
-            <Btn>&gt;</Btn>
+            <Btn onClick={yearPlus}>&gt;</Btn>
           </YearBtnBox>
           <BtnBox>
             <Btn onClick={monthMius}>&lt;</Btn>

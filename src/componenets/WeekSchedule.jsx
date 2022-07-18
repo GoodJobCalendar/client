@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Calendar from "short-react-calendar";
-const WeekSchedule = ({ value, onChange, weekNumber }) => {
-  useEffect(() => {
-    onChange(value);
-  }, [value]);
+import { useSelector } from "react-redux";
+const WeekSchedule = () => {
+  const date = useSelector((state) => state.date.date);
+
   return (
-    <WeekWrap weekNumber={weekNumber}>
+    <WeekWrap weekNumber={date.weekNumber}>
       <Calendar
-        onChange={onChange}
-        value={value}
+        onChange={date.onChange}
+        value={date.value}
         calendarType="US"
         oneWeekCalendar={true}
         className="Week"
@@ -108,16 +108,16 @@ const WeekWrap = styled.div`
     position: relative;
     background-color: var(--blue4) !important;
     border-radius: 0 0 21px 21px !important;
-    abbr {
-      border: 1px solid var(--blue4);
-      border-radius: 100%;
-      padding: 6px;
-      background-color: #fff;
-      color: var(--blue4);
-      font-weight: 900;
-      font-size: 14px;
-    }
+
+    border: 1px solid var(--blue4);
+    border-radius: 100%;
+    padding: 6px;
+    background-color: #fff;
+    color: var(--blue4);
+    font-weight: 900;
+    font-size: 14px;
   }
+
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     background: #fff;
