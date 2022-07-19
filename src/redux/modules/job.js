@@ -8,13 +8,24 @@ const LOAD_JOB_LIST = "LOAD_JOB_LIST";
 const LOAD_CATEGORY_LIST = "LOAD_CATEGORY_LIST";
 const SELECT_CATEGORY = "SELECT_CATEGORY";
 const LOAD_JOB_DETAILS = 'LOAD_JOB_DETAILS';
+const ADD_SCRAP = 'ADD_SCRAP';
 
 // 초기값
 const initialState = {
   job: [],
   category: [],
   select: [],
-  details : [],
+  details : {
+    career : "",
+    city : "",
+    companyName : "",
+    companyType : "",
+    deadline : "",
+    job : [],
+    title : "",
+    url : ""
+  },
+  scrap : []
 };
 
 // 액션 생성 함수
@@ -25,7 +36,8 @@ const __loadCategoryList = createAction(LOAD_CATEGORY_LIST, (category) => ({
 const __selectCategory = createAction(SELECT_CATEGORY, (categoryData) => ({
   categoryData,
 }));
-const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({details}))
+const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({details}));
+const __addScrap = createAction(ADD_SCRAP, (postingId) => ({postingId}))
 
 // 미들웨어
 
@@ -108,7 +120,29 @@ export const loadJobDetails = (postingId) => {
   };
 };
 
-
+// todo 추가 미들웨어
+export const addScrap = (postingId) => {
+  return function (dispatch, getState) {
+    if(!postingId) {window.alert("postingId가 없습니다!")}
+    const myToken = getCookie("token");
+    axios({
+      method: "post",
+      url: `http://14.34.139.253:3000/api/schedule/scrap`,
+      data: {
+        postingId : postingId,
+      },
+      headers: { Authorization: `Bearer ${myToken}` },
+    })
+    .then(() => {
+      dispatch(__addScrap(postingId));
+      window.alert('스크랩이 완료되었어요!')
+    })
+    .catch((err) => {
+      console.log("스크랩 추가 에러: ", err)
+      window.alert('이미 스크랩이 완료된 게시물입니다!')
+    })
+  }
+}
 
 // 리듀서
 export default handleActions(

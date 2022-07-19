@@ -34,7 +34,7 @@ const Job = () => {
       {jobDataList?.map((tasksData, idx) => {
         return (
           // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
-          <JobCard onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
+          <JobCard key={idx}  onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
             <EndDateBox>
               <EndDate>마감일</EndDate>
               <EndTime>{tasksData.deadline.split(" ")[0]}</EndTime>

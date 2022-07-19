@@ -1,41 +1,37 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import location from "../assets/img/icon/Location.png";
-import { useSelector, useDispatch } from "react-redux";
-import { monthList } from "../redux/modules/schedule";
-import Dayjs from "dayjs";
-import "dayjs/locale/ko";
-import AutoList from "./AutoList";
-const ScheduleList = ({ monthDate }) => {
-  Dayjs.locale("ko");
-  const monthSchdule = useSelector((state) => state.schedule.month);
 
-  console.log(monthSchdule?.manual)
-  console.log(monthSchdule?.auto)
-  // console.log(...monthSchdule?.manual, ...monthSchdule?.auto)
-
-  const manual = monthSchdule?.manual?.map((value, idx) => (
-    <div key={idx}>
-      <DayFlex>
-        <Day>{value.date}</Day>
-        <Dday>D-1</Dday>
-      </DayFlex>
-      <ScheduleListWrap>
-        <ScheduleItem>
-          <TimeText>{value.date}</TimeText>
-          <Color color={value.color}></Color>
-          <Text>{value.title}</Text>
-        </ScheduleItem>
-        <AutoList monthSchdule={monthSchdule} date={value.date} />
-      </ScheduleListWrap>
-    </div>
-  ));
-
-  return <>{manual}</>;
+const AutoList = ({ monthSchdule, date }) => {
+  const auto = monthSchdule?.auto.map((value, idx) =>
+    date === value.date ? (
+      <>
+        <div key={idx}>
+          <DayFlex>
+            <Day>{value.date}</Day>
+            <Dday>D-1</Dday>
+          </DayFlex>
+          <ScheduleListWrap>
+            <ScheduleItem>
+              <TimeText>{value.date}</TimeText>
+              <Color color={value.color}></Color>
+              <Text>{value.title}</Text>
+            </ScheduleItem>
+          </ScheduleListWrap>
+        </div>
+      </>
+    ) : (
+      ""
+    )
+  );
+  return <>{auto}</>;
 };
 
-export default ScheduleList;
-
+export default AutoList;
+const ScheduleBox = styled.div`
+  width: 100%;
+  padding-top: 36px;
+  overflow-y: scroll;
+`;
 const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;

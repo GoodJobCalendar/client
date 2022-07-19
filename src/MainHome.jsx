@@ -18,25 +18,16 @@ import JobDetail from "./pages/JobDetail";
 import JobCategory from "./pages/JobCategory";
 import AddSchedule from "./componenets/AddSchedule";
 import PostDtail from "./pages/PostDtail";
+import Nav from "./src/componenets/Nav";
 
-function Mobile() {
+function MainHome() {
   return (
     <MobileWrap>
+      <Nav />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/api/auth/kakao/callback" element={<KakaoOauth />} />
-        <Route path="/emailsend" element={<EmailSend />} />
-        <Route path="/pwsend" element={<PwSend />} />
-        <Route path="/pwcheck" element={<PwCheck />} />
-        <Route path="/pwsend" element={<PwSend />} />
-        <Route path="/signupsuccess" element={<SignupSucess />} />
-        <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
-        <Route path="/pwchange" element={<PwChange />} />
         <Route path="/main" element={<Main />} />
         <Route path="/job" element={<Job />} />
-        <Route path="/jobDetail/:id" element={<JobDetail />} />
+        <Route path="/jobDetail" element={<JobDetail />} />
         <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/postdetail/:id" element={<PostDtail />} />
@@ -45,10 +36,8 @@ function Mobile() {
   );
 }
 
-export default Mobile;
+export default MainHome;
 const MobileWrap = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-

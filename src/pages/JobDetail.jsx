@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 
-import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails, addScrap } from "../redux/modules/job";
 
 const JobDetail = () => {
 
@@ -12,10 +12,11 @@ const JobDetail = () => {
 
   const dispatch = useDispatch();
 
-
   const params = useParams();
 
   const id = params.id;
+
+  console.log(id);
 
   useEffect(() => {
     dispatch(loadJobDetails(id));
@@ -28,40 +29,40 @@ const JobDetail = () => {
   return (
     <>
       <CompanyWrap>
-        <CompanyName>{jobDetail.companyName}</CompanyName>
-        <CompanySize>{jobDetail.companyType}</CompanySize>
+        <CompanyName>{jobDetail?.companyName}</CompanyName>
+        <CompanySize>{jobDetail?.companyType}</CompanySize>
       </CompanyWrap>
 
-      <JobTitle>{jobDetail.title}</JobTitle>
+      <JobTitle>{jobDetail?.title}</JobTitle>
 
       <Line />
 
       <JobInfo>
         <p>모집마감일자</p>
-        <p>{jobDetail.deadline.split(" ")[0]}</p>
+        <p>{jobDetail?.deadline.split(" ")[0]}</p>
       </JobInfo>
 
       <JobInfo>
         <p>지원 자격</p>
-        <p>{jobDetail.career}</p>
+        <p>{jobDetail?.career}</p>
       </JobInfo>
 
       <JobInfo>
         <p>직무</p>
-        <p>{jobDetail.job}</p>
+        <p>{jobDetail?.job}</p>
       </JobInfo>
 
       <JobInfo>
         <p>지역</p>
-        <p>{jobDetail.city}</p>
+        <p>{jobDetail?.city}</p>
       </JobInfo>
 
       <BtnWrap>
         <BackBtn onClick={() => navigate("/job")}>관심없어요</BackBtn>
-        <ScrapBtn>캘린더로 스크랩</ScrapBtn>
+        <ScrapBtn onClick={() => dispatch(addScrap(id))}>캘린더로 스크랩</ScrapBtn>
       </BtnWrap>
-
-      <JobKoreabtn href = {jobDetail.url}>
+      
+      <JobKoreabtn href = {jobDetail?.url}>
         자세한 공고 잡코리아에서 확인
       </JobKoreabtn>
     </>
