@@ -1,41 +1,83 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import location from "../assets/img/icon/Location.png";
-import { useSelector, useDispatch } from "react-redux";
-import { monthList } from "../redux/modules/schedule";
+import { useSelector } from "react-redux";
 import Dayjs from "dayjs";
 import "dayjs/locale/ko";
-import AutoList from "./AutoList";
-const ScheduleList = ({ monthDate }) => {
+
+const ScheduleList = () => {
   Dayjs.locale("ko");
+  const [mmm, setmmm] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
 
-  console.log(monthSchdule?.manual)
-  console.log(monthSchdule?.auto)
-  // console.log(...monthSchdule?.manual, ...monthSchdule?.auto)
+  useEffect(() => {
+    if (monthSchdule) {
+      const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
+      monthlist.sort(function (a, b) {
+        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+      });
+      setmmm(monthlist);
+    }
+  }, [monthSchdule]);
+  let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
+  let Month = (mm) => {
+    if (mm === "Jan") return "01";
+    if (mm === "Feb") return "02";
+    if (mm === "Mar") return "03";
+    if (mm === "Apr") return "04";
+    if (mm === "May") return "05";
+    if (mm === "Jun") return "06";
+    if (mm === "Jul") return "07";
+    if (mm === "Aug") return "08";
+    if (mm === "Sep") return "09";
+    if (mm === "Oct") return "10";
+    if (mm === "Nov") return "11";
+    if (mm === "Dec") return "12";
+  };
+  const today = `${yy}-${Month(mm)}-${day}`;
 
-  const manual = monthSchdule?.manual?.map((value, idx) => (
-    <div key={idx}>
-      <DayFlex>
-        <Day>{value.date}</Day>
-        <Dday>D-1</Dday>
-      </DayFlex>
-      <ScheduleListWrap>
+  const list =
+    mmm &&
+    mmm?.map((value, idx) => (
+      <ScheduleListWrap key={idx}>
+        <DayFlex>
+          <Day>
+            {value.date.split(" ")[0].split("-")[0]}년{" "}
+            {value.date.split(" ")[0].split("-")[1]}월{" "}
+            {value.date.split(" ")[0].split("-")[2]}일{" "}
+          </Day>
+
+          <Dday>
+            {new Date(value.date.split(" ")[0]) - new Date(today) > 0
+              ? `D- ${Math.floor(
+                  (new Date(value.date.split(" ")[0]) - new Date(today)) /
+                    (1000 * 60 * 60 * 24)
+                )}`
+              : new Date(value.date.split(" ")[0]) - new Date(today) !== 0
+              ? `D+ ${Math.floor(
+                  (new Date(today) - new Date(value.date.split(" ")[0])) /
+                    (1000 * 60 * 60 * 24)
+                )}`
+              : "D-day"}
+          </Dday>
+        </DayFlex>
         <ScheduleItem>
-          <TimeText>{value.date}</TimeText>
+          <TimeText>
+            {value.date.split(" ")[1].split(":")[0]}:
+            {value.date.split(" ")[1].split(":")[1]}
+          </TimeText>
           <Color color={value.color}></Color>
           <Text>{value.title}</Text>
         </ScheduleItem>
-        <AutoList monthSchdule={monthSchdule} date={value.date} />
       </ScheduleListWrap>
-    </div>
-  ));
-
-  return <>{manual}</>;
+    ));
+  return <Container>{list}</Container>;
 };
 
 export default ScheduleList;
 
+const Container = styled.div`
+  padding-bottom: 78px;
+`;
 const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,19 +91,12 @@ const ScheduleItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
   padding: 20px 12px;
-  > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 const DayFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
 `;
 const Color = styled.div`
   width: 3px;
@@ -79,17 +114,18 @@ const Dday = styled.p`
   font-size: 14px;
   color: var(--point2);
 `;
-const TimeText = styled.div`
+const TimeText = styled.p`
   font-weight: 500;
   font-size: 12px;
-  color: #777;
+  color: var(--blue3);
   padding: 6px 9px;
-  text-align: center;
 `;
-const Text = styled.div`
+const Text = styled.p`
+  flex: 7;
   font-weight: 700;
   font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0 16px;
 `;

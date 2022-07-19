@@ -4,7 +4,7 @@ import axios from "axios";
 
 // initialState
 const initialState = {
-  schedule : []
+  startDate: "",
 };
 
 // action
@@ -24,18 +24,18 @@ export const monthList = (payload) => {
     const bucket = {
       headers: { Authorization: `Bearer ${myToken}` },
       params: { startDate: payload },
-    }
-    axios.get("http://14.34.139.253:3000/api/schedule/monthly", bucket)
-    .then((res) => {
-      dispatch(loadMonth(res.data.data));
-      console.log(res.data.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  }
-}
-
+    };
+    axios
+      .get("http://14.34.139.253:3000/api/schedule/monthly", bucket)
+      .then((res) => {
+        dispatch(loadMonth(res.data.data));
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
 //reducer
 export default function scheduleReducer(state = initialState, action) {
   // 새로운 액션 타입 추가시 case 추가한다.

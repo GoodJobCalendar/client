@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import Head from "./Head";
 import Body from "./Body";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { schedule } from "../../redux/modules/date";
 
 const MonthSchedule = () => {
   let DATE = new Date();
-
   const YEAR = DATE.getFullYear();
   const MONTH = DATE.getMonth() + 1;
   const [month, setMonth] = useState(MONTH);
   const [year, setYear] = useState(YEAR);
   const [totalDate, setTotalDate] = useState([]);
+  const dispatch = useDispatch();
+
   const changeDate = (month) => {
     //이전 날짜
     let PVLastDate = new Date(YEAR, month - 1, 0).getDate();
@@ -40,6 +43,9 @@ const MonthSchedule = () => {
     TD = [...Array(ThisLasyDate + 1).keys()].slice(1);
     return PVLD.concat(TD, TLD);
   };
+  useEffect(() => {
+    dispatch(schedule({}));
+  }, []);
 
   useEffect(() => {
     setTotalDate(changeDate(7));
