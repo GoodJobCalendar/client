@@ -1,61 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
+
+// 컴포넌트
+import Nav from "../componenets/Nav";
+import WeekSchedule from "../componenets/WeekSchedule";
+import MonthSchedule from "./../componenets/month/MonthSchedule";
+import ScheduleList from "../componenets/ScheduleList";
+
+// 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
-import Nav from "../componenets/Nav";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { schedule } from "../redux/modules/date";
-import WeekSchedule from "../componenets/WeekSchedule";
-import ScheduleList from "../componenets/ScheduleList";
-import MonthSchedule from "./../componenets/month/MonthSchedule";
+
 function Main() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
   const addClick = () => {
     navigate("/addschedule");
   };
 
-  const [value, onChange] = useState(new Date());
-  console.log(value);
-  let [week, mm, day, yy, sTime] = value.toString().split(" ");
-  let Week = (week) => {
-    if (week === "Sun") return "01";
-    if (week === "Mon") return "02";
-    if (week === "Tue") return "03";
-    if (week === "Wed") return "04";
-    if (week === "Thu") return "05";
-    if (week === "Fri") return "06";
-    if (week === "Sat") return "07";
-  };
-  let Month = (mm) => {
-    if (mm === "Jan") return "01";
-    if (mm === "Feb") return "02";
-    if (mm === "Mar") return "03";
-    if (mm === "Apr") return "04";
-    if (mm === "May") return "05";
-    if (mm === "Jun") return "06";
-    if (mm === "Jul") return "07";
-    if (mm === "Aug") return "08";
-    if (mm === "Sep") return "09";
-    if (mm === "Oct") return "10";
-    if (mm === "Nov") return "11";
-    if (mm === "Dec") return "12";
-  };
-  const weekNumber = `${Week(week)}`;
-  useEffect(() => {
-    dispatch(
-      schedule({
-        weekMonth,
-        weekNumber,
-        value,
-        onChange,
-      })
-    );
-  }, []);
   return (
     <MainWrap>
       <Nav />
@@ -92,7 +57,6 @@ function Main() {
             onClick={() => {
               setWeekMonth(!weekMonth);
             }}
-            weekMonth={weekMonth}
           >
             {weekMonth ? (
               <Circle weekMonth={weekMonth}>M</Circle>
@@ -101,13 +65,7 @@ function Main() {
             )}
           </WeekMonth>
         </ToggleBtn>
-        {weekMonth ? (
-          // <MonthSchedule value={value} onChange={onChange} />
-          <MonthSchedule />
-        ) : (
-          <WeekSchedule />
-        )}
-
+        {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
         <ScheduleList />
       </ContentWrap>
     </MainWrap>

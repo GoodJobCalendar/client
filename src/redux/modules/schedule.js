@@ -3,7 +3,9 @@ import { deleteCookie, setCookie, getCookie } from "../../shared/Cookie";
 import axios from "axios";
 
 // initialState
-const initialState = {};
+const initialState = {
+  startDate: "",
+};
 
 // action
 const MONTH_LIST = "schedule_reducer/MONTH_LIST";
@@ -18,15 +20,14 @@ export function loadMonth(payload) {
 //월간일정 조회
 
 export const monthList = (payload) => {
-  console.log(payload);
-  return async function (dispatch, getState) {
+  return function (dispatch, getState) {
     const myToken = getCookie("token");
-    await axios({
-      method: "get",
-      url: "http://14.34.139.253:3000/api/schedule/monthly",
-      params: { startDate: payload },
+    const bucket = {
       headers: { Authorization: `Bearer ${myToken}` },
-    })
+      params: { startDate: payload },
+    };
+    axios
+      .get("http://14.34.139.253:3000/api/schedule/monthly", bucket)
       .then((res) => {
         dispatch(loadMonth(res.data.data));
         console.log(res.data.data);
@@ -36,7 +37,6 @@ export const monthList = (payload) => {
       });
   };
 };
-
 //reducer
 export default function scheduleReducer(state = initialState, action) {
   // 새로운 액션 타입 추가시 case 추가한다.

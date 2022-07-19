@@ -5,11 +5,13 @@ import { useSelector } from "react-redux";
 const WeekSchedule = () => {
   const date = useSelector((state) => state.date.date);
 
+  const [value, onChange] = useState(new Date());
+
   return (
-    <WeekWrap weekNumber={date.weekNumber}>
+    <WeekWrap>
       <Calendar
-        onChange={date.onChange}
-        value={date.value}
+        onChange={onChange}
+        value={value}
         calendarType="US"
         oneWeekCalendar={true}
         className="Week"

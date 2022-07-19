@@ -58,7 +58,8 @@ const NavWrap = styled.div`
     color: #fff;
   }
 `;
-const NavTitle = styled.p`
+const NavTitle = styled.span`
+  display: block;
   text-align: center;
   display: flex;
   align-items: flex-end;

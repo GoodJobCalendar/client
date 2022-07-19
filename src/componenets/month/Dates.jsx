@@ -7,7 +7,6 @@ const Dates = (props) => {
   const [evtList, setEvtList] = useState([]);
   const [isActive, setIsActive] = useState(false);
   let dateKey = `${month}` + `${elm}`;
-
   return (
     <>
       <Form

@@ -15,13 +15,11 @@ export function scheduleDate(payload) {
 
 //middleware
 
-export const schedule = (weekMonth, weekNumber, monthDate, value, onChange) => {
+export const schedule = (totalDate, setTotalDate) => {
   return function (dispatch) {
     const data = {
-      weekMonth,
-      weekNumber,
-      value,
-      onChange,
+      totalDate,
+      setTotalDate,
     };
     dispatch(scheduleDate(data));
   };
