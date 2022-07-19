@@ -11,14 +11,11 @@ import KakaoOauth from "./shared/KakaoOauth";
 import SignupSucess from "./pages/SignUpSuccess";
 import PwChangeSuccess from "./pages/PwChangeSuccess";
 import PwChange from "./pages/PwChange";
-
-// import AddSchedule from "./componenets/AddSchedule";
 import Job from "./pages/Job";
 import JobDetail from "./pages/JobDetail";
 import JobCategory from "./pages/JobCategory";
 import AddSchedule from "./componenets/AddSchedule";
 import PostDtail from "./pages/PostDtail";
-import WeekSchedule from "./componenets/week/WeekSchedule";
 
 function Mobile() {
   return (
@@ -41,7 +38,6 @@ function Mobile() {
         <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/postdetail/:id" element={<PostDtail />} />
-        <Route payh="/weekschedule" element={<WeekSchedule />} />
       </Routes>
     </MobileWrap>
   );
@@ -52,5 +48,3 @@ const MobileWrap = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-

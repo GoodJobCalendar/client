@@ -4,7 +4,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store from "./redux/configStore";
-import GlobalStyle from "../src/styles/GlobalStyle";
+import GlobalStyle from "./GlobalStyle";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserView, MobileView } from "react-device-detect";
 import Mobile from "./Mobile";
