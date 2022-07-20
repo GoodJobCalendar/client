@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import arrow from "../assets/img/icon/Back.png";
 import update from "../assets/img/icon/Edit.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import sticker from "../assets/img/sticker/Group 1.png";
 const PostDtail = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const addClick = () => {
     navigate("/main");
   };
