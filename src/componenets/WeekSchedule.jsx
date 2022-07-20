@@ -3,8 +3,6 @@ import styled from "styled-components";
 import Calendar from "short-react-calendar";
 import { useSelector } from "react-redux";
 const WeekSchedule = () => {
-  const date = useSelector((state) => state.date.date);
-
   const [value, onChange] = useState(new Date());
 
   return (

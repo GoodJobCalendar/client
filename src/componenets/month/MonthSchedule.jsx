@@ -43,9 +43,6 @@ const MonthSchedule = () => {
     TD = [...Array(ThisLasyDate + 1).keys()].slice(1);
     return PVLD.concat(TD, TLD);
   };
-  useEffect(() => {
-    dispatch(schedule({}));
-  }, []);
 
   useEffect(() => {
     setTotalDate(changeDate(7));

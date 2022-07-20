@@ -4,21 +4,23 @@ import { useSelector } from "react-redux";
 import Dayjs from "dayjs";
 import "dayjs/locale/ko";
 
-const ScheduleList = () => {
+const DailyList = () => {
   Dayjs.locale("ko");
   const [mmm, setmmm] = useState();
-  const monthSchdule = useSelector((state) => state.schedule.month);
+  const dailySchedule = useSelector((state) => state.schedule.daily);
 
   useEffect(() => {
-    if (monthSchdule) {
-      const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
-      monthlist.sort(function (a, b) {
+    if (dailySchedule) {
+      const dailyList = [...dailySchedule?.manual, ...dailySchedule?.auto];
+      dailyList.sort(function (a, b) {
         return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
       });
-      setmmm(monthlist);
+      setmmm(dailyList);
     }
-  }, [monthSchdule]);
+  }, [dailySchedule]);
+
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
+
   let Month = (mm) => {
     if (mm === "Jan") return "01";
     if (mm === "Feb") return "02";
@@ -33,6 +35,7 @@ const ScheduleList = () => {
     if (mm === "Nov") return "11";
     if (mm === "Dec") return "12";
   };
+
   const today = `${yy}-${Month(mm)}-${day}`;
 
   const list =
@@ -73,7 +76,7 @@ const ScheduleList = () => {
   return <Container>{list}</Container>;
 };
 
-export default ScheduleList;
+export default DailyList;
 
 const Container = styled.div`
   padding-bottom: 78px;
@@ -101,8 +104,20 @@ const DayFlex = styled.div`
 const Color = styled.div`
   width: 3px;
   height: 32px;
-  background-color: var(--point3);
   border-radius: 6px;
+  background-color: ${(props) => (props.color === 1 ? "#fff" : "")};
+  background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
+  background-color: ${(props) =>
+    props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
+  background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const Day = styled.p`
   font-weight: 600;

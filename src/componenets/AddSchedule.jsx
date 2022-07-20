@@ -21,7 +21,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import { monthList } from "../redux/modules/schedule";
-import Dayjs from "dayjs";
+import dayjs from "dayjs";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,9 +43,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [colorPick, setColorPick] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
-  const [dispatchTime, setDispatchTime] = useState(Dayjs());
+  const [dispatchTime, setDispatchTime] = useState(dayjs());
 
-  const now = Dayjs().hour(0).minute(0);
+  const now = dayjs().hour(0).minute(0);
   const handleValueChange = (value) => {
     setDispatchTime(value);
   };
