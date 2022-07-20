@@ -3,7 +3,14 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Dayjs from "dayjs";
 import "dayjs/locale/ko";
-
+import img1 from "../assets/img/sticker/Group 1.png";
+import img2 from "../assets/img/sticker/Group 2.png";
+import img3 from "../assets/img/sticker/Group 3.png";
+import img4 from "../assets/img/sticker/Group 4.png";
+import img5 from "../assets/img/sticker/Group 5.png";
+import img6 from "../assets/img/sticker/Group 6.png";
+import img7 from "../assets/img/sticker/Group 7.png";
+import img8 from "../assets/img/sticker/Group 8.png";
 const DailyList = () => {
   Dayjs.locale("ko");
   const [mmm, setmmm] = useState();
@@ -70,6 +77,41 @@ const DailyList = () => {
           </TimeText>
           <Color color={value.color}></Color>
           <Text>{value.title}</Text>
+          {value?.sticker === 1 ? (
+            <Sticker>
+              <img src={img1} />
+            </Sticker>
+          ) : value?.sticker === 2 ? (
+            <Sticker>
+              <img src={img2} />
+            </Sticker>
+          ) : value?.sticker === 3 ? (
+            <Sticker>
+              <img src={img3} />
+            </Sticker>
+          ) : value?.sticker === 4 ? (
+            <Sticker>
+              <img src={img4} />
+            </Sticker>
+          ) : value?.sticker === 5 ? (
+            <Sticker>
+              <img src={img5} />
+            </Sticker>
+          ) : value?.sticker === 6 ? (
+            <Sticker>
+              <img src={img6} />
+            </Sticker>
+          ) : value?.sticker === 7 ? (
+            <Sticker>
+              <img src={img7} />
+            </Sticker>
+          ) : value?.sticker === 8 ? (
+            <Sticker>
+              <img src={img8} />
+            </Sticker>
+          ) : (
+            ""
+          )}
         </ScheduleItem>
       </ScheduleListWrap>
     ));
@@ -143,4 +185,12 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 16px;
+`;
+const Sticker = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  > img {
+    width: 100%;
+  }
 `;

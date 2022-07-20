@@ -11,10 +11,12 @@ import img5 from "../assets/img/sticker/Group 5.png";
 import img6 from "../assets/img/sticker/Group 6.png";
 import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
+import { Link, useNavigate } from "react-router-dom";
 const MonthList = () => {
   Dayjs.locale("ko");
   const [mmm, setmmm] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (monthSchdule) {
@@ -45,71 +47,73 @@ const MonthList = () => {
   const list =
     mmm &&
     mmm?.map((value, idx) => (
-      <ScheduleListWrap key={idx}>
-        <DayFlex>
-          <Day>
-            {value.date.split(" ")[0].split("-")[0]}년{" "}
-            {value.date.split(" ")[0].split("-")[1]}월{" "}
-            {value.date.split(" ")[0].split("-")[2]}일{" "}
-          </Day>
+      <ScheduleListWrap>
+        <Link to={`/postdetail/${value.scheduleId}`} key={idx}>
+          <DayFlex>
+            <Day>
+              {value.date.split(" ")[0].split("-")[0]}년{" "}
+              {value.date.split(" ")[0].split("-")[1]}월{" "}
+              {value.date.split(" ")[0].split("-")[2]}일{" "}
+            </Day>
 
-          <Dday>
-            {new Date(value.date.split(" ")[0]) - new Date(today) > 0
-              ? `D- ${Math.floor(
-                  (new Date(value.date.split(" ")[0]) - new Date(today)) /
-                    (1000 * 60 * 60 * 24)
-                )}`
-              : new Date(value.date.split(" ")[0]) - new Date(today) !== 0
-              ? `D+ ${Math.floor(
-                  (new Date(today) - new Date(value.date.split(" ")[0])) /
-                    (1000 * 60 * 60 * 24)
-                )}`
-              : "D-day"}
-          </Dday>
-        </DayFlex>
-        <ScheduleItem>
-          <TimeText>
-            {value.date.split(" ")[1].split(":")[0]}:
-            {value.date.split(" ")[1].split(":")[1]}
-          </TimeText>
-          <Color color={value.color}></Color>
-          <Text>{value.title}</Text>
-          {value?.sticker === 1 ? (
-            <Sticker>
-              <img src={img1} />
-            </Sticker>
-          ) : value?.sticker === 2 ? (
-            <Sticker>
-              <img src={img2} />
-            </Sticker>
-          ) : value?.sticker === 3 ? (
-            <Sticker>
-              <img src={img3} />
-            </Sticker>
-          ) : value?.sticker === 4 ? (
-            <Sticker>
-              <img src={img4} />
-            </Sticker>
-          ) : value?.sticker === 5 ? (
-            <Sticker>
-              <img src={img5} />
-            </Sticker>
-          ) : value?.sticker === 6 ? (
-            <Sticker>
-              <img src={img6} />
-            </Sticker>
-          ) : value?.sticker === 7 ? (
-            <Sticker>
-              <img src={img7} />
-            </Sticker>
-          ) : value?.sticker === 8 ? (
-            <Sticker>
-              <img src={img8} />
-            </Sticker>
-          ) : (
-            ""
-          )}
-        </ScheduleItem>
+            <Dday>
+              {new Date(value.date.split(" ")[0]) - new Date(today) > 0
+                ? `D- ${Math.floor(
+                    (new Date(value.date.split(" ")[0]) - new Date(today)) /
+                      (1000 * 60 * 60 * 24)
+                  )}`
+                : new Date(value.date.split(" ")[0]) - new Date(today) !== 0
+                ? `D+ ${Math.floor(
+                    (new Date(today) - new Date(value.date.split(" ")[0])) /
+                      (1000 * 60 * 60 * 24)
+                  )}`
+                : "D-day"}
+            </Dday>
+          </DayFlex>
+          <ScheduleItem>
+            <TimeText>
+              {value.date.split(" ")[1].split(":")[0]}:
+              {value.date.split(" ")[1].split(":")[1]}
+            </TimeText>
+            <Color color={value.color}></Color>
+            <Text>{value.title}</Text>
+            {value?.sticker === 1 ? (
+              <Sticker>
+                <img src={img1} />
+              </Sticker>
+            ) : value?.sticker === 2 ? (
+              <Sticker>
+                <img src={img2} />
+              </Sticker>
+            ) : value?.sticker === 3 ? (
+              <Sticker>
+                <img src={img3} />
+              </Sticker>
+            ) : value?.sticker === 4 ? (
+              <Sticker>
+                <img src={img4} />
+              </Sticker>
+            ) : value?.sticker === 5 ? (
+              <Sticker>
+                <img src={img5} />
+              </Sticker>
+            ) : value?.sticker === 6 ? (
+              <Sticker>
+                <img src={img6} />
+              </Sticker>
+            ) : value?.sticker === 7 ? (
+              <Sticker>
+                <img src={img7} />
+              </Sticker>
+            ) : value?.sticker === 8 ? (
+              <Sticker>
+                <img src={img8} />
+              </Sticker>
+            ) : (
+              ""
+            )}
+          </ScheduleItem>
+        </Link>
       </ScheduleListWrap>
     ));
   return <Container>{list}</Container>;
@@ -126,6 +130,10 @@ const ScheduleListWrap = styled.div`
   justify-content: center;
   gap: 16px;
   margin-top: 16px;
+  a {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const ScheduleItem = styled.div`
   background-color: #fff;
@@ -134,6 +142,7 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
+  margin-top: 26px;
 `;
 const DayFlex = styled.div`
   display: flex;

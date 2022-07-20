@@ -163,6 +163,7 @@ const Logo = styled.div`
       visibility: hidden;
     }
   }
+  z-index: 999;
 `;
 
 const EmailBtn = styled.button`
