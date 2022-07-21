@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
+import Nav from "../componenets/Nav";
+
 import location from "../assets/img/icon/Location.png";
 
 const Job = () => {
@@ -23,7 +25,12 @@ const Job = () => {
   // const Time = jobDataList.deadline.split(' ')[0]
 
   return (
-    <>
+    <MainWrap>
+      <Nav></Nav>
+
+      <JobWrapper>
+
+
       <TeamNameList>
         <UpdateTime>2022년 7월 12일 업데이트 됨</UpdateTime>
         <FilterBtn onClick={() => navigate("/jobCategory")}>
@@ -35,52 +42,76 @@ const Job = () => {
         return (
           // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
           <JobCard key={idx}  onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
-            <EndDateBox>
-              <EndDate>마감일</EndDate>
-              <EndTime>{tasksData.deadline.split(" ")[0]}</EndTime>
-            </EndDateBox>
             <CompanyName>{tasksData.companyName}</CompanyName>
             <JobTitle>{tasksData.title}</JobTitle>
-            <JobTagsWrap>
-              <JobTags>{tasksData.career}</JobTags>
-              <JobTags>{tasksData.companyType}</JobTags>
-              {/* <JobTags>학력무관</JobTags> */}
-            </JobTagsWrap>
-            <JobAdrress>
+            <DetailInfo>
+              <JobTagsWrap>
+                <JobTags>{tasksData.career}</JobTags>
+                <JobTags>{tasksData.companyType}</JobTags>
+              </JobTagsWrap>
+
+                <EndTime>~{tasksData.deadline.split(" ")[0]}</EndTime>
+            </DetailInfo>
+            {/* <JobAdrress>
               <AdrressImg src={location} />
               {tasksData.city}
-            </JobAdrress>
+            </JobAdrress> */}
           </JobCard>
         );
       })}
-    </>
+
+      </JobWrapper>
+
+
+    </MainWrap>
   );
 };
+
+const MainWrap = styled.div`
+  position: relative;
+`;
+
+const JobWrapper = styled.div`
+display: flex;
+flex-direction: column;
+width : 100%;
+height: calc(812px - 236px);
+background: #ECF1F8;
+overflow: hidden;
+overflow-y: scroll;
+`
 
 const TeamNameList = styled.div`
   height: 14px;
   display: inline-block;
-  padding: 12px 24px;
+  padding: 0px 24px;
   display: flex;
   justify-content: space-between;
+  margin : 44px 0 31px;
 `;
 
 const UpdateTime = styled.p`
   float: left;
+  font-weight: 600;
+  font-size: 14px;
+  color: #74A0E3;
 `;
 
 const FilterBtn = styled.p`
   cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  color: #3284FF;
 `;
 
 const JobCard = styled.div`
-  width: 343px;
-  height: 137px;
-  background: #f3f2b1;
+  width: 302px;
+  height: 74px;
+  background: white;
   border-radius: 15px;
-  margin: 5px auto 20px;
-  position: relative;
+  margin: 6px auto;
   cursor: pointer;
+  padding : 21px 22px 20px 19px
 `;
 
 const EndDateBox = styled.div`
@@ -108,52 +139,49 @@ const EndDate = styled.div`
 `;
 
 const EndTime = styled.div`
-  width: 90px;
-  height: 25px;
-  display: inline-block;
-  background: white;
-  border-radius: 0 15px 15px 0;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  z-index: 2;
-  margin-left: -10px;
+height: 14px;
+font-weight: 500;
+font-size: 12px;
+color: #74A0E3;
 `;
 
 const CompanyName = styled.div`
-  width: 100%;
-  height: 50px;
-  line-height: 70px;
+  width: 307px;
+  height: 19px;
   font-weight: 500;
   font-size: 14px;
-  color: #9a9a9a;
-  padding-left: 20px;
+  line-height: 19px;
+  color: #777777;
+  margin-bottom : 3px;
 `;
 
 const JobTitle = styled.div`
-  height: 20px;
+  height: 22px;
   font-weight: 500;
   font-size: 16px;
   color: #111111;
-  margin-bottom: 10px;
-  padding-left: 20px;
+  margin-bottom : 16px;
+`;
+
+const DetailInfo = styled.div`
+  height: 14px;
+  display: inline-block;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const JobTagsWrap = styled.div`
   display: flex;
-  float: right;
-  margin: 0 10px 10px 0;
+  margin-left : 2px; 
 `;
 
 const JobTags = styled.div`
   width: auto;
-  height: 18px;
-  padding: 0px 5px;
-  background: orange;
-  margin-right: 5px;
-  border-radius: 15px;
-  font-size: 14px;
-  line-height: 20px;
+  height: 14px;
+  font-weight: 500;
+  font-size: 12px;
+  margin-right : 8px;
+  color: #9A9A9A;
 `;
 
 const JobAdrress = styled.div`
@@ -170,3 +198,6 @@ const JobAdrress = styled.div`
 const AdrressImg = styled.img``;
 
 export default Job;
+
+
+
