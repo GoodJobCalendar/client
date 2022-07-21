@@ -56,8 +56,6 @@ const MonthSchedule = () => {
 
   const goToday = () => {
     let TODAY = new Date().getDate();
-    let goMonth = new Date().getMonth() + 1;
-    setMonth(goMonth);
     setToday(TODAY);
   };
 
