@@ -104,9 +104,7 @@ const JobCategory = () => {
       <UpBar>
         <BackBtn src={backBtn} onClick={() => navigate("/job")} />
         <SaveBtn onClick={() => {
-          dispatch(selectCategory(
-            categoryData
-            ));
+          dispatch(selectCategory(categoryData));
           window.alert("수정이 완료되었습니다!");
           navigate("/job")
           }

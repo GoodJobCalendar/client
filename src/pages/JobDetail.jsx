@@ -49,7 +49,7 @@ const JobDetail = () => {
 
       <JobInfo>
         <InfoTitle>모집마감일자</InfoTitle>
-        <InfoDetails style={{fontWeight : '800'}}>{jobDetail?.deadline.split(" ")[0]}</InfoDetails>
+        <InfoDetails style={{fontWeight : '800'}}>{jobDetail.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : '~' + jobDetail.deadline.split(" ")[0]}</InfoDetails>
       </JobInfo>
 
       <JobInfo>

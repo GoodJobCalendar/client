@@ -6,32 +6,32 @@ const initialState = {
 
 // action
 
-const SCHEDULE_DATE = "date_reducer/SCHEDULE_DATE";
+const ACTIVE_DATE = "date_reducer/ACTIVE_DATE";
 
 // action creator
-export function scheduleDate(payload) {
-  return { type: SCHEDULE_DATE, payload };
+export function activeDate(payload) {
+  return { type: ACTIVE_DATE, payload };
 }
 
 //middleware
-
-export const schedule = (totalDate, setTotalDate) => {
+export const active = (isActive) => {
   return function (dispatch) {
     const data = {
-      totalDate,
-      setTotalDate,
+      isActive,
     };
-    dispatch(scheduleDate(data));
+    dispatch(activeDate(data));
   };
 };
+
 //reducer
 export default function dateReducer(state = initialState, action) {
   switch (action.type) {
-    case SCHEDULE_DATE: {
+    case ACTIVE_DATE: {
       return produce(state, (draft) => {
-        draft.date = action.payload;
+        draft.active = action.payload;
       });
     }
+
     default:
       return state;
   }

@@ -10,6 +10,10 @@ import img5 from "../assets/img/sticker/Group 5.png";
 import img6 from "../assets/img/sticker/Group 6.png";
 import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
+import cover1 from "../assets/img/cover/cover1.jpg";
+import cover2 from "../assets/img/cover/cover2.jpg";
+import cover3 from "../assets/img/cover/cover3.jpg";
+import cover4 from "../assets/img/cover/cover4.jpg";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import element from "../assets/img/icon/element-4.png";
@@ -21,7 +25,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import { monthList } from "../redux/modules/schedule";
-import Dayjs from "dayjs";
+import dayjs from "dayjs";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,9 +47,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [colorPick, setColorPick] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
-  const [dispatchTime, setDispatchTime] = useState(Dayjs());
+  const [dispatchTime, setDispatchTime] = useState(dayjs());
 
-  const now = Dayjs().hour(0).minute(0);
+  const now = dayjs().hour(0).minute(0);
   const handleValueChange = (value) => {
     setDispatchTime(value);
   };
@@ -218,11 +222,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="1"
-                    value="https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"
+                    value="cover1"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80" />
+                    <img src={cover1} />
                   </CoverImg>
                 </label>
                 <label htmlFor="2">
@@ -230,11 +234,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="2"
-                    value="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                    value="cover2"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
+                    <img src={cover2} />
                   </CoverImg>
                 </label>
                 <label htmlFor="3">
@@ -242,11 +246,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="3"
-                    value="https://images.unsplash.com/photo-1522836924445-4478bdeb860c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+                    value="cover3"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1522836924445-4478bdeb860c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+                    <img src={cover3} />
                   </CoverImg>
                 </label>
                 <label htmlFor="4">
@@ -254,11 +258,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="4"
-                    value="https://images.unsplash.com/photo-1616400619175-5beda3a17896?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                    value="cover4"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src="https://images.unsplash.com/photo-1616400619175-5beda3a17896?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
+                    <img src={cover4} />
                   </CoverImg>
                 </label>
               </List>

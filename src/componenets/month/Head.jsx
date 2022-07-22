@@ -31,7 +31,8 @@ const Head = (props) => {
       setYear(y);
     }
   };
-  // 오늘날짜소환! goToday();
+  // 오늘날짜소환!
+  goToday();
   const mm = String(month).padStart(2, "0");
   const fullDate = `${year}-${mm}-01 00:00:00`;
   console.log(fullDate);
@@ -149,6 +150,7 @@ const Day = styled.li`
   font-weight: 500;
   font-size: 12px;
   color: var(--gray3);
+  text-align: center;
   :not(:last-child) {
     border-right: 0;
   }

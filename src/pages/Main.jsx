@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 import Nav from "../componenets/Nav";
 import WeekSchedule from "../componenets/WeekSchedule";
 import MonthSchedule from "./../componenets/month/MonthSchedule";
-import ScheduleList from "../componenets/ScheduleList";
+import MonthList from "../componenets/MonthList";
+import DailyList from "../componenets/DailyList";
 
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
+import { useSelector } from "react-redux";
 
 function Main() {
   const navigate = useNavigate();
@@ -23,6 +25,8 @@ function Main() {
 
   const navData = true;
 
+  const active = useSelector((state) => state.date.active);
+  console.log(active);
   return (
     <MainWrap>
       <Nav navData={navData}/>
@@ -68,7 +72,7 @@ function Main() {
           </WeekMonth>
         </ToggleBtn>
         {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-        <ScheduleList />
+        {active?.isActive ? <DailyList /> : <MonthList />}
       </ContentWrap>
     </MainWrap>
   );
