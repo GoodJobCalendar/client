@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import calendar from "../assets/img/icon/calendar.png";
 import element from "../assets/img/icon/element-4.png";
-const Nav = () => {
-  const [nav, setNav] = useState(true);
-  const toggleBtn = () => {
-    setNav(!nav);
-  };
+const Nav = (props) => {
+  const [nav, setNav] = useState(props.navData);
+
   return (
     <NavWrap>
       <NavTitle>
@@ -29,13 +27,13 @@ const Nav = () => {
       </NavTitle>
       <NavList>
         <NavItem nav={nav}>
-          <NavLink to="/main" onClick={toggleBtn}>
+          <NavLink to="/main">
             <img src={calendar} alt="캘린더" />
             <span>캘린더</span>
           </NavLink>
         </NavItem>
         <NavItem nav={nav}>
-          <NavLink to="/job" onClick={toggleBtn}>
+          <NavLink to="/job">
             <img src={element} alt="추천채용" />
             <span>추천채용</span>
           </NavLink>

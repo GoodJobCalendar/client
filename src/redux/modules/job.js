@@ -15,6 +15,9 @@ const initialState = {
   job: [],
   category: [],
   select: [],
+  list: {
+    data : []
+  },
   details : {
     career : "",
     city : "",

@@ -14,25 +14,26 @@ const Job = () => {
 
   const dispatch = useDispatch();
 
+  
+  const jobDataList = useSelector((state) => state.job.list?.data);
+  
+  const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
+  
+  const navData = false;
+  
   useEffect(() => {
     dispatch(loadJobList());
   }, []);
 
-  const jobDataList = useSelector((state) => state.job.list?.data);
-
-  console.log(jobDataList);
-
-  // const Time = jobDataList.deadline.split(' ')[0]
-
   return (
     <MainWrap>
-      <Nav></Nav>
+      <Nav navData={navData} />
 
       <JobWrapper>
 
 
       <TeamNameList>
-        <UpdateTime>2022년 7월 12일 업데이트 됨</UpdateTime>
+        <UpdateTime>{jobDataUpdate}</UpdateTime>
         <FilterBtn onClick={() => navigate("/jobCategory")}>
           추천 조건
         </FilterBtn>
@@ -50,7 +51,7 @@ const Job = () => {
                 <JobTags>{tasksData.companyType}</JobTags>
               </JobTagsWrap>
 
-                <EndTime>~{tasksData.deadline.split(" ")[0]}</EndTime>
+                <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : '~' + tasksData.deadline.split(" ")[0]}</EndTime>
             </DetailInfo>
             {/* <JobAdrress>
               <AdrressImg src={location} />

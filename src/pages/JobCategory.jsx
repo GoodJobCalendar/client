@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadJobList, loadCategoryList, selectCategory } from '../redux/modules/job';
 
+import backBtn from '../assets/img/icon/Back.png'
+
 // 상세 지역 import
 import {Seoul} from "../shared/region";
 import {Gyeonggi} from "../shared/region";
@@ -100,15 +102,15 @@ const JobCategory = () => {
   return (
     <>
       <UpBar>
-        <div onClick={() => navigate("/job")}>뒤로가기</div>
-        <div onClick={() => {
+        <BackBtn src={backBtn} onClick={() => navigate("/job")} />
+        <SaveBtn onClick={() => {
           dispatch(selectCategory(
             categoryData
             ));
           window.alert("수정이 완료되었습니다!");
           navigate("/job")
           }
-        }>저장</div>
+        }>저장</SaveBtn>
       </UpBar>
 
       <CategoryTap>
@@ -503,10 +505,26 @@ const JobCategory = () => {
 };
 
 const UpBar = styled.div`
+  width : auto;
+  height : 41px;
+  background: #3284FF;
   display : inline-block;
-  padding : 12px 24px;
+  padding : 63px 24px 0px;
   display: flex;
   justify-content: space-between;
+`
+
+const BackBtn = styled.img`
+width : 14px;
+height : 14px;
+cursor : pointer;
+`
+
+const SaveBtn = styled.div`
+font-weight: 700;
+font-size: 12.0999px;
+color: #FFFFFF;
+cursor : pointer;
 `
 
 const CategoryTap = styled.div`

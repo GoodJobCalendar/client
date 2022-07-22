@@ -21,9 +21,11 @@ function Main() {
     navigate("/addschedule");
   };
 
+  const navData = true;
+
   return (
     <MainWrap>
-      <Nav />
+      <Nav navData={navData}/>
       <FixBox>
         <Search type="text" placeholder="일정 상세 검색" />
         <AddButtoon onClick={addClick}>+</AddButtoon>
