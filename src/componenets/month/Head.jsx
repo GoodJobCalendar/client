@@ -150,6 +150,7 @@ const Day = styled.li`
   font-weight: 500;
   font-size: 12px;
   color: var(--gray3);
+  text-align: center;
   :not(:last-child) {
     border-right: 0;
   }
