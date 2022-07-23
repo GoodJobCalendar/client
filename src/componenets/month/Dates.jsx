@@ -99,6 +99,7 @@ const TodayCSS = styled.input`
 const CheckDay = styled.label`
   z-index: 1;
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
+  color: ${(props) => props.findToday && "var(--blue4)!important"};
   font-weight: 500;
   font-size: 12px;
   padding: 10px;
