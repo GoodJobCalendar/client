@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 // 컴포넌트
 import Nav from "../componenets/Nav";
@@ -13,25 +14,40 @@ import DailyList from "../componenets/DailyList";
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
-import { useSelector } from "react-redux";
+
+// 리덕스
+import {searchMySchedule} from "../redux/modules/search";
 
 function Main() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
   const addClick = () => {
     navigate("/addschedule");
   };
 
+  const [search, setSearch] = React.useState("");
+
+  const scheduleSearchEvent = (event) => {
+    setSearch(event.target.value);
+  };
+
+  console.log(search);
+
+  useEffect(() => {
+    dispatch(searchMySchedule(search));
+  }, [search]);
+
   const navData = true;
 
   const active = useSelector((state) => state.date.active);
-  console.log(active);
+
   return (
     <MainWrap>
-      <Nav navData={navData}/>
+      <Nav navData={navData} />
       <FixBox>
-        <Search type="text" placeholder="일정 상세 검색" />
+        <Search type="text" placeholder="일정 상세 검색" onChange={scheduleSearchEvent} />
         <AddButtoon onClick={addClick}>+</AddButtoon>
       </FixBox>
       <ContentWrap>
@@ -64,11 +80,7 @@ function Main() {
               setWeekMonth(!weekMonth);
             }}
           >
-            {weekMonth ? (
-              <Circle weekMonth={weekMonth}>M</Circle>
-            ) : (
-              <Circle weekMonth={weekMonth}>W</Circle>
-            )}
+            {weekMonth ? <Circle weekMonth={weekMonth}>M</Circle> : <Circle weekMonth={weekMonth}>W</Circle>}
           </WeekMonth>
         </ToggleBtn>
         {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
