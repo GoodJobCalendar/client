@@ -47,7 +47,7 @@ const MonthList = () => {
   const list =
     mmm &&
     mmm?.map((value, idx) => (
-      <ScheduleListWrap>
+      <ScheduleListWrap key={idx}>
         <Link to={`/postdetail/${value.scheduleId}`} key={idx}>
           <DayFlex>
             <Day>

@@ -58,7 +58,7 @@ const Dates = (props) => {
             mmm.map((list, index) => {
               return (
                 list.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                  <List key={index} color={list.color}></List>
+                  <List key={index} color={list?.color}></List>
                 )
               );
             })}

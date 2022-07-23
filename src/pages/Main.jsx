@@ -14,6 +14,7 @@ import DailyList from "../componenets/DailyList";
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
 import { useSelector } from "react-redux";
+import WeekSchedule2 from "../componenets/week/WeekSchedule2";
 
 function Main() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Main() {
   console.log(active);
   return (
     <MainWrap>
-      <Nav navData={navData}/>
+      <Nav navData={navData} />
       <FixBox>
         <Search type="text" placeholder="일정 상세 검색" />
         <AddButtoon onClick={addClick}>+</AddButtoon>
@@ -60,6 +61,7 @@ function Main() {
             <div></div>
           )}
           <WeekMonth
+            weekMonth={weekMonth}
             onClick={() => {
               setWeekMonth(!weekMonth);
             }}
@@ -71,7 +73,7 @@ function Main() {
             )}
           </WeekMonth>
         </ToggleBtn>
-        {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
+        {weekMonth ? <MonthSchedule /> : <WeekSchedule2 />}
         {active?.isActive ? <DailyList /> : <MonthList />}
       </ContentWrap>
     </MainWrap>
