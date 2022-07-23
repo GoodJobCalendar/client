@@ -10,7 +10,7 @@ const Dates = (props) => {
   const [isActive, setIsActive] = useState(false);
   let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
     elm
-  ).padStart(2, "0")}`;
+  ).padStart(2, "0")} 00:00:00`;
   const [mmm, setmmm] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
 
@@ -57,7 +57,7 @@ const Dates = (props) => {
           {mmm &&
             mmm.map((list, index) => {
               return (
-                list.date.split(" ")[0] === dateKey && (
+                list.date.split(" ")[0] === dateKey.split(" ")[0] && (
                   <List key={index} color={list.color}></List>
                 )
               );
