@@ -7,14 +7,6 @@ const Head = (props) => {
   const { year, month, setYear, setMonth, goToday } = props;
   const dispatch = useDispatch();
 
-  const yearPlus = () => {
-    const y = Number(year) + 1;
-    setYear(y);
-  };
-  const yearMius = () => {
-    const y = Number(year) - 1;
-    setYear(y);
-  };
   const monthPlus = () => {
     setMonth(month + 1);
     if (month > 11) {
@@ -33,24 +25,27 @@ const Head = (props) => {
   };
   // 오늘날짜소환!
   goToday();
+
   const mm = String(month).padStart(2, "0");
   const fullDate = `${year}-${mm}-01 00:00:00`;
   console.log(fullDate);
-
   useEffect(() => {
     dispatch(monthList(`${year}-${mm}-01 00:00:00`));
   }, [mm]);
+
+  function getWeekCountOfMonth(dateStr) {
+    var year = Number(dateStr.substring(0, 4));
+    var month = Number(dateStr.substring(4, 6));
+    var nowDate = new Date(year, month - 1, 1);
+    var lastDate = new Date(year, month, 0).getDate();
+    var monthSWeek = nowDate.getDay();
+    var weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1) / 7) + 1;
+    return weekSeq;
+  }
   return (
     <Form>
       <Nav>
         <BtnWrap>
-          <YearBtnBox>
-            <Btn onClick={yearMius}>&lt;</Btn>
-            <Year>
-              <p>{year}</p>
-            </Year>
-            <Btn onClick={yearPlus}>&gt;</Btn>
-          </YearBtnBox>
           <BtnBox>
             <Btn onClick={monthMius}>&lt;</Btn>
             <Month>
