@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const WeekSchedule = () => {
   const selectDay = useSelector((state) => state.date.select);
-
   const date = new Date(selectDay?.year, selectDay?.month, selectDay?.elm);
   const Month = date.getMonth();
   const Dates = date.getDate();
@@ -23,20 +22,20 @@ const WeekSchedule = () => {
     "22:00",
     "24:00",
   ];
-  const toDate = date.getDate();
-  const toDay = date.getDay();
-
-  console.log(new Date(date.setDate(toDate - toDay)));
   // 이번주 일요일 구하기
-  function getBeginOfWeek(date = new Date(), startOfWeek = 0) {
+  function getBeginOfWeek(
+    date = new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm),
+    startOfWeek = 0
+  ) {
     const result = new Date(date);
     while (result.getDay() !== startOfWeek) {
-      result.setDate(result.getDate() - 0);
+      result.setDate(result.getDate() - 1);
     }
-    return String(result).split(" ")[2];
+    console.log(result);
+    return Number(String(result).split(" ")[2]);
   }
-  // const start = startOfWeek(date);
-  // console.log(start);
+  console.log(getBeginOfWeek());
+
   return (
     <>
       <Head>
@@ -54,7 +53,7 @@ const WeekSchedule = () => {
         </Days>
         <DayList>
           {["", "", "", "", "", "", ""].map((elm, idx) => {
-            const monday = Number(getBeginOfWeek()) + idx;
+            const monday = getBeginOfWeek() + idx;
             return <li key={idx}>{monday}</li>;
           })}
         </DayList>
