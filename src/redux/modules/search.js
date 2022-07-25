@@ -17,6 +17,26 @@ const __searchMySchedule = createAction(SEARCH_MY_SCHEDULE, (search) => ({search
 
 // 미들웨어
 
+// export const searchMySchedule = (keyword) => {
+//   return function (dispatch, getState) {
+//     const myToken = getCookie("token");
+//     const bucket = {
+//       headers: {Authorization: `Bearer ${myToken}`},
+//       params: {keyword: keyword},
+//     };
+//     console.log(bucket);
+//     axios
+//       .get("http://14.34.139.253:3000/api/schedule/search", bucket)
+//       .then((res) => {
+//         dispatch(__searchMySchedule(res.data));
+//         // console.log("리덕스 콘솔", res.data);
+//       })
+//       .catch((err) => {
+//         console.log("검색하기 에러입니다.: ", err);
+//       });
+//   };
+// };
+
 export const searchMySchedule = (keyword) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
@@ -26,7 +46,7 @@ export const searchMySchedule = (keyword) => {
     };
     console.log(bucket);
     axios
-      .get("http://14.34.139.253:3000/api/schedule/search", bucket)
+      .get("http://211.60.21.20:8088/api/schedule/search", bucket)
       .then((res) => {
         dispatch(__searchMySchedule(res.data));
         console.log("리덕스 콘솔", res.data);

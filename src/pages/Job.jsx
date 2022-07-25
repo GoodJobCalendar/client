@@ -107,30 +107,6 @@ const JobCard = styled.div`
   padding: 21px 22px 20px 19px;
 `;
 
-const EndDateBox = styled.div`
-  width: 120px;
-  height: 25px;
-  position: absolute;
-  margin-top: -10px;
-  text-align: center;
-  line-height: 25px;
-  border-radius: 15px;
-  right: 0;
-`;
-
-const EndDate = styled.div`
-  width: 40px;
-  display: inline-block;
-  float: left;
-  background: gray;
-  border-radius: 15px;
-  font-weight: 700;
-  font-size: 12px;
-  color: white;
-  position: relative;
-  z-index: 3;
-`;
-
 const EndTime = styled.div`
   height: 14px;
   font-weight: 500;
@@ -176,18 +152,5 @@ const JobTags = styled.div`
   margin-right: 8px;
   color: #9a9a9a;
 `;
-
-const JobAdrress = styled.div`
-  display: flex;
-  gap: 5px;
-  width: 200px;
-  height: 18px;
-  align-items: center;
-  padding-left: 60%;
-  font-weight: 500;
-  font-size: 16px;
-`;
-
-const AdrressImg = styled.img``;
 
 export default Job;

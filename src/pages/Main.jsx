@@ -10,6 +10,7 @@ import WeekSchedule from "../componenets/WeekSchedule";
 import MonthSchedule from "./../componenets/month/MonthSchedule";
 import MonthList from "../componenets/MonthList";
 import DailyList from "../componenets/DailyList";
+import SearchData from "./SearchData";
 
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
@@ -33,13 +34,16 @@ function Main() {
     setSearch(event.target.value);
   };
 
-  console.log(search);
-
   useEffect(() => {
     dispatch(searchMySchedule(search));
+    // search === "" ? <></> : navigate("/SearchData");
   }, [search]);
 
   const navData = true;
+
+  const searchData = useSelector((state) => state.search.search?.data);
+
+  // console.log(searchData);
 
   const active = useSelector((state) => state.date.active);
 
@@ -50,42 +54,52 @@ function Main() {
         <Search type="text" placeholder="일정 상세 검색" onChange={scheduleSearchEvent} />
         <AddButtoon onClick={addClick}>+</AddButtoon>
       </FixBox>
-      <ContentWrap>
-        <ToggleBtn>
-          {weekMonth ? (
-            <>
-              {zoomInOut ? (
-                <button
-                  onClick={() => {
-                    setZoomInOut(!zoomInOut);
-                  }}
-                >
-                  <img src={zoomin} alt="월별달력확대" />
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setZoomInOut(!zoomInOut);
-                  }}
-                >
-                  <img src={zoomout} alt="월별달력축소" />
-                </button>
-              )}
-            </>
-          ) : (
-            <div></div>
-          )}
-          <WeekMonth
-            onClick={() => {
-              setWeekMonth(!weekMonth);
-            }}
-          >
-            {weekMonth ? <Circle weekMonth={weekMonth}>M</Circle> : <Circle weekMonth={weekMonth}>W</Circle>}
-          </WeekMonth>
-        </ToggleBtn>
-        {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-        {active?.isActive ? <DailyList /> : <MonthList />}
-      </ContentWrap>
+      {search === "" ? (
+        <ContentWrap>
+          <ToggleBtn>
+            {weekMonth ? (
+              <>
+                {zoomInOut ? (
+                  <button
+                    onClick={() => {
+                      setZoomInOut(!zoomInOut);
+                    }}
+                  >
+                    <img src={zoomin} alt="월별달력확대" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setZoomInOut(!zoomInOut);
+                    }}
+                  >
+                    <img src={zoomout} alt="월별달력축소" />
+                  </button>
+                )}
+              </>
+            ) : (
+              <div></div>
+            )}
+            <WeekMonth
+              onClick={() => {
+                setWeekMonth(!weekMonth);
+              }}
+            >
+              {weekMonth ? <Circle weekMonth={weekMonth}>M</Circle> : <Circle weekMonth={weekMonth}>W</Circle>}
+            </WeekMonth>
+          </ToggleBtn>
+          {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
+          {active?.isActive ? <DailyList /> : <MonthList />}
+        </ContentWrap>
+      ) : (
+        <SearchWrapper>
+          <UpBar>
+            <SearchInfo>{'" ' + search + ' "'} 검색결과</SearchInfo>
+            <SearchInfo>{searchData?.manual.length + searchData?.auto.length} 건</SearchInfo>
+          </UpBar>
+          <SearchHr />
+        </SearchWrapper>
+      )}
     </MainWrap>
   );
 }
@@ -176,4 +190,37 @@ const AddButtoon = styled.button`
   border-radius: 100%;
   border: none;
   cursor: pointer;
+`;
+
+const SearchWrapper = styled.div`
+  height: calc(812px - 236px);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #ecf1f8;
+  overflow: hidden;
+  overflow-y: scroll;
+`;
+
+const UpBar = styled.div`
+  width: auto;
+
+  display: inline-block;
+  padding: 35px 34px 18px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SearchInfo = styled.p`
+  font-weight: 600;
+  font-size: 14px;
+  color: #74a0e3;
+`;
+
+const SearchHr = styled.hr`
+  width: 343px;
+  height: 1px;
+  background: #a6c9ff;
+  margin: 0px auto;
+  border: none;
 `;
