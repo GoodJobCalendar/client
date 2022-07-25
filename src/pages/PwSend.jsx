@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
-import { emailCheck } from "../shared/SignUpCheck";
-import { pwEmailUser } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
+import { emailCheck } from "../shared/SignUpCheck";
+import { pwEmailUser } from "../redux/modules/user";
+
+import axios from "axios";
+
 const PwSend = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userName, setUerName] = useState("");
   const [email, setEmail] = useState("");
   const [errorcheck, setError] = useState("");
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const Submit = async (e) => {
+  const PwBtn = async (e) => {
     e.preventDefault();
     //빈칸 확인
     if (email === "" || userName === "") {
@@ -65,10 +68,10 @@ const PwSend = () => {
         {errorcheck ? (
           <>
             <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Submit}>인증메일 재발송하기</SignUpBtn>
+            <SignUpBtn onClick={PwBtn}>인증메일 재발송하기</SignUpBtn>
           </>
         ) : (
-          <SignUpBtn onClick={Submit}>인증번호 발송하기</SignUpBtn>
+          <SignUpBtn onClick={PwBtn}>인증번호 발송하기</SignUpBtn>
         )}
       </Main>
     </EmailWrap>

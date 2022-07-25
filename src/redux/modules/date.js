@@ -7,19 +7,29 @@ const initialState = {
 // action
 
 const ACTIVE_DATE = "date_reducer/ACTIVE_DATE";
+const SELECT_DATE = "date_reducer/SELECT_DATE";
 
 // action creator
-export function activeDate(payload) {
+export function __activeDate(payload) {
   return { type: ACTIVE_DATE, payload };
+}
+export function __selectDate(payload) {
+  return { type: SELECT_DATE, payload };
 }
 
 //middleware
-export const active = (isActive) => {
+export const activeDate = (isActive) => {
   return function (dispatch) {
     const data = {
       isActive,
     };
-    dispatch(activeDate(data));
+    dispatch(__activeDate(data));
+  };
+};
+export const selectDate = (year, month, elm) => {
+  return function (dispatch) {
+    const data = { year, month, elm };
+    dispatch(__selectDate(data));
   };
 };
 
@@ -29,6 +39,11 @@ export default function dateReducer(state = initialState, action) {
     case ACTIVE_DATE: {
       return produce(state, (draft) => {
         draft.active = action.payload;
+      });
+    }
+    case SELECT_DATE: {
+      return produce(state, (draft) => {
+        draft.select = action.payload;
       });
     }
 

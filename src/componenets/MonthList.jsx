@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Dayjs from "dayjs";
-import "dayjs/locale/ko";
+
+// 이미지
 import img1 from "../assets/img/sticker/Group 1.png";
 import img2 from "../assets/img/sticker/Group 2.png";
 import img3 from "../assets/img/sticker/Group 3.png";
@@ -11,22 +13,11 @@ import img5 from "../assets/img/sticker/Group 5.png";
 import img6 from "../assets/img/sticker/Group 6.png";
 import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
-import { Link, useNavigate } from "react-router-dom";
+
 const MonthList = () => {
-  Dayjs.locale("ko");
   const [mmm, setmmm] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (monthSchdule) {
-      const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
-      monthlist.sort(function (a, b) {
-        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
-      });
-      setmmm(monthlist);
-    }
-  }, [monthSchdule]);
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
   let Month = (mm) => {
     if (mm === "Jan") return "01";
@@ -44,11 +35,20 @@ const MonthList = () => {
   };
   const today = `${yy}-${Month(mm)}-${day}`;
 
+  useEffect(() => {
+    if (monthSchdule) {
+      const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
+      monthlist.sort(function (a, b) {
+        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+      });
+      setmmm(monthlist);
+    }
+  }, [monthSchdule]);
   const list =
     mmm &&
     mmm?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
-        <Link to={`/postdetail/${value.scheduleId}`} key={idx}>
+        <Link to={`/postdetail/${value?.scheduleId}`} key={idx}>
           <DayFlex>
             <Day>
               {value.date.split(" ")[0].split("-")[0]}년{" "}
@@ -72,10 +72,10 @@ const MonthList = () => {
           </DayFlex>
           <ScheduleItem>
             <TimeText>
-              {value.date.split(" ")[1].split(":")[0]}:
-              {value.date.split(" ")[1].split(":")[1]}
+              {value?.date.split(" ")[1].split(":")[0]}:
+              {value?.date.split(" ")[1].split(":")[1]}
             </TimeText>
-            <Color color={value.color}></Color>
+            <Color color={value?.color}></Color>
             <Text>{value.title}</Text>
             {value?.sticker === 1 ? (
               <Sticker>

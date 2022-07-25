@@ -10,14 +10,15 @@ import axios from "axios";
 import banner from "../assets/img/cover/cover1.jpg";
 
 const EmailSend = () => {
-  const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
   const [authNumber, setAuthNumber] = useState();
   const [errorcheck, setError] = useState("");
 
+  const userInfo = useSelector((state) => state.user.user);
+
   // 이메일 인증 메일 전송
-  const Mailsend = async () => {
+  const MailsendBtn = async () => {
     await axios
       .post("http://14.34.139.253:3000/api/auth/local", {
         email: userInfo.email,
@@ -34,7 +35,7 @@ const EmailSend = () => {
       });
   };
   // 인증번호 확인 & 회원가입완료
-  const AuthNumberCheck = async () => {
+  const AuthNumberCheckBtn = async () => {
     await axios
       .post("http://14.34.139.253:3000/api/auth/verifyNumberForNew", {
         authNumber,
@@ -74,12 +75,12 @@ const EmailSend = () => {
         {errorcheck ? (
           <>
             <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Mailsend}>인증메일 재발송하기</SignUpBtn>
+            <SignUpBtn onClick={MailsendBtn}>인증메일 재발송하기</SignUpBtn>
           </>
         ) : (
           ""
         )}
-        <SignUpBtn onClick={AuthNumberCheck}>인증번호 확인하기</SignUpBtn>
+        <SignUpBtn onClick={AuthNumberCheckBtn}>인증번호 확인하기</SignUpBtn>
       </Main>
     </EmailWrap>
   );

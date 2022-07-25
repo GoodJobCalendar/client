@@ -1,11 +1,17 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { emailCheck } from "../shared/SignUpCheck";
 import { useDispatch } from "react-redux";
+
+import { emailCheck } from "../shared/SignUpCheck";
 import { setUser } from "./../redux/modules/user";
+
+// 이미지
 import banner from "../assets/img/icon/banner.png";
+
+import axios from "axios";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,7 +21,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorCheck, setCheck] = useState("");
 
-  const Submit = async (e) => {
+  const SignupBtn = async (e) => {
     e.preventDefault();
     //빈칸 확인
     if (
@@ -99,7 +105,7 @@ const SignUp = () => {
           }}
         />
         <Check>{errorCheck ? errorCheck : ""}</Check>
-        <SignUpBtn onClick={Submit}>이메일 인증받고 가입하기</SignUpBtn>
+        <SignUpBtn onClick={SignupBtn}>이메일 인증받고 가입하기</SignUpBtn>
       </InputWrap>
       <Footer>
         <p>

@@ -17,14 +17,14 @@ import cover4 from "../assets/img/cover/cover4.jpg";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import element from "../assets/img/icon/element-4.png";
-import { SchduleDB } from "../redux/modules/post";
+import { schedulePost } from "../redux/modules/post";
 import "date-fns";
 import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
-import { monthList } from "../redux/modules/schedule";
+import { loadMonth } from "../redux/modules/schedule";
 import dayjs from "dayjs";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
@@ -110,7 +110,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   const addScheduleBtn = async () => {
     dispatch(
-      SchduleDB({
+      schedulePost({
         image: Number(image),
         companyName, //필수입력
         title, //필수입력

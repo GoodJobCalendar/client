@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { monthList } from "../../redux/modules/schedule";
+import { loadMonth } from "../../redux/modules/schedule";
 
 const Head = (props) => {
   const { year, month, setYear, setMonth, goToday } = props;
@@ -31,15 +31,16 @@ const Head = (props) => {
       setYear(y);
     }
   };
-  // 오늘날짜소환!
-  goToday();
-  const mm = String(month).padStart(2, "0");
-  const fullDate = `${year}-${mm}-01 00:00:00`;
+
+  const monthNumber = String(month).padStart(2, "0");
+  const fullDate = `${year}-${monthNumber}-01 00:00:00`;
   console.log(fullDate);
 
   useEffect(() => {
-    dispatch(monthList(`${year}-${mm}-01 00:00:00`));
-  }, [mm]);
+    dispatch(loadMonth(`${year}-${monthNumber}-01 00:00:00`));
+  }, [monthNumber]);
+  // 오늘날짜소환!
+  goToday();
   return (
     <Form>
       <Nav>

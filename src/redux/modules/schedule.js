@@ -14,23 +14,23 @@ const MONTH_LIST = "schedule_reducer/MONTH_LIST";
 const DAILY_LIST = "schedule_reducer/DAILY_LIST";
 
 // action creator
-export function deletePost(payload) {
+export function __deletePost(payload) {
   return { type: LIST_DELETE, payload };
 }
-export function detailPost(payload) {
+export function __detailPost(payload) {
   return { type: LIST_DETAIL, payload };
 }
-export function loadMonth(payload) {
+export function __loadMonth(payload) {
   return { type: MONTH_LIST, payload };
 }
-export function loadDaily(payload) {
+export function __loadDaily(payload) {
   return { type: DAILY_LIST, payload };
 }
 
 //middleware
 
 //일정 삭제
-export const deleteSchedule = (scheduleId) => {
+export const deletePost = (scheduleId) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {
@@ -39,7 +39,7 @@ export const deleteSchedule = (scheduleId) => {
     axios
       .delete(`http://14.34.139.253:3000/api/schedule/${scheduleId}`, data)
       .then((res) => {
-        dispatch(deletePost(res.data.data));
+        dispatch(__deletePost(res.data.data));
         console.log(res.data.data);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ export const deleteSchedule = (scheduleId) => {
   };
 };
 //일정상세 조회
-export const detail = (scheduleId) => {
+export const detailPost = (scheduleId) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {
@@ -57,7 +57,7 @@ export const detail = (scheduleId) => {
     axios
       .get(`http://14.34.139.253:3000/api/schedule/${scheduleId}`, data)
       .then((res) => {
-        dispatch(detailPost(res.data.data));
+        dispatch(__detailPost(res.data.data));
         console.log(res.data.data);
       })
       .catch((error) => {
@@ -66,7 +66,7 @@ export const detail = (scheduleId) => {
   };
 };
 //월간일정 조회
-export const monthList = (payload) => {
+export const loadMonth = (payload) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {
@@ -76,7 +76,7 @@ export const monthList = (payload) => {
     axios
       .get("http://14.34.139.253:3000/api/schedule/monthly", data)
       .then((res) => {
-        dispatch(loadMonth(res.data.data));
+        dispatch(__loadMonth(res.data.data));
         console.log(res.data.data);
       })
       .catch((error) => {
@@ -85,7 +85,7 @@ export const monthList = (payload) => {
   };
 };
 //일간일정 조회
-export const dailyList = (payload) => {
+export const loadDaily = (payload) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {
@@ -95,7 +95,7 @@ export const dailyList = (payload) => {
     axios
       .get("http://14.34.139.253:3000/api/schedule/daily", data)
       .then((res) => {
-        dispatch(loadDaily(res.data.data));
+        dispatch(__loadDaily(res.data.data));
         console.log(res.data.data);
       })
       .catch((error) => {

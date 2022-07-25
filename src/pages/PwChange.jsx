@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const PwChange = () => {
-  const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorcheck, setError] = useState("");
-  const ChangePw = async () => {
+  const userInfo = useSelector((state) => state.user.user);
+
+  //비밀번호 변경하기
+  const PwChangeBtn = async () => {
     if (password === "" || confirmPassword === "") {
       return setError("인증번호를 입력해주세요.");
     }
@@ -57,7 +59,7 @@ const PwChange = () => {
 
         <ErrorCheck>{errorcheck}</ErrorCheck>
 
-        <SignUpBtn onClick={ChangePw}>비밀번호 변경하기</SignUpBtn>
+        <SignUpBtn onClick={PwChangeBtn}>비밀번호 변경하기</SignUpBtn>
       </Main>
     </PwWrap>
   );

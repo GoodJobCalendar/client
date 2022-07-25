@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+// 이미지
 import banner from "../assets/img/cover/cover1.jpg";
 
+import axios from "axios";
+
 const PwCheck = () => {
-  const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const [authNumber, setAuthNumber] = useState();
   const [errorcheck, setError] = useState("");
+  const userInfo = useSelector((state) => state.user.user);
+
   if (authNumber === "") {
     return setError("인증번호를 입력해주세요.");
   }
   // 인증번호 재발송
-  const Mailsend = async () => {
+  const MailReSendBtn = async () => {
     if (authNumber === "") {
       return setError("인증번호를 입력해주세요.");
     }
@@ -32,7 +37,7 @@ const PwCheck = () => {
       });
   };
 
-  const Submit = async () => {
+  const PwCheckBtn = async () => {
     // 인증번호 확인
     await axios
       .delete("http://14.34.139.253:3000/api/auth/verifyNumberForOld", {
@@ -70,13 +75,13 @@ const PwCheck = () => {
         {errorcheck ? (
           <>
             <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Mailsend}>인증메일 재발송하기</SignUpBtn>
+            <SignUpBtn onClick={MailReSendBtn}>인증메일 재발송하기</SignUpBtn>
           </>
         ) : (
           ""
         )}
 
-        <SignUpBtn onClick={Submit}>비밀번호 변경하기</SignUpBtn>
+        <SignUpBtn onClick={PwCheckBtn}>비밀번호 변경하기</SignUpBtn>
       </Main>
     </PwWrap>
   );

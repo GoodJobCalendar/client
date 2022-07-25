@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { active, daily, schedule } from "../../redux/modules/date";
-import { dailyList } from "../../redux/modules/schedule";
+import {
+  activeDate,
+  daily,
+  schedule,
+  selectDate,
+} from "../../redux/modules/date";
+import { loadDaily } from "../../redux/modules/schedule";
 
 const Dates = (props) => {
   const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
+  const [mmm, setmmm] = useState();
+
   let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
     elm
   ).padStart(2, "0")} 00:00:00`;
-  const [mmm, setmmm] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
 
   useEffect(() => {
@@ -23,15 +29,17 @@ const Dates = (props) => {
       setmmm(monthlist);
     }
   }, [monthSchdule]);
+
   useEffect(() => {
-    dispatch(active(isActive));
+    dispatch(activeDate(isActive));
   }, [isActive]);
   return (
     <>
       <Form
         elm={elm}
         onClick={() => {
-          dispatch(dailyList(dateKey));
+          dispatch(loadDaily(dateKey));
+          dispatch(selectDate(year, month, elm));
         }}
       >
         <DateNum

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import arrow from "../assets/img/icon/Back.png";
-import update from "../assets/img/icon/Edit.png";
+
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { detail } from "../redux/modules/schedule";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { detailPost, deletePost } from "../redux/modules/schedule";
+
+//스티커 이미지
 import img1 from "../assets/img/sticker/Group 1.png";
 import img2 from "../assets/img/sticker/Group 2.png";
 import img3 from "../assets/img/sticker/Group 3.png";
@@ -15,32 +15,40 @@ import img6 from "../assets/img/sticker/Group 6.png";
 import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
 
+//커버 이미지
 import cover1 from "../assets/img/cover/cover1.jpg";
 import cover2 from "../assets/img/cover/cover2.jpg";
 import cover3 from "../assets/img/cover/cover3.jpg";
 import cover4 from "../assets/img/cover/cover4.jpg";
-import { deleteSchedule } from "./../redux/modules/schedule";
+
+//아이콘 이미지
+import arrow from "../assets/img/icon/Back.png";
+import update from "../assets/img/icon/Edit.png";
 
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { scheduleId } = useParams();
+
   const detailInfo = useSelector((state) => state.schedule.detail);
-  console.log(detailInfo);
-  const addClick = () => {
+
+  //뒤로가기
+  const moveBtn = () => {
     navigate("/main");
   };
-  console.log(scheduleId);
-  useEffect(() => {
-    dispatch(detail(scheduleId));
-  }, []);
+
+  //수정하기
   const updateScheduleBtn = () => {};
+
+  useEffect(() => {
+    dispatch(detailPost(scheduleId));
+  }, []);
 
   return (
     <>
       <Header>
         <BtnFlex>
-          <Btn onClick={addClick}>
+          <Btn onClick={moveBtn}>
             <img src={arrow} alt="뒤로가기" />
           </Btn>
           <Btn onClick={updateScheduleBtn}>
@@ -107,7 +115,7 @@ const PostDetail = () => {
         </TextWrap>
         <Delete
           onClick={() => {
-            dispatch(deleteSchedule(scheduleId));
+            dispatch(deletePost(scheduleId));
           }}
         >
           일정 삭제하기
