@@ -94,7 +94,6 @@ const ContentWrap = styled.div`
   padding: 18px 12px;
   background-color: var(--blue1);
   overflow: hidden;
-  height: calc(812px - 236px);
   overflow-y: scroll;
 `;
 const ToggleBtn = styled.div`
