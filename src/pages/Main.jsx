@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,11 @@ import DailyList from "../componenets/DailyList";
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { zoomDate } from "../redux/modules/date";
 
 function Main() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
@@ -28,7 +30,9 @@ function Main() {
   };
 
   const navData = true;
-
+  useEffect(() => {
+    dispatch(zoomDate(zoomInOut));
+  }, [zoomInOut]);
   return (
     <MainWrap>
       <Nav navData={navData} />

@@ -19,7 +19,8 @@ const Dates = (props) => {
     elm
   ).padStart(2, "0")} 00:00:00`;
   const monthSchdule = useSelector((state) => state.schedule.month);
-
+  const zoom = useSelector((state) => state.date.zoom.zoomInOut);
+  console.log(zoom);
   useEffect(() => {
     if (monthSchdule) {
       const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
@@ -37,6 +38,7 @@ const Dates = (props) => {
     <>
       <Form
         elm={elm}
+        zoom={zoom}
         onClick={() => {
           dispatch(loadDaily(dateKey));
           dispatch(selectDate(year, month, elm));
@@ -61,7 +63,25 @@ const Dates = (props) => {
             {String(elm).padStart(2, "0")}
           </CheckDay>
         </DateNum>
-        <Lists>
+        {zoom ? (
+          ""
+        ) : (
+          <Lists>
+            {mmm &&
+              mmm.map((list, index) => {
+                return (
+                  list.date.split(" ")[0] === dateKey.split(" ")[0] &&
+                  index === 0 && (
+                    <TextList key={index} color={list.color}>
+                      {list.title}
+                    </TextList>
+                  )
+                );
+              })}
+          </Lists>
+        )}
+
+        <FlexList>
           {mmm &&
             mmm.map((list, index) => {
               return (
@@ -70,7 +90,7 @@ const Dates = (props) => {
                 )
               );
             })}
-        </Lists>
+        </FlexList>
       </Form>
     </>
   );
@@ -80,17 +100,16 @@ const Form = styled.li`
   padding: 13px 19px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-
   :nth-child(7n) div label {
     color: var(--blue3);
   }
   :nth-child(7n + 1) div label {
     color: var(--point3);
   }
+  height: ${(props) => (props.zoom ? "" : "74px")};
 `;
 
 const DateNum = styled.div``;
@@ -115,9 +134,29 @@ const CheckDay = styled.label`
   height: 33px;
   border-radius: 100%;
 `;
-const Lists = styled.div`
-  display: flex;
-  gap: 2px;
+const Lists = styled.div``;
+const TextList = styled.p`
+  margin-top: 3px;
+  width: 41px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 4px;
+  padding: 3px;
+  font-size: 8px;
+  background-color: ${(props) => (props.color === 1 ? "#fff" : "")};
+  background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
+  background-color: ${(props) =>
+    props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
+  background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const List = styled.span`
   width: 5px;
@@ -136,6 +175,12 @@ const List = styled.span`
   background-color: ${(props) =>
     props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
+`;
+const FlexList = styled.div`
+  margin-top: 3px;
+
+  display: flex;
+  gap: 2px;
 `;
 
 export default Dates;

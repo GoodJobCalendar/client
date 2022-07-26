@@ -7,14 +7,6 @@ const Head = (props) => {
   const { year, month, setYear, setMonth, goToday } = props;
   const dispatch = useDispatch();
 
-  const yearPlus = () => {
-    const y = Number(year) + 1;
-    setYear(y);
-  };
-  const yearMius = () => {
-    const y = Number(year) - 1;
-    setYear(y);
-  };
   const monthPlus = () => {
     setMonth(month + 1);
     if (month > 11) {
@@ -31,7 +23,14 @@ const Head = (props) => {
       setYear(y);
     }
   };
-
+  const yearPlus = () => {
+    const y = year + 1;
+    setYear(y);
+  };
+  const yearMius = () => {
+    const y = year - 1;
+    setYear(y);
+  };
   const monthNumber = String(month).padStart(2, "0");
   const fullDate = `${year}-${monthNumber}-01 00:00:00`;
   console.log(fullDate);

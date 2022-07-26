@@ -5,11 +5,14 @@ const initialState = {
 };
 
 // action
-
+const ZOOM_DATE = "date_reducer/ZOOM_DATE";
 const ACTIVE_DATE = "date_reducer/ACTIVE_DATE";
 const SELECT_DATE = "date_reducer/SELECT_DATE";
 
 // action creator
+export function __zoomDate(payload) {
+  return { type: ZOOM_DATE, payload };
+}
 export function __activeDate(payload) {
   return { type: ACTIVE_DATE, payload };
 }
@@ -18,6 +21,14 @@ export function __selectDate(payload) {
 }
 
 //middleware
+export const zoomDate = (zoomInOut) => {
+  return function (dispatch) {
+    const data = {
+      zoomInOut,
+    };
+    dispatch(__zoomDate(data));
+  };
+};
 export const activeDate = (isActive) => {
   return function (dispatch) {
     const data = {
@@ -36,6 +47,11 @@ export const selectDate = (year, month, elm) => {
 //reducer
 export default function dateReducer(state = initialState, action) {
   switch (action.type) {
+    case ZOOM_DATE: {
+      return produce(state, (draft) => {
+        draft.zoom = action.payload;
+      });
+    }
     case ACTIVE_DATE: {
       return produce(state, (draft) => {
         draft.active = action.payload;
