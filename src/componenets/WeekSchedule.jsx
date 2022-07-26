@@ -14,9 +14,9 @@ const WeekSchedule = () => {
   const getDay = date.getDay();
   const First = new Date(date.getFullYear() / (Month + 1) + 1);
   const monthFirstDateDay = First.getDay();
-  const weekIndex = Math.ceil((Dates + monthFirstDateDay) / 7);
+  const weekIndex = Math.round((Dates + monthFirstDateDay) / 7);
   const DAY = ["일", "월", "화", "수", "목", "금", "토"];
-
+  console.log(Dates);
   const Time = [
     "03:00",
     "06:00",
@@ -48,7 +48,16 @@ const WeekSchedule = () => {
           <Days>
             <li></li>
             {DAY.map((elm, idx) => {
-              return <Day key={idx} /*onClick={SelectDay}*/>{elm}</Day>;
+              return (
+                <Day
+                  key={idx}
+                  idx={idx}
+                  selectDay={selectDay}
+                  getDay={getDay} /*onClick={SelectDay}*/
+                >
+                  {elm}
+                </Day>
+              );
             })}
           </Days>
           <DayList>
@@ -73,8 +82,24 @@ const WeekSchedule = () => {
                   new Date(result.setDate(result.getDate() + idx))
                 ).split(" ")[2];
               }
-              const monday = getBeginOfWeek();
-              return <li key={idx}>{monday}</li>;
+              const sunday = getBeginOfWeek();
+              console.log(sunday);
+              return (
+                <DayNumberList
+                  key={idx}
+                  selectDay={selectDay}
+                  sunday={sunday}
+                  Dates={selectDay}
+                >
+                  <DayNumber
+                    selectDay={selectDay}
+                    sunday={sunday}
+                    Dates={Dates}
+                  >
+                    {sunday}
+                  </DayNumber>
+                </DayNumberList>
+              );
             })}
           </DayList>
         </Title>
@@ -85,6 +110,7 @@ const WeekSchedule = () => {
                 <TimeWrap key={idx}>
                   <TimeText>{elm}</TimeText>
                   <TimeLine></TimeLine>
+                  <Schedule>일정임</Schedule>
                 </TimeWrap>
               );
             })}
@@ -125,7 +151,7 @@ const Title = styled.div`
     align-items: center;
   }
 `;
-const Days = styled.div`
+const Days = styled.ul`
   display: flex;
   border-radius: 7px 7px 0 0;
   width: 100%;
@@ -134,7 +160,9 @@ const TimeWrap = styled.li`
   display: flex;
   align-items: center;
   padding: 0 12px;
+  position: relative;
 `;
+
 const TimeText = styled.p`
   font-weight: 400;
   font-size: 8px;
@@ -147,7 +175,20 @@ const TimeLine = styled.div`
   height: 1px;
   border-top: 1px dotted var(--blue2);
 `;
+const Schedule = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15%;
+  font-size: 8px;
+  background-color: var(--point1);
+  border-radius: 4px;
+  padding: 3px;
+`;
 const Day = styled.li`
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
+  padding: 9px 17px;
   font-weight: 500;
   font-size: 12px;
   color: var(--gray3);
@@ -158,25 +199,37 @@ const Day = styled.li`
   :nth-child(7n + 2) {
     color: var(--point3);
   }
+  background-color: ${(props) =>
+    props.selectDay && props.idx === props.getDay && " var(--blue4)"};
+  color: ${(props) => props.selectDay && props.idx === props.getDay && "white"};
 `;
-const DayList = styled.div`
+const DayList = styled.ul`
   display: flex;
   background-color: #fff;
   width: 100%;
-  li:first-child {
-    /* ${(props) =>
-      props.day === props.list ? "span{color: var(--blue4)}" : ""}; */
-  }
-  li:not(:first-child) {
-    font-weight: 500;
-    font-size: 12px;
-    color: var(--gray3);
-    text-align: center;
-    :nth-child(7n + 1) {
+`;
+const DayNumberList = styled.li`
+  border-bottom-left-radius: 21px;
+  border-bottom-right-radius: 21px;
+
+  :nth-child(7n + 1) {
+    span {
       color: var(--blue3);
     }
-    :nth-child(7n + 2) {
+  }
+  :nth-child(7n + 2) {
+    span {
       color: var(--point3);
     }
+    background-color: ${(props) =>
+      props.selectDay && props.sunday === props.Dates && " var(--blue4)"};
   }
+`;
+const DayNumber = styled.span`
+  text-align: center;
+  font-weight: 900;
+  font-size: 12px;
+  color: var(--gray3);
+  border-radius: 100%;
+  padding: 4px;
 `;
