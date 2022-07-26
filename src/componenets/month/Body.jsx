@@ -9,6 +9,7 @@ const Body = (props) => {
   //today
   const findToday = totalDate.indexOf(today);
   const getMonth = new Date().getMonth() + 1;
+  const getYear = new Date().getFullYear();
 
   return (
     <Form>
@@ -20,7 +21,12 @@ const Body = (props) => {
             lastDate={lastDate}
             firstDate={firstDate}
             elm={elm}
-            findToday={findToday === idx && month === getMonth && findToday}
+            findToday={
+              getYear === year &&
+              findToday === idx &&
+              month === getMonth &&
+              findToday
+            }
             month={month}
             year={year}
           ></Dates>

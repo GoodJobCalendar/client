@@ -32,7 +32,7 @@ const MobileWrap = styled.div`
   transform: translate(-50%, -50%);
   overflow-y: scroll;
   background-color: #fff;
-  width: 375px;
+  width: 500px;
   height: 100%;
   scrollbar-width: none;
   border-radius: 20px;

@@ -54,12 +54,9 @@ const Head = (props) => {
           <BtnBox>
             <Btn onClick={monthMius}>&lt;</Btn>
             <Month>
-              {/* <span>{year}</span> */}
               <p>{String(month).padStart(2, "0")}월</p>
             </Month>
-            {/* <Btn width="3vw" onClick={() => goToday()}>
-            오늘
-          </Btn> */}
+
             <Btn onClick={monthPlus}>&gt;</Btn>
           </BtnBox>
         </BtnWrap>
