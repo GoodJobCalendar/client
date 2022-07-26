@@ -22,9 +22,6 @@ import "date-fns";
 import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
-import TimePicker from "rc-time-picker";
-import "rc-time-picker/assets/index.css";
-import { loadMonth } from "../redux/modules/schedule";
 import dayjs from "dayjs";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
@@ -48,6 +45,12 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [dispatchTime, setDispatchTime] = useState(dayjs());
+  const [dateShow, setDateShow] = useState(true);
+  const [timeShow, setTimeShow] = useState(false);
+
+  const [selectTime, setSelectTime] = useState("오전");
+  const [selectHour, setSelectHour] = useState("01");
+  const [selectMinute, setSelectMinute] = useState("00");
 
   const now = dayjs().hour(0).minute(0);
   const handleValueChange = (value) => {
@@ -82,13 +85,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   };
   let [week, month, day, year, sTime] = startDate.toString().split(" ");
   let Week = (week) => {
-    if (week === "Sun") return "01";
-    if (week === "Mon") return "02";
-    if (week === "Tue") return "03";
-    if (week === "Wed") return "04";
-    if (week === "Thu") return "05";
-    if (week === "Fri") return "06";
-    if (week === "Sat") return "07";
+    if (week === "Sun") return "일";
+    if (week === "Mon") return "월";
+    if (week === "Tue") return "화";
+    if (week === "Wed") return "수";
+    if (week === "Thu") return "목";
+    if (week === "Fri") return "금";
+    if (week === "Sat") return "토";
   };
   let Month = (month) => {
     if (month === "Jan") return "01";
@@ -104,10 +107,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     if (month === "Nov") return "11";
     if (month === "Dec") return "12";
   };
-  let [hour, minute, second] = dispatchTime.toString().split(" ")[4].split(":");
-
-  const allDate = `${year}-${Month(month)}-${day} ${hour}:${minute}:00`;
-
+  const hour = String(
+    Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)
+  ).padStart(2, "0");
+  const allDate = `${year}-${Month(month)}-${day} ${hour}:${selectMinute}:00`;
+  console.log(allDate);
   const addScheduleBtn = async () => {
     dispatch(
       schedulePost({
@@ -123,6 +127,38 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     );
     navigate("/main");
   };
+  const formatDate = (d) => {
+    const date = new Date(d);
+    const monthIndex = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year} ${`0${monthIndex}`.slice(-2)}`;
+  };
+  const dateShowBtn = () => {
+    setDateShow(!dateShow);
+    setTimeShow(false);
+  };
+  const timeShowBtn = () => {
+    setDateShow(false);
+
+    setTimeShow(!timeShow);
+  };
+
+  const division = ["오전", "오후"];
+  const hourSelect = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+  ];
+  const minuteSelect = ["00", "10", "20", "30", "40", "50"];
 
   return (
     <AddSchesuleWrap>
@@ -222,11 +258,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="1"
-                    value="cover1"
+                    value="https://ifh.cc/g/b3cTYX.jpg"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src={cover1} />
+                    <img src={cover1} alt="커버 이미지1" />
                   </CoverImg>
                 </label>
                 <label htmlFor="2">
@@ -234,11 +270,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="2"
-                    value="cover2"
+                    value="https://ifh.cc/g/Wrv2f7.jpg"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src={cover2} />
+                    <img src={cover2} alt="커버 이미지2" />
                   </CoverImg>
                 </label>
                 <label htmlFor="3">
@@ -246,11 +282,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="3"
-                    value="cover3"
+                    value="https://ifh.cc/g/KljCZd.jpg"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src={cover3} />
+                    <img src={cover3} alt="커버 이미지3" />
                   </CoverImg>
                 </label>
                 <label htmlFor="4">
@@ -258,11 +294,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     type="radio"
                     name="cover"
                     id="4"
-                    value="cover4"
+                    value="https://ifh.cc/g/dHWo5O.jpg"
                     onChange={coverChange}
                   />
                   <CoverImg>
-                    <img src={cover4} />
+                    <img src={cover4} alt="커버 이미지4" />
                   </CoverImg>
                 </label>
               </List>
@@ -323,7 +359,6 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
-
               <Color5 htmlFor="5"></Color5>
               <Input
                 type="radio"
@@ -363,45 +398,122 @@ const AddSchedule = ({ value, onChange, ...others }) => {
         </TitleInput>
         <DateContainer>
           <p>일정</p>
-          <Pick>
+          <DateFlex>
+            <DateOpenBtn onClick={dateShowBtn}>{`${Month(
+              month
+            )}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
+            <DateOpenBtn
+              onClick={timeShowBtn}
+            >{`${hour}:${selectMinute}`}</DateOpenBtn>
+          </DateFlex>
+        </DateContainer>
+        <Pick>
+          {dateShow && (
             <DateWrap>
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                dateFormat="MM-dd (eee)"
+                dateFormat="yyyy-MM-dd (eee)"
+                showPopperArrow={false}
+                inline
                 locale={ko}
+                popperModifiers={{ preventOverflow: { enabled: true } }}
+                popperPlacement="auto"
+                shouldCloseOnSelect={true}
+                renderCustomHeader={({
+                  date,
+                  decreaseMonth,
+                  increaseMonth,
+                }) => (
+                  <div className="datepickerHeader">
+                    <DateHead>
+                      <DateYear>{formatDate(date).split(" ")[0]}</DateYear>
+                      <DateBtns>
+                        <DateBtn onClick={decreaseMonth}> &lt;</DateBtn>
+                        <DateMonth className="fomrmatDate">
+                          {formatDate(date).split(" ")[1]}월
+                        </DateMonth>
+                        <DateBtn onClick={increaseMonth}>&gt;</DateBtn>
+                      </DateBtns>
+                    </DateHead>
+                  </div>
+                )}
               />
             </DateWrap>
-            <Div>
-              <TimePicker
-                locale={ko}
-                showSecond={false}
-                minuteStep={5}
-                {...others}
-                use12Hours={true}
-                value={dispatchTime}
-                defaultValue={now}
-                onChange={handleValueChange}
-                format="a HH:mm"
-                showTime={{ use12Hours: true, format: "a HH:mm" }}
-              />
-            </Div>
-          </Pick>
-        </DateContainer>
-
-        <InputText
-          type="text"
-          placeholder="장소"
-          onChange={(event) => {
-            setPlace(event.target.value);
-          }}
-        />
-        <TextArea
-          placeholder="메모"
-          onChange={(event) => {
-            setMemo(event.target.value);
-          }}
-        />
+          )}
+          {timeShow && (
+            <Modal className="modal">
+              <div className="section">
+                <div className="select-time">
+                  <div className="division">
+                    {division.map((e, idx) => {
+                      const color =
+                        selectTime === e ? "var(--black)" : "var(--gray2)";
+                      return (
+                        <SelectTimeBtn
+                          key={idx}
+                          onClick={() => {
+                            setSelectTime(e);
+                          }}
+                          color={color}
+                        >
+                          {e}
+                        </SelectTimeBtn>
+                      );
+                    })}
+                  </div>
+                  <div className="hour">
+                    {hourSelect.map((e, idx) => {
+                      const color =
+                        selectHour === e ? "var(--black)" : "var(--gray2)";
+                      return (
+                        <SelectTimeBtn
+                          key={idx}
+                          onClick={() => {
+                            setSelectHour(e);
+                          }}
+                          color={color}
+                        >
+                          {e}
+                        </SelectTimeBtn>
+                      );
+                    })}
+                  </div>
+                  <div className="minute">
+                    {minuteSelect.map((e, idx) => {
+                      const color =
+                        selectMinute === e ? "var(--black)" : "var(--gray2)";
+                      return (
+                        <SelectTimeBtn
+                          key={idx}
+                          onClick={() => {
+                            setSelectMinute(e);
+                          }}
+                          color={color}
+                        >
+                          {e}
+                        </SelectTimeBtn>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </Modal>
+          )}
+          <PlaceText
+            type="text"
+            placeholder="장소"
+            onChange={(event) => {
+              setPlace(event.target.value);
+            }}
+          />
+          <TextArea
+            placeholder="메모"
+            onChange={(event) => {
+              setMemo(event.target.value);
+            }}
+          />
+        </Pick>
       </AddList>
     </AddSchesuleWrap>
   );
@@ -411,9 +523,7 @@ export default AddSchedule;
 const AddSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;
-  height: 100%;
   font-weight: 500;
-
   input {
     outline: none;
     padding: 18px;
@@ -437,19 +547,20 @@ const Btn = styled.button`
   font-weight: 700;
   font-size: 12px;
   color: #fff;
-  background-color: var(--blue4);
+  background-color: transparent;
   border: 1px solid #fff;
   padding: 6px 10px;
   border-radius: 8px;
+  z-index: 99;
 `;
 const AddBtn = styled.button`
   font-weight: 700;
   font-size: 12px;
-  color: var(--blue3);
-  background-color: #fff;
-  border: 1px solid var(--blue1);
+  color: #fff;
+  border: 1px solid #fff !important;
   padding: 6px 10px;
   border-radius: 8px;
+  background-color: transparent;
 `;
 const AddList = styled.section`
   width: 90%;
@@ -465,23 +576,11 @@ const DateContainer = styled.div`
   padding: 18px;
   border-radius: 6px;
 
-  p {
+  > p {
     color: var(--blue3);
   }
 `;
-const Pick = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  > * {
-    flex: 1;
-    width: 50%;
-    input {
-      padding: 0;
-      text-align: center;
-    }
-  }
-`;
+const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
   padding: 5%;
@@ -492,12 +591,26 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  :after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0) 0%,
+      #3284ff 100%
+    );
+  }
 `;
 const AddFlex = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 99;
 `;
 const BtnFlex = styled.div`
   width: 100%;
@@ -505,15 +618,24 @@ const BtnFlex = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  z-index: 99;
 `;
 const InputText = styled.input`
   width: 90%;
   padding: 10px;
 `;
+const PlaceText = styled.input`
+  width: 90%;
+  padding: 10px;
+  margin-top: 16px;
+`;
 const TextArea = styled.textarea`
   width: 90%;
   padding: 18px;
   border: 0;
+  margin-top: 16px;
+  resize: none;
+  border-radius: 6px;
   ::placeholder {
     color: var(--blue3);
     font-weight: 500;
@@ -543,7 +665,7 @@ const List = styled.div`
   top: calc(100% + 8px);
   right: -14px;
   display: flex;
-  background-color: #fff;
+  background-color: trans;
   gap: 10px 15px;
   flex-wrap: wrap;
   border: 1px solid var(--gray2);
@@ -561,9 +683,8 @@ const ColorList = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 59px;
   padding: 16px;
-  width: 100%;
+  width: 90%;
   border-radius: 6px;
   background: var(--blue1);
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
@@ -580,6 +701,7 @@ const Color1 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color2 = styled.label`
   background-color: var(--point3);
@@ -588,6 +710,7 @@ const Color2 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color3 = styled.label`
   background-color: rgba(253, 187, 110, 1);
@@ -596,6 +719,7 @@ const Color3 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color4 = styled.label`
   background-color: rgba(253, 247, 110, 1);
@@ -604,6 +728,7 @@ const Color4 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color5 = styled.label`
   background-color: rgba(110, 253, 150, 1);
@@ -612,6 +737,7 @@ const Color5 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color6 = styled.label`
   background-color: rgba(110, 218, 253, 1);
@@ -620,6 +746,7 @@ const Color6 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color7 = styled.label`
   background-color: rgba(130, 110, 253, 1);
@@ -628,6 +755,7 @@ const Color7 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const Color8 = styled.label`
   background-color: var(--gray2);
@@ -636,101 +764,106 @@ const Color8 = styled.label`
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
+  cursor: pointer;
 `;
 const StickerImg = styled.img`
   width: 50px;
   height: 50px;
+  cursor: pointer;
 `;
 const CoverImg = styled.div`
   width: 50px;
   height: 50px;
   overflow: hidden;
   border-radius: 10px;
+  cursor: pointer;
   img {
     height: 100%;
   }
 `;
+const DateOpenBtn = styled.button`
+  font-weight: 500;
+  color: var(--blue3);
+  background-color: transparent;
+`;
+const DateFlex = styled.div`
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+`;
+const DateYear = styled.p`
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--gray3);
+`;
 const DateWrap = styled.div`
-  .react-datepicker-wrapper {
-    width: 100%;
-  }
-  .react-datepicker-popper {
-    width: 90%;
-  }
-  .react-datepicker__triangle {
-    display: none;
-  }
   .react-datepicker {
-    border: 1px solid #ccc;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+    width: calc(100% - 40px);
+    padding: 17px 20px;
+    background: var(--blue1);
+    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+      inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+    border-radius: 6.83801px;
+    border: 0;
   }
-
+  .react-datepicker__month-container {
+    width: 100%;
+  }
   .react-datepicker__header {
-    padding-top: 0.8em;
-    background-color: white;
     width: 100%;
-    max-width: 330px;
-    margin: auto;
-    border: none;
+    background-color: transparent;
+    border-bottom: none;
   }
-  .react-datepicker__month {
-    margin: 0.4em;
+  .datepickerHeader {
+    margin-bottom: 14px;
   }
   .react-datepicker__day-name {
-    margin: 3%;
-    font-size: 12px;
-    font-weight: 500;
-    color: #959595;
+    :nth-child(1) {
+      color: var(--point3);
+    }
+    :nth-child(7) {
+      color: var(--blue3);
+    }
   }
-  .react-datepicker__month {
-    margin: 0;
+  .react-datepicker__day--weekend {
+    :nth-child(1) {
+      color: var(--point3);
+    }
+    :nth-child(7) {
+      color: var(--blue3);
+    }
+  }
+  .react-datepicker__day-names {
+    margin-bottom: 8px;
   }
   .react-datepicker__day-name,
   .react-datepicker__day,
   .react-datepicker__time-name {
-    width: 25px;
-  }
-  .react-datepicker__day {
-    width: 25px;
-    height: 25px;
-    font-size: 12px;
-    margin: 3%;
-    line-height: 1.8;
+    width: calc(100% / 7);
+    line-height: 42px;
+    height: 42px;
+    margin: 0;
     text-align: center;
-    background-color: #fff;
   }
-  .react-datepicker__day:hover {
-    background-color: transparent;
+  .react-datepicker__month {
+    margin: 0;
   }
-  .fomrmatDate {
-    font-size: 22px;
-    font-weight: 500;
-  }
-  .react-datepicker__day--selected {
-    background-color: var(--blue4);
+  .react-datepicker__day--keyboard-selected,
+  .react-datepicker__month-text--keyboard-selected,
+  .react-datepicker__quarter-text--keyboard-selected,
+  .react-datepicker__year-text--keyboard-selected,
+  .react-datepicker__day--selected,
+  .react-datepicker__day--selected:hover {
     border-radius: 100%;
-    border: none;
-    font-weight: 700;
-    text-align: center;
-    line-height: 25px;
-  }
-  .react-datepicker__day--keyboard-selected {
-    color: #000;
-  }
-  .react-datepicker__input-container {
-    cursor: pointer;
-    width: 100%;
-  }
-  .react-datepicker-ignore-onclickoutside {
-    width: 100%;
-    ::placeholder {
-      color: var(--blue3);
-    }
-    color: var(--blue3);
-  }
+    background-color: var(--blue4);
+    line-height: 42px;
+    height: 42px;
 
+    color: white !important;
+  }
+  .react-datepicker__day--outside-month {
+    opacity: 0;
+  }
   input {
     background-color: transparent;
     font-weight: 500;
@@ -744,24 +877,71 @@ const DateWrap = styled.div`
     }
   }
 `;
-const Div = styled.div`
-  width: 100%;
-  input {
-    background-color: transparent;
-    font-weight: 500;
-    font-size: 16px;
-    color: var(--blue3);
 
-    ::placeholder {
-      font-weight: 500;
-      font-size: 16px;
-      color: var(--blue3);
+const DateHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const DateBtns = styled.div`
+  display: flex;
+  gap: 18px;
+`;
+const DateBtn = styled.button`
+  color: var(--gray2);
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--gray2) !important;
+  border-radius: 100%;
+  background-color: transparent;
+  cursor: pointer;
+`;
+const DateMonth = styled.p`
+  font-weight: 700;
+  font-size: 14px;
+`;
+const SelectTimeBtn = styled.button`
+  background-color: transparent;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  color: ${(props) => props.color && props.color};
+`;
+const Modal = styled.div`
+  background-color: var(--blue1);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 6.83801px;
+  border: none;
+
+  height: 150px;
+  overflow: hidden;
+  padding: 18px;
+  text-align: center;
+
+  .select-time {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+
+    div {
+      :nth-child(1) {
+        justify-content: center;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 150px;
+      padding: 10px 10px;
+      width: auto;
+      box-sizing: border-box;
+      text-align: center;
+      flex: 1;
+      text-align: center;
+      overflow-y: scroll;
     }
-  }
-  .rc-time-picker-input {
-    width: 100%;
-  }
-  .rc-time-picker-clear {
-    display: none;
   }
 `;

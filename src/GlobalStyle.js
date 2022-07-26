@@ -32,6 +32,7 @@ const GlobalStyle = createGlobalStyle`
   }
   button{
     border: 0;
+    cursor: pointer;
   }
   a{
     color: inherit;
