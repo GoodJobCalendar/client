@@ -16,7 +16,7 @@ import cover3 from "../assets/img/cover/cover3.jpg";
 import cover4 from "../assets/img/cover/cover4.jpg";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
-import element from "../assets/img/icon/element-4.png";
+import memoimg from "../assets/img/icon/memo.png";
 import { schedulePost } from "../redux/modules/post";
 import "date-fns";
 import DatePicker from "react-datepicker";
@@ -64,9 +64,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   };
   const StickerClick = () => {
     setStickerShow(!stickerShow);
+    setCoverShow(false);
   };
   const coverClick = () => {
-    setCoverShow(!stickerShow);
+    setCoverShow(!coverShow);
+    setStickerShow(false);
   };
 
   const colorChange = (e) => {
@@ -171,7 +173,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           <TitleInput>
             <AddBtn onClick={StickerClick}>스티커 추가</AddBtn>
             {stickerShow ? (
-              <List>
+              <StickerList>
                 <label htmlFor="1">
                   <Input
                     type="radio"
@@ -244,7 +246,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   />
                   <StickerImg src={img8} />
                 </label>
-              </List>
+              </StickerList>
             ) : (
               ""
             )}
@@ -252,7 +254,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           <TitleInput>
             <AddBtn onClick={coverClick}>커버 변경</AddBtn>
             {coverShow ? (
-              <List>
+              <CoverList>
                 <label htmlFor="1">
                   <Input
                     type="radio"
@@ -301,7 +303,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                     <img src={cover4} alt="커버 이미지4" />
                   </CoverImg>
                 </label>
-              </List>
+              </CoverList>
             ) : (
               ""
             )}
@@ -397,14 +399,18 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           )}
         </TitleInput>
         <DateContainer>
-          <p>일정</p>
+          <p>
+            <img src={time} alt="" />
+            일정
+          </p>
           <DateFlex>
-            <DateOpenBtn onClick={dateShowBtn}>{`${Month(
+            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(
               month
             )}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
-            <DateOpenBtn
+            <TimeOpenBtn
               onClick={timeShowBtn}
-            >{`${hour}:${selectMinute}`}</DateOpenBtn>
+              timeShow={timeShow}
+            >{`${hour}:${selectMinute}`}</TimeOpenBtn>
           </DateFlex>
         </DateContainer>
         <Pick>
@@ -500,19 +506,25 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               </div>
             </Modal>
           )}
-          <PlaceText
-            type="text"
-            placeholder="장소"
-            onChange={(event) => {
-              setPlace(event.target.value);
-            }}
-          />
-          <TextArea
-            placeholder="메모"
-            onChange={(event) => {
-              setMemo(event.target.value);
-            }}
-          />
+          <PlaceText>
+            <input
+              type="text"
+              placeholder="장소"
+              onChange={(event) => {
+                setPlace(event.target.value);
+              }}
+            />
+            <img src={location} alt="장소" />
+          </PlaceText>
+          <TextArea>
+            <img src={memoimg} alt="메모" />
+            <textarea
+              placeholder="메모"
+              onChange={(event) => {
+                setMemo(event.target.value);
+              }}
+            />
+          </TextArea>
         </Pick>
       </AddList>
     </AddSchesuleWrap>
@@ -575,9 +587,14 @@ const DateContainer = styled.div`
   font-size: 16px;
   padding: 18px;
   border-radius: 6px;
-
+  img {
+    margin-right: 12px;
+  }
   > p {
     color: var(--blue3);
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
   }
 `;
 const Pick = styled.div``;
@@ -624,25 +641,62 @@ const InputText = styled.input`
   width: 90%;
   padding: 10px;
 `;
-const PlaceText = styled.input`
-  width: 90%;
-  padding: 10px;
+const PlaceText = styled.div`
   margin-top: 16px;
-`;
-const TextArea = styled.textarea`
-  width: 90%;
-  padding: 18px;
-  border: 0;
-  margin-top: 16px;
-  resize: none;
-  border-radius: 6px;
-  ::placeholder {
-    color: var(--blue3);
-    font-weight: 500;
-    font-size: 16px;
+  position: relative;
+  img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 18px;
   }
-  :focus {
+  input {
     outline: none;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 0;
+    outline: none;
+    font-weight: 500;
+
+    :focus {
+      outline: none;
+    }
+    ::placeholder {
+      color: var(--blue3);
+      font-weight: 500;
+      font-size: 16px;
+    }
+    width: 100%;
+    width: calc(90% - 24px);
+    padding-left: 44px !important;
+  }
+  background: url(../assets/img/icon/Location.png) center center no-repeat !important;
+`;
+const TextArea = styled.div`
+  position: relative;
+  img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 18px;
+  }
+  textarea {
+    width: calc(90% - 24px);
+    padding: 18px;
+    padding-left: 44px !important;
+    border: 0;
+    margin-top: 16px;
+    resize: none;
+    border-radius: 6px;
+    ::placeholder {
+      color: var(--blue3);
+      font-weight: 500;
+      font-size: 16px;
+    }
+    :focus {
+      outline: none;
+    }
   }
 `;
 const TitleInput = styled.label`
@@ -652,7 +706,7 @@ const ColorPicker = styled.button`
   width: 24px;
   height: 24px;
   background-color: ${(props) =>
-    props.colorPick ? props.colorPick : "var(--gray2)"};
+    props.colorPick ? props.colorPick : "var(--blue1)"};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
@@ -660,18 +714,35 @@ const ColorPicker = styled.button`
   top: 50%;
   transform: translateY(-50%);
 `;
-const List = styled.div`
+const StickerList = styled.div`
   position: absolute;
-  top: calc(100% + 8px);
-  right: -14px;
+  top: calc(100% + 9px);
+  left: 10%;
+  transform: translateX(-50%);
   display: flex;
-  background-color: trans;
+  justify-content: space-between;
+  background-color: #fff;
   gap: 10px 15px;
   flex-wrap: wrap;
   border: 1px solid var(--gray2);
   border-radius: 15px;
   padding: 8px 12px;
-  width: 185px;
+  width: 275px;
+  z-index: 99;
+`;
+const CoverList = styled.div`
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  gap: 10px 15px;
+  flex-wrap: wrap;
+  border: 1px solid var(--gray2);
+  border-radius: 15px;
+  padding: 8px 12px;
+  width: 275px;
   z-index: 99;
 `;
 
@@ -781,10 +852,21 @@ const CoverImg = styled.div`
     height: 100%;
   }
 `;
+const TimeOpenBtn = styled.button`
+  font-weight: 500;
+  color: var(--blue3);
+  padding: 7px 10px;
+  background-color: ${(props) =>
+    props.timeShow ? "var(--blue1)" : "transparent"};
+  border-radius: 35px;
+`;
 const DateOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
-  background-color: transparent;
+  background-color: ${(props) =>
+    props.dateShow ? "var(--blue1)" : "transparent"};
+  padding: 7px 10px;
+  border-radius: 35px;
 `;
 const DateFlex = styled.div`
   display: flex;
