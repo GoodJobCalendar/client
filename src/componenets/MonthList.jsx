@@ -16,7 +16,7 @@ import img8 from "../assets/img/sticker/Group 8.png";
 
 const MonthList = () => {
   const monthSchdule = useSelector((state) => state.schedule.month);
-
+  console.log(monthSchdule);
   const response = {
     220728: [
       {
@@ -75,7 +75,7 @@ const MonthList = () => {
       },
     ],
   };
-  const monthList = Object.entries(monthSchdule);
+  const monthList = Object.entries(response);
   const fullDate = (day) => {
     const date = new Date(
       `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`

@@ -21,15 +21,6 @@ const Dates = (props) => {
   const monthSchdule = useSelector((state) => state.schedule.month);
   const zoom = useSelector((state) => state.date.zoom.zoomInOut);
   console.log(zoom);
-  useEffect(() => {
-    if (monthSchdule) {
-      const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
-      monthlist.sort(function (a, b) {
-        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
-      });
-      setmmm(monthlist);
-    }
-  }, [monthSchdule]);
 
   useEffect(() => {
     dispatch(activeDate(isActive));
@@ -63,7 +54,7 @@ const Dates = (props) => {
             {String(elm).padStart(2, "0")}
           </CheckDay>
         </DateNum>
-        {zoom ? (
+        {/* {zoom ? (
           ""
         ) : (
           <Lists>
@@ -89,7 +80,7 @@ const Dates = (props) => {
                 )
               );
             })}
-        </FlexList>
+        </FlexList> */}
       </Form>
     </>
   );

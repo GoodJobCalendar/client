@@ -42,7 +42,7 @@ const DailyList = () => {
       },
     ],
   };
-  const test = Object.entries(dailySchedule);
+  const test = Object.entries(response);
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
 
