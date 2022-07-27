@@ -138,13 +138,7 @@ const ErrorCheck = styled.p`
   margin-top: 39px;
   margin-bottom: 24px;
 `;
-const Email = styled.p`
-  font-weight: 800;
-  font-size: 16px;
-  color: var(--blue3);
-  text-align: center;
-  margin-bottom: 55px;
-`;
+
 const Input = styled.input`
   border: ${(props) =>
     props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;

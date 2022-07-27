@@ -34,7 +34,6 @@ const MobileWrap = styled.div`
   min-width: 375px;
   width: 20%;
   height: 100vh;
-  min-height: 812px;
   overflow-y: scroll;
   border-radius: 20px;
 `;
