@@ -17,12 +17,11 @@ import kakaologo from "../assets/img/icon/kakaobtn.png";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   // 로그인
-  const loginClick = () => {
+  const loginBtn = () => {
     if (email === "" || password === "") {
       window.alert("아이디와 비밀번호를 입력해주세요.");
       return;
@@ -62,7 +61,7 @@ const Login = () => {
             setPassword(event.target.value);
           }}
         />
-        <LoginBtn onClick={loginClick}>로그인</LoginBtn>
+        <LoginBtn onClick={loginBtn}>로그인</LoginBtn>
         <PwCheck>
           비밀번호를 혹시 잊어버리셨나요?
           <Link to="/pwsend">인증메일 보내기</Link>

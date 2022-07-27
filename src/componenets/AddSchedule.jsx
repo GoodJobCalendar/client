@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import img1 from "../assets/img/sticker/Group 1.png";
 import img2 from "../assets/img/sticker/Group 2.png";
 import img3 from "../assets/img/sticker/Group 3.png";
@@ -17,16 +17,15 @@ import cover4 from "../assets/img/cover/cover4.jpg";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import element from "../assets/img/icon/element-4.png";
-import { SchduleDB } from "../redux/modules/post";
-import "date-fns";
+import {schedulePost} from "../redux/modules/post";
 import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
-import { monthList } from "../redux/modules/schedule";
+import {loadMonth} from "../redux/modules/schedule";
 import dayjs from "dayjs";
-const AddSchedule = ({ value, onChange, ...others }) => {
+const AddSchedule = ({value, onChange, ...others}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -110,7 +109,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   const addScheduleBtn = async () => {
     dispatch(
-      SchduleDB({
+      schedulePost({
         image: Number(image),
         companyName, //필수입력
         title, //필수입력
@@ -126,7 +125,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   return (
     <AddSchesuleWrap>
-      <Header style={{ backgroundImage: `url(${cover})` }}>
+      <Header style={{backgroundImage: `url(${cover})`}}>
         <AddFlex>
           <Btn onClick={addClick}>&lt;</Btn>
           <Btn onClick={addScheduleBtn}>저장</Btn>
@@ -137,75 +136,35 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             {stickerShow ? (
               <List>
                 <label htmlFor="1">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="1"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="1" onChange={stickerChange} />
                   <StickerImg src={img1} />
                 </label>
                 <label htmlFor="2">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="2"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="2" onChange={stickerChange} />
                   <StickerImg src={img2} />
                 </label>
                 <label htmlFor="3">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="3"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="3" onChange={stickerChange} />
                   <StickerImg src={img3} />
                 </label>
                 <label htmlFor="4">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="4"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="4" onChange={stickerChange} />
                   <StickerImg src={img4} />
                 </label>
                 <label htmlFor="5">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="5"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="5" onChange={stickerChange} />
                   <StickerImg src={img5} />
                 </label>
                 <label htmlFor="6">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="6"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="6" onChange={stickerChange} />
                   <StickerImg src={img6} />
                 </label>
                 <label htmlFor="7">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="7"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="7" onChange={stickerChange} />
                   <StickerImg src={img7} />
                 </label>
                 <label htmlFor="8">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="8"
-                    onChange={stickerChange}
-                  />
+                  <Input type="radio" name="sticker" id="8" onChange={stickerChange} />
                   <StickerImg src={img8} />
                 </label>
               </List>
@@ -218,49 +177,25 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             {coverShow ? (
               <List>
                 <label htmlFor="1">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="1"
-                    value="cover1"
-                    onChange={coverChange}
-                  />
+                  <Input type="radio" name="cover" id="1" value="cover1" onChange={coverChange} />
                   <CoverImg>
                     <img src={cover1} />
                   </CoverImg>
                 </label>
                 <label htmlFor="2">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="2"
-                    value="cover2"
-                    onChange={coverChange}
-                  />
+                  <Input type="radio" name="cover" id="2" value="cover2" onChange={coverChange} />
                   <CoverImg>
                     <img src={cover2} />
                   </CoverImg>
                 </label>
                 <label htmlFor="3">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="3"
-                    value="cover3"
-                    onChange={coverChange}
-                  />
+                  <Input type="radio" name="cover" id="3" value="cover3" onChange={coverChange} />
                   <CoverImg>
                     <img src={cover3} />
                   </CoverImg>
                 </label>
                 <label htmlFor="4">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="4"
-                    value="cover4"
-                    onChange={coverChange}
-                  />
+                  <Input type="radio" name="cover" id="4" value="cover4" onChange={coverChange} />
                   <CoverImg>
                     <img src={cover4} />
                   </CoverImg>
@@ -292,70 +227,22 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1"></Color1>
-              <Input
-                type="radio"
-                name="color"
-                id="1"
-                value="#fff"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="1" value="#fff" onChange={colorChange} />
               <Color2 htmlFor="2"></Color2>
-              <Input
-                type="radio"
-                name="color"
-                id="2"
-                value="var(--point3)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="2" value="var(--point3)" onChange={colorChange} />
               <Color3 htmlFor="3"></Color3>
-              <Input
-                type="radio"
-                name="color"
-                id="3"
-                value="rgba(253, 187, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="3" value="rgba(253, 187, 110, 1)" onChange={colorChange} />
               <Color4 htmlFor="4"></Color4>
-              <Input
-                type="radio"
-                name="color"
-                id="4"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="4" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
 
               <Color5 htmlFor="5"></Color5>
-              <Input
-                type="radio"
-                name="color"
-                id="5"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="5" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color6 htmlFor="6"></Color6>
-              <Input
-                type="radio"
-                name="color"
-                id="6"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="6" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color7 htmlFor="7"></Color7>
-              <Input
-                type="radio"
-                name="color"
-                id="7"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="7" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color8 htmlFor="8"></Color8>
-              <Input
-                type="radio"
-                name="color"
-                id="8"
-                value="rgba(154, 154, 154, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="8" value="rgba(154, 154, 154, 1)" onChange={colorChange} />
             </ColorList>
           ) : (
             ""
@@ -365,12 +252,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           <p>일정</p>
           <Pick>
             <DateWrap>
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                dateFormat="MM-dd (eee)"
-                locale={ko}
-              />
+              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="MM-dd (eee)" locale={ko} />
             </DateWrap>
             <Div>
               <TimePicker
@@ -383,7 +265,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 defaultValue={now}
                 onChange={handleValueChange}
                 format="a HH:mm"
-                showTime={{ use12Hours: true, format: "a HH:mm" }}
+                showTime={{use12Hours: true, format: "a HH:mm"}}
               />
             </Div>
           </Pick>
@@ -529,8 +411,7 @@ const TitleInput = styled.label`
 const ColorPicker = styled.button`
   width: 24px;
   height: 24px;
-  background-color: ${(props) =>
-    props.colorPick ? props.colorPick : "var(--gray2)"};
+  background-color: ${(props) => (props.colorPick ? props.colorPick : "var(--gray2)")};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
@@ -566,8 +447,7 @@ const ColorList = styled.div`
   width: 100%;
   border-radius: 6px;
   background: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   z-index: 99;
 `;
 const Input = styled.input`

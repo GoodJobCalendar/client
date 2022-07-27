@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import banner from "../assets/img/cover/cover1.jpg";
+
+//회원이름
 const SignupSucess = () => {
   const userInfo = useSelector((state) => state.user.user);
 

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // 스와이퍼
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,7 +8,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/bundle";
 import { Pagination } from "swiper";
-import { Link } from "react-router-dom";
 
 // 카카오
 import { KAKAO_AUTH_URL } from "../shared/api";

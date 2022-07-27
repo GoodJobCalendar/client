@@ -1,129 +1,147 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import {useSelector} from "react-redux";
 import styled from "styled-components";
-import Calendar from "short-react-calendar";
-import { useSelector } from "react-redux";
-const WeekSchedule = () => {
-  const [value, onChange] = useState(new Date());
 
+const WeekSchedule = () => {
+  const selectDay = useSelector((state) => state.date.select);
+
+  const date = new Date(selectDay?.year, selectDay?.month, selectDay?.elm);
+  const Month = date.getMonth();
+  const Dates = date.getDate();
+  const getDay = date.getDay();
+  const First = new Date(date.getFullYear() / (Month + 1) + 1);
+  const monthFirstDateDay = First.getDay();
+  const weekIndex = Math.floor((Dates + monthFirstDateDay) / 7);
+  const DAY = ["일", "월", "화", "수", "목", "금", "토"];
+  const Time = ["03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "22:00", "24:00"];
+  const toDate = date.getDate();
+  const toDay = date.getDay();
+
+  console.log(new Date(date.setDate(toDate - toDay)));
+  // 이번주 일요일 구하기
+  function getBeginOfWeek(date = new Date(), startOfWeek = 0) {
+    const result = new Date(date);
+    while (result.getDay() !== startOfWeek) {
+      result.setDate(result.getDate() - 0);
+    }
+    return String(result).split(" ")[2];
+  }
+  // const start = startOfWeek(date);
   return (
-    <WeekWrap>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        calendarType="US"
-        oneWeekCalendar={true}
-        className="Week"
-      />
-    </WeekWrap>
+    <>
+      <Head>
+        <WeekBtn>&lt;</WeekBtn>
+        <WeekTitle>{`${String(Month).padStart(2, "0")}월 ${weekIndex + 1}`}주차</WeekTitle>
+        <WeekBtn>&gt;</WeekBtn>
+      </Head>
+      <WeekWrap>
+        <Days>
+          {DAY.map((elm, idx) => {
+            return <Day key={idx}>{elm}</Day>;
+          })}
+        </Days>
+        {/* <DayList>
+          {["", "", "", "", "", "", ""].map((elm, idx) => {
+            const monday = Number(getBeginOfWeek()) + idx;
+            return <li key={idx}>{monday}</li>;
+          })}
+        </DayList> */}
+        <div>
+          <ul>
+            {Time.map((elm, idx) => {
+              return (
+                <TimeWrap key={idx}>
+                  <TimeText>{elm}</TimeText>
+                  <TimeLine></TimeLine>
+                </TimeWrap>
+              );
+            })}
+          </ul>
+        </div>
+      </WeekWrap>
+    </>
   );
 };
+
 export default WeekSchedule;
 const WeekWrap = styled.div`
-  .calendar-footer {
-    display: none !important;
+  background-color: #fff;
+`;
+const Head = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 21px;
+`;
+const WeekTitle = styled.p`
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--blue4);
+`;
+const WeekBtn = styled.button`
+  color: var(--blue3);
+`;
+const Days = styled.div`
+  display: flex;
+  border-radius: 7px 7px 0 0;
+  width: 100%;
+`;
+const TimeWrap = styled.li`
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+`;
+const TimeText = styled.p`
+  font-weight: 400;
+  font-size: 8px;
+  color: var(--blue2);
+  padding: 15px 0;
+  padding-right: 12px;
+`;
+const TimeLine = styled.div`
+  width: 100%;
+  height: 1px;
+  border-top: 1px dotted var(--blue2);
+`;
+const Day = styled.li`
+  width: calc(100% / 7);
+  padding: 13px 17px;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--gray3);
+  text-align: center;
+  :not(:last-child) {
+    border-right: 0;
   }
-  .react-calendar {
-    height: 202px;
-    background-color: transparent !important;
-    border: 0;
+  width: calc(100% / 7);
+  :nth-child(7n) {
+    color: var(--blue3);
   }
-  .react-calendar__navigation {
-    background-color: transparent !important;
+  :nth-child(7n + 1) {
+    color: var(--point3);
   }
-  .react-calendar__navigation button:enabled:hover,
-  .react-calendar__navigation button:enabled:focus {
-    background-color: transparent !important;
-  }
-  .react-calendar__tile--now,
-  .react-calendar__tile--now:hover {
-    background-color: #fff;
-    abbr {
-      border: 1px solid var(--blue4);
-      border-radius: 100%;
-      padding: 6px;
-      font-weight: 900;
-      font-size: 14px;
-      color: var(--blue4);
+`;
+const DayList = styled.ul`
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  > li {
+    /* ${(props) => (props.day === props.list ? "span{color: var(--blue4)}" : "")}; */
+    padding: 13px 17px;
+    width: calc(100% / 7);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--gray3);
+    text-align: center;
+    :not(:last-child) {
+      border-right: 0;
     }
-  }
-  .react-calendar__month-view > div > div {
-    display: flex;
-    flex-direction: column;
-  }
-  .react-calendar__month-view__weekdays__weekday {
-    border-radius: 21px 21px 0 0 !important;
-    :nth-child(1) {
-      background-color: ${(props) =>
-        props.weekNumber === 1 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 1 ? "#fff" : "var(--black)")};
-      }
+    width: calc(100% / 7);
+    :nth-child(7n) {
+      color: var(--blue3);
     }
-    :nth-child(2) {
-      background-color: ${(props) =>
-        props.weekNumber === 2 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 2 ? "#fff" : "var(--black)")};
-      }
+    :nth-child(7n + 1) {
+      color: var(--point3);
     }
-    :nth-child(3) {
-      background-color: ${(props) =>
-        props.weekNumber === 3 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 3 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(4) {
-      background-color: ${(props) =>
-        props.weekNumber === 4 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 4 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(5) {
-      background-color: ${(props) =>
-        props.weekNumber === 5 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 5 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(6) {
-      background-color: ${(props) =>
-        props.weekNumber === 6 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 6 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(7) {
-      background-color: ${(props) =>
-        props.weekNumber === 7 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 7 ? "#fff" : "var(--black)")};
-      }
-    }
-  }
-
-  .react-calendar__tile--active,
-  .react-calendar__tile--active:hover {
-    position: relative;
-    background-color: var(--blue4) !important;
-    border-radius: 0 0 21px 21px !important;
-
-    border: 1px solid var(--blue4);
-    border-radius: 100%;
-    padding: 6px;
-    background-color: #fff;
-    color: var(--blue4);
-    font-weight: 900;
-    font-size: 14px;
-  }
-
-  .react-calendar__tile:enabled:hover,
-  .react-calendar__tile:enabled:focus {
-    background: #fff;
-    border-radius: 6px;
-  }
-  .react-calendar__viewContainer {
-    background-color: #fff;
   }
 `;

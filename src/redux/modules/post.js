@@ -18,14 +18,14 @@ const initialState = {
 const SCHEDULE_POST = "post_reducer/SCHEDULE_POST";
 
 // action creator
-export function schedulePost(payload) {
+export function __schedulePost(payload) {
   return { type: SCHEDULE_POST, payload };
 }
 
 //middleware
 
 //개인일정 작성
-export const SchduleDB = (payload) => {
+export const schedulePost = (payload) => {
   console.log(payload);
   return function (dispatch, getState) {
     const myToken = getCookie("token");
@@ -36,7 +36,7 @@ export const SchduleDB = (payload) => {
       headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
-        dispatch(schedulePost(res.payload));
+        dispatch(__schedulePost(res.payload));
       })
       .catch((err) => {
         console.log("카테고리 선택 에러 : ", err);
