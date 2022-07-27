@@ -31,7 +31,7 @@ export const schedulePost = (payload) => {
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: "http://14.34.139.253:3000/api/schedule",
+      url: "https://3.39.193.47/api/schedule",
       data: payload,
       headers: { Authorization: `Bearer ${myToken}` },
     })

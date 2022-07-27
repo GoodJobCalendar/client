@@ -42,7 +42,7 @@ const SignUp = () => {
     } else {
       //회원가입
       await axios
-        .post("http://14.34.139.253:3000/api/auth/local", {
+        .post("https://3.39.193.47/api/auth/local", {
           email,
           password,
           confirmPassword,
