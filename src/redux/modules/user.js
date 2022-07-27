@@ -35,7 +35,7 @@ export function tokenUser(payload) {
 export const loginDB = (payload) => {
   return function (dispatch) {
     axios
-      .post("https://goodjobcalendar.com/api/auth", payload)
+      .post("https://3.39.193.47/api/auth", payload)
       .then((response) => {
         dispatch(setUser(payload));
         setCookie("token", response.data.token, 5);
