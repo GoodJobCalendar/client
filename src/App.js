@@ -12,7 +12,7 @@ function App() {
     </Bg>
   );
 }
-
+//
 export default App;
 const Bg = styled.div`
   position: relative;
