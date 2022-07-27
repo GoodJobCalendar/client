@@ -20,6 +20,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [errorcheck, setError] = useState("");
 
   // 로그인
   const onKeyPress = (e) => {
@@ -29,11 +30,11 @@ const Login = () => {
   };
   const loginBtn = () => {
     if (email === "" || password === "") {
-      window.alert("아이디와 비밀번호를 입력해주세요.");
+      setError("아이디와 비밀번호를 입력해주세요.");
       return;
     }
     if (!emailCheck(email)) {
-      window.alert("이메일 형식이 맞지 않습니다.");
+      setError("이메일 형식이 맞지 않습니다.");
       return;
     }
     dispatch(
@@ -41,8 +42,15 @@ const Login = () => {
         email,
         password,
       })
-    );
-    navigate("/main");
+    )
+      .then((res) => {
+        console.log(res);
+        navigate("/main");
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error);
+      });
   };
   return (
     <LoginWrap>
@@ -65,6 +73,7 @@ const Login = () => {
           }}
           onKeyPress={onKeyPress}
         />
+        {errorcheck && <ErrorCheck>{errorcheck}</ErrorCheck>}
         <LoginBtn onClick={loginBtn}>로그인</LoginBtn>
         <PwCheck>
           비밀번호를 혹시 잊어버리셨나요?
@@ -130,6 +139,14 @@ const PwCheck = styled.p`
     font-weight: 600;
     color: var(--blue4);
   }
+`;
+const ErrorCheck = styled.p`
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--blue3);
+  text-align: center;
+  margin-top: 39px;
+  margin-bottom: 24px;
 `;
 const Atherlogin = styled.p`
   font-weight: 600;

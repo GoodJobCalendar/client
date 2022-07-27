@@ -15,39 +15,88 @@ import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
 
 const MonthList = () => {
+  const monthSchdule = useSelector((state) => state.schedule.month);
+
   const response = {
-    220804: [
+    220728: [
       {
         scheduleId: 40,
-        color: 0,
+        color: 2,
         memo: null,
-        sticker: 0,
+        sticker: 1,
         coverImage: 0,
         title:
           "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
         place: "서울 중구",
-        date: "2022-08-04 23:59:59",
+        date: "2022-07-28 23:59:59",
         companyName: "롯데멤버스㈜",
         postingId: 1,
         type: "auto",
       },
       {
         scheduleId: 43,
-        color: 0,
+        color: 3,
         memo: null,
-        sticker: 0,
+        sticker: 4,
         coverImage: 0,
         place: "집",
-        date: "2022-08-04 01:01:01",
+        date: "2022-07-28 01:01:01",
         companyName: "짱좋은회사3",
         type: "manual",
+        title: "면접1",
+      },
+    ],
+    220730: [
+      {
+        scheduleId: 40,
+        color: 1,
+        memo: null,
+        sticker: 3,
+        coverImage: 0,
+        title:
+          "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
+        place: "서울 중구",
+        date: "2022-07-30 23:59:59",
+        companyName: "롯데멤버스㈜",
+        postingId: 1,
+        type: "auto",
+      },
+      {
+        scheduleId: 43,
+        color: 4,
+        memo: null,
+        sticker: 2,
+        coverImage: 0,
+        place: "집",
+        date: "2022-07-30 01:01:01",
+        companyName: "짱좋은회사3",
+        type: "manual",
+        title: "면접2",
       },
     ],
   };
-  const test = Object.entries(response);
-  console.log(test);
-  const [mmm, setmmm] = useState();
-  const monthSchdule = useSelector((state) => state.schedule.month);
+  const monthList = Object.entries(monthSchdule);
+  const fullDate = (day) => {
+    const date = new Date(
+      `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
+    );
+    let [week, month, dd, year, sTime] = date.toString().split(" ");
+    let Week = (week) => {
+      if (week === "Sun") return "일요일";
+      if (week === "Mon") return "월요일";
+      if (week === "Tue") return "화요일";
+      if (week === "Wed") return "수요일";
+      if (week === "Thu") return "목요일";
+      if (week === "Fri") return "금요일";
+      if (week === "Sat") return "토요일";
+    };
+    const textDay = new Date(day);
+    console.log(textDay);
+    return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
+      4,
+      2
+    )}일 ${Week(week)}`;
+  };
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
   let Month = (mm) => {
@@ -65,89 +114,82 @@ const MonthList = () => {
     if (mm === "Dec") return "12";
   };
   const today = `${yy}-${Month(mm)}-${day}`;
-
-  useEffect(() => {
-    if (monthSchdule) {
-      const monthlist = [...monthSchdule?.manual, ...monthSchdule?.auto];
-      monthlist.sort(function (a, b) {
-        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
-      });
-      setmmm(monthlist);
-    }
-  }, [monthSchdule]);
   const list =
-    mmm &&
-    mmm?.map((value, idx) => (
+    monthList &&
+    monthList?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
-        <Link to={`/postdetail/${value?.scheduleId}`} key={idx}>
-          <DayFlex>
-            <Day>
-              {value.date.split(" ")[0].split("-")[0]}년{" "}
-              {value.date.split(" ")[0].split("-")[1]}월{" "}
-              {value.date.split(" ")[0].split("-")[2]}일{" "}
-            </Day>
-
-            <Dday>
-              {new Date(value.date.split(" ")[0]) - new Date(today) > 0
-                ? `D- ${Math.floor(
-                    (new Date(value.date.split(" ")[0]) - new Date(today)) /
-                      (1000 * 60 * 60 * 24)
-                  )}`
-                : new Date(value.date.split(" ")[0]) - new Date(today) !== 0
-                ? `D+ ${Math.floor(
-                    (new Date(today) - new Date(value.date.split(" ")[0])) /
-                      (1000 * 60 * 60 * 24)
-                  )}`
-                : "D-day"}
-            </Dday>
-          </DayFlex>
-          <ScheduleItem>
-            <TimeText>
-              {value?.date.split(" ")[1].split(":")[0]}:
-              {value?.date.split(" ")[1].split(":")[1]}
-            </TimeText>
-            <Color color={value?.color}></Color>
-            <Text>{value.title}</Text>
-            {value?.sticker === 1 ? (
-              <Sticker>
-                <img src={img1} />
-              </Sticker>
-            ) : value?.sticker === 2 ? (
-              <Sticker>
-                <img src={img2} />
-              </Sticker>
-            ) : value?.sticker === 3 ? (
-              <Sticker>
-                <img src={img3} />
-              </Sticker>
-            ) : value?.sticker === 4 ? (
-              <Sticker>
-                <img src={img4} />
-              </Sticker>
-            ) : value?.sticker === 5 ? (
-              <Sticker>
-                <img src={img5} />
-              </Sticker>
-            ) : value?.sticker === 6 ? (
-              <Sticker>
-                <img src={img6} />
-              </Sticker>
-            ) : value?.sticker === 7 ? (
-              <Sticker>
-                <img src={img7} />
-              </Sticker>
-            ) : value?.sticker === 8 ? (
-              <Sticker>
-                <img src={img8} />
-              </Sticker>
-            ) : (
-              ""
-            )}
-          </ScheduleItem>
-        </Link>
+        {value[1]?.map((content, idx) => (
+          <>
+            <DayFlex>
+              <Day>{idx === 0 && fullDate(value[0])}</Day>
+              <Dday>
+                {idx === 0 &&
+                  (new Date(content.date.split(" ")[0]) - new Date(today) > 0
+                    ? `D- ${Math.floor(
+                        (new Date(content.date.split(" ")[0]) -
+                          new Date(today)) /
+                          (1000 * 60 * 60 * 24)
+                      )}`
+                    : new Date(content.date.split(" ")[0]) - new Date(today) !==
+                      0
+                    ? `D+ ${Math.floor(
+                        (new Date(today) -
+                          new Date(content.date.split(" ")[0])) /
+                          (1000 * 60 * 60 * 24)
+                      )}`
+                    : "D-day")}
+              </Dday>
+            </DayFlex>
+            <Link to={`/postdetail/${content?.scheduleId}`} key={idx}>
+              <ScheduleItem>
+                <TimeText>
+                  {(content?.date).split(" ")[1].split(":")[0]}:
+                  {(content?.date).split(" ")[1].split(":")[1]}
+                </TimeText>
+                <Color color={content?.color}></Color>
+                <Text>{content.title}</Text>
+                {content?.sticker === 1 ? (
+                  <Sticker>
+                    <img src={img1} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 2 ? (
+                  <Sticker>
+                    <img src={img2} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 3 ? (
+                  <Sticker>
+                    <img src={img3} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 4 ? (
+                  <Sticker>
+                    <img src={img4} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 5 ? (
+                  <Sticker>
+                    <img src={img5} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 6 ? (
+                  <Sticker>
+                    <img src={img6} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 7 ? (
+                  <Sticker>
+                    <img src={img7} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 8 ? (
+                  <Sticker>
+                    <img src={img8} alt="" />
+                  </Sticker>
+                ) : (
+                  ""
+                )}
+              </ScheduleItem>
+            </Link>
+          </>
+        ))}
       </ScheduleListWrap>
     ));
-  return <Container>{/* {list} */}</Container>;
+  return <Container>{list}</Container>;
 };
 
 export default MonthList;
@@ -173,7 +215,6 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
-  margin-top: 26px;
 `;
 const DayFlex = styled.div`
   display: flex;
