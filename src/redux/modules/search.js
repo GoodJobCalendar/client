@@ -29,7 +29,7 @@ export const searchMySchedule = (keyword) => {
     console.log(myToken);
     console.log(bucket);
     axios
-      .get("https://3.39.193.47/api/mySchedule/search", bucket)
+      .get("https://goodjobcalendar.com/api/mySchedule/search", bucket)
       .then((res) => {
         dispatch(__searchMySchedule(res.data));
         console.log("리덕스 콘솔", res.data);

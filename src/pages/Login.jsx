@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 컴포넌트
 import { emailCheck } from "../shared/SignUpCheck";
@@ -20,7 +20,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [errorcheck, setError] = useState("");
+  const [errorcheck, setError] = useState();
+  const is_Login = useSelector((state) => state.user.is_login);
 
   // 로그인
   const onKeyPress = (e) => {
@@ -42,36 +43,37 @@ const Login = () => {
         email,
         password,
       })
-    )
-      .then((res) => {
-        console.log(res);
-        navigate("/main");
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(error);
-      });
+    );
   };
+
+  useEffect(() => {
+    if (is_Login) {
+      navigate("/main");
+    }
+  }, [is_Login]);
+
   return (
     <LoginWrap>
       <Header>
         <img src={logo} alt="로고" />
       </Header>
       <InputWrap>
-        <input
+        <EmailInput
           type="email"
           placeholder="이메일"
           onChange={(event) => {
             setEmail(event.target.value);
           }}
+          errorcheck={errorcheck}
         />
-        <input
+        <PwInput
           type="password"
           placeholder="비밀번호"
           onChange={(event) => {
             setPassword(event.target.value);
           }}
           onKeyPress={onKeyPress}
+          errorcheck={errorcheck}
         />
         {errorcheck && <ErrorCheck>{errorcheck}</ErrorCheck>}
         <LoginBtn onClick={loginBtn}>로그인</LoginBtn>
@@ -122,6 +124,38 @@ const InputWrap = styled.main`
   gap: 15px;
   width: 100%;
 `;
+const EmailInput = styled.input`
+  border: ${(props) =>
+    props.errorcheck &&
+    (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+      "아이디와 비밀번호를 입력해주세요.") &&
+    "1px solid var(--point3)!important"};
+  color: ${(props) =>
+    props.errorcheck &&
+    (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+      "아이디와 비밀번호를 입력해주세요.") &&
+    "var(--point3)!important"};
+  ::placeholder {
+    color: ${(props) =>
+      props.errorcheck &&
+      (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+        "아이디와 비밀번호를 입력해주세요.") &&
+      "var(--point3)!important"};
+  }
+`;
+const PwInput = styled.input`
+  border: ${(props) =>
+    props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+    "1px solid var(--point3)!important"};
+  color: ${(props) =>
+    props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+    "var(--point3)!important"};
+  ::placeholder {
+    color: ${(props) =>
+      props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+      "var(--point3)!important"};
+  }
+`;
 const Header = styled.header`
   width: 50px;
   margin-bottom: 47px;
@@ -135,6 +169,7 @@ const PwCheck = styled.p`
   display: flex;
   gap: 7px;
   line-height: 17px;
+  justify-content: center;
   a {
     font-weight: 600;
     color: var(--blue4);
@@ -166,7 +201,6 @@ const LoginBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 78px;
   font-weight: 400;
   font-size: 18px;
   color: #fff !important;

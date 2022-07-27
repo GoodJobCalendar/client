@@ -126,6 +126,13 @@ const PostDetail = () => {
 };
 
 export default PostDetail;
+
+const PostDailWrap = styled.div`
+  background-color: var(--blue1);
+  height: 100vh;
+  font-weight: 500;
+  padding: 0 16px;
+`;
 const Cover = styled.img`
   width: 100%;
   height: 100%;
@@ -142,12 +149,6 @@ const Sticker = styled.img`
   position: absolute;
   bottom: -28px;
   right: 40px;
-`;
-const PostDailWrap = styled.div`
-  background-color: var(--blue1);
-  height: calc(100% - 150px);
-  font-weight: 500;
-  padding: 0 16px;
 `;
 const Header = styled.div`
   width: 90%;

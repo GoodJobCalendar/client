@@ -38,7 +38,7 @@ export const deletePost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .delete(`https://3.39.193.47/api/schedule/${scheduleId}`, data)
+      .delete(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__deletePost(res.data.data));
         console.log(res.data.data);
@@ -56,7 +56,7 @@ export const detailPost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .get(`https://3.39.193.47/api/schedule/${scheduleId}`, data)
+      .get(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__detailPost(res.data.data));
         console.log(res.data.data);
@@ -76,7 +76,7 @@ export const loadMonth = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("https://3.39.193.47/api/schedule/monthly", data)
+      .get("https://goodjobcalendar.com/api/schedule/monthly", data)
       .then((res) => {
         dispatch(__loadMonth(res.data.data));
         console.log(res.data.data);
@@ -95,7 +95,7 @@ export const loadDaily = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("https://3.39.193.47/api/schedule/daily", data)
+      .get("https://goodjobcalendar.com/api/schedule/daily", data)
       .then((res) => {
         dispatch(__loadDaily(res.data.data));
         console.log(res.data.data);

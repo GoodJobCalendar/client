@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const api = axios.create({
-  baseURL: "https://3.39.193.47",
+  baseURL: "https://goodjobcalendar.com/",
   // withCredentials: false,
 });
 //1. axios 인터셉터 생성

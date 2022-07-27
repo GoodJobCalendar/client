@@ -1,30 +1,82 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-  activeDate,
-  daily,
-  schedule,
-  selectDate,
-} from "../../redux/modules/date";
+import { activeDate, selectDate } from "../../redux/modules/date";
 import { loadDaily } from "../../redux/modules/schedule";
 
 const Dates = (props) => {
   const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
-  const [mmm, setmmm] = useState();
-
+  const monthSchdule = useSelector((state) => state.schedule.month);
+  const zoom = useSelector((state) => state.date.zoom.zoomInOut);
+  const response = {
+    220728: [
+      {
+        scheduleId: 40,
+        color: 2,
+        memo: null,
+        sticker: 1,
+        coverImage: 0,
+        title:
+          "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
+        place: "서울 중구",
+        date: "2022-07-28 23:59:59",
+        companyName: "롯데멤버스㈜",
+        postingId: 1,
+        type: "auto",
+      },
+      {
+        scheduleId: 43,
+        color: 3,
+        memo: null,
+        sticker: 4,
+        coverImage: 0,
+        place: "집",
+        date: "2022-07-28 01:01:01",
+        companyName: "짱좋은회사3",
+        type: "manual",
+        title: "면접1",
+      },
+    ],
+    220730: [
+      {
+        scheduleId: 40,
+        color: 1,
+        memo: null,
+        sticker: 3,
+        coverImage: 0,
+        title:
+          "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
+        place: "서울 중구",
+        date: "2022-07-30 23:59:59",
+        companyName: "롯데멤버스㈜",
+        postingId: 1,
+        type: "auto",
+      },
+      {
+        scheduleId: 43,
+        color: 4,
+        memo: null,
+        sticker: 2,
+        coverImage: 0,
+        place: "집",
+        date: "2022-07-30 01:01:01",
+        companyName: "짱좋은회사3",
+        type: "manual",
+        title: "면접2",
+      },
+    ],
+  };
+  const monthList = Object.entries(response);
   let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
     elm
   ).padStart(2, "0")} 00:00:00`;
-  const monthSchdule = useSelector((state) => state.schedule.month);
-  const zoom = useSelector((state) => state.date.zoom.zoomInOut);
-  console.log(zoom);
 
   useEffect(() => {
     dispatch(activeDate(isActive));
   }, [isActive]);
+
   return (
     <>
       <Form
@@ -54,33 +106,37 @@ const Dates = (props) => {
             {String(elm).padStart(2, "0")}
           </CheckDay>
         </DateNum>
-        {/* {zoom ? (
+        {zoom ? (
           ""
         ) : (
           <Lists>
-            {mmm &&
-              mmm.map((list, index) => {
-                return (
-                  list.date.split(" ")[0] === dateKey.split(" ")[0] &&
-                  index === 0 && (
-                    <TextList key={index} color={list.color}>
-                      {list.title}
-                    </TextList>
-                  )
-                );
+            {monthList &&
+              monthList?.map((list, index) => {
+                {
+                  list[1].map((content, index) => {
+                    content?.date.split(" ")[0] === dateKey.split(" ")[0] &&
+                      index === 0 && (
+                        <TextList key={index} color={content.color}>
+                          {content.title}
+                        </TextList>
+                      );
+                  });
+                }
               })}
           </Lists>
         )}
         <FlexList>
-          {mmm &&
-            mmm.map((list, index) => {
-              return (
-                list.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                  <List key={index} color={list.color}></List>
-                )
-              );
+          {monthList &&
+            monthList?.map((list, index) => {
+              {
+                list[1]?.map((content, index) => {
+                  content.date.split(" ")[0] === dateKey.split(" ")[0] && (
+                    <List key={index} color={content.color}></List>
+                  );
+                });
+              }
             })}
-        </FlexList> */}
+        </FlexList>
       </Form>
     </>
   );
@@ -123,6 +179,7 @@ const CheckDay = styled.label`
   width: 33px;
   height: 33px;
   border-radius: 100%;
+  cursor: pointer;
 `;
 const Lists = styled.div``;
 const TextList = styled.p`

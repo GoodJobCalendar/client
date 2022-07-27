@@ -24,7 +24,7 @@ export function loginUser(payload) {
 export function pwUser(payload) {
   return { type: PW_USER, payload };
 }
-export function logoutUser(payload) {
+export function __logoutUser(payload) {
   return { type: LOGOUT_USER, payload };
 }
 export function tokenUser(payload) {
@@ -42,7 +42,6 @@ export const loginDB = (payload) => {
       })
       .catch((error) => {
         console.error(error);
-        window.alert("이메일 또는 비밀번호를 확인해주세요.");
       });
   };
 };
@@ -60,7 +59,7 @@ export const kakaoLoginDB = (code) => {
   console.log(code);
   return function (dispatch, getState) {
     axios
-      .get(`https://3.39.193.47/api/auth/kakao/callback?code=${code}`)
+      .get(`https://goodjobcalendar.com/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
         console.log("카카오 로그인 성공", response);
         dispatch(setUser());
@@ -72,7 +71,11 @@ export const kakaoLoginDB = (code) => {
       });
   };
 };
-
+//로그 아웃
+export const logoutUser = () => (dispatch, getState) => {
+  deleteCookie("token");
+  dispatch(__logoutUser());
+};
 //reducer
 export default function userReducer(state = initialState, action) {
   // 새로운 액션 타입 추가시 case 추가한다.
@@ -100,9 +103,6 @@ export default function userReducer(state = initialState, action) {
     case LOGOUT_USER: {
       return produce(state, (draft) => {
         deleteCookie("is_login");
-        localStorage.removeItem("username");
-        localStorage.removeItem("authorization");
-        draft.user = null;
         draft.is_login = false;
       });
     }

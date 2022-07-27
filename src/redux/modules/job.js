@@ -52,7 +52,7 @@ export const loadJobList = () => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get("https://3.39.193.47/api/posting", {
+      .get("https://goodjobcalendar.com/api/posting", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -70,7 +70,7 @@ export const loadCategoryList = () => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     axios
-      .get("https://3.39.193.47/api/posting/category", {
+      .get("https://goodjobcalendar.com/api/posting/category", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -93,7 +93,7 @@ export const selectCategory = (categoryData) => {
     const myToken = getCookie("token");
     axios({
       method: "patch",
-      url: "https://3.39.193.47/api/posting/category",
+      url: "https://goodjobcalendar.com/api/posting/category",
       data: categoryData,
       headers: { Authorization: `Bearer ${myToken}` },
     })
@@ -112,7 +112,7 @@ export const loadJobDetails = (postingId) => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get(`https://3.39.193.47/api/posting/${postingId}`, {
+      .get(`https://goodjobcalendar.com/api/posting/${postingId}`, {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -134,7 +134,7 @@ export const addScrap = (postingId) => {
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: `https://3.39.193.47/api/schedule/scrap`,
+      url: `https://goodjobcalendar.com/api/schedule/scrap`,
       data: {
         postingId: postingId,
       },

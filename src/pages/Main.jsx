@@ -21,18 +21,28 @@ function Main() {
   const navigate = useNavigate();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
+  const navData = true;
 
   const active = useSelector((state) => state.date.active);
+  const is_Login = useSelector((state) => state.user.is_login);
 
   //일정등록 이동
   const MoveBtn = () => {
     navigate("/addschedule");
   };
 
-  const navData = true;
+  // 월간달력 줌인 줌아웃
   useEffect(() => {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
+
+  // 로그인유무확인
+  useEffect(() => {
+    if (is_Login) {
+      navigate("/main");
+    }
+  }, [is_Login]);
+
   return (
     <MainWrap>
       <Nav navData={navData} />

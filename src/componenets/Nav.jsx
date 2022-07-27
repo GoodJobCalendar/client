@@ -1,13 +1,28 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import calendar_w from "../assets/img/icon/calendar_w.png";
 import calendar_c from "../assets/img/icon/calendar_c.png";
 import element_w from "../assets/img/icon/element_w.png";
 import element_c from "../assets/img/icon/element_c.png";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "./../redux/modules/user";
+import { getCookie } from "../shared/Cookie";
 const Nav = (props) => {
+  const is_login = getCookie("is_login");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [nav, setNav] = useState(props.navData);
-
+  // const is_Login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
+  const logOut = () => {
+    dispatch(logoutUser());
+  };
+  useEffect(() => {
+    if (is_login) {
+      navigate("/main");
+    }
+  }, [is_login]);
   return (
     <NavWrap>
       <NavTitle>
@@ -21,7 +36,13 @@ const Nav = (props) => {
         </Ham>
         <span>취준생캘린더</span>
         <Ham>
-          <LogOutBtn>로그아웃</LogOutBtn>
+          {is_login === "true" ? (
+            <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
+          ) : (
+            <LogOutBtn>
+              <Link to="/login">로그인</Link>
+            </LogOutBtn>
+          )}
         </Ham>
       </NavTitle>
       <NavList>
