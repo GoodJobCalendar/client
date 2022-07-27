@@ -80,7 +80,6 @@ const Dates = (props) => {
               })}
           </Lists>
         )}
-
         <FlexList>
           {mmm &&
             mmm.map((list, index) => {

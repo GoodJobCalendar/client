@@ -8,7 +8,7 @@ import { emailCheck } from "../shared/SignUpCheck";
 import { setUser } from "./../redux/modules/user";
 
 // 이미지
-import banner from "../assets/img/icon/banner.png";
+import logo from "../assets/img/logo_width.png";
 
 import axios from "axios";
 
@@ -62,7 +62,7 @@ const SignUp = () => {
   return (
     <SignUpWrap>
       <header>
-        <img src={banner} alt="배너" />
+        <img src={logo} alt="배너" />
         <Title>회원가입을 환영합니다.</Title>
         <SubTitle>
           당신의 <span>취준메이트,</span>
@@ -121,7 +121,7 @@ const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {

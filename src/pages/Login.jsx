@@ -12,6 +12,7 @@ import { loginDB } from "./../redux/modules/user";
 import { KAKAO_AUTH_URL } from "../shared/api";
 
 // 이미지
+import logo from "../assets/img/logo.png";
 import kakaologo from "../assets/img/icon/kakaobtn.png";
 
 const Login = () => {
@@ -21,6 +22,11 @@ const Login = () => {
   const [password, setPassword] = useState();
 
   // 로그인
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      loginBtn();
+    }
+  };
   const loginBtn = () => {
     if (email === "" || password === "") {
       window.alert("아이디와 비밀번호를 입력해주세요.");
@@ -41,10 +47,7 @@ const Login = () => {
   return (
     <LoginWrap>
       <Header>
-        <img
-          src="https://i.jobkorea.kr/content/images/ver_1/gnb/jk_logo.png?20190718"
-          alt="로고"
-        />
+        <img src={logo} alt="로고" />
       </Header>
       <InputWrap>
         <input
@@ -60,6 +63,7 @@ const Login = () => {
           onChange={(event) => {
             setPassword(event.target.value);
           }}
+          onKeyPress={onKeyPress}
         />
         <LoginBtn onClick={loginBtn}>로그인</LoginBtn>
         <PwCheck>
@@ -72,7 +76,7 @@ const Login = () => {
         <KaKaoBtn>
           <Link to={KAKAO_AUTH_URL}>
             <img src={kakaologo} alt="카카오로고" />
-            카카오톡 간편 로그인
+            <p>카카오톡 간편 로그인</p>
           </Link>
         </KaKaoBtn>
       </Footer>
@@ -86,7 +90,7 @@ const LoginWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {
@@ -107,6 +111,7 @@ const InputWrap = styled.main`
   flex-direction: column;
   justify-content: center;
   gap: 15px;
+  width: 100%;
 `;
 const Header = styled.header`
   width: 50px;
@@ -118,6 +123,8 @@ const PwCheck = styled.p`
   font-weight: 500;
   font-size: 14px;
   color: var(--blue3);
+  display: flex;
+  gap: 7px;
   line-height: 17px;
   a {
     font-weight: 600;
@@ -163,6 +170,9 @@ const KaKaoBtn = styled.button`
     font-size: 18px;
     width: 100%;
     color: #371f1e !important;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 `;

@@ -89,7 +89,6 @@ const Year = styled.h2`
     font-weight: 700;
     font-size: 14px;
     color: var(--blue3);
-    margin-right: 10px;
   }
 `;
 const Month = styled.h2`
@@ -117,7 +116,6 @@ const YearBtnBox = styled.div`
     font-weight: 700;
     font-size: 14px;
     color: var(--blue3);
-    margin-right: 10px;
   }
 `;
 const BtnBox = styled.div`
@@ -126,7 +124,6 @@ const BtnBox = styled.div`
   margin: 30px 0;
   gap: 25px;
   button {
-    font-weight: 600;
     font-size: 22px;
     color: var(--blue4);
     line-height: 30px;

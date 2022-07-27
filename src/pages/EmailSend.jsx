@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //이미지
-import banner from "../assets/img/cover/cover1.jpg";
+import mailsendimg from "../assets/img/illust/mailsend.png";
 
 const EmailSend = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const EmailSend = () => {
   return (
     <EmailWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
+        <Banner src={mailsendimg} alt="배너" />
         <TitleText>
           <Title>인증메일을 전송했어요!</Title>
           <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>
@@ -91,7 +91,7 @@ const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
 `;
@@ -100,9 +100,13 @@ const Header = styled.header`
   width: 100%;
   padding-bottom: 50px;
   margin-bottom: 73px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Banner = styled.img`
-  width: 100%;
+  width: 180px;
   border-radius: 26px;
 `;
 const TitleText = styled.div`
@@ -142,13 +146,13 @@ const Input = styled.input`
   padding: 18px 23px;
   background: #ffffff;
   border: 1px solid var(--blue2);
+  margin-bottom: ${(props) => (props.errorcheck ? "" : "72px")};
   border-radius: 6px;
   ::placeholder {
     color: var(--blue3);
     font-weight: 500;
     font-size: 16px;
   }
-  margin-bottom: 72px;
   border: ${(props) =>
     props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;
   color: ${(props) => (props.errorcheck !== "" ? "var(--point3)" : "")};

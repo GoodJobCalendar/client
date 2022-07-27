@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // 이미지
@@ -15,6 +15,37 @@ import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
 
 const MonthList = () => {
+  const response = {
+    220804: [
+      {
+        scheduleId: 40,
+        color: 0,
+        memo: null,
+        sticker: 0,
+        coverImage: 0,
+        title:
+          "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
+        place: "서울 중구",
+        date: "2022-08-04 23:59:59",
+        companyName: "롯데멤버스㈜",
+        postingId: 1,
+        type: "auto",
+      },
+      {
+        scheduleId: 43,
+        color: 0,
+        memo: null,
+        sticker: 0,
+        coverImage: 0,
+        place: "집",
+        date: "2022-08-04 01:01:01",
+        companyName: "짱좋은회사3",
+        type: "manual",
+      },
+    ],
+  };
+  const test = Object.entries(response);
+  console.log(test);
   const [mmm, setmmm] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
 
@@ -116,7 +147,7 @@ const MonthList = () => {
         </Link>
       </ScheduleListWrap>
     ));
-  return <Container>{list}</Container>;
+  return <Container>{/* {list} */}</Container>;
 };
 
 export default MonthList;
