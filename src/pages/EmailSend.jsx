@@ -20,7 +20,7 @@ const EmailSend = () => {
   // 이메일 인증 메일 전송
   const MailsendBtn = async () => {
     await axios
-      .post("http://14.34.139.253:3000/api/auth/local", {
+      .post("https://3.39.193.47/api/auth/local", {
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.password,
@@ -37,7 +37,7 @@ const EmailSend = () => {
   // 인증번호 확인 & 회원가입완료
   const AuthNumberCheckBtn = async () => {
     await axios
-      .post("http://14.34.139.253:3000/api/auth/verifyNumberForNew", {
+      .post("https://3.39.193.47/api/auth/verifyNumberForNew", {
         authNumber,
         email: userInfo.email,
         password: userInfo.password,

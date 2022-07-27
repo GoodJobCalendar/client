@@ -17,7 +17,7 @@ const PwChange = () => {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .patch("http://14.34.139.253:3000api/auth/newPassword", {
+      .patch("https://3.39.193.47/api/auth/newPassword", {
         email: userInfo.email,
         password,
         confirmPassword,

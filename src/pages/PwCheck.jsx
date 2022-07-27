@@ -24,7 +24,7 @@ const PwCheck = () => {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .post("http://14.34.139.253:3000/api/auth/lostPassword", {
+      .post("https://3.39.193.47/api/auth/lostPassword", {
         email: userInfo.email,
         userName: userInfo.userName,
       })
@@ -40,7 +40,7 @@ const PwCheck = () => {
   const PwCheckBtn = async () => {
     // 인증번호 확인
     await axios
-      .delete("http://14.34.139.253:3000/api/auth/verifyNumberForOld", {
+      .delete("https://3.39.193.47/api/auth/verifyNumberForOld", {
         email: userInfo.email,
         authNumber,
       })
