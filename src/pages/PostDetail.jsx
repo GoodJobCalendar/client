@@ -31,7 +31,7 @@ const PostDetail = () => {
   const { scheduleId } = useParams();
 
   const detailInfo = useSelector((state) => state.schedule.detail);
-
+  console.log(detailInfo);
   //뒤로가기
   const moveBtn = () => {
     navigate("/main");
@@ -116,6 +116,7 @@ const PostDetail = () => {
         <Delete
           onClick={() => {
             dispatch(deletePost(scheduleId));
+            navigate("/main");
           }}
         >
           일정 삭제하기

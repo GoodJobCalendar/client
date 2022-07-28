@@ -39,7 +39,6 @@ function Main() {
   // 로그인유무확인
   useEffect(() => {
     if (is_Login) {
-      navigate("/main");
     }
   }, [is_Login]);
 

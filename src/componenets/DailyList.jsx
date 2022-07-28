@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import Dayjs from "dayjs";
-import "dayjs/locale/ko";
 import img1 from "../assets/img/sticker/Group 1.png";
 import img2 from "../assets/img/sticker/Group 2.png";
 import img3 from "../assets/img/sticker/Group 3.png";
@@ -42,7 +40,7 @@ const DailyList = () => {
       },
     ],
   };
-  const test = Object.entries(response);
+  const dailyList = Object.entries(dailySchedule);
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
 
@@ -83,8 +81,8 @@ const DailyList = () => {
     )}일 ${Week(week)}`;
   };
   const list =
-    test &&
-    test?.map((value, idx) => (
+    dailyList &&
+    dailyList?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
         {value[1]?.map((content, idx) => (
           <>

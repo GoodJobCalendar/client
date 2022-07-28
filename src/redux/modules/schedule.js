@@ -4,7 +4,23 @@ import axios from "axios";
 
 // initialState
 const initialState = {
-  startDate: "",
+  month: {
+    220830: [
+      {
+        color: 1,
+        companyName: "현대오토에버㈜",
+        coverImage: 1,
+        date: "2121-12-31 15:00:00",
+        memo: null,
+        place: "서울 강남구",
+        postingId: 2406,
+        scheduleId: 54,
+        sticker: 1,
+        title: "App개발 경력 채용",
+        type: "auto",
+      },
+    ],
+  },
 };
 
 // action

@@ -7,6 +7,7 @@ import postReducer from "./modules/post";
 import scheduleReducer from "./modules/schedule";
 // import rootReducer from './modules';
 import dateReducer from "./modules/date";
+import { useNavigate } from "react-router-dom";
 
 const middlewares = [thunk];
 const enhancer = composeWithDevTools(applyMiddleware(...middlewares));

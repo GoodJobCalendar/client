@@ -20,7 +20,6 @@ const Nav = (props) => {
   };
   useEffect(() => {
     if (is_login) {
-      navigate("/main");
     }
   }, [is_login]);
   return (

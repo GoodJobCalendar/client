@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { schedulePost } from "../redux/modules/post";
+
+// 스티커
 import img1 from "../assets/img/sticker/Group 1.png";
 import img2 from "../assets/img/sticker/Group 2.png";
 import img3 from "../assets/img/sticker/Group 3.png";
@@ -10,27 +14,36 @@ import img5 from "../assets/img/sticker/Group 5.png";
 import img6 from "../assets/img/sticker/Group 6.png";
 import img7 from "../assets/img/sticker/Group 7.png";
 import img8 from "../assets/img/sticker/Group 8.png";
+
+// 커버 이미지
 import cover1 from "../assets/img/cover/cover1.jpg";
 import cover2 from "../assets/img/cover/cover2.jpg";
 import cover3 from "../assets/img/cover/cover3.jpg";
 import cover4 from "../assets/img/cover/cover4.jpg";
+
+// 아이콘
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import memoimg from "../assets/img/icon/memo.png";
-import { schedulePost } from "../redux/modules/post";
-import "date-fns";
+
+//Date Picker
 import DatePicker from "react-datepicker";
+import "date-fns";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
-import dayjs from "dayjs";
+
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //리스트 토글
   const [colorPickerShow, setColorPickerShow] = useState(false);
   const [stickerShow, setStickerShow] = useState(false);
   const [coverShow, setCoverShow] = useState(false);
+  const [dateShow, setDateShow] = useState(true);
+  const [timeShow, setTimeShow] = useState(false);
 
+  //작성목록
   const [color, setColor] = useState("");
   const [sticker, setSticker] = useState("");
   const [image, setImage] = useState("");
@@ -41,50 +54,17 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [cover, setCover] = useState(
     "https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"
   );
+  //컬러 미리보기
   const [colorPick, setColorPick] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
-  const [dispatchTime, setDispatchTime] = useState(dayjs());
-  const [dateShow, setDateShow] = useState(true);
-  const [timeShow, setTimeShow] = useState(false);
 
+  //Time Picker
   const [selectTime, setSelectTime] = useState("오전");
   const [selectHour, setSelectHour] = useState("01");
   const [selectMinute, setSelectMinute] = useState("00");
 
-  const now = dayjs().hour(0).minute(0);
-  const handleValueChange = (value) => {
-    setDispatchTime(value);
-  };
-  const addClick = () => {
-    navigate("/main");
-  };
-  const ColorClick = () => {
-    setColorPickerShow(!colorPickerShow);
-  };
-  const StickerClick = () => {
-    setStickerShow(!stickerShow);
-    setCoverShow(false);
-  };
-  const coverClick = () => {
-    setCoverShow(!coverShow);
-    setStickerShow(false);
-  };
-
-  const colorChange = (e) => {
-    setColor(e.target.id);
-    setColorPick(e.target.value);
-    setColorPickerShow(!colorPickerShow);
-  };
-  const stickerChange = (e) => {
-    setSticker(e.target.id);
-    setStickerShow(!stickerShow);
-  };
-  const coverChange = (e) => {
-    setCover(e.target.value);
-    setImage(e.target.id);
-    setCoverShow(!coverShow);
-  };
+  //Date Picker
   let [week, month, day, year, sTime] = startDate.toString().split(" ");
   let Week = (week) => {
     if (week === "Sun") return "일";
@@ -109,11 +89,73 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     if (month === "Nov") return "11";
     if (month === "Dec") return "12";
   };
+
+  //Time Picker
+  const division = ["오전", "오후"];
+  const hourSelect = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+  ];
+  const minuteSelect = ["00", "10", "20", "30", "40", "50"];
+
+  //오후 시간 선택시 12더하기
   const hour = String(
     Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)
   ).padStart(2, "0");
+  // 날짜
   const allDate = `${year}-${Month(month)}-${day} ${hour}:${selectMinute}:00`;
-  console.log(allDate);
+
+  // 뒤로가기
+  const moveBtn = () => {
+    navigate("/main");
+  };
+  // 컬러 리스트 보이기
+  const colorShowBtn = () => {
+    setColorPickerShow(!colorPickerShow);
+  };
+  // 스티커 리스트 보이기
+  const stickerShowBtn = () => {
+    setStickerShow(!stickerShow);
+    setCoverShow(false);
+  };
+
+  // 커버 이미지 보이기
+  const coverShowBtn = () => {
+    setCoverShow(!coverShow);
+    setStickerShow(false);
+  };
+
+  // 컬러 미리보기 / 컬러 pcik
+  const colorChange = (e) => {
+    setColor(e.target.id);
+    setColorPick(e.target.value);
+    setColorPickerShow(!colorPickerShow);
+  };
+
+  // 스티커 pcik
+  const stickerChange = (e) => {
+    setSticker(e.target.id);
+    setStickerShow(!stickerShow);
+  };
+
+  // 커버 이미지 미리보기 / 커버 이미지 pick
+  const coverChange = (e) => {
+    setCover(e.target.value);
+    setImage(e.target.id);
+    setCoverShow(!coverShow);
+  };
+
+  // 일정등록
   const addScheduleBtn = async () => {
     dispatch(
       schedulePost({
@@ -145,33 +187,16 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     setTimeShow(!timeShow);
   };
 
-  const division = ["오전", "오후"];
-  const hourSelect = [
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-  ];
-  const minuteSelect = ["00", "10", "20", "30", "40", "50"];
-
   return (
     <AddSchesuleWrap>
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
-          <Btn onClick={addClick}>&lt;</Btn>
+          <Btn onClick={moveBtn}>&lt;</Btn>
           <Btn onClick={addScheduleBtn}>저장</Btn>
         </AddFlex>
         <BtnFlex>
           <TitleInput>
-            <AddBtn onClick={StickerClick}>스티커 추가</AddBtn>
+            <AddBtn onClick={stickerShowBtn}>스티커 추가</AddBtn>
             {stickerShow ? (
               <StickerList>
                 <label htmlFor="1">
@@ -252,7 +277,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             )}
           </TitleInput>
           <TitleInput>
-            <AddBtn onClick={coverClick}>커버 변경</AddBtn>
+            <AddBtn onClick={coverShowBtn}>커버 변경</AddBtn>
             {coverShow ? (
               <CoverList>
                 <label htmlFor="1">
@@ -326,7 +351,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               setTitle(event.target.value);
             }}
           />
-          <ColorPicker onClick={ColorClick} colorPick={colorPick} />
+          <ColorPicker onClick={colorShowBtn} colorPick={colorPick} />
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1"></Color1>
