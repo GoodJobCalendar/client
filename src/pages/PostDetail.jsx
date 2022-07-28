@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { detailPost, deletePost } from "../redux/modules/schedule";
 
@@ -24,11 +24,15 @@ import cover4 from "../assets/img/cover/cover4.jpg";
 //아이콘 이미지
 import arrow from "../assets/img/icon/Back.png";
 import update from "../assets/img/icon/Edit.png";
-
+import UpdateSchedule from "../componenets/UpdateSchedule";
+import logomini from "../assets/img/icon/Logo_mini.png";
+import location from "../assets/img/icon/Location.png";
+import time from "../assets/img/icon/Time.png";
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { scheduleId } = useParams();
+  const [updateScheduleShow, setUpdateScheduleShow] = useState(false);
 
   const detailInfo = useSelector((state) => state.schedule.detail);
   console.log(detailInfo);
@@ -38,7 +42,9 @@ const PostDetail = () => {
   };
 
   //수정하기
-  const updateScheduleBtn = () => {};
+  const updateScheduleBtn = () => {
+    setUpdateScheduleShow(!updateScheduleShow);
+  };
 
   useEffect(() => {
     dispatch(detailPost(scheduleId));
@@ -51,8 +57,13 @@ const PostDetail = () => {
           <Btn onClick={moveBtn}>
             <img src={arrow} alt="뒤로가기" />
           </Btn>
+          {}
           <Btn onClick={updateScheduleBtn}>
-            <img src={update} alt="수정하기" />
+            <img
+              src={update}
+              alt="수정하기"
+              style={{ opacity: detailInfo?.memo === null && "0" }}
+            />
           </Btn>
         </BtnFlex>
         <Cover
@@ -98,7 +109,10 @@ const PostDetail = () => {
             {detailInfo?.title}
           </Title>
           <DateWrap>
-            <p>일정</p>
+            <TimeTitle>
+              <img src={time} />
+              일정
+            </TimeTitle>
             <Date>
               <li>
                 {detailInfo?.date.split(" ")[0].split("-")[1]}월{" "}
@@ -110,8 +124,11 @@ const PostDetail = () => {
               </li>
             </Date>
           </DateWrap>
-          <Text>{detailInfo?.place}</Text>
-          <Text>{detailInfo?.memo}</Text>
+          <Text>
+            <img src={location} />
+            {detailInfo?.place}
+          </Text>
+          {detailInfo?.memo && <Text>{detailInfo?.memo}</Text>}
         </TextWrap>
         <Delete
           onClick={() => {
@@ -121,7 +138,21 @@ const PostDetail = () => {
         >
           일정 삭제하기
         </Delete>
+        <Move>
+          <img src={logomini} />
+          {/* <Link to={detailInfo?.url}> */}
+          자세한 공고 잡코리아에서 확인
+          {/* </Link> */}
+        </Move>
       </PostDailWrap>
+      {updateScheduleShow && (
+        <UpdateSchedule
+          scheduleId={scheduleId}
+          updateScheduleShow={updateScheduleShow}
+          setUpdateScheduleShow={setUpdateScheduleShow}
+          detailInfo={detailInfo}
+        />
+      )}
     </>
   );
 };
@@ -187,6 +218,16 @@ const Text = styled.div`
   background: #ffffff;
   border-radius: 6px;
   font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+`;
+const TimeTitle = styled.p`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 `;
 const Color = styled.div`
   width: 25px;
@@ -227,4 +268,16 @@ const Delete = styled.button`
   background-color: var(--blue4);
   border-radius: 6px;
   margin-top: 25px;
+`;
+const Move = styled.button`
+  width: 100%;
+  padding: 18px;
+  color: #fff;
+  background-color: var(--blue4);
+  border-radius: 6px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 `;

@@ -99,6 +99,7 @@ export const detailPost = (scheduleId) => {
       });
   };
 };
+
 //월간일정 조회
 export const loadMonth = (payload) => {
   console.log(payload);
@@ -119,6 +120,7 @@ export const loadMonth = (payload) => {
       });
   };
 };
+
 //일간일정 조회
 export const loadDaily = (payload) => {
   return function (dispatch, getState) {
