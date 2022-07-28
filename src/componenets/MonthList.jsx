@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
@@ -60,7 +60,7 @@ const MonthList = () => {
     monthList?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
         {value[1]?.map((content, idx) => (
-          <>
+          <Fragment key={idx}>
             <DayFlex>
               <Day>{idx === 0 && fullDate(value[0])}</Day>
               <Dday>
@@ -81,7 +81,7 @@ const MonthList = () => {
                     : "D-day")}
               </Dday>
             </DayFlex>
-            <Link to={`/postdetail/${content?.scheduleId}`} key={idx}>
+            <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
                   {(content?.date).split(" ")[1].split(":")[0]}:
@@ -126,7 +126,7 @@ const MonthList = () => {
                 )}
               </ScheduleItem>
             </Link>
-          </>
+          </Fragment>
         ))}
       </ScheduleListWrap>
     ));

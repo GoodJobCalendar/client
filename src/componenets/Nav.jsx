@@ -25,24 +25,23 @@ const Nav = (props) => {
   return (
     <NavWrap>
       <NavTitle>
-        <Ham style={{ opacity: "0" }}>
-          <LogOutBtn>로그아웃</LogOutBtn>
-          {/* <LineList>
+        <LogOutBtn style={{ opacity: "0" }}>로그아웃</LogOutBtn>
+
+        {/* <Ham >
+          <LineList>
             <Line></Line>
             <Line></Line>
             <Line></Line>
-          </LineList> */}
-        </Ham>
+          </LineList>
+        </Ham> */}
         <span>취준생캘린더</span>
-        <Ham>
-          {is_login === "true" ? (
-            <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
-          ) : (
-            <LogOutBtn>
-              <Link to="/login">로그인</Link>
-            </LogOutBtn>
-          )}
-        </Ham>
+        {is_login === "true" ? (
+          <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
+        ) : (
+          <LogOutBtn>
+            <Link to="/login">로그인</Link>
+          </LogOutBtn>
+        )}
       </NavTitle>
       <NavList>
         <NavItem nav={nav}>

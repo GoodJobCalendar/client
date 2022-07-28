@@ -26,14 +26,16 @@ const Dates = (props) => {
       <FlexList key={idx}>
         {value[1]?.map((content, index) => {
           return index < 2
-            ? content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                <TextList key={index} color={content.color}>
-                  {content.title}
-                </TextList>
-              )
-            : content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                <List key={index} color={content.color}></List>
-              );
+            ? content?.color &&
+                content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
+                  <TextList key={index} color={content.color}>
+                    {content.title}
+                  </TextList>
+                )
+            : content?.color &&
+                content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
+                  <List key={index} color={content.color}></List>
+                );
         })}
       </FlexList>
     ));
@@ -45,6 +47,7 @@ const Dates = (props) => {
         {value[1]?.map((content, index) => {
           return (
             index < 2 &&
+            content?.color &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
               <List key={index} color={content.color}></List>
             )
@@ -140,6 +143,7 @@ const TextList = styled.p`
   padding: 3px;
   font-size: 8px;
   margin-top: 3px;
+  color: ${(props) => (props.color !== 1 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 1 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
