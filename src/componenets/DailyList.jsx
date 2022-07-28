@@ -82,11 +82,11 @@ const DailyList = () => {
   };
   const list =
     dailyList &&
-    dailyList?.map((value, idx) => (
-      <ScheduleListWrap key={idx}>
+    dailyList?.map((value, index) => (
+      <ScheduleListWrap key={index}>
         {value[1]?.map((content, idx) => (
           <>
-            <DayFlex>
+            <DayFlex key={value[1].scheduleId}>
               <Day>{idx === 0 && fullDate(value[0])}</Day>
               <Dday>
                 {idx === 0 &&
