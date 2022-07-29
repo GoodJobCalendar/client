@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
@@ -15,9 +15,21 @@ import SearchData from "./SearchData";
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
+import locationGray from "../assets/img/icon/LocationGray.png";
+
+// 스티커 배경
+import img1 from "../assets/img/sticker/Group 1.png";
+import img2 from "../assets/img/sticker/Group 2.png";
+import img3 from "../assets/img/sticker/Group 3.png";
+import img4 from "../assets/img/sticker/Group 4.png";
+import img5 from "../assets/img/sticker/Group 5.png";
+import img6 from "../assets/img/sticker/Group 6.png";
+import img7 from "../assets/img/sticker/Group 7.png";
+import img8 from "../assets/img/sticker/Group 8.png";
 
 // 리덕스
 import { searchMySchedule } from "../redux/modules/search";
+import { zoomDate } from "../redux/modules/date";
 
 function Main() {
   const navigate = useNavigate();
@@ -25,7 +37,7 @@ function Main() {
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
 
-  // console.log(weekMonth);
+  const active = useSelector((state) => state.date.active);
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -45,9 +57,10 @@ function Main() {
 
   const navData = true;
 
-  const searchData = useSelector((state) => state.search.search?.data);
+  const searchData = useSelector((state) => state.search.search);
 
-  // const searchDataList = Object.entries(searchData === undefined && null ? { 220830: [{}] } : searchData);
+  console.log("검색 결과 원본입니다. searchData", searchData);
+  const searchDataList = Object.entries(searchData);
   // const searchDataList = () => {
   //   if (!Object.entries) {
   //     Object.entries = function (searchData) {
@@ -63,26 +76,25 @@ function Main() {
   // console.log("검색 결과입니다. searchDataList", searchDataList(searchData));
   // console.log("검색 결과입니다. searchDataList", searchDataList);
 
-  console.log("검색 결과 원본입니다. searchData", searchData);
+  const dataArray = searchDataList?.map((data, idx) => data[1]?.length);
 
-  const active = useSelector((state) => state.date?.active);
+  const dataArraySum = dataArray?.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
 
-  // const dataArray = searchDataList?.map((data, idx) => data[1]?.length);
+  console.log(dataArraySum);
 
-  // const dataArraySum = dataArray?.reduce((acc, cur) => {
-  //   return acc + cur;
-  // }, 0);
+  function getDate(whatDay) {
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
 
-  // console.log(dataArraySum);
+    const dayOfWeek = week[new Date(whatDay).getDay()];
 
-  // function getDate(whatDay) {
-  //   const week = ["일", "월", "화", "수", "목", "금", "토"];
+    return dayOfWeek;
+  }
 
-  //   const dayOfWeek = week[new Date(whatDay).getDay()];
-
-  //   return dayOfWeek;
-  // }
-
+  useEffect(() => {
+    dispatch(zoomDate(zoomInOut));
+  }, [zoomInOut]);
   return (
     <MainWrap>
       <Nav navData={navData} />
@@ -160,11 +172,11 @@ function Main() {
       ) : (
         <SearchWrapper>
           <UpBar>
-            {/* <SearchInfo>{'" ' + search + ' "'} 검색결과</SearchInfo>
-            <SearchInfo>{dataArraySum} 건</SearchInfo> */}
+            <SearchInfo>{'" ' + search + ' "'} 검색결과</SearchInfo>
+            <SearchInfo>{dataArraySum} 건</SearchInfo>
           </UpBar>
           <SearchHr />
-          {/* {searchDataList?.map((tasksData, idx) => {
+          {searchDataList?.map((tasksData, idx) => {
             const dayData = tasksData[0].split("");
             const year = "20" + dayData[0] + dayData[1];
             const month = dayData[2] + dayData[3];
@@ -174,15 +186,60 @@ function Main() {
             const gap = dday.getTime() - today.getTime();
             const result = Math.ceil(gap / (1000 * 60 * 60 * 24));
             return (
-              <SearchDataDayWrap key={idx}>
-                <SearchDataDay>{year + "년 " + month + "월 " + day + "일 " + "(" + getDate(dday) + ")"}</SearchDataDay>
-                <SearchDataDDay>{"d" + (0 - result)}</SearchDataDDay>
-              </SearchDataDayWrap>
+              <SearchDataWrapper key={idx}>
+                <SearchDataDayWrap>
+                  <SearchDataDay>{year + "년 " + month + "월 " + day + "일 " + "(" + getDate(dday) + ")"}</SearchDataDay>
+                  <SearchDataDDay>{"d" + (0 - result)}</SearchDataDDay>
+                </SearchDataDayWrap>
+                <SearchDataCardWrap>
+                  {tasksData[1].map((data, idx) => {
+                    return (
+                      <SearchDataCard key={idx}>
+                        <MainDataWrap>
+                          <MainData>
+                            <SearchDataColor color={data.color} />
+                            <SearchDataTitleWrap>
+                              <SearchDataTime>{data.date.split(" ")[1].split(":")[0] + ":" + data.date.split(" ")[1].split(":")[1]}</SearchDataTime>
+                              <SearchDataTitle>
+                                {data.title.split(search)[0]}
+                                <span style={{ color: "#4F32FF" }}>{search}</span>
+                                {data.title.split(search)[1]}
+                              </SearchDataTitle>
+                            </SearchDataTitleWrap>
+                          </MainData>
+                          <Sticker
+                            src={
+                              data.sticker === 1
+                                ? img1
+                                : data.sticker === 2
+                                ? img2
+                                : data.sticker === 3
+                                ? img3
+                                : data.sticker === 4
+                                ? img4
+                                : data.sticker === 5
+                                ? img5
+                                : data.sticker === 6
+                                ? img6
+                                : data.sticker === 7
+                                ? img7
+                                : img8
+                            }
+                          ></Sticker>
+                        </MainDataWrap>
+                        <Hr />
+                        <MemoBox>{data.memo}</MemoBox>
+                        <LocationBox>
+                          <LocationImg src={locationGray} />
+                          <LocationText>{data.place}</LocationText>
+                        </LocationBox>
+                      </SearchDataCard>
+                    );
+                  })}
+                </SearchDataCardWrap>
+              </SearchDataWrapper>
             );
-          })} */}
-          {/* <SearchDataWrapper>
-            <SearchDataDay>{searchDataList}</SearchDataDay>
-          </SearchDataWrapper> */}
+          })}
         </SearchWrapper>
       )}
     </MainWrap>
@@ -198,8 +255,8 @@ const ContentWrap = styled.div`
   padding: 18px 12px;
   background-color: var(--blue1);
   overflow: hidden;
-  height: calc(812px - 236px);
   overflow-y: scroll;
+  height: calc(100vh - 200px);
 `;
 const ToggleBtn = styled.div`
   display: flex;
@@ -310,11 +367,7 @@ const SearchHr = styled.hr`
   border: none;
 `;
 
-const SearchDataWrapper = styled.div`
-  width: 342px;
-  height: auto;
-  background-color: green;
-`;
+const SearchDataWrapper = styled.div``;
 
 const SearchDataDayWrap = styled.div`
   font-weight: 600;
@@ -339,4 +392,122 @@ const SearchDataDDay = styled.p`
   color: #3284ff;
 `;
 
-const SearchDataCard = styled.div``;
+const SearchDataCardWrap = styled.div`
+  width: 342px;
+  height: auto;
+  margin: 0px auto;
+`;
+
+const SearchDataCard = styled.div`
+  width: 342px;
+  height: 147px;
+  background: #ffffff;
+  border-radius: 6px;
+  margin: 8px auto;
+`;
+
+const MainDataWrap = styled.div`
+  width: auto;
+  display: inline-block;
+  padding: 16px 14px 14px 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const MainData = styled.div``;
+
+const SearchDataColor = styled.div`
+  float: left;
+  margin-right: 15px;
+  width: 3.1px;
+  height: 39.25px;
+  background: ${(props) =>
+    props.color === 1
+      ? "#16E611"
+      : props.color === 2
+      ? "rgba(253, 187, 110, 1)"
+      : props.color === 3
+      ? "rgba(253, 247, 110, 1)"
+      : props.color === 4
+      ? "rgba(253, 247, 110, 1)"
+      : props.color === 5
+      ? "rgba(253, 247, 110, 1)"
+      : props.color === 6
+      ? "rgba(253, 247, 110, 1)"
+      : "rgba(154, 154, 154, 1)"};
+`;
+
+const SearchDataTitleWrap = styled.div`
+  float: left;
+`;
+
+const SearchDataTitle = styled.div`
+  width: 250px;
+  height: 19px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #111111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const SearchDataTime = styled.div`
+  font-weight: 500;
+  font-size: 12px;
+  color: #777777;
+  width: 31px;
+  height: 14px;
+  line-height: 14px;
+  margin-bottom: 7px;
+`;
+
+const Sticker = styled.img`
+  width: 37.2px;
+  height: 35.03px;
+`;
+
+const Hr = styled.hr`
+  background: #ecf1f8;
+  width: 320.3px;
+  height: 1px;
+  border: none;
+  margin: auto;
+`;
+
+const MemoBox = styled.div`
+  padding: 5px 8px;
+  background: #efefef;
+  border-radius: 2px;
+  width: 292px;
+  height: 15px;
+  margin: 8px auto;
+  font-weight: 500;
+  font-size: 12px;
+  color: #9a9a9a;
+  line-height: 15px;
+`;
+
+const LocationBox = styled.div`
+  padding: 5px 8px;
+  border-radius: 2px;
+  width: 292px;
+  height: 15px;
+  margin: 8px auto;
+  font-weight: 500;
+  font-size: 12px;
+  color: #9a9a9a;
+  line-height: 15px;
+`;
+
+const LocationImg = styled.img`
+  float: left;
+  margin-right: 5px;
+`;
+
+const LocationText = styled.p`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9a9a9a;
+`;

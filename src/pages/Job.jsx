@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import {loadJobList, loadCategoryList, loadJobDetails} from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
 import Nav from "../componenets/Nav";
 

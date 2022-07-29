@@ -37,7 +37,7 @@ export const deletePost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .delete(`http://14.34.139.253:3000/api/schedule/${scheduleId}`, data)
+      .delete(`https://3.39.193.47/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__deletePost(res.data.data));
         console.log(res.data.data);
@@ -55,7 +55,7 @@ export const detailPost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .get(`http://14.34.139.253:3000/api/schedule/${scheduleId}`, data)
+      .get(`https://3.39.193.47/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__detailPost(res.data.data));
         console.log(res.data.data);
@@ -74,7 +74,7 @@ export const loadMonth = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("http://14.34.139.253:3000/api/schedule/monthly", data)
+      .get("https://3.39.193.47/api/schedule/monthly", data)
       .then((res) => {
         dispatch(__loadMonth(res.data.data));
         console.log(res.data.data);
@@ -93,7 +93,7 @@ export const loadDaily = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("http://14.34.139.253:3000/api/schedule/daily", data)
+      .get("https://3.39.193.47/api/schedule/daily", data)
       .then((res) => {
         dispatch(__loadDaily(res.data.data));
         console.log(res.data.data);

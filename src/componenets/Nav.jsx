@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import calendar from "../assets/img/icon/calendar.png";
-import element from "../assets/img/icon/element-4.png";
+import calendar_w from "../assets/img/icon/calendar_w.png";
+import calendar_c from "../assets/img/icon/calendar_c.png";
+import element_w from "../assets/img/icon/element_w.png";
+import element_c from "../assets/img/icon/element_c.png";
 const Nav = (props) => {
   const [nav, setNav] = useState(props.navData);
 
@@ -10,31 +12,28 @@ const Nav = (props) => {
     <NavWrap>
       <NavTitle>
         <Ham style={{ opacity: "0" }}>
-          <LineList>
+          <LogOutBtn>로그아웃</LogOutBtn>
+          {/* <LineList>
             <Line></Line>
             <Line></Line>
             <Line></Line>
-          </LineList>
+          </LineList> */}
         </Ham>
         <span>취준생캘린더</span>
         <Ham>
-          <LineList>
-            <Line></Line>
-            <Line></Line>
-            <Line></Line>
-          </LineList>
+          <LogOutBtn>로그아웃</LogOutBtn>
         </Ham>
       </NavTitle>
       <NavList>
         <NavItem nav={nav}>
           <NavLink to="/main">
-            <img src={calendar} alt="캘린더" />
+            <img src={nav ? calendar_c : calendar_w} alt="캘린더" />
             <span>캘린더</span>
           </NavLink>
         </NavItem>
         <NavItem nav={nav}>
           <NavLink to="/job">
-            <img src={element} alt="추천채용" />
+            <img src={nav ? element_w : element_c} alt="추천채용" />
             <span>추천채용</span>
           </NavLink>
         </NavItem>
@@ -94,6 +93,9 @@ const Line = styled.li`
   border-radius: 4px;
   width: 19px;
   height: 2px;
+`;
+const LogOutBtn = styled.button`
+  background-color: transparent;
 `;
 const NavLink = styled(Link)`
   box-sizing: border-box;

@@ -1,7 +1,8 @@
-import {createAction, handleActions} from "redux-actions";
-import {produce} from "immer";
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
 import axios from "axios";
-import {getCookie} from "../../shared/Cookie";
+import { getCookie } from "../../shared/Cookie";
+import { useNavigate } from "react-router-dom";
 
 // 액션
 const LOAD_JOB_LIST = "LOAD_JOB_LIST";
@@ -32,15 +33,15 @@ const initialState = {
 };
 
 // 액션 생성 함수
-const __loadJobList = createAction(LOAD_JOB_LIST, (list) => ({list}));
+const __loadJobList = createAction(LOAD_JOB_LIST, (list) => ({ list }));
 const __loadCategoryList = createAction(LOAD_CATEGORY_LIST, (category) => ({
   category,
 }));
 const __selectCategory = createAction(SELECT_CATEGORY, (categoryData) => ({
   categoryData,
 }));
-const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({details}));
-const __addScrap = createAction(ADD_SCRAP, (postingId) => ({postingId}));
+const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({ details }));
+const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 
 // 미들웨어
 
@@ -50,8 +51,8 @@ export const loadJobList = () => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get("http://14.34.139.253:3000/api/posting", {
-        headers: {Authorization: `Bearer ${myToken}`},
+      .get("https://goodjobcalendar.com/api/posting", {
+        headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
         dispatch(__loadJobList(res.data));
@@ -68,8 +69,8 @@ export const loadCategoryList = () => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     axios
-      .get("http://14.34.139.253:3000/api/posting/category", {
-        headers: {Authorization: `Bearer ${myToken}`},
+      .get("https://goodjobcalendar.com/api/posting/category", {
+        headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
         dispatch(__loadCategoryList(res.data));
@@ -91,9 +92,9 @@ export const selectCategory = (categoryData) => {
     const myToken = getCookie("token");
     axios({
       method: "patch",
-      url: "http://14.34.139.253:3000/api/posting/category",
+      url: "https://goodjobcalendar.com/api/posting/category",
       data: categoryData,
-      headers: {Authorization: `Bearer ${myToken}`},
+      headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
         dispatch(__selectCategory(res.data));
@@ -110,8 +111,8 @@ export const loadJobDetails = (postingId) => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get(`http://14.34.139.253:3000/api/posting/${postingId}`, {
-        headers: {Authorization: `Bearer ${myToken}`},
+      .get(`https://goodjobcalendar.com/api/posting/${postingId}`, {
+        headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
         dispatch(__loadJobDetails(res.data));
@@ -123,7 +124,7 @@ export const loadJobDetails = (postingId) => {
   };
 };
 
-// todo 추가 미들웨어
+// 추가 미들웨어
 export const addScrap = (postingId) => {
   return function (dispatch, getState) {
     if (!postingId) {
@@ -132,11 +133,11 @@ export const addScrap = (postingId) => {
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: `http://14.34.139.253:3000/api/schedule/scrap`,
+      url: `https://goodjobcalendar.com/api/schedule/scrap`,
       data: {
         postingId: Number(postingId),
       },
-      headers: {Authorization: `Bearer ${myToken}`},
+      headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
         dispatch(__addScrap(res.data));

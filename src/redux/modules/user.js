@@ -35,7 +35,7 @@ export function tokenUser(payload) {
 export const loginDB = (payload) => {
   return function (dispatch) {
     axios
-      .post("http://14.34.139.253:3000/api/auth", payload)
+      .post("https://goodjobcalendar.com/api/auth", payload)
       .then((response) => {
         dispatch(setUser(payload));
         setCookie("token", response.data.token, 5);
@@ -60,7 +60,7 @@ export const kakaoLoginDB = (code) => {
   console.log(code);
   return function (dispatch, getState) {
     axios
-      .get(`http://14.34.139.253:3000/api/auth/kakao/callback?code=${code}`)
+      .get(`https://3.39.193.47/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
         console.log("카카오 로그인 성공", response);
         dispatch(setUser());

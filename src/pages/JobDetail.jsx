@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import {loadJobList, loadCategoryList, loadJobDetails, addScrap} from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails, addScrap } from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
@@ -54,7 +54,7 @@ const JobDetail = () => {
 
         <JobInfo>
           <InfoTitle>모집마감일자</InfoTitle>
-          <InfoDetails style={{fontWeight: "800"}}>
+          <InfoDetails style={{ fontWeight: "800" }}>
             {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
               ? "상시채용"
               : jobDetail?.deadline.split(" ")[0] + " " + "(" + getDate(jobDetail?.deadline.split(" ")[0]) + ")"}
@@ -111,10 +111,7 @@ const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(812px - 236px);
   background: #ecf1f8;
-  overflow: hidden;
-  overflow-y: scroll;
   padding-top: 40px;
 `;
 

@@ -10,7 +10,23 @@ const SEARCH_MY_SCHEDULE = "SEARCH_MY_SCHEDULE";
 // 초기값
 
 const initialState = {
-  220830: [{}],
+  search: {
+    220830: [
+      {
+        color: 1,
+        companyName: "현대오토에버㈜",
+        coverImage: 1,
+        date: "2121-12-31 15:00:00",
+        memo: null,
+        place: "서울 강남구",
+        postingId: 2406,
+        scheduleId: 54,
+        sticker: 1,
+        title: "App개발 경력 채용",
+        type: "auto",
+      },
+    ],
+  },
 };
 
 // 액션 생성 함수
@@ -28,10 +44,10 @@ export const searchMySchedule = (keyword) => {
     };
     console.log(bucket);
     axios
-      .get("http://14.34.139.253:3000/api/schedule/search", bucket)
+      .get("https://goodjobcalendar.com/api/schedule/search", bucket)
       .then((res) => {
         dispatch(__searchMySchedule(res.data));
-        console.log("리덕스 콘솔", res.data);
+        console.log("검색하기 리덕스 콘솔", res.data);
       })
       .catch((err) => {
         console.log("검색하기 에러입니다.: ", err);

@@ -27,7 +27,7 @@ const PwSend = () => {
       return setError("이메일 형식이 아닙니다.");
     }
     await axios
-      .post("http://14.34.139.253:3000/api/auth/lostPassword", {
+      .post("https://3.39.193.47/api/auth/lostPassword", {
         userName,
         email,
       })
@@ -83,7 +83,7 @@ const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {

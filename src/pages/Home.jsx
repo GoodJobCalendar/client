@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/bundle";
-import { Pagination } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 
 // 카카오
 import { KAKAO_AUTH_URL } from "../shared/api";
@@ -23,10 +23,7 @@ const Home = () => {
   return (
     <HomeWrap>
       <header>
-        <img
-          src="https://i.jobkorea.kr/content/images/ver_1/gnb/jk_logo.png?20190718"
-          alt="로고"
-        />
+        <img src={logo} alt="로고" />
         <Title>당신의 취준 메이트</Title>
         <SubTitle>굿잡 캘린더</SubTitle>
       </header>
@@ -37,8 +34,12 @@ const Home = () => {
           pagination={{
             clickable: true,
           }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
           grabCursor={true}
-          modules={[Pagination]}
+          modules={[Autoplay, Pagination]}
           className="mySwiper1"
           centeredSlides={true}
           spaceBetween={50}
@@ -76,7 +77,7 @@ const Home = () => {
         <KaKaoBtn>
           <Link to={KAKAO_AUTH_URL}>
             <img src={kakaologo} alt="카카오로고" />
-            카카오톡 간편 로그인
+            <p>카카오톡 간편 로그인</p>
           </Link>
         </KaKaoBtn>
         <LoginBtn>
@@ -93,7 +94,7 @@ const HomeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 30px;
   background-color: var(--blue1);
   overflow: hidden;
@@ -123,6 +124,7 @@ const Title = styled.p`
 const SubTitle = styled.h1`
   font-weight: 600;
   font-size: 20px;
+  color: var(--blue4);
 `;
 const SlideBox = styled.div`
   display: flex;
@@ -195,7 +197,10 @@ const KaKaoBtn = styled.button`
     font-size: 18px;
     width: 100%;
     color: #371f1e !important;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 `;
 const LoginBtn = styled.button`

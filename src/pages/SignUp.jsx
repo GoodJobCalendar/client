@@ -8,7 +8,7 @@ import { emailCheck } from "../shared/SignUpCheck";
 import { setUser } from "./../redux/modules/user";
 
 // 이미지
-import banner from "../assets/img/icon/banner.png";
+import logo from "../assets/img/logo_width.png";
 
 import axios from "axios";
 
@@ -24,12 +24,7 @@ const SignUp = () => {
   const SignupBtn = async (e) => {
     e.preventDefault();
     //빈칸 확인
-    if (
-      email === "" ||
-      userName === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
+    if (email === "" || userName === "" || password === "" || confirmPassword === "") {
       return setCheck("이메일,이름, 비밀번호 모두 입력해주세요!");
     }
     //이메일 형식 체크
@@ -42,7 +37,7 @@ const SignUp = () => {
     } else {
       //회원가입
       await axios
-        .post("http://14.34.139.253:3000/api/auth/local", {
+        .post("https://3.39.193.47/api/auth/local", {
           email,
           password,
           confirmPassword,
@@ -62,7 +57,7 @@ const SignUp = () => {
   return (
     <SignUpWrap>
       <header>
-        <img src={banner} alt="배너" />
+        <img src={logo} alt="배너" />
         <Title>회원가입을 환영합니다.</Title>
         <SubTitle>
           당신의 <span>취준메이트,</span>
@@ -121,7 +116,7 @@ const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {
@@ -173,24 +168,12 @@ const SignUpBtn = styled.button`
   color: #fff !important;
 `;
 const EmailCheck = styled.input`
-  border: ${(props) =>
-    props.mailCheckState && props.mailCheckState !== 201
-      ? "2px solid var(--point3)"
-      : ""}!important;
-  color: ${(props) =>
-    props.mailCheckState && props.mailCheckState !== 201
-      ? "var(--point3)"
-      : ""};
+  border: ${(props) => (props.mailCheckState && props.mailCheckState !== 201 ? "2px solid var(--point3)" : "")}!important;
+  color: ${(props) => (props.mailCheckState && props.mailCheckState !== 201 ? "var(--point3)" : "")};
 `;
 const PassWord = styled.input`
-  border: ${(props) =>
-    props.confirmPassword && props.password !== props.confirmPassword
-      ? "2px solid var(--point3)"
-      : ""}!important;
-  color: ${(props) =>
-    props.password && props.password !== props.confirmPassword
-      ? "var(--point3)"
-      : ""};
+  border: ${(props) => (props.confirmPassword && props.password !== props.confirmPassword ? "2px solid var(--point3)" : "")}!important;
+  color: ${(props) => (props.password && props.password !== props.confirmPassword ? "var(--point3)" : "")};
 `;
 const Check = styled.p`
   text-align: center;

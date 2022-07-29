@@ -31,10 +31,10 @@ const MobileWrap = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   overflow-y: scroll;
-  background-color: #fff;
-  width: 375px;
-  height: 90%;
-  max-height: 812px;
-  scrollbar-width: none;
+  min-width: 375px;
+  width: 20%;
+  height: 100vh;
+  min-height: 812px;
+  overflow-y: scroll;
   border-radius: 20px;
 `;
