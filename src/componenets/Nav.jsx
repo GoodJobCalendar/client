@@ -42,14 +42,15 @@ const Nav = (props) => {
           </LineList>
         </Ham> */}
         <span>취준생캘린더</span>
+        <LogOutBtn style={{ opacity: "0" }}>
+          <img src={logout} alt="로그아웃" />
+        </LogOutBtn>
         {is_login === "true" ? (
           <LogOutBtn onClick={logOut}>
             <img src={logout} alt="로그아웃" />
           </LogOutBtn>
         ) : (
-          <LogOutBtn>
-            <Link to="/login">로그인</Link>
-          </LogOutBtn>
+          ""
         )}
       </NavTitle>
       <NavList>

@@ -78,7 +78,8 @@ export const scheduleUpdate = ({
       headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
-        dispatch(__scheduleUpdate(res.payload));
+        dispatch(__scheduleUpdate(res.data.data));
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.error(err);
@@ -101,6 +102,8 @@ export default function postReducer(state = initialState, action) {
       return produce(state, (draft) => {
         setCookie("is_login", "true");
         draft.is_login = true;
+        console.log(state);
+        console.log(action.payload);
         draft.update = action.payload;
       });
     }

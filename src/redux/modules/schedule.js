@@ -7,15 +7,15 @@ const initialState = {
   month: {
     220830: [
       {
-        color: 1,
+        color: 0,
         companyName: "현대오토에버㈜",
-        coverImage: 1,
+        coverImage: 0,
         date: "2121-12-31 15:00:00",
         memo: null,
         place: "서울 강남구",
         postingId: 2406,
-        scheduleId: 54,
-        sticker: 1,
+        scheduleId: 0,
+        sticker: 0,
         title: "App개발 경력 채용",
         type: "auto",
       },
