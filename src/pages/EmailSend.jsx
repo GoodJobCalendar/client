@@ -16,11 +16,15 @@ const EmailSend = () => {
   const [errorcheck, setError] = useState("");
 
   const userInfo = useSelector((state) => state.user.user);
-
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      MailsendBtn();
+    }
+  };
   // 이메일 인증 메일 전송
   const MailsendBtn = async () => {
     await axios
-      .post("https://3.39.193.47/api/auth/local", {
+      .post("https://goodjobcalendar.com/api/auth/local", {
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.password,
@@ -37,7 +41,7 @@ const EmailSend = () => {
   // 인증번호 확인 & 회원가입완료
   const AuthNumberCheckBtn = async () => {
     await axios
-      .post("https://3.39.193.47/api/auth/verifyNumberForNew", {
+      .post("https://goodjobcalendar.com/api/auth/verifyNumberForNew", {
         authNumber,
         email: userInfo.email,
         password: userInfo.password,
@@ -71,6 +75,7 @@ const EmailSend = () => {
             setAuthNumber(event.target.value);
           }}
           errorcheck={errorcheck}
+          onKeyPress={onKeyPress}
         />
         {errorcheck ? (
           <>

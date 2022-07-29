@@ -17,7 +17,7 @@ const PwChange = () => {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .patch("https://3.39.193.47/api/auth/newPassword", {
+      .patch("https://goodjobcalendar.com/api/auth/newPassword", {
         email: userInfo.email,
         password,
         confirmPassword,
@@ -71,7 +71,7 @@ const PwWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {

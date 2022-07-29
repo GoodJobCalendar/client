@@ -41,12 +41,16 @@ const initialState = {
 };
 
 // action
+const SCHEDULE_UPDATE = "post_reducer/SCHEDULE_UPDATE";
 const LIST_DETAIL = "schedule_reducer/LIST_DETAIL";
 const LIST_DELETE = "schedule_reducer/LIST_DELETE";
 const MONTH_LIST = "schedule_reducer/MONTH_LIST";
 const DAILY_LIST = "schedule_reducer/DAILY_LIST";
 
 // action creator
+export function __scheduleUpdate(payload) {
+  return { type: SCHEDULE_UPDATE, payload };
+}
 export function __deletePost(payload) {
   return { type: LIST_DELETE, payload };
 }
@@ -62,7 +66,45 @@ export function __loadDaily(payload) {
 }
 
 //middleware
+//개인일정 수정
+export const scheduleUpdate = ({
+  image,
+  companyName, //필수입력
+  title, //필수입력
+  sticker,
+  date, //필수입력
+  place, //필수입력
+  memo,
+  color,
+  scheduleId,
+}) => {
+  return function (dispatch, getState) {
+    const myToken = getCookie("token");
 
+    axios({
+      method: "patch",
+      url: `https://goodjobcalendar.com/api/schedule/${scheduleId}`,
+      data: {
+        image,
+        companyName, //필수입력
+        title, //필수입력
+        sticker,
+        date, //필수입력
+        place, //필수입력
+        memo,
+        color,
+      },
+      headers: { Authorization: `Bearer ${myToken}` },
+    })
+      .then((res) => {
+        dispatch(__scheduleUpdate(res.data.data));
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
 //일정 삭제
 export const deletePost = (scheduleId) => {
   return function (dispatch, getState) {
@@ -145,6 +187,23 @@ export const loadDaily = (payload) => {
 export default function scheduleReducer(state = initialState, action) {
   // 새로운 액션 타입 추가시 case 추가한다.
   switch (action.type) {
+    case SCHEDULE_UPDATE: {
+      return produce(state, (draft) => {
+        setCookie("is_login", "true");
+        draft.is_login = true;
+        console.log("state =", state.detail);
+        console.log("action =", action.payload);
+        function a() {
+          if (state.detail.scheduleId === action.payload.scheduleId) {
+            return action.payload;
+          } else {
+            return state.detail;
+          }
+        }
+
+        draft.detail = a();
+      });
+    }
     case LIST_DELETE: {
       return produce(state, (draft) => {
         draft.month = draft.month.filter((value) => {

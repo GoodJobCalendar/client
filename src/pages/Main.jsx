@@ -25,9 +25,8 @@ function Main() {
   const [zoomInOut, setZoomInOut] = useState(true);
   const navData = true;
   const is_login = getCookie("is_login");
-
+  console.log(is_login);
   const active = useSelector((state) => state.date.active);
-  const is_Login = useSelector((state) => state.user.is_login);
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -38,13 +37,6 @@ function Main() {
   useEffect(() => {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
-
-  // 로그인유무확인
-  useEffect(() => {
-    if (is_Login) {
-    }
-  }, [is_Login]);
-
   return (
     <MainWrap>
       {is_login ? (
@@ -110,7 +102,7 @@ function Main() {
           </WeekMonth>
         </ToggleBtn>
         {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-        {active?.isActive ? <DailyList /> : <MonthList />}
+        {is_login && active?.isActive ? <DailyList /> : <MonthList />}
       </ContentWrap>
     </MainWrap>
   );

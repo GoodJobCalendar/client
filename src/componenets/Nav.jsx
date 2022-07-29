@@ -31,9 +31,6 @@ const Nav = (props) => {
   return (
     <NavWrap>
       <NavTitle>
-        <LogOutBtn style={{ opacity: "0" }}>
-          <img src={logout} alt="로그아웃" />
-        </LogOutBtn>
         {/* <Ham >
           <LineList>
             <Line></Line>
@@ -41,16 +38,28 @@ const Nav = (props) => {
             <Line></Line>
           </LineList>
         </Ham> */}
-        <span>취준생캘린더</span>
-        <LogOutBtn style={{ opacity: "0" }}>
-          <img src={logout} alt="로그아웃" />
-        </LogOutBtn>
+
         {is_login === "true" ? (
-          <LogOutBtn onClick={logOut}>
-            <img src={logout} alt="로그아웃" />
-          </LogOutBtn>
+          <>
+            <LogOutBtn style={{ opacity: "0" }}>
+              <img src={logout} alt="로그아웃" />
+            </LogOutBtn>
+            <span>취준생캘린더</span>
+            <LogOutBtn onClick={logOut}>
+              <img src={logout} alt="로그아웃" />
+            </LogOutBtn>
+          </>
         ) : (
-          ""
+          <>
+            <LogOutBtn style={{ opacity: "0" }}>
+              <img src={logout} alt="로그아웃" />
+            </LogOutBtn>
+            <span>취준생캘린더</span>
+
+            <LogOutBtn style={{ opacity: "0" }}>
+              <img src={logout} alt="로그아웃" />
+            </LogOutBtn>
+          </>
         )}
       </NavTitle>
       <NavList>

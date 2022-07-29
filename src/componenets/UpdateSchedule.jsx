@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
-import { scheduleUpdate } from "../redux/modules/post";
+import { scheduleUpdate } from "../redux/modules/schedule";
 
 // 스티커
 import img1 from "../assets/img/sticker/sticker1.png";
@@ -15,10 +15,10 @@ import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
 
 // 커버 이미지
-import cover1 from "../assets/img/cover/cover1.jpg";
-import cover2 from "../assets/img/cover/cover2.jpg";
-import cover3 from "../assets/img/cover/cover3.jpg";
-import cover4 from "../assets/img/cover/cover4.jpg";
+import cover1 from "../assets/img/cover/cover1.png";
+import cover2 from "../assets/img/cover/cover2.png";
+import cover3 from "../assets/img/cover/cover3.png";
+import cover4 from "../assets/img/cover/cover4.png";
 
 // 아이콘
 import time from "../assets/img/icon/Time.png";
@@ -289,7 +289,7 @@ const UpdateSchedule = ({
                     type="radio"
                     name="cover"
                     id="1"
-                    value="https://ifh.cc/g/b3cTYX.jpg"
+                    value="https://ifh.cc/g/T7qvdv.png"
                     onChange={coverChange}
                   />
                   <CoverImg>
@@ -301,7 +301,7 @@ const UpdateSchedule = ({
                     type="radio"
                     name="cover"
                     id="2"
-                    value="https://ifh.cc/g/Wrv2f7.jpg"
+                    value="https://ifh.cc/g/F6SksX.png"
                     onChange={coverChange}
                   />
                   <CoverImg>
@@ -313,7 +313,7 @@ const UpdateSchedule = ({
                     type="radio"
                     name="cover"
                     id="3"
-                    value="https://ifh.cc/g/KljCZd.jpg"
+                    value="https://ifh.cc/g/z3hwr6.png"
                     onChange={coverChange}
                   />
                   <CoverImg>
@@ -325,7 +325,7 @@ const UpdateSchedule = ({
                     type="radio"
                     name="cover"
                     id="4"
-                    value="https://ifh.cc/g/dHWo5O.jpg"
+                    value="https://ifh.cc/g/Ba7rRW.png"
                     onChange={coverChange}
                   />
                   <CoverImg>

@@ -16,10 +16,10 @@ import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
 
 //커버 이미지
-import cover1 from "../assets/img/cover/cover1.jpg";
-import cover2 from "../assets/img/cover/cover2.jpg";
-import cover3 from "../assets/img/cover/cover3.jpg";
-import cover4 from "../assets/img/cover/cover4.jpg";
+import cover1 from "../assets/img/cover/cover1.png";
+import cover2 from "../assets/img/cover/cover2.png";
+import cover3 from "../assets/img/cover/cover3.png";
+import cover4 from "../assets/img/cover/cover4.png";
 
 //아이콘 이미지
 import arrow from "../assets/img/icon/Back.png";
