@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import banner from "../assets/img/cover/cover1.jpg";
+import signUpImg from "../assets/img/illust/signupsuccess.png";
 
 //회원이름
 const SignupSucess = () => {
@@ -11,7 +12,7 @@ const SignupSucess = () => {
   return (
     <EmailWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
+        <Banner src={signUpImg} alt="배너" />
         <TitleText>
           <Title>회원가입이 완료되었어요!</Title>
           <SubTitle>

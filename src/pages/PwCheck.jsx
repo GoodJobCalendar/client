@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // 이미지
-import banner from "../assets/img/cover/cover1.jpg";
+import mailSendImg from "../assets/img/illust/mailsend.png";
 
 import axios from "axios";
 
@@ -56,7 +56,7 @@ const PwCheck = () => {
   return (
     <PwWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
+        <Banner src={mailSendImg} alt="배너" />
         <TitleText>
           <Title>인증메일을 전송했어요!</Title>
           <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>

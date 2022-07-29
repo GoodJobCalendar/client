@@ -1,23 +1,23 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // 이미지
-import img1 from "../assets/img/sticker/Group 1.png";
-import img2 from "../assets/img/sticker/Group 2.png";
-import img3 from "../assets/img/sticker/Group 3.png";
-import img4 from "../assets/img/sticker/Group 4.png";
-import img5 from "../assets/img/sticker/Group 5.png";
-import img6 from "../assets/img/sticker/Group 6.png";
-import img7 from "../assets/img/sticker/Group 7.png";
-import img8 from "../assets/img/sticker/Group 8.png";
+import img1 from "../assets/img/sticker/sticker1.png";
+import img2 from "../assets/img/sticker/sticker2.png";
+import img3 from "../assets/img/sticker/sticker3.png";
+import img4 from "../assets/img/sticker/sticker4.png";
+import img5 from "../assets/img/sticker/sticker5.png";
+import img6 from "../assets/img/sticker/sticker6.png";
+import img7 from "../assets/img/sticker/sticker7.png";
+import img8 from "../assets/img/sticker/sticker8.png";
 
 const MonthList = () => {
+  const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
-  useEffect(() => {}, [monthSchdule]);
-  const monthList = Object.entries(monthSchdule);
+
   const fullDate = (day) => {
     const date = new Date(
       `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
@@ -91,7 +91,7 @@ const MonthList = () => {
                 <Text>{content.title}</Text>
                 {content?.sticker === 1 ? (
                   <Sticker>
-                    <img src={img1} alt="" />
+                    <StickerImg src={img1} alt="" sticker={content?.sticker} />
                   </Sticker>
                 ) : content?.sticker === 2 ? (
                   <Sticker>
@@ -130,7 +130,10 @@ const MonthList = () => {
         ))}
       </ScheduleListWrap>
     ));
-
+  useEffect(() => {
+    const list = Object.entries(monthSchdule);
+    setMonthList(list);
+  }, [monthList]);
   return <Container>{list}</Container>;
 };
 
@@ -213,4 +216,8 @@ const Sticker = styled.div`
   > img {
     width: 100%;
   }
+`;
+const StickerImg = styled.img`
+  height: 100%;
+  width: auto;
 `;

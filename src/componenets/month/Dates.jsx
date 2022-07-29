@@ -8,36 +8,59 @@ const Dates = (props) => {
   const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
+  const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
+  useEffect(() => {
+    setMonthList(Object.entries(monthSchdule));
+  }, [monthList]);
   const zoom = useSelector((state) => state.date.zoom.zoomInOut);
 
-  const monthList = Object.entries(monthSchdule);
   let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
     elm
   ).padStart(2, "0")} 00:00:00`;
 
   useEffect(() => {
     dispatch(activeDate(isActive));
-  }, [isActive, monthSchdule]);
+  }, [isActive]);
 
   const list =
     monthList &&
     monthList?.map((value, idx) => (
       <FlexList key={idx}>
         {value[1]?.map((content, index) => {
-          return index < 2
-            ? content?.color &&
-                content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                  <TextList key={index} color={content.color}>
-                    {content.title}
-                  </TextList>
-                )
-            : content?.color &&
-                content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                  <List key={index} color={content.color}></List>
-                );
+          return index < 2 &&
+            content?.color &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0] ? (
+            <TextList key={index} color={content.color}>
+              {content.title}
+            </TextList>
+          ) : (
+            ""
+          );
         })}
       </FlexList>
+    ));
+  const list2 =
+    monthList &&
+    monthList?.map((value, idx) => (
+      <Lists key={idx}>
+        {value[1]?.map((content, index) => {
+          return index >= 2 &&
+            index < 5 &&
+            content?.color &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0] ? (
+            <List key={index} color={content.color}></List>
+          ) : (
+            index >= 5 &&
+              content?.color &&
+              content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
+                <PlusNumber key={index} color={content.color}>
+                  +{index - 4}
+                </PlusNumber>
+              )
+          );
+        })}
+      </Lists>
     ));
 
   const list3 =
@@ -45,17 +68,23 @@ const Dates = (props) => {
     monthList?.map((value, idx) => (
       <Lists key={idx}>
         {value[1]?.map((content, index) => {
-          return (
-            index < 2 &&
+          return index <= 2 &&
+            index < 5 &&
             content?.color &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
-              <List key={index} color={content.color}></List>
-            )
+            content?.date.split(" ")[0] === dateKey.split(" ")[0] ? (
+            <List key={index} color={content.color}></List>
+          ) : (
+            index >= 5 &&
+              content?.color &&
+              content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
+                <PlusNumber key={index} color={content.color}>
+                  +{index - 2}
+                </PlusNumber>
+              )
           );
         })}
       </Lists>
     ));
-
   return (
     <>
       <Form
@@ -85,7 +114,14 @@ const Dates = (props) => {
             {String(elm).padStart(2, "0")}
           </CheckDay>
         </DateNum>
-        {zoom ? <>{list3}</> : <>{list}</>}
+        {zoom ? (
+          <>{list3}</>
+        ) : (
+          <>
+            {list}
+            {list2}
+          </>
+        )}
       </Form>
     </>
   );
@@ -104,7 +140,7 @@ const Form = styled.li`
   :nth-child(7n + 1) div label {
     color: var(--point3);
   }
-  height: ${(props) => (props.zoom ? "50px" : "74px")};
+  height: ${(props) => (props.zoom ? "50px" : "85px")};
 `;
 
 const DateNum = styled.div``;
@@ -120,19 +156,21 @@ const TodayCSS = styled.input`
 
 const CheckDay = styled.label`
   z-index: 1;
+  box-sizing: border-box;
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
   color: ${(props) => props.findToday && "var(--blue4)!important"};
+  padding: ${(props) => (props.findToday ? "8px" : "10px")};
+  margin-bottom: ${(props) => (props.findToday ? "5px" : "")};
   font-weight: 500;
   font-size: 12px;
-  padding: 10px;
   border-radius: 100%;
   cursor: pointer;
   display: block;
 `;
 const Lists = styled.div`
   display: flex;
+  align-items: center;
   gap: 2px;
-  margin-top: 3px;
 `;
 const TextList = styled.p`
   width: 41px;
@@ -180,6 +218,11 @@ const FlexList = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+const PlusNumber = styled.p`
+  font-weight: 500;
+  font-size: 8px;
+  color: var(--blue4);
 `;
 
 export default Dates;

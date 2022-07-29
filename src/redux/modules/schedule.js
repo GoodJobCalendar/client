@@ -73,8 +73,8 @@ export const deletePost = (scheduleId) => {
     axios
       .delete(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
       .then((res) => {
-        dispatch(__deletePost(res.data.data));
-        console.log(res.data.data);
+        dispatch(__deletePost(scheduleId));
+        console.log(res);
       })
       .catch((error) => {
         console.error(error);
@@ -147,7 +147,9 @@ export default function scheduleReducer(state = initialState, action) {
   switch (action.type) {
     case LIST_DELETE: {
       return produce(state, (draft) => {
-        draft.delete = action.payload;
+        draft.month = draft.month.filter((value) => {
+          return value.scheduleId !== Number(action.payload);
+        });
       });
     }
     case LIST_DETAIL: {

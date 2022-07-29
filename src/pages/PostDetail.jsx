@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { detailPost, deletePost } from "../redux/modules/schedule";
 
 //스티커 이미지
-import img1 from "../assets/img/sticker/Group 1.png";
-import img2 from "../assets/img/sticker/Group 2.png";
-import img3 from "../assets/img/sticker/Group 3.png";
-import img4 from "../assets/img/sticker/Group 4.png";
-import img5 from "../assets/img/sticker/Group 5.png";
-import img6 from "../assets/img/sticker/Group 6.png";
-import img7 from "../assets/img/sticker/Group 7.png";
-import img8 from "../assets/img/sticker/Group 8.png";
+import img1 from "../assets/img/sticker/sticker1.png";
+import img2 from "../assets/img/sticker/sticker2.png";
+import img3 from "../assets/img/sticker/sticker3.png";
+import img4 from "../assets/img/sticker/sticker4.png";
+import img5 from "../assets/img/sticker/sticker5.png";
+import img6 from "../assets/img/sticker/sticker6.png";
+import img7 from "../assets/img/sticker/sticker7.png";
+import img8 from "../assets/img/sticker/sticker8.png";
 
 //커버 이미지
 import cover1 from "../assets/img/cover/cover1.jpg";
@@ -110,7 +110,7 @@ const PostDetail = () => {
           </Title>
           <DateWrap>
             <TimeTitle>
-              <img src={time} />
+              <img src={time} alt="일정아이콘" />
               일정
             </TimeTitle>
             <Date>
@@ -125,7 +125,7 @@ const PostDetail = () => {
             </Date>
           </DateWrap>
           <Text>
-            <img src={location} />
+            <img src={location} alt="장소아이콘" />
             {detailInfo?.place}
           </Text>
           {detailInfo?.memo && <Text>{detailInfo?.memo}</Text>}
@@ -138,12 +138,16 @@ const PostDetail = () => {
         >
           일정 삭제하기
         </Delete>
-        <Move>
-          <img src={logomini} />
-          {/* <Link to={detailInfo?.url}> */}
-          자세한 공고 잡코리아에서 확인
-          {/* </Link> */}
-        </Move>
+        {detailInfo?.memo === null && (
+          <Move
+            onClick={() => {
+              window.open(detailInfo?.url);
+            }}
+          >
+            <img src={logomini} alt="잡코리아로고" />
+            자세한 공고 잡코리아에서 확인
+          </Move>
+        )}
       </PostDailWrap>
       {updateScheduleShow && (
         <UpdateSchedule

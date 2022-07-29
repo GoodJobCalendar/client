@@ -33,7 +33,6 @@ const Head = (props) => {
   };
   const monthNumber = String(month).padStart(2, "0");
   const fullDate = `${year}-${monthNumber}-01 00:00:00`;
-  console.log(fullDate);
 
   useEffect(() => {
     dispatch(loadMonth(`${year}-${monthNumber}-01 00:00:00`));

@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import banner from "../assets/img/cover/cover1.jpg";
-
+import passwordChangeImg from "../assets/img/illust/passwordchange.png";
 const PwChangeSuccess = () => {
   return (
     <EmailWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
+        <Banner src={passwordChangeImg} alt="배너" />
         <TitleText>
           <Title>비밀번호가 변경되었어요!</Title>
           <SubTitle>다시 한번 힘차게 로그인하러 가볼까요?</SubTitle>

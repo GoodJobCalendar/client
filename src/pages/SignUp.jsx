@@ -4,11 +4,12 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { emailCheck } from "../shared/SignUpCheck";
+import { emailCheck, passwordCheck } from "../shared/SignUpCheck";
 import { setUser } from "./../redux/modules/user";
 
 // 이미지
-import logo from "../assets/img/logo_width.png";
+import logo from "../assets/img/logo.png";
+import logo_text from "../assets/img/logo_text.png";
 
 import axios from "axios";
 
@@ -20,7 +21,12 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorCheck, setCheck] = useState("");
-
+  // 회원가입
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      SignupBtn();
+    }
+  };
   const SignupBtn = async (e) => {
     e.preventDefault();
     //빈칸 확인
@@ -35,6 +41,12 @@ const SignUp = () => {
     //이메일 형식 체크
     else if (!emailCheck(email)) {
       return setCheck("이메일 형식이 아닙니다.");
+    }
+    //비밀번호 형식 체크
+    else if (!passwordCheck(password)) {
+      return setCheck(
+        "비밀번호를 6~15자, 숫자, 대·소문자를 포함하여 입력해주세요."
+      );
     }
     //비밀번호 확인
     else if (confirmPassword && password !== confirmPassword) {
@@ -62,7 +74,11 @@ const SignUp = () => {
   return (
     <SignUpWrap>
       <header>
-        <img src={logo} alt="배너" />
+        <Flex>
+          <img src={logo} alt="로고" />
+          <img src={logo_text} alt="로고" />
+        </Flex>
+
         <Title>회원가입을 환영합니다.</Title>
         <SubTitle>
           당신의 <span>취준메이트,</span>
@@ -103,6 +119,7 @@ const SignUp = () => {
           onChange={(event) => {
             setConfirmPassword(event.target.value);
           }}
+          onKeyPress={onKeyPress}
         />
         <Check>{errorCheck ? errorCheck : ""}</Check>
         <SignUpBtn onClick={SignupBtn}>이메일 인증받고 가입하기</SignUpBtn>
@@ -130,6 +147,7 @@ const SignUpWrap = styled.div`
     background: #ffffff;
     border: 1px solid var(--blue2);
     border-radius: 6px;
+    font-weight: 500;
     ::placeholder {
       color: var(--blue3);
       font-weight: 500;
@@ -142,6 +160,11 @@ const InputWrap = styled.main`
   flex-direction: column;
   justify-content: center;
   gap: 8px;
+`;
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 9px;
 `;
 const Title = styled.h1`
   font-weight: 600;
