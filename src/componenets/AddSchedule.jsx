@@ -25,7 +25,7 @@ import cover4 from "../assets/img/cover/cover4.png";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import memoimg from "../assets/img/icon/memo.png";
-import empty from "../assets/img/illust/needlogin.png";
+import emptyImg from "../assets/img/illust/needlogin.png";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -195,18 +195,20 @@ const AddSchedule = ({ value, onChange, ...others }) => {
       {empty ? (
         ""
       ) : (
-        <NeedLogin>
-          <NeedLoginModal>
-            <p>로그인 필요</p>
-            <img src={empty} alt="로그인 필요" />
-            <span>
-              로그인된 상태에서만
-              <br />
-              이용할 수 있습니다.
-            </span>
-            <NeedLoginBtn>로그인하러가기</NeedLoginBtn>
-          </NeedLoginModal>
-        </NeedLogin>
+        <NeedPost>
+          <NeedPostModal>
+            <p>빈칸 작성 필요</p>
+            <img src={emptyImg} alt="빈칸 작성 필요" />
+            <span>빈칸을 모두 입력해주세요.</span>
+            <NeedPostBtn
+              onClick={() => {
+                setEmpty(!empty);
+              }}
+            >
+              계속 작성하기
+            </NeedPostBtn>
+          </NeedPostModal>
+        </NeedPost>
       )}
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
@@ -576,7 +578,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 };
 
 export default AddSchedule;
-const NeedLogin = styled.div`
+const NeedPost = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -586,7 +588,7 @@ const NeedLogin = styled.div`
   background-color: rgba(17, 17, 17, 0.3);
   z-index: 99999;
 `;
-const NeedLoginBtn = styled.button`
+const NeedPostBtn = styled.button`
   background-color: var(--blue4);
   padding: 16px 30px;
   color: #fff;
@@ -597,7 +599,7 @@ const NeedLoginBtn = styled.button`
     height: 100%;
   }
 `;
-const NeedLoginModal = styled.div`
+const NeedPostModal = styled.div`
   p {
     font-weight: 700;
     color: var(--blue4);
@@ -622,7 +624,7 @@ const NeedLoginModal = styled.div`
     inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
   padding: 40px 80px;
-  width: 40%;
+  width: 45%;
   text-align: center;
 `;
 

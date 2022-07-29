@@ -39,7 +39,7 @@ function Main() {
   }, [zoomInOut]);
   return (
     <MainWrap>
-      {is_login ? (
+      {is_login === "true" ? (
         ""
       ) : (
         <NeedLogin>

@@ -24,6 +24,7 @@ import cover4 from "../assets/img/cover/cover4.png";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import memoimg from "../assets/img/icon/memo.png";
+import emptyImg from "../assets/img/illust/needlogin.png";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -41,6 +42,7 @@ const UpdateSchedule = ({
   ...others
 }) => {
   const dispatch = useDispatch();
+  const [empty, setEmpty] = useState(true);
 
   //리스트 토글
   const [colorPickerShow, setColorPickerShow] = useState(false);
@@ -162,20 +164,24 @@ const UpdateSchedule = ({
   console.log(scheduleId);
   // 일정등록
   const addScheduleBtn = async () => {
-    await dispatch(
-      scheduleUpdate({
-        image: Number(image),
-        companyName, //필수입력
-        title, //필수입력
-        sticker: Number(sticker),
-        date: allDate, //필수입력
-        place, //필수입력
-        memo,
-        color: Number(color),
-        scheduleId,
-      })
-    );
-    setUpdateScheduleShow(!updateScheduleShow);
+    if ((companyName === "", title === "", allDate === "", place === "")) {
+      setEmpty(!empty);
+    } else {
+      await dispatch(
+        scheduleUpdate({
+          image: Number(image),
+          companyName, //필수입력
+          title, //필수입력
+          sticker: Number(sticker),
+          date: allDate, //필수입력
+          place, //필수입력
+          memo,
+          color: Number(color),
+          scheduleId,
+        })
+      );
+      setUpdateScheduleShow(!updateScheduleShow);
+    }
   };
   const formatDate = (d) => {
     const date = new Date(d);
@@ -193,6 +199,24 @@ const UpdateSchedule = ({
   };
   return (
     <UpdateSchesuleWrap>
+      {empty ? (
+        ""
+      ) : (
+        <NeedPost>
+          <NeedPostModal>
+            <p>빈칸 작성 필요</p>
+            <img src={emptyImg} alt="빈칸 작성 필요" />
+            <span>빈칸을 모두 입력해주세요.</span>
+            <NeedPostBtn
+              onClick={() => {
+                setEmpty(!empty);
+              }}
+            >
+              계속 작성하기
+            </NeedPostBtn>
+          </NeedPostModal>
+        </NeedPost>
+      )}
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
           <Btn onClick={moveBtn}>&lt;</Btn>
@@ -561,6 +585,55 @@ const UpdateSchedule = ({
 };
 
 export default UpdateSchedule;
+const NeedPost = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.3);
+  z-index: 99999;
+`;
+const NeedPostBtn = styled.button`
+  background-color: var(--blue4);
+  padding: 16px 30px;
+  color: #fff;
+  border-radius: 9px;
+  margin-top: 17px;
+  a {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const NeedPostModal = styled.div`
+  p {
+    font-weight: 700;
+    color: var(--blue4);
+    margin-bottom: 10px;
+  }
+  span {
+    font-weight: 500;
+    color: var(--blue4);
+    margin-top: 15px;
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 99999;
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 21px;
+  padding: 40px 80px;
+  width: 45%;
+  text-align: center;
+`;
 const UpdateSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;
