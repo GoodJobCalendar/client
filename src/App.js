@@ -46,6 +46,6 @@ const MobileWrap = styled.div`
   height: 100vh;
   overflow-y: scroll;
   z-index: 999;
-  box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),
-    -26px 6px 90px rgba(73, 73, 73, 0.58);
+  /* box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),
+    -26px 6px 90px rgba(73, 73, 73, 0.58); */
 `;
