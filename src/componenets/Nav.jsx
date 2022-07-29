@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, LinkProps } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ import logout from "../assets/img/icon/logout.png";
 const Nav = (props) => {
   const is_login = getCookie("is_login");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [nav, setNav] = useState(props.navData);
   // const is_Login = useSelector((state) => state.user.is_login);
 
@@ -25,6 +26,7 @@ const Nav = (props) => {
 
   useEffect(() => {
     if (is_login) {
+      navigate("/main");
     }
   }, [is_login]);
 

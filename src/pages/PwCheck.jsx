@@ -26,15 +26,15 @@ const PwCheck = () => {
     }
     await axios
       .post("https://goodjobcalendar.com/api/auth/lostPassword", {
-        email: userInfo.email,
-        userName: userInfo.userName,
+        email: userInfo?.email,
+        userName: userInfo?.userName,
       })
       .then((res) => {
         console.log(res);
       })
       .catch((error) => {
         console.error(error);
-        setError(error.response.data.msg);
+        setError("문자");
       });
   };
 
@@ -42,7 +42,7 @@ const PwCheck = () => {
     // 인증번호 확인
     await axios
       .delete("https://goodjobcalendar.com/api/auth/verifyNumberForOld", {
-        email: userInfo.email,
+        email: userInfo?.email,
         authNumber,
       })
       .then((res) => {
@@ -50,7 +50,7 @@ const PwCheck = () => {
         navigate("/pwchange");
       })
       .catch((error) => {
-        setError(error);
+        setError("문자");
         console.error(error);
       });
   };
@@ -64,7 +64,7 @@ const PwCheck = () => {
         </TitleText>
       </Header>
       <Main>
-        <Email>{userInfo.email}</Email>
+        <Email>{userInfo?.email}</Email>
         <Input
           type="password"
           placeholder="인증번호 입력"
@@ -156,7 +156,7 @@ const SignUpBtn = styled.button`
   color: #fff !important;
   margin-bottom: 8px;
 `;
-const ErrorCheck = styled.p`
+const ErrorCheck = styled.span`
   font-weight: 600;
   font-size: 14px;
   color: var(--blue3);
@@ -164,7 +164,7 @@ const ErrorCheck = styled.p`
   margin-top: 39px;
   margin-bottom: 24px;
 `;
-const Email = styled.p`
+const Email = styled.span`
   font-weight: 800;
   font-size: 16px;
   color: var(--blue3);

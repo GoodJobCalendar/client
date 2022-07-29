@@ -25,6 +25,7 @@ import cover4 from "../assets/img/cover/cover4.png";
 import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import memoimg from "../assets/img/icon/memo.png";
+import empty from "../assets/img/illust/needlogin.png";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -35,6 +36,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [empty, setEmpty] = useState(true);
 
   //리스트 토글
   const [colorPickerShow, setColorPickerShow] = useState(false);
@@ -51,12 +53,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
-  const [cover, setCover] = useState(
-    "https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"
-  );
+  const [cover, setCover] = useState(cover1);
   //컬러 미리보기
   const [colorPick, setColorPick] = useState("");
-
   const [startDate, setStartDate] = useState(new Date());
 
   //Time Picker
@@ -157,19 +156,23 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   // 일정등록
   const addScheduleBtn = async () => {
-    dispatch(
-      schedulePost({
-        image: Number(image),
-        companyName, //필수입력
-        title, //필수입력
-        sticker: Number(sticker),
-        date: allDate, //필수입력
-        place, //필수입력
-        memo,
-        color: Number(color),
-      })
-    );
-    navigate("/main");
+    if ((companyName === "", title === "", allDate === "", place === "")) {
+      setEmpty(!empty);
+    } else {
+      dispatch(
+        schedulePost({
+          image: Number(image),
+          companyName, //필수입력
+          title, //필수입력
+          sticker: Number(sticker),
+          date: allDate, //필수입력
+          place, //필수입력
+          memo,
+          color: Number(color),
+        })
+      );
+      navigate("/main");
+    }
   };
   const formatDate = (d) => {
     const date = new Date(d);
@@ -189,6 +192,22 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   return (
     <AddSchesuleWrap>
+      {empty ? (
+        ""
+      ) : (
+        <NeedLogin>
+          <NeedLoginModal>
+            <p>로그인 필요</p>
+            <img src={empty} alt="로그인 필요" />
+            <span>
+              로그인된 상태에서만
+              <br />
+              이용할 수 있습니다.
+            </span>
+            <NeedLoginBtn>로그인하러가기</NeedLoginBtn>
+          </NeedLoginModal>
+        </NeedLogin>
+      )}
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
           <Btn onClick={moveBtn}>&lt;</Btn>
@@ -557,6 +576,56 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 };
 
 export default AddSchedule;
+const NeedLogin = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.3);
+  z-index: 99999;
+`;
+const NeedLoginBtn = styled.button`
+  background-color: var(--blue4);
+  padding: 16px 30px;
+  color: #fff;
+  border-radius: 9px;
+  margin-top: 17px;
+  a {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const NeedLoginModal = styled.div`
+  p {
+    font-weight: 700;
+    color: var(--blue4);
+    margin-bottom: 10px;
+  }
+  span {
+    font-weight: 500;
+    color: var(--blue4);
+    margin-top: 15px;
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 99999;
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 21px;
+  padding: 40px 80px;
+  width: 40%;
+  text-align: center;
+`;
+
 const AddSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;

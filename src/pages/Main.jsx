@@ -102,7 +102,8 @@ function Main() {
           </WeekMonth>
         </ToggleBtn>
         {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-        {is_login && active?.isActive ? <DailyList /> : <MonthList />}
+        {is_login === "true" &&
+          (active?.isActive ? <DailyList /> : <MonthList />)}
       </ContentWrap>
     </MainWrap>
   );
