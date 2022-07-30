@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
-import { emailCheck } from "../shared/SignUpCheck";
-import { pwEmailUser } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
+import { emailCheck } from "../shared/SignUpCheck";
+import { pwEmailUser } from "../redux/modules/user";
+
+import axios from "axios";
+
 const PwSend = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userName, setUerName] = useState("");
   const [email, setEmail] = useState("");
   const [errorcheck, setError] = useState("");
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const Submit = async (e) => {
-    e.preventDefault();
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      PwBtn();
+    }
+  };
+  const PwBtn = async () => {
     //빈칸 확인
     if (email === "" || userName === "") {
       return setError("이메일,이름, 비밀번호 모두 입력해주세요!");
@@ -24,14 +30,14 @@ const PwSend = () => {
       return setError("이메일 형식이 아닙니다.");
     }
     await axios
-      .post("http://14.34.139.253:3000/api/auth/lostPassword", {
+      .post("https://goodjobcalendar.com/api/auth/lostPassword", {
         userName,
         email,
       })
       .then((res) => {
         console.log(res);
-        navigate("/pwcheck");
         dispatch(pwEmailUser(email, userName));
+        navigate("/pwcheck");
       })
       .catch((error) => {
         setError(error.response.data.msg);
@@ -61,14 +67,15 @@ const PwSend = () => {
             setEmail(event.target.value);
           }}
           errorcheck={errorcheck}
+          onKeyPress={onKeyPress}
         />
         {errorcheck ? (
           <>
             <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Submit}>인증메일 재발송하기</SignUpBtn>
+            <SignUpBtn onClick={PwBtn}>인증메일 재발송하기</SignUpBtn>
           </>
         ) : (
-          <SignUpBtn onClick={Submit}>인증번호 발송하기</SignUpBtn>
+          <SignUpBtn onClick={PwBtn}>인증번호 발송하기</SignUpBtn>
         )}
       </Main>
     </EmailWrap>
@@ -80,7 +87,7 @@ const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {

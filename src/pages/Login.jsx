@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCookie, setCookie } from "../shared/Cookie";
 
 // 컴포넌트
 import { emailCheck } from "../shared/SignUpCheck";
@@ -12,57 +13,70 @@ import { loginDB } from "./../redux/modules/user";
 import { KAKAO_AUTH_URL } from "../shared/api";
 
 // 이미지
+import logo from "../assets/img/logo.png";
 import kakaologo from "../assets/img/icon/kakaobtn.png";
+import axios from "axios";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [errorcheck, setError] = useState();
+  const token = getCookie("token");
 
   // 로그인
-  const loginClick = () => {
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      loginBtn();
+    }
+  };
+  const loginBtn = async () => {
     if (email === "" || password === "") {
-      window.alert("아이디와 비밀번호를 입력해주세요.");
+      setError("아이디와 비밀번호를 입력해주세요.");
       return;
     }
     if (!emailCheck(email)) {
-      window.alert("이메일 형식이 맞지 않습니다.");
+      setError("이메일 형식이 맞지 않습니다.");
       return;
     }
-    dispatch(
-      loginDB({
-        email,
-        password,
+    await axios
+      .post("https://goodjobcalendar.com/api/auth", { email, password })
+      .then((response) => {
+        setCookie("token", response.data.token, 5);
+        navigate("/main");
       })
-    );
-    navigate("/main");
+      .catch((error) => {
+        console.error(error);
+        setError(error.response.data.msg);
+      });
   };
+
   return (
     <LoginWrap>
       <Header>
-        <img
-          src="https://i.jobkorea.kr/content/images/ver_1/gnb/jk_logo.png?20190718"
-          alt="로고"
-        />
+        <img src={logo} alt="로고" />
       </Header>
       <InputWrap>
-        <input
+        <EmailInput
           type="email"
           placeholder="이메일"
           onChange={(event) => {
             setEmail(event.target.value);
           }}
+          errorcheck={errorcheck}
         />
-        <input
+        <PwInput
           type="password"
           placeholder="비밀번호"
           onChange={(event) => {
             setPassword(event.target.value);
           }}
+          onKeyPress={onKeyPress}
+          errorcheck={errorcheck}
         />
-        <LoginBtn onClick={loginClick}>로그인</LoginBtn>
+        {errorcheck && <ErrorCheck>{errorcheck}</ErrorCheck>}
+        <LoginBtn onClick={loginBtn}>로그인</LoginBtn>
         <PwCheck>
           비밀번호를 혹시 잊어버리셨나요?
           <Link to="/pwsend">인증메일 보내기</Link>
@@ -73,7 +87,7 @@ const Login = () => {
         <KaKaoBtn>
           <Link to={KAKAO_AUTH_URL}>
             <img src={kakaologo} alt="카카오로고" />
-            카카오톡 간편 로그인
+            <p>카카오톡 간편 로그인</p>
           </Link>
         </KaKaoBtn>
       </Footer>
@@ -87,7 +101,7 @@ const LoginWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {
@@ -108,6 +122,39 @@ const InputWrap = styled.main`
   flex-direction: column;
   justify-content: center;
   gap: 15px;
+  width: 100%;
+`;
+const EmailInput = styled.input`
+  border: ${(props) =>
+    props.errorcheck &&
+    (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+      "아이디와 비밀번호를 입력해주세요.") &&
+    "1px solid var(--point3)!important"};
+  color: ${(props) =>
+    props.errorcheck &&
+    (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+      "아이디와 비밀번호를 입력해주세요.") &&
+    "var(--point3)!important"};
+  ::placeholder {
+    color: ${(props) =>
+      props.errorcheck &&
+      (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+        "아이디와 비밀번호를 입력해주세요.") &&
+      "var(--point3)!important"};
+  }
+`;
+const PwInput = styled.input`
+  border: ${(props) =>
+    props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+    "1px solid var(--point3)!important"};
+  color: ${(props) =>
+    props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+    "var(--point3)!important"};
+  ::placeholder {
+    color: ${(props) =>
+      props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+      "var(--point3)!important"};
+  }
 `;
 const Header = styled.header`
   width: 50px;
@@ -119,11 +166,22 @@ const PwCheck = styled.p`
   font-weight: 500;
   font-size: 14px;
   color: var(--blue3);
+  display: flex;
+  gap: 7px;
   line-height: 17px;
+  justify-content: center;
   a {
     font-weight: 600;
     color: var(--blue4);
   }
+`;
+const ErrorCheck = styled.p`
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--blue3);
+  text-align: center;
+  margin-top: 39px;
+  margin-bottom: 24px;
 `;
 const Atherlogin = styled.p`
   font-weight: 600;
@@ -143,7 +201,6 @@ const LoginBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 78px;
   font-weight: 400;
   font-size: 18px;
   color: #fff !important;
@@ -164,6 +221,9 @@ const KaKaoBtn = styled.button`
     font-size: 18px;
     width: 100%;
     color: #371f1e !important;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 `;

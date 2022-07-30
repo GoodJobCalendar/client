@@ -5,8 +5,9 @@ export const emailCheck = (email) => {
   return SignUpCheck.test(email);
 };
 
-export const nicknameCheck = (nickname) => {
-  let SignUpCheck = /^[0-9a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+export const passwordCheck = (password) => {
+  let SignUpCheck =
+    /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d`~!@#$%^&*()-_=+ "'{}]{6,15}$/;
 
-  return SignUpCheck.test(nickname);
+  return SignUpCheck.test(password);
 };

@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const PwChange = () => {
-  const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorcheck, setError] = useState("");
-  const ChangePw = async () => {
+  const userInfo = useSelector((state) => state.user.user);
+
+  //비밀번호 변경하기
+  const PwChangeBtn = async () => {
     if (password === "" || confirmPassword === "") {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .patch("http://14.34.139.253:3000api/auth/newPassword", {
+      .patch("https://goodjobcalendar.com/api/auth/newPassword", {
         email: userInfo.email,
-        password,
-        confirmPassword,
+        newPassword: password,
+        confirmNewPassword: confirmPassword,
       })
       .then((res) => {
         console.log(res);
@@ -57,7 +59,7 @@ const PwChange = () => {
 
         <ErrorCheck>{errorcheck}</ErrorCheck>
 
-        <SignUpBtn onClick={ChangePw}>비밀번호 변경하기</SignUpBtn>
+        <SignUpBtn onClick={PwChangeBtn}>비밀번호 변경하기</SignUpBtn>
       </Main>
     </PwWrap>
   );
@@ -69,7 +71,7 @@ const PwWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {
@@ -136,13 +138,7 @@ const ErrorCheck = styled.p`
   margin-top: 39px;
   margin-bottom: 24px;
 `;
-const Email = styled.p`
-  font-weight: 800;
-  font-size: 16px;
-  color: var(--blue3);
-  text-align: center;
-  margin-bottom: 55px;
-`;
+
 const Input = styled.input`
   border: ${(props) =>
     props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;

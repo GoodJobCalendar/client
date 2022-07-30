@@ -1,129 +1,209 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Calendar from "short-react-calendar";
-import { useSelector } from "react-redux";
-const WeekSchedule = () => {
-  const [value, onChange] = useState(new Date());
 
+const WeekSchedule = () => {
+  const dispatch = useDispatch();
+  const selectDay = useSelector((state) => state.date.select);
+  const date = selectDay ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm) : new Date();
+  const Year = date.getFullYear();
+  const Month = date.getMonth() + 1;
+  const Dates = date.getDate();
+  const getDay = date.getDay();
+  const First = new Date(date.getFullYear() / (Month + 1) + 1);
+  const monthFirstDateDay = First.getDay();
+  const weekIndex = Math.floor((Dates + monthFirstDateDay) / 7);
+  const DAY = ["일", "월", "화", "수", "목", "금", "토"];
+  const toDate = date.getDate();
+  const toDay = date.getDay();
+  console.log(Dates);
+  const Time = ["03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "22:00", "24:00"];
+
+  // const SelectDay = () => {
+  //   dispatch();
+  // };
+
+  console.log(new Date(date.setDate(toDate - toDay)));
+  // 이번주 일요일 구하기
+  function getBeginOfWeek(date = new Date(), startOfWeek = 0) {
+    const result = new Date(date);
+    while (result.getDay() !== startOfWeek) {
+      result.setDate(result.getDate() - 0);
+    }
+    return String(result).split(" ")[2];
+  }
+  // const start = startOfWeek(date);
   return (
-    <WeekWrap>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        calendarType="US"
-        oneWeekCalendar={true}
-        className="Week"
-      />
-    </WeekWrap>
+    <>
+      <Head>
+        <WeekBtn>&lt;</WeekBtn>
+        <WeekTitle>
+          {`${Year}`}년 {`${String(Month).padStart(2, "0")}월 ${weekIndex}`}
+          주차
+        </WeekTitle>
+        <WeekBtn>&gt;</WeekBtn>
+      </Head>
+
+      <WeekWrap>
+        <Title>
+          <Days>
+            <li></li>
+            {DAY.map((elm, idx) => {
+              return (
+                <Day key={idx} idx={idx} selectDay={selectDay} getDay={getDay} /*onClick={SelectDay}*/>
+                  {elm}
+                </Day>
+              );
+            })}
+          </Days>
+          <DayList>
+            <li></li>
+            {["", "", "", "", "", "", ""].map((elm, idx) => {
+              function getBeginOfWeek(date = selectDay ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm) : new Date(), startOfWeek = 0) {
+                const result = new Date(date);
+                while (result.getDay() !== startOfWeek) {
+                  result.setDate(result.getDate() - 1);
+                }
+                // dispatch();
+                return String(new Date(result.setDate(result.getDate() + idx))).split(" ")[2];
+              }
+              const sunday = getBeginOfWeek();
+              console.log(sunday);
+              return (
+                <DayNumberList key={idx} selectDay={selectDay} sunday={sunday} Dates={selectDay}>
+                  <DayNumber selectDay={selectDay} sunday={sunday} Dates={Dates}>
+                    {sunday}
+                  </DayNumber>
+                </DayNumberList>
+              );
+            })}
+          </DayList>
+        </Title>
+        <div>
+          <ul>
+            {Time.map((elm, idx) => {
+              return (
+                <TimeWrap key={idx}>
+                  <TimeText>{elm}</TimeText>
+                  <TimeLine></TimeLine>
+                  <Schedule>일정임</Schedule>
+                </TimeWrap>
+              );
+            })}
+          </ul>
+        </div>
+      </WeekWrap>
+    </>
   );
 };
+
 export default WeekSchedule;
 const WeekWrap = styled.div`
-  .calendar-footer {
-    display: none !important;
-  }
-  .react-calendar {
-    height: 202px;
-    background-color: transparent !important;
-    border: 0;
-  }
-  .react-calendar__navigation {
-    background-color: transparent !important;
-  }
-  .react-calendar__navigation button:enabled:hover,
-  .react-calendar__navigation button:enabled:focus {
-    background-color: transparent !important;
-  }
-  .react-calendar__tile--now,
-  .react-calendar__tile--now:hover {
-    background-color: #fff;
-    abbr {
-      border: 1px solid var(--blue4);
-      border-radius: 100%;
-      padding: 6px;
-      font-weight: 900;
-      font-size: 14px;
-      color: var(--blue4);
-    }
-  }
-  .react-calendar__month-view > div > div {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 1.81132px 43.4717px rgba(0, 0, 0, 0.04);
+`;
+const Head = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 21px;
+`;
+const WeekTitle = styled.p`
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--blue4);
+`;
+const WeekBtn = styled.button`
+  color: var(--blue3);
+`;
+const Title = styled.div`
+  padding-top: 13px;
+  li {
+    width: calc(100% / 8);
+    padding: 6px 9px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .react-calendar__month-view__weekdays__weekday {
-    border-radius: 21px 21px 0 0 !important;
-    :nth-child(1) {
-      background-color: ${(props) =>
-        props.weekNumber === 1 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 1 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(2) {
-      background-color: ${(props) =>
-        props.weekNumber === 2 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 2 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(3) {
-      background-color: ${(props) =>
-        props.weekNumber === 3 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 3 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(4) {
-      background-color: ${(props) =>
-        props.weekNumber === 4 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 4 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(5) {
-      background-color: ${(props) =>
-        props.weekNumber === 5 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 5 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(6) {
-      background-color: ${(props) =>
-        props.weekNumber === 6 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 6 ? "#fff" : "var(--black)")};
-      }
-    }
-    :nth-child(7) {
-      background-color: ${(props) =>
-        props.weekNumber === 7 ? "var(--blue4)" : "#fff"};
-      abbr {
-        color: ${(props) => (props.weekNumber === 7 ? "#fff" : "var(--black)")};
-      }
-    }
-  }
+`;
+const Days = styled.ul`
+  display: flex;
+  border-radius: 7px 7px 0 0;
+  width: 100%;
+`;
+const TimeWrap = styled.li`
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  position: relative;
+`;
 
-  .react-calendar__tile--active,
-  .react-calendar__tile--active:hover {
-    position: relative;
-    background-color: var(--blue4) !important;
-    border-radius: 0 0 21px 21px !important;
+const TimeText = styled.p`
+  font-weight: 400;
+  font-size: 8px;
+  color: var(--blue2);
+  padding: 15px 0;
+  padding-right: 12px;
+`;
+const TimeLine = styled.div`
+  width: 100%;
+  height: 1px;
+  border-top: 1px dotted var(--blue2);
+`;
+const Schedule = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15%;
+  font-size: 8px;
+  background-color: var(--point1);
+  border-radius: 4px;
+  padding: 3px;
+`;
+const Day = styled.li`
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
+  padding: 9px 17px;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--gray3);
+  text-align: center;
+  :nth-child(7n + 1) {
+    color: var(--blue3);
+  }
+  :nth-child(7n + 2) {
+    color: var(--point3);
+  }
+  background-color: ${(props) => props.selectDay && props.idx === props.getDay && " var(--blue4)"};
+  color: ${(props) => props.selectDay && props.idx === props.getDay && "white"};
+`;
+const DayList = styled.ul`
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+`;
+const DayNumberList = styled.li`
+  border-bottom-left-radius: 21px;
+  border-bottom-right-radius: 21px;
 
-    border: 1px solid var(--blue4);
-    border-radius: 100%;
-    padding: 6px;
-    background-color: #fff;
-    color: var(--blue4);
-    font-weight: 900;
-    font-size: 14px;
+  :nth-child(7n + 1) {
+    span {
+      color: var(--blue3);
+    }
   }
-
-  .react-calendar__tile:enabled:hover,
-  .react-calendar__tile:enabled:focus {
-    background: #fff;
-    border-radius: 6px;
+  :nth-child(7n + 2) {
+    span {
+      color: var(--point3);
+    }
+    background-color: ${(props) => props.selectDay && props.sunday === props.Dates && " var(--blue4)"};
   }
-  .react-calendar__viewContainer {
-    background-color: #fff;
-  }
+`;
+const DayNumber = styled.span`
+  text-align: center;
+  font-weight: 900;
+  font-size: 12px;
+  color: var(--gray3);
+  border-radius: 100%;
+  padding: 4px;
 `;

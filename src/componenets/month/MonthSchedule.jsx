@@ -12,21 +12,20 @@ const MonthSchedule = () => {
   const [month, setMonth] = useState(MONTH);
   const [year, setYear] = useState(YEAR);
   const [totalDate, setTotalDate] = useState([]);
-  const dispatch = useDispatch();
 
   const changeDate = (month) => {
     //이전 날짜
-    let PVLastDate = new Date(YEAR, month - 1, 0).getDate();
-    let PVLastDay = new Date(YEAR, month - 1, 0).getDay();
+    let PVLastDate = new Date(year, month - 1, 0).getDate();
+    let PVLastDay = new Date(year, month - 1, 0).getDay();
     //다음 날짜
-    const ThisLasyDay = new Date(YEAR, month, 0).getDay();
-    const ThisLasyDate = new Date(YEAR, month, 0).getDate();
+    const ThisLasyDay = new Date(year, month, 0).getDay();
+    const ThisLasyDate = new Date(year, month, 0).getDate();
 
     //이전 날짜 만들기
     let PVLD = [];
     if (PVLastDay !== 6) {
       for (let i = 0; i < PVLastDay + 1; i++) {
-        PVLD.unshift(PVLastDate - i);
+        PVLD.unshift(`  `);
       }
     }
     //다음 날짜 만들기
@@ -35,7 +34,7 @@ const MonthSchedule = () => {
       if (i === 0) {
         return TLD;
       }
-      TLD.push(i);
+      TLD.push(`  `);
     }
 
     //현재날짜
@@ -50,7 +49,7 @@ const MonthSchedule = () => {
 
   useEffect(() => {
     setTotalDate(changeDate(month));
-  }, [month]);
+  }, [month, year]);
 
   const [today, setToday] = useState(0);
 

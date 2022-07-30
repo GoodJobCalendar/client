@@ -7,19 +7,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //이미지
-import banner from "../assets/img/cover/cover1.jpg";
+import mailSendImg from "../assets/img/illust/mailsend.png";
 
 const EmailSend = () => {
-  const userInfo = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
   const [authNumber, setAuthNumber] = useState();
   const [errorcheck, setError] = useState("");
 
+  const userInfo = useSelector((state) => state.user.user);
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      MailsendBtn();
+    }
+  };
   // 이메일 인증 메일 전송
-  const Mailsend = async () => {
+  const MailsendBtn = async () => {
     await axios
-      .post("http://14.34.139.253:3000/api/auth/local", {
+      .post("https://goodjobcalendar.com/api/auth/local", {
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.password,
@@ -34,9 +39,9 @@ const EmailSend = () => {
       });
   };
   // 인증번호 확인 & 회원가입완료
-  const AuthNumberCheck = async () => {
+  const AuthNumberCheckBtn = async () => {
     await axios
-      .post("http://14.34.139.253:3000/api/auth/verifyNumberForNew", {
+      .post("https://goodjobcalendar.com/api/auth/verifyNumberForNew", {
         authNumber,
         email: userInfo.email,
         password: userInfo.password,
@@ -55,7 +60,7 @@ const EmailSend = () => {
   return (
     <EmailWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
+        <Banner src={mailSendImg} alt="배너" />
         <TitleText>
           <Title>인증메일을 전송했어요!</Title>
           <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>
@@ -70,16 +75,17 @@ const EmailSend = () => {
             setAuthNumber(event.target.value);
           }}
           errorcheck={errorcheck}
+          onKeyPress={onKeyPress}
         />
         {errorcheck ? (
           <>
             <ErrorCheck>{errorcheck}</ErrorCheck>
-            <SignUpBtn onClick={Mailsend}>인증메일 재발송하기</SignUpBtn>
+            <SignUpBtn onClick={MailsendBtn}>인증메일 재발송하기</SignUpBtn>
           </>
         ) : (
           ""
         )}
-        <SignUpBtn onClick={AuthNumberCheck}>인증번호 확인하기</SignUpBtn>
+        <SignUpBtn onClick={AuthNumberCheckBtn}>인증번호 확인하기</SignUpBtn>
       </Main>
     </EmailWrap>
   );
@@ -90,7 +96,7 @@ const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
 `;
@@ -99,9 +105,13 @@ const Header = styled.header`
   width: 100%;
   padding-bottom: 50px;
   margin-bottom: 73px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Banner = styled.img`
-  width: 100%;
+  width: 180px;
   border-radius: 26px;
 `;
 const TitleText = styled.div`
@@ -141,13 +151,13 @@ const Input = styled.input`
   padding: 18px 23px;
   background: #ffffff;
   border: 1px solid var(--blue2);
+  margin-bottom: ${(props) => (props.errorcheck ? "" : "72px")};
   border-radius: 6px;
   ::placeholder {
     color: var(--blue3);
     font-weight: 500;
     font-size: 16px;
   }
-  margin-bottom: 72px;
   border: ${(props) =>
     props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;
   color: ${(props) => (props.errorcheck !== "" ? "var(--point3)" : "")};

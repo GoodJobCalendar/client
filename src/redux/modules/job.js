@@ -2,33 +2,43 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import { getCookie } from "../../shared/Cookie";
+import { useNavigate } from "react-router-dom";
 
 // 액션
 const LOAD_JOB_LIST = "LOAD_JOB_LIST";
 const LOAD_CATEGORY_LIST = "LOAD_CATEGORY_LIST";
 const SELECT_CATEGORY = "SELECT_CATEGORY";
-const LOAD_JOB_DETAILS = 'LOAD_JOB_DETAILS';
-const ADD_SCRAP = 'ADD_SCRAP';
+const LOAD_JOB_DETAILS = "LOAD_JOB_DETAILS";
+const ADD_SCRAP = "ADD_SCRAP";
 
 // 초기값
 const initialState = {
-  job: [],
-  category: [],
+  job: {},
+  category: {
+    data: {
+      career: "경력무관",
+      cityMain: "전체",
+      citySub: "전체",
+      companyType: "대기업",
+      jobMain: "전체",
+      jobSub: "전체",
+    },
+  },
   select: [],
   list: {
-    data : []
+    data: [],
   },
-  details : {
-    career : "",
-    city : "",
-    companyName : "",
-    companyType : "",
-    deadline : "",
-    job : [],
-    title : "",
-    url : ""
+  details: {
+    career: "",
+    city: "",
+    companyName: "",
+    companyType: "",
+    deadline: "",
+    job: [],
+    title: "",
+    url: "",
   },
-  scrap : []
+  scrap: [],
 };
 
 // 액션 생성 함수
@@ -39,8 +49,8 @@ const __loadCategoryList = createAction(LOAD_CATEGORY_LIST, (category) => ({
 const __selectCategory = createAction(SELECT_CATEGORY, (categoryData) => ({
   categoryData,
 }));
-const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({details}));
-const __addScrap = createAction(ADD_SCRAP, (postingId) => ({postingId}))
+const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({ details }));
+const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 
 // 미들웨어
 
@@ -50,7 +60,7 @@ export const loadJobList = () => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get("http://14.34.139.253:3000/api/posting", {
+      .get("https://goodjobcalendar.com/api/posting", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -68,7 +78,7 @@ export const loadCategoryList = () => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     axios
-      .get("http://14.34.139.253:3000/api/posting/category", {
+      .get("https://goodjobcalendar.com/api/posting/category", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -91,7 +101,7 @@ export const selectCategory = (categoryData) => {
     const myToken = getCookie("token");
     axios({
       method: "patch",
-      url: "http://14.34.139.253:3000/api/posting/category",
+      url: "https://goodjobcalendar.com/api/posting/category",
       data: categoryData,
       headers: { Authorization: `Bearer ${myToken}` },
     })
@@ -110,7 +120,7 @@ export const loadJobDetails = (postingId) => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get(`http://14.34.139.253:3000/api/posting/${postingId}`, {
+      .get(`https://goodjobcalendar.com/api/posting/${postingId}`, {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -123,29 +133,31 @@ export const loadJobDetails = (postingId) => {
   };
 };
 
-// todo 추가 미들웨어
+// 추가 미들웨어
 export const addScrap = (postingId) => {
   return function (dispatch, getState) {
-    if(!postingId) {window.alert("postingId가 없습니다!")}
+    if (!postingId) {
+      window.alert("postingId가 없습니다!");
+    }
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: `http://14.34.139.253:3000/api/schedule/scrap`,
+      url: `https://goodjobcalendar.com/api/schedule/scrap`,
       data: {
-        postingId : postingId,
+        postingId: Number(postingId),
       },
       headers: { Authorization: `Bearer ${myToken}` },
     })
-    .then(() => {
-      dispatch(__addScrap(postingId));
-      window.alert('스크랩이 완료되었어요!')
-    })
-    .catch((err) => {
-      console.log("스크랩 추가 에러: ", err)
-      window.alert('이미 스크랩이 완료된 게시물입니다!')
-    })
-  }
-}
+      .then((res) => {
+        dispatch(__addScrap(res.data));
+        window.alert("스크랩이 완료되었어요!");
+      })
+      .catch((err) => {
+        console.log("스크랩 추가 에러: ", err);
+        window.alert("이미 스크랩이 완료된 게시물입니다!");
+      });
+  };
+};
 
 // 리듀서
 export default handleActions(
@@ -160,8 +172,8 @@ export default handleActions(
       }),
     [LOAD_JOB_DETAILS]: (state, action) =>
       produce(state, (draft) => {
-      draft.details = action.payload.details;
-    }),
+        draft.details = action.payload.details;
+      }),
     // [SELECT_CATEGORY]: (state, action) =>
     //   produce(state, (draft) => {
     //   draft.category = action.payload.category;

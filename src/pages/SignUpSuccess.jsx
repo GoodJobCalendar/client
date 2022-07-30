@@ -2,14 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import banner from "../assets/img/cover/cover1.jpg";
+import signUpImg from "../assets/img/illust/signupsuccess.png";
+
+//회원이름
 const SignupSucess = () => {
   const userInfo = useSelector((state) => state.user.user);
 
   return (
     <EmailWrap>
       <Header>
-        <Banner src={banner} alt="배너" />
+        <Banner src={signUpImg} alt="배너" />
         <TitleText>
           <Title>회원가입이 완료되었어요!</Title>
           <SubTitle>
@@ -32,7 +34,7 @@ const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {

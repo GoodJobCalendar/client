@@ -1,20 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { monthList } from "../../redux/modules/schedule";
+import { loadMonth } from "../../redux/modules/schedule";
 
 const Head = (props) => {
   const { year, month, setYear, setMonth, goToday } = props;
   const dispatch = useDispatch();
 
-  const yearPlus = () => {
-    const y = Number(year) + 1;
-    setYear(y);
-  };
-  const yearMius = () => {
-    const y = Number(year) - 1;
-    setYear(y);
-  };
   const monthPlus = () => {
     setMonth(month + 1);
     if (month > 11) {
@@ -31,15 +23,25 @@ const Head = (props) => {
       setYear(y);
     }
   };
-  // 오늘날짜소환!
-  goToday();
-  const mm = String(month).padStart(2, "0");
-  const fullDate = `${year}-${mm}-01 00:00:00`;
-  console.log(fullDate);
+  const yearPlus = () => {
+    const y = year + 1;
+    setYear(y);
+  };
+  const yearMius = () => {
+    const y = year - 1;
+    setYear(y);
+  };
+  const monthNumber = String(month).padStart(2, "0");
+  const fullDate = `${year}-${monthNumber}-01 00:00:00`;
 
   useEffect(() => {
-    dispatch(monthList(`${year}-${mm}-01 00:00:00`));
-  }, [mm]);
+    dispatch(loadMonth(`${year}-${monthNumber}-01 00:00:00`));
+  }, [monthNumber]);
+
+  // 오늘날짜소환!
+  goToday();
+  const DAY = ["일", "월", "화", "수", "목", "금", "토"];
+
   return (
     <Form>
       <Nav>
@@ -54,12 +56,8 @@ const Head = (props) => {
           <BtnBox>
             <Btn onClick={monthMius}>&lt;</Btn>
             <Month>
-              {/* <span>{year}</span> */}
               <p>{String(month).padStart(2, "0")}월</p>
             </Month>
-            {/* <Btn width="3vw" onClick={() => goToday()}>
-            오늘
-          </Btn> */}
             <Btn onClick={monthPlus}>&gt;</Btn>
           </BtnBox>
         </BtnWrap>
@@ -92,7 +90,6 @@ const Year = styled.h2`
     font-weight: 700;
     font-size: 14px;
     color: var(--blue3);
-    margin-right: 10px;
   }
 `;
 const Month = styled.h2`
@@ -120,7 +117,6 @@ const YearBtnBox = styled.div`
     font-weight: 700;
     font-size: 14px;
     color: var(--blue3);
-    margin-right: 10px;
   }
 `;
 const BtnBox = styled.div`
@@ -129,7 +125,6 @@ const BtnBox = styled.div`
   margin: 30px 0;
   gap: 25px;
   button {
-    font-weight: 600;
     font-size: 22px;
     color: var(--blue4);
     line-height: 30px;
@@ -155,13 +150,12 @@ const Day = styled.li`
     border-right: 0;
   }
   width: calc(100% / 7);
-  :nth-child(7n + 1) {
+  :nth-child(7n) {
     color: var(--blue3);
   }
-  :nth-child(7n) {
+  :nth-child(7n + 1) {
     color: var(--point3);
   }
 `;
 
-const DAY = ["일", "월", "화", "수", "목", "금", "토"];
 export default Head;
