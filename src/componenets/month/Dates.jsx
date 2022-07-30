@@ -191,8 +191,8 @@ const TextList = styled.p`
   padding: 3px;
   font-size: 8px;
   margin-top: 3px;
-  color: ${(props) => (props.color !== 1 ? "var(--blue1)" : "")};
-  border: ${(props) => (props.color === 1 ? "1px solid var(--blue1)" : "")};
+  box-sizing: border-box;
+  border: ${(props) => (props.color === 1 ? "2px solid var(--blue1)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
@@ -210,8 +210,8 @@ const List = styled.p`
   width: 5px;
   height: 5px;
   border-radius: 100%;
-  border: ${(props) => (props.color === 1 ? "1px solid var(--blue1)" : "")};
-
+  box-sizing: border-box;
+  border: ${(props) => (props.color === 1 ? "2px solid var(--blue1)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};

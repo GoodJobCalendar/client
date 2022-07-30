@@ -26,6 +26,7 @@ import time from "../assets/img/icon/Time.png";
 import location from "../assets/img/icon/Location.png";
 import memoimg from "../assets/img/icon/memo.png";
 import emptyImg from "../assets/img/illust/needlogin.png";
+import arrow from "../assets/img/icon/Back.png";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -212,7 +213,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
       )}
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
-          <Btn onClick={moveBtn}>&lt;</Btn>
+          <Btn onClick={moveBtn}>
+            <img src={arrow} alt="뒤로가기" />
+          </Btn>
           <Btn onClick={addScheduleBtn}>저장</Btn>
         </AddFlex>
         <BtnFlex>
