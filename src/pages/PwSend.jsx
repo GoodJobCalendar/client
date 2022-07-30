@@ -40,7 +40,7 @@ const PwSend = () => {
         navigate("/pwcheck");
       })
       .catch((error) => {
-        setError(error.response.data.data);
+        setError(error.response.data.msg);
         console.error(error);
       });
   };

@@ -32,19 +32,7 @@ export function tokenUser(payload) {
 }
 
 //middleware
-export const loginDB = (payload) => {
-  return function (dispatch) {
-    axios
-      .post("https://goodjobcalendar.com/api/auth", payload)
-      .then((response) => {
-        dispatch(setUser(payload));
-        setCookie("token", response.data.token, 5);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-};
+
 export const pwEmailUser = (email, userName) => {
   return function (dispatch) {
     const data = {
@@ -73,7 +61,6 @@ export const kakaoLoginDB = (code) => {
 };
 //로그 아웃
 export const logoutUser = () => (dispatch, getState) => {
-  deleteCookie("token");
   dispatch(__logoutUser());
 };
 //reducer

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
-import { logoutUser } from "./../redux/modules/user";
+import { logoutUser, __logoutUser } from "./../redux/modules/user";
 import { getCookie } from "../shared/Cookie";
 
 //이미지
@@ -12,26 +12,54 @@ import calendar_c from "../assets/img/icon/calendar_c.png";
 import element_w from "../assets/img/icon/element_w.png";
 import element_c from "../assets/img/icon/element_c.png";
 import logout from "../assets/img/icon/logout.png";
+import needLogin from "../assets/img/illust/needlogin.png";
+
+import { deleteCookie } from "./../shared/Cookie";
 
 const Nav = (props) => {
-  const is_login = getCookie("is_login");
-  const dispatch = useDispatch();
+  const token = getCookie("token");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [nav, setNav] = useState(props.navData);
+  const [loginOn, setLoginOn] = useState(false);
   // const is_Login = useSelector((state) => state.user.is_login);
 
   const logOut = () => {
-    dispatch(logoutUser());
+    deleteCookie("token");
+    setLoginOn(false);
   };
 
   useEffect(() => {
-    if (is_login) {
-      navigate("/main");
+    if (token) {
+      setLoginOn(true);
     }
-  }, [is_login]);
+  }, [loginOn]);
 
   return (
     <NavWrap>
+      {loginOn ? (
+        ""
+      ) : (
+        <NeedLogin>
+          <NeedLoginModal>
+            <p>로그인 필요</p>
+            <img src={needLogin} alt="로그인 필요" />
+            <span>
+              로그인된 상태에서만
+              <br />
+              이용할 수 있습니다.
+            </span>
+            <NeedLoginBtn
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              로그인하러가기
+            </NeedLoginBtn>
+          </NeedLoginModal>
+        </NeedLogin>
+      )}
+
       <NavTitle>
         {/* <Ham >
           <LineList>
@@ -41,7 +69,7 @@ const Nav = (props) => {
           </LineList>
         </Ham> */}
 
-        {is_login === "true" ? (
+        {token ? (
           <>
             <LogOutBtn style={{ opacity: "0" }}>
               <img src={logout} alt="로그아웃" />
@@ -94,6 +122,55 @@ const NavWrap = styled.div`
   * {
     color: #fff;
   }
+`;
+const NeedLogin = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.3);
+  z-index: 99999;
+`;
+const NeedLoginBtn = styled.button`
+  background-color: var(--blue4);
+  padding: 16px 30px;
+  color: #fff;
+  border-radius: 9px;
+  margin-top: 17px;
+  a {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const NeedLoginModal = styled.div`
+  p {
+    font-weight: 700;
+    color: var(--blue4);
+    margin-bottom: 10px;
+  }
+  span {
+    font-weight: 500;
+    color: var(--blue4);
+    margin-top: 15px;
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 99999;
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 21px;
+  padding: 40px 80px;
+  width: 40%;
+  text-align: center;
 `;
 const NavTitle = styled.span`
   display: block;

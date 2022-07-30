@@ -19,8 +19,8 @@ const PwChange = () => {
     await axios
       .patch("https://goodjobcalendar.com/api/auth/newPassword", {
         email: userInfo.email,
-        password,
-        confirmPassword,
+        newPassword: password,
+        confirmNewPassword: confirmPassword,
       })
       .then((res) => {
         console.log(res);

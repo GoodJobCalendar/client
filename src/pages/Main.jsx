@@ -14,7 +14,6 @@ import DailyList from "../componenets/DailyList";
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
-import needLogin from "../assets/img/illust/needlogin.png";
 import { useDispatch, useSelector } from "react-redux";
 import { zoomDate } from "../redux/modules/date";
 
@@ -23,9 +22,10 @@ function Main() {
   const navigate = useNavigate();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
+  const [loginOn, setLoginOn] = useState(false);
   const navData = true;
-  const is_login = getCookie("is_login");
-  console.log(is_login);
+  const token = getCookie("token");
+  console.log(token);
   const active = useSelector((state) => state.date.active);
 
   //일정등록 이동
@@ -37,27 +37,14 @@ function Main() {
   useEffect(() => {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
+
+  useEffect(() => {
+    if (token) {
+      setLoginOn(true);
+    }
+  }, [loginOn]);
   return (
     <MainWrap>
-      {is_login === "true" ? (
-        ""
-      ) : (
-        <NeedLogin>
-          <NeedLoginModal>
-            <p>로그인 필요</p>
-            <img src={needLogin} alt="로그인 필요" />
-            <span>
-              로그인된 상태에서만
-              <br />
-              이용할 수 있습니다.
-            </span>
-            <NeedLoginBtn>
-              <Link to="/login">로그인하러가기</Link>
-            </NeedLoginBtn>
-          </NeedLoginModal>
-        </NeedLogin>
-      )}
-
       <Nav navData={navData} />
       <FixBox>
         <Search type="text" placeholder="일정 상세 검색" />
@@ -102,62 +89,13 @@ function Main() {
           </WeekMonth>
         </ToggleBtn>
         {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-        {is_login === "true" &&
-          (active?.isActive ? <DailyList /> : <MonthList />)}
+        {loginOn && (active?.isActive ? <DailyList /> : <MonthList />)}
       </ContentWrap>
     </MainWrap>
   );
 }
 export default Main;
-const NeedLogin = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(17, 17, 17, 0.3);
-  z-index: 99999;
-`;
-const NeedLoginBtn = styled.button`
-  background-color: var(--blue4);
-  padding: 16px 30px;
-  color: #fff;
-  border-radius: 9px;
-  margin-top: 17px;
-  a {
-    width: 100%;
-    height: 100%;
-  }
-`;
-const NeedLoginModal = styled.div`
-  p {
-    font-weight: 700;
-    color: var(--blue4);
-    margin-bottom: 10px;
-  }
-  span {
-    font-weight: 500;
-    color: var(--blue4);
-    margin-top: 15px;
-  }
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  z-index: 99999;
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
-  border-radius: 21px;
-  padding: 40px 80px;
-  width: 40%;
-  text-align: center;
-`;
+
 const MainWrap = styled.div`
   position: relative;
 `;

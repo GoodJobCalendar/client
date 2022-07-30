@@ -47,15 +47,15 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   //작성목록
   const [color, setColor] = useState("");
-  const [sticker, setSticker] = useState("");
-  const [image, setImage] = useState("");
+  const [sticker, setSticker] = useState("1");
+  const [image, setImage] = useState("1");
   const [companyName, setCompanyName] = useState("");
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
   const [cover, setCover] = useState(cover1);
   //컬러 미리보기
-  const [colorPick, setColorPick] = useState("");
+  const [colorPick, setColorPick] = useState("var(--point3)");
   const [startDate, setStartDate] = useState(new Date());
 
   //Time Picker
@@ -144,14 +144,14 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   // 스티커 pcik
   const stickerChange = (e) => {
     setSticker(e.target.id);
-    setStickerShow(!stickerShow);
+    // setStickerShow(!stickerShow);
   };
 
   // 커버 이미지 미리보기 / 커버 이미지 pick
   const coverChange = (e) => {
     setCover(e.target.value);
     setImage(e.target.id);
-    setCoverShow(!coverShow);
+    // setCoverShow(!coverShow);
   };
 
   // 일정등록
@@ -217,139 +217,140 @@ const AddSchedule = ({ value, onChange, ...others }) => {
         </AddFlex>
         <BtnFlex>
           <TitleInput>
-            <AddBtn onClick={stickerShowBtn}>스티커 추가</AddBtn>
+            <StickerAddBtn onClick={stickerShowBtn} stickerShow={stickerShow}>
+              스티커 추가
+            </StickerAddBtn>
             {stickerShow ? (
-              <StickerList>
-                <label htmlFor="1">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="1"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img1} />
-                </label>
-                <label htmlFor="2">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="2"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img2} />
-                </label>
-                <label htmlFor="3">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="3"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img3} />
-                </label>
-                <label htmlFor="4">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="4"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img4} />
-                </label>
-                <label htmlFor="5">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="5"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img5} />
-                </label>
-                <label htmlFor="6">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="6"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img6} />
-                </label>
-                <label htmlFor="7">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="7"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img7} />
-                </label>
-                <label htmlFor="8">
-                  <Input
-                    type="radio"
-                    name="sticker"
-                    id="8"
-                    onChange={stickerChange}
-                  />
-                  <StickerImg src={img8} />
-                </label>
-              </StickerList>
+              <Background>
+                <StickerList>
+                  <StickerPick1 htmlFor="1" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="1"
+                      onChange={stickerChange}
+                      sticker={sticker}
+                    />
+                    <StickerCoverLine sticker={sticker}></StickerCoverLine>
+                  </StickerPick1>
+                  <StickerPick htmlFor="2" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="2"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img2} />
+                  </StickerPick>
+                  <StickerPick htmlFor="3" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="3"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img3} />
+                  </StickerPick>
+                  <StickerPick htmlFor="4" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="4"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img4} />
+                  </StickerPick>
+                  <StickerPick htmlFor="5" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="5"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img5} />
+                  </StickerPick>
+                  <StickerPick htmlFor="6" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="6"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img6} />
+                  </StickerPick>
+                  <StickerPick htmlFor="7" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="7"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img7} />
+                  </StickerPick>
+                  <StickerPick htmlFor="8" sticker={sticker}>
+                    <Input
+                      type="radio"
+                      name="sticker"
+                      id="8"
+                      onChange={stickerChange}
+                    />
+                    <StickerImg src={img8} />
+                  </StickerPick>
+                </StickerList>
+              </Background>
             ) : (
               ""
             )}
           </TitleInput>
           <TitleInput>
-            <AddBtn onClick={coverShowBtn}>커버 변경</AddBtn>
+            <AddBtn onClick={coverShowBtn} coverShow={coverShow}>
+              커버 변경
+            </AddBtn>
             {coverShow ? (
-              <CoverList>
-                <label htmlFor="1">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="1"
-                    value="https://ifh.cc/g/T7qvdv.png"
-                    onChange={coverChange}
-                  />
-                  <CoverImg>
-                    <img src={cover1} alt="커버 이미지1" />
-                  </CoverImg>
-                </label>
-                <label htmlFor="2">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="2"
-                    value="https://ifh.cc/g/F6SksX.png"
-                    onChange={coverChange}
-                  />
-                  <CoverImg>
-                    <img src={cover2} alt="커버 이미지2" />
-                  </CoverImg>
-                </label>
-                <label htmlFor="3">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="3"
-                    value="https://ifh.cc/g/z3hwr6.png"
-                    onChange={coverChange}
-                  />
-                  <CoverImg>
-                    <img src={cover3} alt="커버 이미지3" />
-                  </CoverImg>
-                </label>
-                <label htmlFor="4">
-                  <Input
-                    type="radio"
-                    name="cover"
-                    id="4"
-                    value="https://ifh.cc/g/Ba7rRW.png"
-                    onChange={coverChange}
-                  />
-                  <CoverImg>
-                    <img src={cover4} alt="커버 이미지4" />
-                  </CoverImg>
-                </label>
-              </CoverList>
+              <Background>
+                <CoverList>
+                  <CoverPick1 htmlFor="1" image={image}>
+                    <Input
+                      type="radio"
+                      name="cover"
+                      id="1"
+                      value="https://ifh.cc/g/T7qvdv.png"
+                      onChange={coverChange}
+                    />
+                    <CoverLine image={image}></CoverLine>
+                  </CoverPick1>
+                  <CoverPick htmlFor="2" image={image}>
+                    <Input
+                      type="radio"
+                      name="cover"
+                      id="2"
+                      value="https://ifh.cc/g/3JtQVv.png"
+                      onChange={coverChange}
+                    />
+                    응원
+                  </CoverPick>
+                  <CoverPick htmlFor="3" image={image}>
+                    <Input
+                      type="radio"
+                      name="cover"
+                      id="3"
+                      value="https://ifh.cc/g/9CLkcw.png"
+                      onChange={coverChange}
+                    />
+                    출근
+                  </CoverPick>
+                  <CoverPick htmlFor="4" image={image}>
+                    <Input
+                      type="radio"
+                      name="cover"
+                      id="4"
+                      value="https://ifh.cc/g/brrtyz.png"
+                      onChange={coverChange}
+                    />
+                    일
+                  </CoverPick>
+                </CoverList>
+              </Background>
             ) : (
               ""
             )}
@@ -375,12 +376,14 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           <ColorPicker onClick={colorShowBtn} colorPick={colorPick} />
           {colorPickerShow ? (
             <ColorList>
-              <Color1 htmlFor="1"></Color1>
+              <Color1 htmlFor="1">
+                <ColorCoverLine colorPick={colorPick}></ColorCoverLine>
+              </Color1>
               <Input
                 type="radio"
                 name="color"
                 id="1"
-                value="#fff"
+                value="var(--blue1)"
                 onChange={colorChange}
               />
               <Color2 htmlFor="2"></Color2>
@@ -630,7 +633,9 @@ const NeedPostModal = styled.div`
 
 const AddSchesuleWrap = styled.div`
   background-color: var(--blue1);
+
   width: 100%;
+  height: 100vh;
   font-weight: 500;
   input {
     outline: none;
@@ -661,6 +666,19 @@ const Btn = styled.button`
   border-radius: 8px;
   z-index: 99;
 `;
+const StickerAddBtn = styled.button`
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid #fff !important;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: ${(props) => (props.stickerShow === true ? "var(--point1)" : " #fff")};
+  border: ${(props) =>
+    props.stickerShow === true
+      ? "1px solid var(--point1) !important"
+      : " 1px solid #fff !important"};
+`;
 const AddBtn = styled.button`
   font-weight: 700;
   font-size: 12px;
@@ -669,8 +687,14 @@ const AddBtn = styled.button`
   padding: 6px 10px;
   border-radius: 8px;
   background-color: transparent;
+  color: ${(props) => (props.coverShow === true ? "var(--point1)" : " #fff")};
+  border: ${(props) =>
+    props.coverShow === true
+      ? "1px solid var(--point1) !important"
+      : " 1px solid #fff !important"};
 `;
 const AddList = styled.section`
+  background-color: var(--blue1);
   width: 90%;
   padding: 5%;
   display: flex;
@@ -697,26 +721,14 @@ const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
   padding: 5%;
+  padding-top: 60px;
   height: 150px;
   background-size: cover;
+  background-position: bottom;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  :after {
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 0) 0%,
-      #3284ff 100%
-    );
-  }
 `;
 const AddFlex = styled.div`
   width: 100%;
@@ -810,11 +822,20 @@ const ColorPicker = styled.button`
   top: 50%;
   transform: translateY(-50%);
 `;
+const Background = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+`;
 const StickerList = styled.div`
   position: absolute;
-  top: calc(100% + 9px);
-  left: 10%;
-  transform: translateX(-50%);
+  top: 218px;
+  right: 5%;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -825,11 +846,12 @@ const StickerList = styled.div`
   padding: 8px 12px;
   width: 275px;
   z-index: 99;
+  opacity: 1;
 `;
 const CoverList = styled.div`
   position: absolute;
-  top: calc(100% + 9px);
-  right: 0;
+  top: 218px;
+  right: 5%;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -862,13 +884,13 @@ const Input = styled.input`
   display: none;
 `;
 const Color1 = styled.label`
-  background-color: #fff;
   width: 30px;
   height: 30px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
   cursor: pointer;
+  overflow: hidden;
 `;
 const Color2 = styled.label`
   background-color: var(--point3);
@@ -938,14 +960,171 @@ const StickerImg = styled.img`
   height: 50px;
   cursor: pointer;
 `;
-const CoverImg = styled.div`
+const StickerPick1 = styled.label`
   width: 50px;
   height: 50px;
   overflow: hidden;
   border-radius: 10px;
   cursor: pointer;
-  img {
-    height: 100%;
+  :nth-child(1) {
+    border: ${(props) =>
+      props.sticker === "1"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "1" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "1" ? "700px" : "500px")};
+  }
+`;
+const CoverPick1 = styled.label`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  :nth-child(1) {
+    border: ${(props) =>
+      props.image === "1"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.image === "1" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.image === "1" ? "700px" : "500px")};
+  }
+`;
+const StickerCoverLine = styled.div`
+  border-bottom: ${(props) =>
+    props.sticker === "1"
+      ? "2px solid var(--blue4)"
+      : "2px solid var(--gray2)"};
+  width: 150%;
+  transform: rotate(45deg);
+  transform-origin: top left;
+`;
+const ColorCoverLine = styled.div`
+  border-bottom: ${(props) =>
+    props.colorPick === "1"
+      ? "2px solid var(--blue4)"
+      : "2px solid var(--gray2)"};
+  width: 150%;
+  transform: rotate(45deg);
+  transform-origin: top left;
+`;
+const CoverLine = styled.div`
+  border-bottom: ${(props) =>
+    props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+  width: 150%;
+  transform: rotate(45deg);
+  transform-origin: top left;
+`;
+const StickerPick = styled.label`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  :nth-child(2) {
+    border: ${(props) =>
+      props.sticker === "2"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "2" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "2" ? "700px" : "500px")};
+  }
+  :nth-child(3) {
+    border: ${(props) =>
+      props.sticker === "3"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "3" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "3" ? "700px" : "500px")};
+  }
+  :nth-child(4) {
+    border: ${(props) =>
+      props.sticker === "4"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "4" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "4" ? "700px" : "500px")};
+  }
+  :nth-child(5) {
+    border: ${(props) =>
+      props.sticker === "5"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "5" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "5" ? "700px" : "500px")};
+  }
+  :nth-child(6) {
+    border: ${(props) =>
+      props.sticker === "6"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "6" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "6" ? "700px" : "500px")};
+  }
+  :nth-child(7) {
+    border: ${(props) =>
+      props.sticker === "7"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "7" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "7" ? "700px" : "500px")};
+  }
+  :nth-child(8) {
+    border: ${(props) =>
+      props.sticker === "8"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.sticker === "8" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.sticker === "8" ? "700px" : "500px")};
+  }
+`;
+const CoverPick = styled.label`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  :nth-child(2) {
+    border: ${(props) =>
+      props.image === "2"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.image === "2" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.image === "2" ? "700px" : "500px")};
+  }
+  :nth-child(3) {
+    border: ${(props) =>
+      props.image === "3"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.image === "3" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.image === "3" ? "700px" : "500px")};
+  }
+  :nth-child(4) {
+    border: ${(props) =>
+      props.image === "4"
+        ? "2px solid var(--blue4)"
+        : "2px solid var(--gray2)"};
+    color: ${(props) =>
+      props.image === "4" ? "var(--blue4)" : "var(--gray2)"};
+    font-weight: ${(props) => (props.image === "4" ? "700px" : "500px")};
   }
 `;
 const TimeOpenBtn = styled.button`

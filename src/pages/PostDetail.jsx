@@ -173,9 +173,9 @@ const Cover = styled.img`
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 50%;
+  bottom: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: -1;
 `;
 const Sticker = styled.img`
@@ -189,6 +189,7 @@ const Sticker = styled.img`
 const Header = styled.div`
   width: 90%;
   padding: 5%;
+  padding-top: 60px;
   height: 150px;
   background-size: cover;
   display: flex;
@@ -236,7 +237,16 @@ const TimeTitle = styled.p`
 const Color = styled.div`
   width: 25px;
   height: 100%;
-  background-color: #fd6e6e;
+  background-color: ${(props) => props.color === 1 && "#fff"};
+  background-color: ${(props) => props.color === 2 && "var(--point3)"};
+  background-color: ${(props) =>
+    props.color === 3 && " rgba(253, 187, 110, 1)"};
+  background-color: ${(props) => props.color === 4 && "rgba(253, 247, 110, 1)"};
+  background-color: ${(props) =>
+    props.color === 5 && " rgba(110, 253, 150, 1)"};
+  background-color: ${(props) => props.color === 6 && "rgba(110, 218, 253, 1)"};
+  background-color: ${(props) => props.color === 7 && "rgba(130, 110, 253, 1)"};
+  background-color: ${(props) => props.color === 8 && "var(--gray2)"};
   position: absolute;
   left: 0;
   top: 0;
