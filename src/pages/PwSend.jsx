@@ -30,7 +30,7 @@ const PwSend = () => {
       return setError("이메일 형식이 아닙니다.");
     }
     await axios
-      .post("https://goodjobcalendar.com/api/auth/lostPassword", {
+      .post("https://goodjobcalendar.shop/api/auth/lostPassword", {
         userName,
         email,
       })

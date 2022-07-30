@@ -82,7 +82,7 @@ export const scheduleUpdate = ({
 
     axios({
       method: "patch",
-      url: `https://goodjobcalendar.com/api/schedule/${scheduleId}`,
+      url: `https://goodjobcalendar.shop/api/schedule/${scheduleId}`,
       data: {
         image,
         companyName, //필수입력
@@ -112,7 +112,7 @@ export const deletePost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .delete(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
+      .delete(`https://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__deletePost(scheduleId));
         console.log(res);
@@ -130,7 +130,7 @@ export const detailPost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .get(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
+      .get(`hhttps://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__detailPost(res.data.data));
         console.log(res.data.data);
@@ -150,7 +150,7 @@ export const loadMonth = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("https://goodjobcalendar.com/api/schedule/monthly", data)
+      .get("hhttps://goodjobcalendar.shop/api/schedule/monthly", data)
       .then((res) => {
         dispatch(__loadMonth(res.data.data));
         console.log(res.data.data);
@@ -170,7 +170,7 @@ export const loadDaily = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("https://goodjobcalendar.com/api/schedule/daily", data)
+      .get("https://goodjobcalendar.shop/api/schedule/daily", data)
       .then((res) => {
         dispatch(__loadDaily(res.data.data));
         console.log(res.data.data);

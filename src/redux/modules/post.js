@@ -35,7 +35,7 @@ export const schedulePost = (payload) => {
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: "https://goodjobcalendar.com/api/schedule",
+      url: "https://goodjobcalendar.shop/api/schedule",
       data: payload,
       headers: { Authorization: `Bearer ${myToken}` },
     })
@@ -64,7 +64,7 @@ export const scheduleUpdate = ({
 
     axios({
       method: "patch",
-      url: `https://goodjobcalendar.com/api/schedule/${scheduleId}`,
+      url: `https://goodjobcalendar.shop/api/schedule/${scheduleId}`,
       data: {
         image,
         companyName, //필수입력

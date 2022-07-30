@@ -49,7 +49,9 @@ const __loadCategoryList = createAction(LOAD_CATEGORY_LIST, (category) => ({
 const __selectCategory = createAction(SELECT_CATEGORY, (categoryData) => ({
   categoryData,
 }));
-const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({ details }));
+const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({
+  details,
+}));
 const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 
 // 미들웨어
@@ -60,7 +62,7 @@ export const loadJobList = () => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get("https://goodjobcalendar.com/api/posting", {
+      .get("https://goodjobcalendar.shop/api/posting", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -78,7 +80,7 @@ export const loadCategoryList = () => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     axios
-      .get("https://goodjobcalendar.com/api/posting/category", {
+      .get("https://goodjobcalendar.shop/api/posting/category", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -101,7 +103,7 @@ export const selectCategory = (categoryData) => {
     const myToken = getCookie("token");
     axios({
       method: "patch",
-      url: "https://goodjobcalendar.com/api/posting/category",
+      url: "https://goodjobcalendar.shop/api/posting/category",
       data: categoryData,
       headers: { Authorization: `Bearer ${myToken}` },
     })
@@ -120,7 +122,7 @@ export const loadJobDetails = (postingId) => {
     const myToken = getCookie("token");
     console.log(myToken);
     axios
-      .get(`https://goodjobcalendar.com/api/posting/${postingId}`, {
+      .get(`https://goodjobcalendar.shop/api/posting/${postingId}`, {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
@@ -142,7 +144,7 @@ export const addScrap = (postingId) => {
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: `https://goodjobcalendar.com/api/schedule/scrap`,
+      url: `https://goodjobcalendar.shop/api/schedule/scrap`,
       data: {
         postingId: Number(postingId),
       },

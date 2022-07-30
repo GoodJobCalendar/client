@@ -25,7 +25,7 @@ const PwCheck = () => {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .post("https://goodjobcalendar.com/api/auth/lostPassword", {
+      .post("r.com/api/auth/lostPassword", {
         email: userInfo?.email,
         userName: userInfo?.userName,
       })
@@ -41,7 +41,7 @@ const PwCheck = () => {
   const PwCheckBtn = async () => {
     // 인증번호 확인
     await axios
-      .patch("https://goodjobcalendar.com/api/auth/verifyNumberForOld", {
+      .patch("hhttps://goodjobcalendar.shop/api/auth/verifyNumberForOld", {
         email: userInfo?.email,
         authNumber: authNumber,
       })

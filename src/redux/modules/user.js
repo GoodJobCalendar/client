@@ -47,7 +47,7 @@ export const kakaoLoginDB = (code) => {
   console.log(code);
   return function (dispatch, getState) {
     axios
-      .get(`https://goodjobcalendar.com/api/auth/kakao/callback?code=${code}`)
+      .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
         console.log("카카오 로그인 성공", response);
         dispatch(setUser());

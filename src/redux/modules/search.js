@@ -31,7 +31,9 @@ const initialState = {
 
 // 액션 생성 함수
 
-const __searchMySchedule = createAction(SEARCH_MY_SCHEDULE, (search) => ({ search }));
+const __searchMySchedule = createAction(SEARCH_MY_SCHEDULE, (search) => ({
+  search,
+}));
 
 // 미들웨어
 
@@ -44,7 +46,7 @@ export const searchMySchedule = (keyword) => {
     };
     console.log(bucket);
     axios
-      .get("https://goodjobcalendar.com/api/schedule/search", bucket)
+      .get("https://goodjobcalendar.shop/api/schedule/search", bucket)
       .then((res) => {
         dispatch(__searchMySchedule(res.data));
         console.log("검색하기 리덕스 콘솔", res.data);

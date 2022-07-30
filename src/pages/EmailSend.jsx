@@ -24,7 +24,7 @@ const EmailSend = () => {
   // 이메일 인증 메일 전송
   const MailsendBtn = async () => {
     await axios
-      .post("https://goodjobcalendar.com/api/auth/local", {
+      .post("https://goodjobcalendar.shop/api/auth/local", {
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.password,
@@ -41,7 +41,7 @@ const EmailSend = () => {
   // 인증번호 확인 & 회원가입완료
   const AuthNumberCheckBtn = async () => {
     await axios
-      .post("https://goodjobcalendar.com/api/auth/verifyNumberForNew", {
+      .post("https://goodjobcalendar.shop/api/auth/verifyNumberForNew", {
         authNumber,
         email: userInfo.email,
         password: userInfo.password,

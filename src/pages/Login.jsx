@@ -41,7 +41,7 @@ const Login = () => {
       return;
     }
     await axios
-      .post("https://goodjobcalendar.com/api/auth", { email, password })
+      .post("https://goodjobcalendar.shop/api/auth", { email, password })
       .then((response) => {
         setCookie("token", response.data.token, 5);
         navigate("/main");
