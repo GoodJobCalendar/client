@@ -34,23 +34,23 @@ const PwCheck = () => {
       })
       .catch((error) => {
         console.error(error);
-        setError("문자");
+        setError(error.response.data.msg);
       });
   };
 
   const PwCheckBtn = async () => {
     // 인증번호 확인
     await axios
-      .delete("https://goodjobcalendar.com/api/auth/verifyNumberForOld", {
+      .patch("https://goodjobcalendar.com/api/auth/verifyNumberForOld", {
         email: userInfo?.email,
-        authNumber,
+        authNumber: authNumber,
       })
       .then((res) => {
         console.log(res);
         navigate("/pwchange");
       })
       .catch((error) => {
-        setError("문자");
+        setError(error.response.data.msg);
         console.error(error);
       });
   };
