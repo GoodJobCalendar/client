@@ -33,13 +33,15 @@ const Head = (props) => {
   };
   const monthNumber = String(month).padStart(2, "0");
   const fullDate = `${year}-${monthNumber}-01 00:00:00`;
-  console.log(fullDate);
 
   useEffect(() => {
     dispatch(loadMonth(`${year}-${monthNumber}-01 00:00:00`));
   }, [monthNumber]);
+
   // 오늘날짜소환!
   goToday();
+  const DAY = ["일", "월", "화", "수", "목", "금", "토"];
+
   return (
     <Form>
       <Nav>
@@ -56,7 +58,6 @@ const Head = (props) => {
             <Month>
               <p>{String(month).padStart(2, "0")}월</p>
             </Month>
-
             <Btn onClick={monthPlus}>&gt;</Btn>
           </BtnBox>
         </BtnWrap>
@@ -157,5 +158,4 @@ const Day = styled.li`
   }
 `;
 
-const DAY = ["일", "월", "화", "수", "목", "금", "토"];
 export default Head;

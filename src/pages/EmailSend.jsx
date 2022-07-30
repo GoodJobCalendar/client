@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //이미지
-import mailsendimg from "../assets/img/illust/mailsend.png";
+import mailSendImg from "../assets/img/illust/mailsend.png";
 
 const EmailSend = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const EmailSend = () => {
   return (
     <EmailWrap>
       <Header>
-        <Banner src={mailsendimg} alt="배너" />
+        <Banner src={mailSendImg} alt="배너" />
         <TitleText>
           <Title>인증메일을 전송했어요!</Title>
           <SubTitle>인증 메일 확인하러 메일함으로 고고</SubTitle>

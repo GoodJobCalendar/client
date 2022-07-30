@@ -1,23 +1,76 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { activeDate, daily, schedule, selectDate } from "../../redux/modules/date";
+import { activeDate, selectDate } from "../../redux/modules/date";
 import { loadDaily } from "../../redux/modules/schedule";
 
 const Dates = (props) => {
   const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
-  const [mmm, setmmm] = useState();
+  const [monthList, setMonthList] = useState();
+  const monthSchdule = useSelector((state) => state.schedule.month);
+  useEffect(() => {
+    setMonthList(Object.entries(monthSchdule));
+  }, [monthList]);
+  const zoom = useSelector((state) => state.date.zoom.zoomInOut);
 
   let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(elm).padStart(2, "0")} 00:00:00`;
-  const monthSchdule = useSelector((state) => state.schedule.month);
-  const zoom = useSelector((state) => state.date.zoom.zoomInOut);
-  console.log(zoom);
 
   useEffect(() => {
     dispatch(activeDate(isActive));
   }, [isActive]);
+
+  const list =
+    monthList &&
+    monthList?.map((value, idx) => (
+      <FlexList key={idx}>
+        {value[1]?.map((content, index) => {
+          return index < 2 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0] ? (
+            <TextList key={index} color={content.color}>
+              {content.title}
+            </TextList>
+          ) : (
+            ""
+          );
+        })}
+      </FlexList>
+    ));
+  const list2 =
+    monthList &&
+    monthList?.map((value, idx) => (
+      <Lists key={idx}>
+        {value[1]?.map((content, index) => {
+          return index >= 2 && index < 5 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0] ? (
+            <List key={index} color={content.color}></List>
+          ) : (
+            index >= 5 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
+              <PlusNumber key={index} color={content.color}>
+                +{index - 4}
+              </PlusNumber>
+            )
+          );
+        })}
+      </Lists>
+    ));
+
+  const list3 =
+    monthList &&
+    monthList?.map((value, idx) => (
+      <Lists key={idx}>
+        {value[1]?.map((content, index) => {
+          return index <= 2 && index < 5 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0] ? (
+            <List key={index} color={content.color}></List>
+          ) : (
+            index >= 5 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0] && (
+              <PlusNumber key={index} color={content.color}>
+                +{index - 2}
+              </PlusNumber>
+            )
+          );
+        })}
+      </Lists>
+    ));
   return (
     <>
       <Form
@@ -42,42 +95,23 @@ const Dates = (props) => {
             {String(elm).padStart(2, "0")}
           </CheckDay>
         </DateNum>
-        {/* {zoom ? (
-          ""
+        {zoom ? (
+          <>{list3}</>
         ) : (
-          <Lists>
-            {mmm &&
-              mmm.map((list, index) => {
-                return (
-                  list.date.split(" ")[0] === dateKey.split(" ")[0] &&
-                  index === 0 && (
-                    <TextList key={index} color={list.color}>
-                      {list.title}
-                    </TextList>
-                  )
-                );
-              })}
-          </Lists>
+          <>
+            {list}
+            {list2}
+          </>
         )}
-        <FlexList>
-          {mmm &&
-            mmm.map((list, index) => {
-              return (
-                list.date.split(" ")[0] === dateKey.split(" ")[0] && (
-                  <List key={index} color={list.color}></List>
-                )
-              );
-            })}
-        </FlexList> */}
       </Form>
     </>
   );
 };
 const Form = styled.li`
   width: calc(100% / 7);
-  padding: 13px 19px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   box-sizing: border-box;
@@ -87,7 +121,7 @@ const Form = styled.li`
   :nth-child(7n + 1) div label {
     color: var(--point3);
   }
-  height: ${(props) => (props.zoom ? "" : "74px")};
+  height: ${(props) => (props.zoom ? "50px" : "85px")};
 `;
 
 const DateNum = styled.div``;
@@ -103,18 +137,23 @@ const TodayCSS = styled.input`
 
 const CheckDay = styled.label`
   z-index: 1;
+  box-sizing: border-box;
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
   color: ${(props) => props.findToday && "var(--blue4)!important"};
+  padding: ${(props) => (props.findToday ? "8px" : "10px")};
+  margin-bottom: ${(props) => (props.findToday ? "5px" : "")};
   font-weight: 500;
   font-size: 12px;
-  padding: 10px;
-  width: 33px;
-  height: 33px;
   border-radius: 100%;
+  cursor: pointer;
+  display: block;
 `;
-const Lists = styled.div``;
+const Lists = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+`;
 const TextList = styled.p`
-  margin-top: 3px;
   width: 41px;
   white-space: nowrap;
   overflow: hidden;
@@ -122,6 +161,8 @@ const TextList = styled.p`
   border-radius: 4px;
   padding: 3px;
   font-size: 8px;
+  margin-top: 3px;
+  color: ${(props) => (props.color !== 1 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 1 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) => (props.color === 3 ? "rgba(253, 187, 110, 1)" : "")};
@@ -131,7 +172,7 @@ const TextList = styled.p`
   background-color: ${(props) => (props.color === 7 ? "rgba(130, 110, 253, 1)" : "")};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
-const List = styled.span`
+const List = styled.p`
   width: 5px;
   height: 5px;
   border-radius: 100%;
@@ -145,10 +186,14 @@ const List = styled.span`
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const FlexList = styled.div`
-  margin-top: 3px;
-
   display: flex;
-  gap: 2px;
+  flex-direction: column;
+  align-items: center;
+`;
+const PlusNumber = styled.p`
+  font-weight: 500;
+  font-size: 8px;
+  color: var(--blue4);
 `;
 
 export default Dates;

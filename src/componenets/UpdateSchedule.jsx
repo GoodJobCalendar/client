@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { schedulePost } from "../redux/modules/post";
+import { scheduleUpdate } from "../redux/modules/post";
 
 // 스티커
 import img1 from "../assets/img/sticker/sticker1.png";
@@ -32,9 +31,16 @@ import "date-fns";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddSchedule = ({ value, onChange, ...others }) => {
+const UpdateSchedule = ({
+  scheduleId,
+  updateScheduleShow,
+  setUpdateScheduleShow,
+  detailInfo,
+  value,
+  onChange,
+  ...others
+}) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   //리스트 토글
   const [colorPickerShow, setColorPickerShow] = useState(false);
@@ -42,7 +48,6 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [coverShow, setCoverShow] = useState(false);
   const [dateShow, setDateShow] = useState(true);
   const [timeShow, setTimeShow] = useState(false);
-
   //작성목록
   const [color, setColor] = useState("");
   const [sticker, setSticker] = useState("");
@@ -92,17 +97,32 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   //Time Picker
   const division = ["오전", "오후"];
-  const hourSelect = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+  const hourSelect = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+  ];
   const minuteSelect = ["00", "10", "20", "30", "40", "50"];
 
   //오후 시간 선택시 12더하기
-  const hour = String(Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)).padStart(2, "0");
+  const hour = String(
+    Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)
+  ).padStart(2, "0");
   // 날짜
   const allDate = `${year}-${Month(month)}-${day} ${hour}:${selectMinute}:00`;
 
   // 뒤로가기
   const moveBtn = () => {
-    navigate("/main");
+    setUpdateScheduleShow(!updateScheduleShow);
   };
   // 컬러 리스트 보이기
   const colorShowBtn = () => {
@@ -139,11 +159,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     setImage(e.target.id);
     setCoverShow(!coverShow);
   };
-
+  console.log(scheduleId);
   // 일정등록
   const addScheduleBtn = async () => {
-    dispatch(
-      schedulePost({
+    await dispatch(
+      scheduleUpdate({
         image: Number(image),
         companyName, //필수입력
         title, //필수입력
@@ -152,9 +172,10 @@ const AddSchedule = ({ value, onChange, ...others }) => {
         place, //필수입력
         memo,
         color: Number(color),
+        scheduleId,
       })
     );
-    navigate("/main");
+    setUpdateScheduleShow(!updateScheduleShow);
   };
   const formatDate = (d) => {
     const date = new Date(d);
@@ -168,12 +189,10 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   };
   const timeShowBtn = () => {
     setDateShow(false);
-
     setTimeShow(!timeShow);
   };
-
   return (
-    <AddSchesuleWrap>
+    <UpdateSchesuleWrap>
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
           <Btn onClick={moveBtn}>&lt;</Btn>
@@ -185,35 +204,75 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             {stickerShow ? (
               <StickerList>
                 <label htmlFor="1">
-                  <Input type="radio" name="sticker" id="1" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="1"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img1} />
                 </label>
                 <label htmlFor="2">
-                  <Input type="radio" name="sticker" id="2" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="2"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img2} />
                 </label>
                 <label htmlFor="3">
-                  <Input type="radio" name="sticker" id="3" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="3"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img3} />
                 </label>
                 <label htmlFor="4">
-                  <Input type="radio" name="sticker" id="4" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="4"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img4} />
                 </label>
                 <label htmlFor="5">
-                  <Input type="radio" name="sticker" id="5" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="5"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img5} />
                 </label>
                 <label htmlFor="6">
-                  <Input type="radio" name="sticker" id="6" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="6"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img6} />
                 </label>
                 <label htmlFor="7">
-                  <Input type="radio" name="sticker" id="7" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="7"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img7} />
                 </label>
                 <label htmlFor="8">
-                  <Input type="radio" name="sticker" id="8" onChange={stickerChange} />
+                  <Input
+                    type="radio"
+                    name="sticker"
+                    id="8"
+                    onChange={stickerChange}
+                  />
                   <StickerImg src={img8} />
                 </label>
               </StickerList>
@@ -226,25 +285,49 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             {coverShow ? (
               <CoverList>
                 <label htmlFor="1">
-                  <Input type="radio" name="cover" id="1" value="https://ifh.cc/g/b3cTYX.jpg" onChange={coverChange} />
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="1"
+                    value="https://ifh.cc/g/b3cTYX.jpg"
+                    onChange={coverChange}
+                  />
                   <CoverImg>
                     <img src={cover1} alt="커버 이미지1" />
                   </CoverImg>
                 </label>
                 <label htmlFor="2">
-                  <Input type="radio" name="cover" id="2" value="https://ifh.cc/g/Wrv2f7.jpg" onChange={coverChange} />
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="2"
+                    value="https://ifh.cc/g/Wrv2f7.jpg"
+                    onChange={coverChange}
+                  />
                   <CoverImg>
                     <img src={cover2} alt="커버 이미지2" />
                   </CoverImg>
                 </label>
                 <label htmlFor="3">
-                  <Input type="radio" name="cover" id="3" value="https://ifh.cc/g/KljCZd.jpg" onChange={coverChange} />
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="3"
+                    value="https://ifh.cc/g/KljCZd.jpg"
+                    onChange={coverChange}
+                  />
                   <CoverImg>
                     <img src={cover3} alt="커버 이미지3" />
                   </CoverImg>
                 </label>
                 <label htmlFor="4">
-                  <Input type="radio" name="cover" id="4" value="https://ifh.cc/g/dHWo5O.jpg" onChange={coverChange} />
+                  <Input
+                    type="radio"
+                    name="cover"
+                    id="4"
+                    value="https://ifh.cc/g/dHWo5O.jpg"
+                    onChange={coverChange}
+                  />
                   <CoverImg>
                     <img src={cover4} alt="커버 이미지4" />
                   </CoverImg>
@@ -276,21 +359,69 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1"></Color1>
-              <Input type="radio" name="color" id="1" value="#fff" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="1"
+                value="#fff"
+                onChange={colorChange}
+              />
               <Color2 htmlFor="2"></Color2>
-              <Input type="radio" name="color" id="2" value="var(--point3)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="2"
+                value="var(--point3)"
+                onChange={colorChange}
+              />
               <Color3 htmlFor="3"></Color3>
-              <Input type="radio" name="color" id="3" value="rgba(253, 187, 110, 1)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="3"
+                value="rgba(253, 187, 110, 1)"
+                onChange={colorChange}
+              />
               <Color4 htmlFor="4"></Color4>
-              <Input type="radio" name="color" id="4" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="4"
+                value="rgba(253, 247, 110, 1)"
+                onChange={colorChange}
+              />
               <Color5 htmlFor="5"></Color5>
-              <Input type="radio" name="color" id="5" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="5"
+                value="rgba(253, 247, 110, 1)"
+                onChange={colorChange}
+              />
               <Color6 htmlFor="6"></Color6>
-              <Input type="radio" name="color" id="6" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="6"
+                value="rgba(253, 247, 110, 1)"
+                onChange={colorChange}
+              />
               <Color7 htmlFor="7"></Color7>
-              <Input type="radio" name="color" id="7" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="7"
+                value="rgba(253, 247, 110, 1)"
+                onChange={colorChange}
+              />
               <Color8 htmlFor="8"></Color8>
-              <Input type="radio" name="color" id="8" value="rgba(154, 154, 154, 1)" onChange={colorChange} />
+              <Input
+                type="radio"
+                name="color"
+                id="8"
+                value="rgba(154, 154, 154, 1)"
+                onChange={colorChange}
+              />
             </ColorList>
           ) : (
             ""
@@ -302,8 +433,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             일정
           </p>
           <DateFlex>
-            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(month)}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
-            <TimeOpenBtn onClick={timeShowBtn} timeShow={timeShow}>{`${hour}:${selectMinute}`}</TimeOpenBtn>
+            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(
+              month
+            )}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
+            <TimeOpenBtn
+              onClick={timeShowBtn}
+              timeShow={timeShow}
+            >{`${hour}:${selectMinute}`}</TimeOpenBtn>
           </DateFlex>
         </DateContainer>
         <Pick>
@@ -319,13 +455,19 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 popperModifiers={{ preventOverflow: { enabled: true } }}
                 popperPlacement="auto"
                 shouldCloseOnSelect={true}
-                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+                renderCustomHeader={({
+                  date,
+                  decreaseMonth,
+                  increaseMonth,
+                }) => (
                   <div className="datepickerHeader">
                     <DateHead>
                       <DateYear>{formatDate(date).split(" ")[0]}</DateYear>
                       <DateBtns>
                         <DateBtn onClick={decreaseMonth}> &lt;</DateBtn>
-                        <DateMonth className="fomrmatDate">{formatDate(date).split(" ")[1]}월</DateMonth>
+                        <DateMonth className="fomrmatDate">
+                          {formatDate(date).split(" ")[1]}월
+                        </DateMonth>
                         <DateBtn onClick={increaseMonth}>&gt;</DateBtn>
                       </DateBtns>
                     </DateHead>
@@ -335,12 +477,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             </DateWrap>
           )}
           {timeShow && (
-            <Modal className="modal">
+            <Modal2 className="modal">
               <div className="section">
                 <div className="select-time">
                   <div className="division">
                     {division.map((e, idx) => {
-                      const color = selectTime === e ? "var(--black)" : "var(--gray2)";
+                      const color =
+                        selectTime === e ? "var(--black)" : "var(--gray2)";
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -356,7 +499,8 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   </div>
                   <div className="hour">
                     {hourSelect.map((e, idx) => {
-                      const color = selectHour === e ? "var(--black)" : "var(--gray2)";
+                      const color =
+                        selectHour === e ? "var(--black)" : "var(--gray2)";
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -372,7 +516,8 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   </div>
                   <div className="minute">
                     {minuteSelect.map((e, idx) => {
-                      const color = selectMinute === e ? "var(--black)" : "var(--gray2)";
+                      const color =
+                        selectMinute === e ? "var(--black)" : "var(--gray2)";
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -388,7 +533,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   </div>
                 </div>
               </div>
-            </Modal>
+            </Modal2>
           )}
           <PlaceText>
             <input
@@ -411,15 +556,19 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           </TextArea>
         </Pick>
       </AddList>
-    </AddSchesuleWrap>
+    </UpdateSchesuleWrap>
   );
 };
 
-export default AddSchedule;
-const AddSchesuleWrap = styled.div`
+export default UpdateSchedule;
+const UpdateSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;
   font-weight: 500;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   input {
     outline: none;
     padding: 18px;
@@ -428,7 +577,6 @@ const AddSchesuleWrap = styled.div`
     border: 0;
     outline: none;
     font-weight: 500;
-
     :focus {
       outline: none;
     }
@@ -499,7 +647,11 @@ const Header = styled.div`
     width: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, #3284ff 100%);
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0) 0%,
+      #3284ff 100%
+    );
   }
 `;
 const AddFlex = styled.div`
@@ -585,7 +737,8 @@ const TitleInput = styled.label`
 const ColorPicker = styled.button`
   width: 24px;
   height: 24px;
-  background-color: ${(props) => (props.colorPick ? props.colorPick : "var(--blue1)")};
+  background-color: ${(props) =>
+    props.colorPick ? props.colorPick : "var(--blue1)"};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
@@ -637,7 +790,8 @@ const ColorList = styled.div`
   width: 90%;
   border-radius: 6px;
   background: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   z-index: 99;
 `;
 const Input = styled.input`
@@ -734,13 +888,15 @@ const TimeOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
   padding: 7px 10px;
-  background-color: ${(props) => (props.timeShow ? "var(--blue1)" : "transparent")};
+  background-color: ${(props) =>
+    props.timeShow ? "var(--blue1)" : "transparent"};
   border-radius: 35px;
 `;
 const DateOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
-  background-color: ${(props) => (props.dateShow ? "var(--blue1)" : "transparent")};
+  background-color: ${(props) =>
+    props.dateShow ? "var(--blue1)" : "transparent"};
   padding: 7px 10px;
   border-radius: 35px;
 `;
@@ -759,7 +915,8 @@ const DateWrap = styled.div`
     width: calc(100% - 40px);
     padding: 17px 20px;
     background: var(--blue1);
-    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+      inset 0px 8px 14px rgba(255, 255, 255, 0.3);
     border-radius: 6.83801px;
     border: 0;
   }
@@ -839,10 +996,12 @@ const DateHead = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const DateBtns = styled.div`
   display: flex;
   gap: 18px;
 `;
+
 const DateBtn = styled.button`
   color: var(--gray2);
   width: 16px;
@@ -855,10 +1014,12 @@ const DateBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
+
 const DateMonth = styled.p`
   font-weight: 700;
   font-size: 14px;
 `;
+
 const SelectTimeBtn = styled.button`
   background-color: transparent;
   padding: 10px;
@@ -866,12 +1027,12 @@ const SelectTimeBtn = styled.button`
   font-size: 20px;
   color: ${(props) => props.color && props.color};
 `;
-const Modal = styled.div`
+const Modal2 = styled.div`
   background-color: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 6.83801px;
   border: none;
-
   height: 150px;
   overflow: hidden;
   padding: 18px;
@@ -882,11 +1043,7 @@ const Modal = styled.div`
     align-items: center;
     justify-content: space-between;
     width: auto;
-
     div {
-      :nth-child(1) {
-        justify-content: center;
-      }
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -898,6 +1055,9 @@ const Modal = styled.div`
       flex: 1;
       text-align: center;
       overflow-y: scroll;
+      :nth-child(1) {
+        justify-content: center;
+      }
     }
   }
 `;

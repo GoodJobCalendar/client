@@ -14,9 +14,13 @@ import { KAKAO_AUTH_URL } from "../shared/api";
 
 // 이미지
 import logo from "../assets/img/logo.png";
-import illust1 from "../assets/img/sticker/Group 4.png";
-import illust2 from "../assets/img/sticker/Group 2.png";
-import illust3 from "../assets/img/sticker/Group 3.png";
+import logo_w from "../assets/img/logo_w.png";
+import logotext from "../assets/img/logo_text.png";
+import logotext_w from "../assets/img/logo_text_w.png";
+import slide1 from "../assets/img/slide/slide1.png";
+import slide2 from "../assets/img/slide/slide2.png";
+import slide3 from "../assets/img/slide/slide3.png";
+import cover from "../assets/img/cover.png";
 import kakaologo from "../assets/img/icon/kakaobtn.png";
 
 const Home = () => {
@@ -25,7 +29,7 @@ const Home = () => {
       <header>
         <img src={logo} alt="로고" />
         <Title>당신의 취준 메이트</Title>
-        <SubTitle>굿잡 캘린더</SubTitle>
+        <img src={logotext} alt="로고" />
       </header>
       <main>
         <Swiper
@@ -47,28 +51,42 @@ const Home = () => {
           <SwiperSlide>
             <SlideBox>
               <div>
-                <SlideImg src={illust1} alt="일러스트" />
+                <SlideImg src={slide1} alt="일러스트" />
+                <SlideText>
+                  잡코리아와 연동해서 <span>취준일정을 관리</span>해보세요!
+                </SlideText>
               </div>
             </SlideBox>
           </SwiperSlide>
           <SwiperSlide>
             <SlideBox>
               <div>
-                <SlideImg src={illust2} alt="일러스트" />
+                <SlideImg src={slide2} alt="일러스트" />
+                <SlideText>
+                  중요한 일정에는 <span>스티커를 부착</span>해보세요!
+                </SlideText>
               </div>
             </SlideBox>
           </SwiperSlide>
           <SwiperSlide>
             <SlideBox>
               <div>
-                <SlideImg src={illust3} alt="일러스트" />
+                <SlideImg src={slide3} alt="일러스트" />
+                <SlideText>
+                  <span>맞춤 취준 공고를</span> 잡코리아에서 바로 확인해보세요!
+                </SlideText>
               </div>
             </SlideBox>
           </SwiperSlide>
         </Swiper>
-        <Logo>
-          <img src={logo} alt="로고" />
-        </Logo>
+        <CoverImg>
+          <Logo>
+            <img src={logo_w} alt="로고" />
+            <p>당신의 취준 메이트</p>
+            <img src={logotext_w} alt="굿잡캘린더" />
+          </Logo>
+          <img src={cover} alt="배경" />
+        </CoverImg>
       </main>
       <FooterWrap>
         <EmailBtn>
@@ -121,10 +139,15 @@ const Title = styled.p`
   margin-top: 13px;
   margin-bottom: 2px;
 `;
-const SubTitle = styled.h1`
-  font-weight: 600;
-  font-size: 20px;
+const SlideText = styled.p`
+  font-size: 14px;
   color: var(--blue4);
+  font-weight: 500;
+  margin-top: 30px;
+  span {
+    font-weight: 700;
+    color: var(--blue4);
+  }
 `;
 const SlideBox = styled.div`
   display: flex;
@@ -132,19 +155,30 @@ const SlideBox = styled.div`
   align-items: center;
   text-align: center;
   div {
-    width: 268px;
+    width: 100%;
     height: 268px;
-    background-color: #fff;
     border-radius: 6px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
   }
 `;
-const SlideImg = styled.img`
-  width: 70%;
-`;
+const SlideImg = styled.img``;
+
 const Logo = styled.div`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  p {
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 13px;
+  }
+`;
+const CoverImg = styled.div`
   background-color: var(--blue4);
   position: absolute;
   top: 0;
@@ -154,6 +188,12 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  > img {
+    bottom: 10%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   animation: hideSplashScreen 0.4s ease-in-out forwards;
   animation-delay: 1s;
   @keyframes hideSplashScreen {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { getCookie } from "../shared/Cookie";
 
 // 컴포넌트
 import Nav from "../componenets/Nav";
@@ -18,17 +19,18 @@ import zoomout from "../assets/img/icon/zoomout.png";
 import locationGray from "../assets/img/icon/LocationGray.png";
 
 // 스티커 배경
-import img1 from "../assets/img/sticker/Group 1.png";
-import img2 from "../assets/img/sticker/Group 2.png";
-import img3 from "../assets/img/sticker/Group 3.png";
-import img4 from "../assets/img/sticker/Group 4.png";
-import img5 from "../assets/img/sticker/Group 5.png";
-import img6 from "../assets/img/sticker/Group 6.png";
-import img7 from "../assets/img/sticker/Group 7.png";
-import img8 from "../assets/img/sticker/Group 8.png";
+import img1 from "../assets/img/sticker/sticker1.png";
+import img2 from "../assets/img/sticker/sticker2.png";
+import img3 from "../assets/img/sticker/sticker3.png";
+import img4 from "../assets/img/sticker/sticker4.png";
+import img5 from "../assets/img/sticker/sticker5.png";
+import img6 from "../assets/img/sticker/sticker6.png";
+import img7 from "../assets/img/sticker/sticker7.png";
+import img8 from "../assets/img/sticker/sticker8.png";
 
 // 리덕스
 import { searchMySchedule } from "../redux/modules/search";
+import needLogin from "../assets/img/illust/needlogin.png";
 import { zoomDate } from "../redux/modules/date";
 
 function Main() {
@@ -36,8 +38,11 @@ function Main() {
   const dispatch = useDispatch();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
+  const navData = true;
+  const is_login = getCookie("is_login");
 
   const active = useSelector((state) => state.date.active);
+  const is_Login = useSelector((state) => state.user.is_login);
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -54,8 +59,6 @@ function Main() {
     dispatch(searchMySchedule(search));
     // search === "" ? <></> : navigate("/SearchData");
   }, [search]);
-
-  const navData = true;
 
   const searchData = useSelector((state) => state.search.search);
 
@@ -92,11 +95,38 @@ function Main() {
     return dayOfWeek;
   }
 
+  // 월간달력 줌인 줌아웃
   useEffect(() => {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
+
+  // 로그인유무확인
+  useEffect(() => {
+    if (is_Login) {
+    }
+  }, [is_Login]);
+
   return (
     <MainWrap>
+      {is_login ? (
+        ""
+      ) : (
+        <NeedLogin>
+          <NeedLoginModal>
+            <p>로그인 필요</p>
+            <img src={needLogin} alt="로그인 필요" />
+            <span>
+              로그인된 상태에서만
+              <br />
+              이용할 수 있습니다.
+            </span>
+            <NeedLoginBtn>
+              <Link to="/login">로그인하러가기</Link>
+            </NeedLoginBtn>
+          </NeedLoginModal>
+        </NeedLogin>
+      )}
+
       <Nav navData={navData} />
       <FixBox>
         <Search type="text" placeholder="일정 상세 검색" onChange={scheduleSearchEvent} />
@@ -246,6 +276,54 @@ function Main() {
   );
 }
 export default Main;
+const NeedLogin = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.3);
+  z-index: 99999;
+`;
+const NeedLoginBtn = styled.button`
+  background-color: var(--blue4);
+  padding: 16px 30px;
+  color: #fff;
+  border-radius: 9px;
+  margin-top: 17px;
+  a {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const NeedLoginModal = styled.div`
+  p {
+    font-weight: 700;
+    color: var(--blue4);
+    margin-bottom: 10px;
+  }
+  span {
+    font-weight: 500;
+    color: var(--blue4);
+    margin-top: 15px;
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 99999;
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 21px;
+  padding: 40px 80px;
+  width: 40%;
+  text-align: center;
+`;
 const MainWrap = styled.div`
   position: relative;
 `;

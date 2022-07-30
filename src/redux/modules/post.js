@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { deleteCookie, setCookie, getCookie } from "./../../shared/Cookie";
+import { setCookie, getCookie } from "./../../shared/Cookie";
 import axios from "axios";
 
 // initialState
@@ -16,10 +16,14 @@ const initialState = {
 
 // action
 const SCHEDULE_POST = "post_reducer/SCHEDULE_POST";
+const SCHEDULE_UPDATE = "post_reducer/SCHEDULE_UPDATE";
 
 // action creator
 export function __schedulePost(payload) {
   return { type: SCHEDULE_POST, payload };
+}
+export function __scheduleUpdate(payload) {
+  return { type: SCHEDULE_UPDATE, payload };
 }
 
 //middleware
@@ -31,7 +35,7 @@ export const schedulePost = (payload) => {
     const myToken = getCookie("token");
     axios({
       method: "post",
-      url: "https://3.39.193.47/api/schedule",
+      url: "https://goodjobcalendar.com/api/schedule",
       data: payload,
       headers: { Authorization: `Bearer ${myToken}` },
     })
@@ -39,7 +43,46 @@ export const schedulePost = (payload) => {
         dispatch(__schedulePost(res.payload));
       })
       .catch((err) => {
-        console.log("카테고리 선택 에러 : ", err);
+        console.error(err);
+      });
+  };
+};
+//개인일정 수정
+export const scheduleUpdate = ({
+  image,
+  companyName, //필수입력
+  title, //필수입력
+  sticker,
+  date, //필수입력
+  place, //필수입력
+  memo,
+  color,
+  scheduleId,
+}) => {
+  return function (dispatch, getState) {
+    const myToken = getCookie("token");
+
+    axios({
+      method: "patch",
+      url: `https://goodjobcalendar.com/api/schedule/${scheduleId}`,
+      data: {
+        image,
+        companyName, //필수입력
+        title, //필수입력
+        sticker,
+        date, //필수입력
+        place, //필수입력
+        memo,
+        color,
+      },
+      headers: { Authorization: `Bearer ${myToken}` },
+    })
+      .then((res) => {
+        dispatch(__scheduleUpdate(res.data.data));
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
 };
@@ -53,6 +96,15 @@ export default function postReducer(state = initialState, action) {
         setCookie("is_login", "true");
         draft.is_login = true;
         draft.post = action.payload;
+      });
+    }
+    case SCHEDULE_UPDATE: {
+      return produce(state, (draft) => {
+        setCookie("is_login", "true");
+        draft.is_login = true;
+        console.log(state);
+        console.log(action.payload);
+        draft.update = action.payload;
       });
     }
     default:

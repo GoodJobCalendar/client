@@ -4,7 +4,40 @@ import axios from "axios";
 
 // initialState
 const initialState = {
-  startDate: "",
+  month: {
+    220830: [
+      {
+        color: 0,
+        companyName: "현대오토에버㈜",
+        coverImage: 0,
+        date: "2121-12-31 15:00:00",
+        memo: null,
+        place: "서울 강남구",
+        postingId: 2406,
+        scheduleId: 0,
+        sticker: 0,
+        title: "App개발 경력 채용",
+        type: "auto",
+      },
+    ],
+  },
+  daily: {
+    220830: [
+      {
+        color: 1,
+        companyName: "현대오토에버㈜",
+        coverImage: 1,
+        date: "2121-12-31 15:00:00",
+        memo: null,
+        place: "서울 강남구",
+        postingId: 2406,
+        scheduleId: 54,
+        sticker: 1,
+        title: "App개발 경력 채용",
+        type: "auto",
+      },
+    ],
+  },
 };
 
 // action
@@ -37,10 +70,10 @@ export const deletePost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .delete(`https://3.39.193.47/api/schedule/${scheduleId}`, data)
+      .delete(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
       .then((res) => {
-        dispatch(__deletePost(res.data.data));
-        console.log(res.data.data);
+        dispatch(__deletePost(scheduleId));
+        console.log(res);
       })
       .catch((error) => {
         console.error(error);
@@ -55,7 +88,7 @@ export const detailPost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .get(`https://3.39.193.47/api/schedule/${scheduleId}`, data)
+      .get(`https://goodjobcalendar.com/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__detailPost(res.data.data));
         console.log(res.data.data);
@@ -65,6 +98,7 @@ export const detailPost = (scheduleId) => {
       });
   };
 };
+
 //월간일정 조회
 export const loadMonth = (payload) => {
   return function (dispatch, getState) {
@@ -74,7 +108,7 @@ export const loadMonth = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("https://3.39.193.47/api/schedule/monthly", data)
+      .get("https://goodjobcalendar.com/api/schedule/monthly", data)
       .then((res) => {
         dispatch(__loadMonth(res.data.data));
         console.log(res.data.data);
@@ -84,6 +118,7 @@ export const loadMonth = (payload) => {
       });
   };
 };
+
 //일간일정 조회
 export const loadDaily = (payload) => {
   return function (dispatch, getState) {
@@ -93,7 +128,7 @@ export const loadDaily = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("https://3.39.193.47/api/schedule/daily", data)
+      .get("https://goodjobcalendar.com/api/schedule/daily", data)
       .then((res) => {
         dispatch(__loadDaily(res.data.data));
         console.log(res.data.data);
@@ -110,11 +145,14 @@ export default function scheduleReducer(state = initialState, action) {
   switch (action.type) {
     case LIST_DELETE: {
       return produce(state, (draft) => {
-        draft.delete = action.payload;
+        draft.month = draft.month.filter((value) => {
+          return value.scheduleId !== Number(action.payload);
+        });
       });
     }
     case LIST_DETAIL: {
       return produce(state, (draft) => {
+        console.log("dddfsssfs=", state);
         draft.detail = action.payload;
       });
     }

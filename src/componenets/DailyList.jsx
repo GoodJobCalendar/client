@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import Dayjs from "dayjs";
-import "dayjs/locale/ko";
-import img1 from "../assets/img/sticker/Group 1.png";
-import img2 from "../assets/img/sticker/Group 2.png";
-import img3 from "../assets/img/sticker/Group 3.png";
-import img4 from "../assets/img/sticker/Group 4.png";
-import img5 from "../assets/img/sticker/Group 5.png";
-import img6 from "../assets/img/sticker/Group 6.png";
-import img7 from "../assets/img/sticker/Group 7.png";
-import img8 from "../assets/img/sticker/Group 8.png";
+import img1 from "../assets/img/sticker/sticker1.png";
+import img2 from "../assets/img/sticker/sticker2.png";
+import img3 from "../assets/img/sticker/sticker3.png";
+import img4 from "../assets/img/sticker/sticker4.png";
+import img5 from "../assets/img/sticker/sticker5.png";
+import img6 from "../assets/img/sticker/sticker6.png";
+import img7 from "../assets/img/sticker/sticker7.png";
+import img8 from "../assets/img/sticker/sticker8.png";
 import { Link } from "react-router-dom";
 const DailyList = () => {
   const dailySchedule = useSelector((state) => state.schedule.daily);
@@ -42,7 +40,7 @@ const DailyList = () => {
       },
     ],
   };
-  const test = Object.entries(response);
+  const dailyList = Object.entries(dailySchedule);
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
 
@@ -83,12 +81,12 @@ const DailyList = () => {
     )}일 ${Week(week)}`;
   };
   const list =
-    test &&
-    test?.map((value, idx) => (
-      <ScheduleListWrap key={idx}>
+    dailyList &&
+    dailyList?.map((value, index) => (
+      <ScheduleListWrap key={index}>
         {value[1]?.map((content, idx) => (
           <>
-            <DayFlex>
+            <DayFlex key={value[1].scheduleId}>
               <Day>{idx === 0 && fullDate(value[0])}</Day>
               <Dday>
                 {idx === 0 &&

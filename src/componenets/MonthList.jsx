@@ -1,79 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // 이미지
-import img1 from "../assets/img/sticker/Group 1.png";
-import img2 from "../assets/img/sticker/Group 2.png";
-import img3 from "../assets/img/sticker/Group 3.png";
-import img4 from "../assets/img/sticker/Group 4.png";
-import img5 from "../assets/img/sticker/Group 5.png";
-import img6 from "../assets/img/sticker/Group 6.png";
-import img7 from "../assets/img/sticker/Group 7.png";
-import img8 from "../assets/img/sticker/Group 8.png";
+import img1 from "../assets/img/sticker/sticker1.png";
+import img2 from "../assets/img/sticker/sticker2.png";
+import img3 from "../assets/img/sticker/sticker3.png";
+import img4 from "../assets/img/sticker/sticker4.png";
+import img5 from "../assets/img/sticker/sticker5.png";
+import img6 from "../assets/img/sticker/sticker6.png";
+import img7 from "../assets/img/sticker/sticker7.png";
+import img8 from "../assets/img/sticker/sticker8.png";
 
 const MonthList = () => {
+  const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
-  console.log(monthSchdule);
-  const response = {
-    220728: [
-      {
-        scheduleId: 40,
-        color: 2,
-        memo: null,
-        sticker: 1,
-        coverImage: 0,
-        title: "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
-        place: "서울 중구",
-        date: "2022-07-28 23:59:59",
-        companyName: "롯데멤버스㈜",
-        postingId: 1,
-        type: "auto",
-      },
-      {
-        scheduleId: 43,
-        color: 3,
-        memo: null,
-        sticker: 4,
-        coverImage: 0,
-        place: "집",
-        date: "2022-07-28 01:01:01",
-        companyName: "짱좋은회사3",
-        type: "manual",
-        title: "면접1",
-      },
-    ],
-    220730: [
-      {
-        scheduleId: 40,
-        color: 1,
-        memo: null,
-        sticker: 3,
-        coverImage: 0,
-        title: "[롯데멤버스] 2022년 7월 경력직 및 계약직 채용 (AI/IT기획/디지털마케팅/MD/급여/데이터추출/정산,회계 등)",
-        place: "서울 중구",
-        date: "2022-07-30 23:59:59",
-        companyName: "롯데멤버스㈜",
-        postingId: 1,
-        type: "auto",
-      },
-      {
-        scheduleId: 43,
-        color: 4,
-        memo: null,
-        sticker: 2,
-        coverImage: 0,
-        place: "집",
-        date: "2022-07-30 01:01:01",
-        companyName: "짱좋은회사3",
-        type: "manual",
-        title: "면접2",
-      },
-    ],
-  };
-  const monthList = Object.entries(response);
   const fullDate = (day) => {
     const date = new Date(`20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`);
     let [week, month, dd, year, sTime] = date.toString().split(" ");
@@ -86,8 +29,6 @@ const MonthList = () => {
       if (week === "Fri") return "금요일";
       if (week === "Sat") return "토요일";
     };
-    const textDay = new Date(day);
-    console.log(textDay);
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(4, 2)}일 ${Week(week)}`;
   };
 
@@ -107,12 +48,13 @@ const MonthList = () => {
     if (mm === "Dec") return "12";
   };
   const today = `${yy}-${Month(mm)}-${day}`;
+
   const list =
     monthList &&
     monthList?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
         {value[1]?.map((content, idx) => (
-          <>
+          <Fragment key={idx}>
             <DayFlex>
               <Day>{idx === 0 && fullDate(value[0])}</Day>
               <Dday>
@@ -124,7 +66,7 @@ const MonthList = () => {
                     : "D-day")}
               </Dday>
             </DayFlex>
-            <Link to={`/postdetail/${content?.scheduleId}`} key={idx}>
+            <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
                   {(content?.date).split(" ")[1].split(":")[0]}:{(content?.date).split(" ")[1].split(":")[1]}
@@ -133,7 +75,7 @@ const MonthList = () => {
                 <Text>{content.title}</Text>
                 {content?.sticker === 1 ? (
                   <Sticker>
-                    <img src={img1} alt="" />
+                    <StickerImg src={img1} alt="" sticker={content?.sticker} />
                   </Sticker>
                 ) : content?.sticker === 2 ? (
                   <Sticker>
@@ -168,10 +110,14 @@ const MonthList = () => {
                 )}
               </ScheduleItem>
             </Link>
-          </>
+          </Fragment>
         ))}
       </ScheduleListWrap>
     ));
+  useEffect(() => {
+    const list = Object.entries(monthSchdule);
+    setMonthList(list);
+  }, [monthList]);
   return <Container>{list}</Container>;
 };
 
@@ -184,7 +130,6 @@ const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
   margin-top: 16px;
   a {
     width: 100%;
@@ -198,6 +143,7 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
+  margin-top: 16px;
 `;
 const DayFlex = styled.div`
   display: flex;
@@ -249,4 +195,8 @@ const Sticker = styled.div`
   > img {
     width: 100%;
   }
+`;
+const StickerImg = styled.img`
+  height: 100%;
+  width: auto;
 `;

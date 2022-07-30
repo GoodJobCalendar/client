@@ -13,8 +13,17 @@ const ADD_SCRAP = "ADD_SCRAP";
 
 // 초기값
 const initialState = {
-  job: [],
-  category: [],
+  job: {},
+  category: {
+    data: {
+      career: "경력무관",
+      cityMain: "전체",
+      citySub: "전체",
+      companyType: "대기업",
+      jobMain: "전체",
+      jobSub: "전체",
+    },
+  },
   select: [],
   list: {
     data: [],

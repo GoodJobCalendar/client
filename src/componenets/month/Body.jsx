@@ -43,5 +43,6 @@ const Form = styled.div`
   background-color: #fff;
   border-radius: 0 0 7px 7px;
   box-shadow: 0px 3px 9px 0px rgba(116, 160, 227, 0.14);
+  padding: 12px 0;
 `;
 export default Body;
