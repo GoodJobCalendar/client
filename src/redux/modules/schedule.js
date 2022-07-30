@@ -58,7 +58,6 @@ export function __detailPost(payload) {
   return { type: LIST_DETAIL, payload };
 }
 export function __loadMonth(payload) {
-  console.log(payload);
   return { type: MONTH_LIST, payload };
 }
 export function __loadDaily(payload) {
@@ -144,7 +143,6 @@ export const detailPost = (scheduleId) => {
 
 //월간일정 조회
 export const loadMonth = (payload) => {
-  console.log(payload);
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {
@@ -213,6 +211,7 @@ export default function scheduleReducer(state = initialState, action) {
     }
     case LIST_DETAIL: {
       return produce(state, (draft) => {
+        console.log("dddfsssfs=", state);
         draft.detail = action.payload;
       });
     }

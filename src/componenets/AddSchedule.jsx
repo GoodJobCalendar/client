@@ -92,26 +92,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   //Time Picker
   const division = ["오전", "오후"];
-  const hourSelect = [
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-  ];
+  const hourSelect = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
   const minuteSelect = ["00", "10", "20", "30", "40", "50"];
 
   //오후 시간 선택시 12더하기
-  const hour = String(
-    Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)
-  ).padStart(2, "0");
+  const hour = String(Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)).padStart(2, "0");
   // 날짜
   const allDate = `${year}-${Month(month)}-${day} ${hour}:${selectMinute}:00`;
 
@@ -227,76 +212,35 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               <Background>
                 <StickerList>
                   <StickerPick1 htmlFor="1" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="1"
-                      onChange={stickerChange}
-                      sticker={sticker}
-                    />
+                    <Input type="radio" name="sticker" id="1" onChange={stickerChange} sticker={sticker} />
                     <StickerCoverLine sticker={sticker}></StickerCoverLine>
                   </StickerPick1>
                   <StickerPick htmlFor="2" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="2"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="2" onChange={stickerChange} />
                     <StickerImg src={img2} />
                   </StickerPick>
                   <StickerPick htmlFor="3" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="3"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="3" onChange={stickerChange} />
                     <StickerImg src={img3} />
                   </StickerPick>
                   <StickerPick htmlFor="4" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="4"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="4" onChange={stickerChange} />
                     <StickerImg src={img4} />
                   </StickerPick>
                   <StickerPick htmlFor="5" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="5"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="5" onChange={stickerChange} />
                     <StickerImg src={img5} />
                   </StickerPick>
                   <StickerPick htmlFor="6" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="6"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="6" onChange={stickerChange} />
                     <StickerImg src={img6} />
                   </StickerPick>
                   <StickerPick htmlFor="7" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="7"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="7" onChange={stickerChange} />
                     <StickerImg src={img7} />
                   </StickerPick>
                   <StickerPick htmlFor="8" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="8"
-                      onChange={stickerChange}
-                    />
+                    <Input type="radio" name="sticker" id="8" onChange={stickerChange} />
                     <StickerImg src={img8} />
                   </StickerPick>
                 </StickerList>
@@ -313,44 +257,19 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               <Background>
                 <CoverList>
                   <CoverPick1 htmlFor="1" image={image}>
-                    <Input
-                      type="radio"
-                      name="cover"
-                      id="1"
-                      value="https://ifh.cc/g/T7qvdv.png"
-                      onChange={coverChange}
-                    />
+                    <Input type="radio" name="cover" id="1" value="https://ifh.cc/g/T7qvdv.png" onChange={coverChange} />
                     <CoverLine image={image}></CoverLine>
                   </CoverPick1>
                   <CoverPick htmlFor="2" image={image}>
-                    <Input
-                      type="radio"
-                      name="cover"
-                      id="2"
-                      value="https://ifh.cc/g/3JtQVv.png"
-                      onChange={coverChange}
-                    />
+                    <Input type="radio" name="cover" id="2" value="https://ifh.cc/g/3JtQVv.png" onChange={coverChange} />
                     응원
                   </CoverPick>
                   <CoverPick htmlFor="3" image={image}>
-                    <Input
-                      type="radio"
-                      name="cover"
-                      id="3"
-                      value="https://ifh.cc/g/9CLkcw.png"
-                      onChange={coverChange}
-                    />
+                    <Input type="radio" name="cover" id="3" value="https://ifh.cc/g/9CLkcw.png" onChange={coverChange} />
                     출근
                   </CoverPick>
                   <CoverPick htmlFor="4" image={image}>
-                    <Input
-                      type="radio"
-                      name="cover"
-                      id="4"
-                      value="https://ifh.cc/g/brrtyz.png"
-                      onChange={coverChange}
-                    />
-                    일
+                    <Input type="radio" name="cover" id="4" value="https://ifh.cc/g/brrtyz.png" onChange={coverChange} />일
                   </CoverPick>
                 </CoverList>
               </Background>
@@ -382,69 +301,21 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               <Color1 htmlFor="1">
                 <ColorCoverLine colorPick={colorPick}></ColorCoverLine>
               </Color1>
-              <Input
-                type="radio"
-                name="color"
-                id="1"
-                value="var(--blue1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="1" value="var(--blue1)" onChange={colorChange} />
               <Color2 htmlFor="2"></Color2>
-              <Input
-                type="radio"
-                name="color"
-                id="2"
-                value="var(--point3)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="2" value="var(--point3)" onChange={colorChange} />
               <Color3 htmlFor="3"></Color3>
-              <Input
-                type="radio"
-                name="color"
-                id="3"
-                value="rgba(253, 187, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="3" value="rgba(253, 187, 110, 1)" onChange={colorChange} />
               <Color4 htmlFor="4"></Color4>
-              <Input
-                type="radio"
-                name="color"
-                id="4"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="4" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color5 htmlFor="5"></Color5>
-              <Input
-                type="radio"
-                name="color"
-                id="5"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="5" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color6 htmlFor="6"></Color6>
-              <Input
-                type="radio"
-                name="color"
-                id="6"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="6" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color7 htmlFor="7"></Color7>
-              <Input
-                type="radio"
-                name="color"
-                id="7"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="7" value="rgba(253, 247, 110, 1)" onChange={colorChange} />
               <Color8 htmlFor="8"></Color8>
-              <Input
-                type="radio"
-                name="color"
-                id="8"
-                value="rgba(154, 154, 154, 1)"
-                onChange={colorChange}
-              />
+              <Input type="radio" name="color" id="8" value="rgba(154, 154, 154, 1)" onChange={colorChange} />
             </ColorList>
           ) : (
             ""
@@ -456,13 +327,8 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             일정
           </p>
           <DateFlex>
-            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(
-              month
-            )}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
-            <TimeOpenBtn
-              onClick={timeShowBtn}
-              timeShow={timeShow}
-            >{`${hour}:${selectMinute}`}</TimeOpenBtn>
+            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(month)}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
+            <TimeOpenBtn onClick={timeShowBtn} timeShow={timeShow}>{`${hour}:${selectMinute}`}</TimeOpenBtn>
           </DateFlex>
         </DateContainer>
         <Pick>
@@ -478,19 +344,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 popperModifiers={{ preventOverflow: { enabled: true } }}
                 popperPlacement="auto"
                 shouldCloseOnSelect={true}
-                renderCustomHeader={({
-                  date,
-                  decreaseMonth,
-                  increaseMonth,
-                }) => (
+                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
                   <div className="datepickerHeader">
                     <DateHead>
                       <DateYear>{formatDate(date).split(" ")[0]}</DateYear>
                       <DateBtns>
                         <DateBtn onClick={decreaseMonth}> &lt;</DateBtn>
-                        <DateMonth className="fomrmatDate">
-                          {formatDate(date).split(" ")[1]}월
-                        </DateMonth>
+                        <DateMonth className="fomrmatDate">{formatDate(date).split(" ")[1]}월</DateMonth>
                         <DateBtn onClick={increaseMonth}>&gt;</DateBtn>
                       </DateBtns>
                     </DateHead>
@@ -505,8 +365,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 <div className="select-time">
                   <div className="division">
                     {division.map((e, idx) => {
-                      const color =
-                        selectTime === e ? "var(--black)" : "var(--gray2)";
+                      const color = selectTime === e ? "var(--black)" : "var(--gray2)";
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -522,8 +381,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   </div>
                   <div className="hour">
                     {hourSelect.map((e, idx) => {
-                      const color =
-                        selectHour === e ? "var(--black)" : "var(--gray2)";
+                      const color = selectHour === e ? "var(--black)" : "var(--gray2)";
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -539,8 +397,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   </div>
                   <div className="minute">
                     {minuteSelect.map((e, idx) => {
-                      const color =
-                        selectMinute === e ? "var(--black)" : "var(--gray2)";
+                      const color = selectMinute === e ? "var(--black)" : "var(--gray2)";
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -626,8 +483,7 @@ const NeedPostModal = styled.div`
   align-items: center;
   background-color: #fff;
   z-index: 99999;
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
   padding: 40px 80px;
   width: 45%;
@@ -677,10 +533,7 @@ const StickerAddBtn = styled.button`
   border-radius: 8px;
   background-color: transparent;
   color: ${(props) => (props.stickerShow === true ? "var(--point1)" : " #fff")};
-  border: ${(props) =>
-    props.stickerShow === true
-      ? "1px solid var(--point1) !important"
-      : " 1px solid #fff !important"};
+  border: ${(props) => (props.stickerShow === true ? "1px solid var(--point1) !important" : " 1px solid #fff !important")};
 `;
 const AddBtn = styled.button`
   font-weight: 700;
@@ -691,10 +544,7 @@ const AddBtn = styled.button`
   border-radius: 8px;
   background-color: transparent;
   color: ${(props) => (props.coverShow === true ? "var(--point1)" : " #fff")};
-  border: ${(props) =>
-    props.coverShow === true
-      ? "1px solid var(--point1) !important"
-      : " 1px solid #fff !important"};
+  border: ${(props) => (props.coverShow === true ? "1px solid var(--point1) !important" : " 1px solid #fff !important")};
 `;
 const AddList = styled.section`
   background-color: var(--blue1);
@@ -732,6 +582,19 @@ const Header = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+<<<<<<< HEAD
+  position: relative;
+  :after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, #3284ff 100%);
+  }
+=======
+>>>>>>> c015f7067942e5a1ebfe6e3d478693402829600d
 `;
 const AddFlex = styled.div`
   width: 100%;
@@ -816,8 +679,7 @@ const TitleInput = styled.label`
 const ColorPicker = styled.button`
   width: 24px;
   height: 24px;
-  background-color: ${(props) =>
-    props.colorPick ? props.colorPick : "var(--blue1)"};
+  background-color: ${(props) => (props.colorPick ? props.colorPick : "var(--blue1)")};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
@@ -879,8 +741,7 @@ const ColorList = styled.div`
   width: 90%;
   border-radius: 6px;
   background: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   z-index: 99;
 `;
 const Input = styled.input`
@@ -970,12 +831,8 @@ const StickerPick1 = styled.label`
   border-radius: 10px;
   cursor: pointer;
   :nth-child(1) {
-    border: ${(props) =>
-      props.sticker === "1"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "1" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "1" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "1" ? "700px" : "500px")};
   }
 `;
@@ -986,36 +843,25 @@ const CoverPick1 = styled.label`
   border-radius: 10px;
   cursor: pointer;
   :nth-child(1) {
-    border: ${(props) =>
-      props.image === "1"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "1" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.image === "1" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "1" ? "700px" : "500px")};
   }
 `;
 const StickerCoverLine = styled.div`
-  border-bottom: ${(props) =>
-    props.sticker === "1"
-      ? "2px solid var(--blue4)"
-      : "2px solid var(--gray2)"};
+  border-bottom: ${(props) => (props.sticker === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
 `;
 const ColorCoverLine = styled.div`
-  border-bottom: ${(props) =>
-    props.colorPick === "1"
-      ? "2px solid var(--blue4)"
-      : "2px solid var(--gray2)"};
+  border-bottom: ${(props) => (props.colorPick === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
 `;
 const CoverLine = styled.div`
-  border-bottom: ${(props) =>
-    props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+  border-bottom: ${(props) => (props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
@@ -1030,66 +876,38 @@ const StickerPick = styled.label`
   align-items: center;
   cursor: pointer;
   :nth-child(2) {
-    border: ${(props) =>
-      props.sticker === "2"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "2" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "2" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "2" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "2" ? "700px" : "500px")};
   }
   :nth-child(3) {
-    border: ${(props) =>
-      props.sticker === "3"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "3" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "3" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "3" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "3" ? "700px" : "500px")};
   }
   :nth-child(4) {
-    border: ${(props) =>
-      props.sticker === "4"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "4" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "4" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "4" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "4" ? "700px" : "500px")};
   }
   :nth-child(5) {
-    border: ${(props) =>
-      props.sticker === "5"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "5" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "5" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "5" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "5" ? "700px" : "500px")};
   }
   :nth-child(6) {
-    border: ${(props) =>
-      props.sticker === "6"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "6" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "6" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "6" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "6" ? "700px" : "500px")};
   }
   :nth-child(7) {
-    border: ${(props) =>
-      props.sticker === "7"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "7" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "7" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "7" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "7" ? "700px" : "500px")};
   }
   :nth-child(8) {
-    border: ${(props) =>
-      props.sticker === "8"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "8" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.sticker === "8" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.sticker === "8" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.sticker === "8" ? "700px" : "500px")};
   }
 `;
@@ -1103,30 +921,18 @@ const CoverPick = styled.label`
   align-items: center;
   cursor: pointer;
   :nth-child(2) {
-    border: ${(props) =>
-      props.image === "2"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "2" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.image === "2" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.image === "2" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "2" ? "700px" : "500px")};
   }
   :nth-child(3) {
-    border: ${(props) =>
-      props.image === "3"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "3" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.image === "3" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.image === "3" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "3" ? "700px" : "500px")};
   }
   :nth-child(4) {
-    border: ${(props) =>
-      props.image === "4"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "4" ? "var(--blue4)" : "var(--gray2)"};
+    border: ${(props) => (props.image === "4" ? "2px solid var(--blue4)" : "2px solid var(--gray2)")};
+    color: ${(props) => (props.image === "4" ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "4" ? "700px" : "500px")};
   }
 `;
@@ -1134,15 +940,13 @@ const TimeOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
   padding: 7px 10px;
-  background-color: ${(props) =>
-    props.timeShow ? "var(--blue1)" : "transparent"};
+  background-color: ${(props) => (props.timeShow ? "var(--blue1)" : "transparent")};
   border-radius: 35px;
 `;
 const DateOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
-  background-color: ${(props) =>
-    props.dateShow ? "var(--blue1)" : "transparent"};
+  background-color: ${(props) => (props.dateShow ? "var(--blue1)" : "transparent")};
   padding: 7px 10px;
   border-radius: 35px;
 `;
@@ -1161,8 +965,7 @@ const DateWrap = styled.div`
     width: calc(100% - 40px);
     padding: 17px 20px;
     background: var(--blue1);
-    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-      inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
     border-radius: 6.83801px;
     border: 0;
   }
@@ -1271,8 +1074,7 @@ const SelectTimeBtn = styled.button`
 `;
 const Modal = styled.div`
   background-color: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 6.83801px;
   border: none;
 

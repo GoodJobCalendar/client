@@ -7,6 +7,7 @@ import postReducer from "./modules/post";
 import scheduleReducer from "./modules/schedule";
 // import rootReducer from './modules';
 import dateReducer from "./modules/date";
+import searchReducer from "./modules/search";
 import { useNavigate } from "react-router-dom";
 
 const middlewares = [thunk];
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   post: postReducer,
   schedule: scheduleReducer,
   date: dateReducer,
+  search: searchReducer,
 });
 
 // 스토어를 만듭니다.

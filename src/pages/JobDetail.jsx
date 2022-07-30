@@ -4,12 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import {
-  loadJobList,
-  loadCategoryList,
-  loadJobDetails,
-  addScrap,
-} from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails, addScrap } from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
@@ -25,13 +20,23 @@ const JobDetail = () => {
 
   console.log(id);
 
-  useEffect(() => {
-    dispatch(loadJobDetails(id));
-  }, []);
-
   const jobDetail = useSelector((state) => state.job.details.data);
 
   console.log(jobDetail);
+
+  useEffect(() => {
+    dispatch(loadJobDetails(id));
+  }, [id]);
+
+  function getDate(whatDay) {
+    //날짜문자열 형식은 자유로운 편
+
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+    const dayOfWeek = week[new Date(whatDay).getDay()];
+
+    return dayOfWeek;
+  }
 
   return (
     <MainWrap>
@@ -50,9 +55,9 @@ const JobDetail = () => {
         <JobInfo>
           <InfoTitle>모집마감일자</InfoTitle>
           <InfoDetails style={{ fontWeight: "800" }}>
-            {jobDetail.deadline.split(" ")[0] === "2122-01-01"
+            {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
               ? "상시채용"
-              : "~" + jobDetail.deadline.split(" ")[0]}
+              : jobDetail?.deadline.split(" ")[0] + " " + "(" + getDate(jobDetail?.deadline.split(" ")[0]) + ")"}
           </InfoDetails>
         </JobInfo>
 
@@ -75,9 +80,7 @@ const JobDetail = () => {
           <BackBtn onClick={() => navigate("/job")}>
             <BackBtnImg src={backBtn} />
           </BackBtn>
-          <ScrapBtn onClick={() => dispatch(addScrap(id))}>
-            캘린더로 스크랩
-          </ScrapBtn>
+          <ScrapBtn onClick={() => dispatch(addScrap(id))}>캘린더로 스크랩</ScrapBtn>
         </BtnWrap>
 
         <JobKoreabtn
@@ -109,8 +112,6 @@ const MainWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   background: #ecf1f8;
-  overflow: hidden;
-  overflow-y: scroll;
   padding-top: 40px;
 `;
 

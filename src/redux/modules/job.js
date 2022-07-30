@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import { getCookie } from "../../shared/Cookie";
+import { useNavigate } from "react-router-dom";
 
 // 액션
 const LOAD_JOB_LIST = "LOAD_JOB_LIST";
@@ -12,8 +13,17 @@ const ADD_SCRAP = "ADD_SCRAP";
 
 // 초기값
 const initialState = {
-  job: [],
-  category: [],
+  job: {},
+  category: {
+    data: {
+      career: "경력무관",
+      cityMain: "전체",
+      citySub: "전체",
+      companyType: "대기업",
+      jobMain: "전체",
+      jobSub: "전체",
+    },
+  },
   select: [],
   list: {
     data: [],
@@ -39,9 +49,7 @@ const __loadCategoryList = createAction(LOAD_CATEGORY_LIST, (category) => ({
 const __selectCategory = createAction(SELECT_CATEGORY, (categoryData) => ({
   categoryData,
 }));
-const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({
-  details,
-}));
+const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({ details }));
 const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 
 // 미들웨어
@@ -125,7 +133,7 @@ export const loadJobDetails = (postingId) => {
   };
 };
 
-// todo 추가 미들웨어
+// 추가 미들웨어
 export const addScrap = (postingId) => {
   return function (dispatch, getState) {
     if (!postingId) {
@@ -136,12 +144,12 @@ export const addScrap = (postingId) => {
       method: "post",
       url: `https://goodjobcalendar.com/api/schedule/scrap`,
       data: {
-        postingId: postingId,
+        postingId: Number(postingId),
       },
       headers: { Authorization: `Bearer ${myToken}` },
     })
-      .then(() => {
-        dispatch(__addScrap(postingId));
+      .then((res) => {
+        dispatch(__addScrap(res.data));
         window.alert("스크랩이 완료되었어요!");
       })
       .catch((err) => {

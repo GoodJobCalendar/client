@@ -35,7 +35,8 @@ const PostDetail = () => {
   const [updateScheduleShow, setUpdateScheduleShow] = useState(false);
 
   const detailInfo = useSelector((state) => state.schedule.detail);
-  console.log(detailInfo);
+  const ss = useSelector((state) => state);
+  console.log(ss);
   //뒤로가기
   const moveBtn = () => {
     navigate("/main");
@@ -59,11 +60,7 @@ const PostDetail = () => {
           </Btn>
           {}
           <Btn onClick={updateScheduleBtn}>
-            <img
-              src={update}
-              alt="수정하기"
-              style={{ opacity: detailInfo?.memo === null && "0" }}
-            />
+            <img src={update} alt="수정하기" style={{ opacity: detailInfo?.memo === null && "0" }} />
           </Btn>
         </BtnFlex>
         <Cover
@@ -115,12 +112,10 @@ const PostDetail = () => {
             </TimeTitle>
             <Date>
               <li>
-                {detailInfo?.date.split(" ")[0].split("-")[1]}월{" "}
-                {detailInfo?.date.split(" ")[0].split("-")[2]}일
+                {detailInfo?.date.split(" ")[0].split("-")[1]}월 {detailInfo?.date.split(" ")[0].split("-")[2]}일
               </li>
               <li>
-                {detailInfo?.date.split(" ")[1].split(":")[0]}시{" "}
-                {detailInfo?.date.split(" ")[1].split(":")[1]}분
+                {detailInfo?.date.split(" ")[1].split(":")[0]}시 {detailInfo?.date.split(" ")[1].split(":")[1]}분
               </li>
             </Date>
           </DateWrap>
@@ -150,12 +145,7 @@ const PostDetail = () => {
         )}
       </PostDailWrap>
       {updateScheduleShow && (
-        <UpdateSchedule
-          scheduleId={scheduleId}
-          updateScheduleShow={updateScheduleShow}
-          setUpdateScheduleShow={setUpdateScheduleShow}
-          detailInfo={detailInfo}
-        />
+        <UpdateSchedule scheduleId={scheduleId} updateScheduleShow={updateScheduleShow} setUpdateScheduleShow={setUpdateScheduleShow} detailInfo={detailInfo} />
       )}
     </>
   );

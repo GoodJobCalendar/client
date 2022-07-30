@@ -17,11 +17,8 @@ import img8 from "../assets/img/sticker/sticker8.png";
 const MonthList = () => {
   const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
-
   const fullDate = (day) => {
-    const date = new Date(
-      `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
-    );
+    const date = new Date(`20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`);
     let [week, month, dd, year, sTime] = date.toString().split(" ");
     let Week = (week) => {
       if (week === "Sun") return "일요일";
@@ -32,10 +29,7 @@ const MonthList = () => {
       if (week === "Fri") return "금요일";
       if (week === "Sat") return "토요일";
     };
-    return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
-      4,
-      2
-    )}일 ${Week(week)}`;
+    return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(4, 2)}일 ${Week(week)}`;
   };
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
@@ -66,26 +60,16 @@ const MonthList = () => {
               <Dday>
                 {idx === 0 &&
                   (new Date(content.date.split(" ")[0]) - new Date(today) > 0
-                    ? `D- ${Math.floor(
-                        (new Date(content.date.split(" ")[0]) -
-                          new Date(today)) /
-                          (1000 * 60 * 60 * 24)
-                      )}`
-                    : new Date(content.date.split(" ")[0]) - new Date(today) !==
-                      0
-                    ? `D+ ${Math.floor(
-                        (new Date(today) -
-                          new Date(content.date.split(" ")[0])) /
-                          (1000 * 60 * 60 * 24)
-                      )}`
+                    ? `D- ${Math.floor((new Date(content.date.split(" ")[0]) - new Date(today)) / (1000 * 60 * 60 * 24))}`
+                    : new Date(content.date.split(" ")[0]) - new Date(today) !== 0
+                    ? `D+ ${Math.floor((new Date(today) - new Date(content.date.split(" ")[0])) / (1000 * 60 * 60 * 24))}`
                     : "D-day")}
               </Dday>
             </DayFlex>
             <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
-                  {(content?.date).split(" ")[1].split(":")[0]}:
-                  {(content?.date).split(" ")[1].split(":")[1]}
+                  {(content?.date).split(" ")[1].split(":")[0]}:{(content?.date).split(" ")[1].split(":")[1]}
                 </TimeText>
                 <Color color={content?.color}></Color>
                 <Text>{content.title}</Text>
@@ -172,16 +156,11 @@ const Color = styled.div`
   border-radius: 6px;
   background-color: ${(props) => (props.color === 1 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
-  background-color: ${(props) =>
-    props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
+  background-color: ${(props) => (props.color === 3 ? "rgba(253, 187, 110, 1)" : "")};
+  background-color: ${(props) => (props.color === 4 ? "rgba(253, 247, 110, 1)" : "")};
+  background-color: ${(props) => (props.color === 5 ? "rgba(110, 253, 150, 1)" : "")};
+  background-color: ${(props) => (props.color === 6 ? "rgba(110, 218, 253, 1)" : "")};
+  background-color: ${(props) => (props.color === 7 ? "rgba(130, 110, 253, 1)" : "")};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const Day = styled.p`

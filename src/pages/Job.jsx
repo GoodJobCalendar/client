@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  loadJobList,
-  loadCategoryList,
-  loadJobDetails,
-} from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
 import Nav from "../componenets/Nav";
 
@@ -35,18 +31,13 @@ const Job = () => {
       <JobWrapper>
         <TeamNameList>
           <UpdateTime>{jobDataUpdate}</UpdateTime>
-          <FilterBtn onClick={() => navigate("/jobCategory")}>
-            추천 조건
-          </FilterBtn>
+          <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
         </TeamNameList>
 
         {jobDataList?.map((tasksData, idx) => {
           return (
             // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
-            <JobCard
-              key={idx}
-              onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
-            >
+            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
               <CompanyName>{tasksData.companyName}</CompanyName>
               <JobTitle>{tasksData.title}</JobTitle>
               <DetailInfo>
@@ -55,11 +46,7 @@ const Job = () => {
                   <JobTags>{tasksData.companyType}</JobTags>
                 </JobTagsWrap>
 
-                <EndTime>
-                  {tasksData.deadline.split(" ")[0] === "2122-01-01"
-                    ? "상시채용"
-                    : "~" + tasksData.deadline.split(" ")[0]}
-                </EndTime>
+                <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
               </DetailInfo>
               {/* <JobAdrress>
               <AdrressImg src={location} />
@@ -81,6 +68,7 @@ const JobWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: calc(812px - 236px);
   background: #ecf1f8;
   overflow: hidden;
   overflow-y: scroll;
@@ -117,30 +105,6 @@ const JobCard = styled.div`
   margin: 6px auto;
   cursor: pointer;
   padding: 21px 22px 20px 19px;
-`;
-
-const EndDateBox = styled.div`
-  width: 120px;
-  height: 25px;
-  position: absolute;
-  margin-top: -10px;
-  text-align: center;
-  line-height: 25px;
-  border-radius: 15px;
-  right: 0;
-`;
-
-const EndDate = styled.div`
-  width: 40px;
-  display: inline-block;
-  float: left;
-  background: gray;
-  border-radius: 15px;
-  font-weight: 700;
-  font-size: 12px;
-  color: white;
-  position: relative;
-  z-index: 3;
 `;
 
 const EndTime = styled.div`
@@ -188,18 +152,5 @@ const JobTags = styled.div`
   margin-right: 8px;
   color: #9a9a9a;
 `;
-
-const JobAdrress = styled.div`
-  display: flex;
-  gap: 5px;
-  width: 200px;
-  height: 18px;
-  align-items: center;
-  padding-left: 60%;
-  font-weight: 500;
-  font-size: 16px;
-`;
-
-const AdrressImg = styled.img``;
 
 export default Job;
