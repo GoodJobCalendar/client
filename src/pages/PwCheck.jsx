@@ -18,15 +18,16 @@ const PwCheck = () => {
   if (authNumber === "") {
     return setError("인증번호를 입력해주세요.");
   }
+
   // 인증번호 재발송
   const MailReSendBtn = async () => {
     if (authNumber === "") {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .post("https://3.39.193.47/api/auth/lostPassword", {
-        email: userInfo.email,
-        userName: userInfo.userName,
+      .post("https://goodjobcalendar.com/api/auth/lostPassword", {
+        email: userInfo?.email,
+        userName: userInfo?.userName,
       })
       .then((res) => {
         console.log(res);
@@ -40,16 +41,16 @@ const PwCheck = () => {
   const PwCheckBtn = async () => {
     // 인증번호 확인
     await axios
-      .delete("https://3.39.193.47/api/auth/verifyNumberForOld", {
-        email: userInfo.email,
-        authNumber,
+      .patch("https://goodjobcalendar.com/api/auth/verifyNumberForOld", {
+        email: userInfo?.email,
+        authNumber: authNumber,
       })
       .then((res) => {
         console.log(res);
         navigate("/pwchange");
       })
       .catch((error) => {
-        setError(error);
+        setError(error.response.data.msg);
         console.error(error);
       });
   };
@@ -63,7 +64,7 @@ const PwCheck = () => {
         </TitleText>
       </Header>
       <Main>
-        <Email>{userInfo.email}</Email>
+        <Email>{userInfo?.email}</Email>
         <Input
           type="password"
           placeholder="인증번호 입력"
@@ -92,7 +93,7 @@ const PwWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 0 35px;
   background-color: var(--blue1);
   input {
@@ -155,7 +156,7 @@ const SignUpBtn = styled.button`
   color: #fff !important;
   margin-bottom: 8px;
 `;
-const ErrorCheck = styled.p`
+const ErrorCheck = styled.span`
   font-weight: 600;
   font-size: 14px;
   color: var(--blue3);
@@ -163,7 +164,7 @@ const ErrorCheck = styled.p`
   margin-top: 39px;
   margin-bottom: 24px;
 `;
-const Email = styled.p`
+const Email = styled.span`
   font-weight: 800;
   font-size: 16px;
   color: var(--blue3);

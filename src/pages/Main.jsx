@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getCookie } from "../shared/Cookie";
 
@@ -31,6 +30,7 @@ import img8 from "../assets/img/sticker/sticker8.png";
 // 리덕스
 import { searchMySchedule } from "../redux/modules/search";
 import needLogin from "../assets/img/illust/needlogin.png";
+import { useDispatch, useSelector } from "react-redux";
 import { zoomDate } from "../redux/modules/date";
 
 function Main() {
@@ -38,11 +38,11 @@ function Main() {
   const dispatch = useDispatch();
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
+  const [loginOn, setLoginOn] = useState(false);
   const navData = true;
-  const is_login = getCookie("is_login");
-
+  const token = getCookie("token");
+  console.log(token);
   const active = useSelector((state) => state.date.active);
-  const is_Login = useSelector((state) => state.user.is_login);
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -100,33 +100,13 @@ function Main() {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
 
-  // 로그인유무확인
   useEffect(() => {
-    if (is_Login) {
+    if (token) {
+      setLoginOn(true);
     }
-  }, [is_Login]);
-
+  }, [loginOn]);
   return (
     <MainWrap>
-      {is_login ? (
-        ""
-      ) : (
-        <NeedLogin>
-          <NeedLoginModal>
-            <p>로그인 필요</p>
-            <img src={needLogin} alt="로그인 필요" />
-            <span>
-              로그인된 상태에서만
-              <br />
-              이용할 수 있습니다.
-            </span>
-            <NeedLoginBtn>
-              <Link to="/login">로그인하러가기</Link>
-            </NeedLoginBtn>
-          </NeedLoginModal>
-        </NeedLogin>
-      )}
-
       <Nav navData={navData} />
       <FixBox>
         <Search type="text" placeholder="일정 상세 검색" onChange={scheduleSearchEvent} />
@@ -134,7 +114,6 @@ function Main() {
       </FixBox>
       {search === "" ? (
         <ContentWrap>
-          {/* <ContentWrap> */}
           <ToggleBtn>
             {weekMonth ? (
               <>
@@ -159,36 +138,8 @@ function Main() {
             ) : (
               <div></div>
             )}
-            {/* <WeekMonth
-            weekMonth={weekMonth}
-            onClick={() => {
-              setWeekMonth(!weekMonth);
-            }}
-          > */}
-            {/* {weekMonth ? (
-              <>
-                {zoomInOut ? (
-                  <button
-                    onClick={() => {
-                      setZoomInOut(!zoomInOut);
-                    }}
-                  >
-                    <img src={zoomin} alt="월별달력확대" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setZoomInOut(!zoomInOut);
-                    }}
-                  >
-                    <img src={zoomout} alt="월별달력축소" />
-                  </button>
-                )}
-              </>
-            ) : (
-              <div></div>
-            )} */}
             <WeekMonth
+              weekMonth={weekMonth}
               onClick={() => {
                 setWeekMonth(!weekMonth);
               }}
@@ -197,7 +148,7 @@ function Main() {
             </WeekMonth>
           </ToggleBtn>
           {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-          {active?.isActive ? <DailyList /> : <MonthList />}
+          {loginOn && (active?.isActive ? <DailyList /> : <MonthList />)}
         </ContentWrap>
       ) : (
         <SearchWrapper>
@@ -324,6 +275,7 @@ const NeedLoginModal = styled.div`
   width: 40%;
   text-align: center;
 `;
+
 const MainWrap = styled.div`
   position: relative;
 `;

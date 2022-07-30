@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getCookie, setCookie } from "../shared/Cookie";
 
 // 컴포넌트
 import { emailCheck } from "../shared/SignUpCheck";
@@ -14,6 +15,7 @@ import { KAKAO_AUTH_URL } from "../shared/api";
 // 이미지
 import logo from "../assets/img/logo.png";
 import kakaologo from "../assets/img/icon/kakaobtn.png";
+import axios from "axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errorcheck, setError] = useState();
-  const is_Login = useSelector((state) => state.user.is_login);
+  const token = getCookie("token");
 
   // 로그인
   const onKeyPress = (e) => {
@@ -29,7 +31,7 @@ const Login = () => {
       loginBtn();
     }
   };
-  const loginBtn = () => {
+  const loginBtn = async () => {
     if (email === "" || password === "") {
       setError("아이디와 비밀번호를 입력해주세요.");
       return;
@@ -38,19 +40,17 @@ const Login = () => {
       setError("이메일 형식이 맞지 않습니다.");
       return;
     }
-    dispatch(
-      loginDB({
-        email,
-        password,
+    await axios
+      .post("https://goodjobcalendar.com/api/auth", { email, password })
+      .then((response) => {
+        setCookie("token", response.data.token, 5);
+        navigate("/main");
       })
-    );
+      .catch((error) => {
+        console.error(error);
+        setError(error.response.data.msg);
+      });
   };
-
-  useEffect(() => {
-    if (is_Login) {
-      navigate("/main");
-    }
-  }, [is_Login]);
 
   return (
     <LoginWrap>

@@ -49,7 +49,7 @@ const SignUp = () => {
     } else {
       //회원가입
       await axios
-        .post("https://3.39.193.47/api/auth/local", {
+        .post("https://goodjobcalendar.com/api/auth/local", {
           email,
           password,
           confirmPassword,

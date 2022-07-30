@@ -15,9 +15,12 @@ const PwSend = () => {
   const [userName, setUerName] = useState("");
   const [email, setEmail] = useState("");
   const [errorcheck, setError] = useState("");
-
-  const PwBtn = async (e) => {
-    e.preventDefault();
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      PwBtn();
+    }
+  };
+  const PwBtn = async () => {
     //빈칸 확인
     if (email === "" || userName === "") {
       return setError("이메일,이름, 비밀번호 모두 입력해주세요!");
@@ -27,14 +30,14 @@ const PwSend = () => {
       return setError("이메일 형식이 아닙니다.");
     }
     await axios
-      .post("https://3.39.193.47/api/auth/lostPassword", {
+      .post("https://goodjobcalendar.com/api/auth/lostPassword", {
         userName,
         email,
       })
       .then((res) => {
         console.log(res);
-        navigate("/pwcheck");
         dispatch(pwEmailUser(email, userName));
+        navigate("/pwcheck");
       })
       .catch((error) => {
         setError(error.response.data.msg);
@@ -64,6 +67,7 @@ const PwSend = () => {
             setEmail(event.target.value);
           }}
           errorcheck={errorcheck}
+          onKeyPress={onKeyPress}
         />
         {errorcheck ? (
           <>
