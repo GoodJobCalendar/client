@@ -58,7 +58,7 @@ const Dates = (props) => {
           ) {
             return (
               <PlusNumber key={index} color={content.color}>
-                +{index - 4}
+                +{index - 3}
               </PlusNumber>
             );
           }
@@ -85,7 +85,7 @@ const Dates = (props) => {
           ) {
             return (
               <PlusNumber key={index} color={content.color}>
-                +{index - 2}
+                +{index - 1}
               </PlusNumber>
             );
           }
@@ -148,7 +148,7 @@ const Form = styled.li`
   :nth-child(7n + 1) div label {
     color: var(--point3);
   }
-  height: ${(props) => (props.zoom ? "50px" : "85px")};
+  height: ${(props) => (props.zoom ? "50px" : "95px")};
 `;
 
 const DateNum = styled.div``;
@@ -191,10 +191,13 @@ const TextList = styled.p`
   font-size: 8px;
   margin-top: 3px;
   box-sizing: border-box;
-  border: ${(props) => (props.color === 1 ? "2px solid var(--blue1)" : "")};
+  color: #fff;
+  color: ${(props) => (props.color === 1 ? "var(--blue4)" : "")};
+  border: ${(props) => (props.color === 1 ? "1px solid var(--blue2)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
+  color: ${(props) => (props.color === 4 ? "var(--black)" : "")};
   background-color: ${(props) =>
     props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
   background-color: ${(props) =>
@@ -210,7 +213,7 @@ const List = styled.p`
   height: 5px;
   border-radius: 100%;
   box-sizing: border-box;
-  border: ${(props) => (props.color === 1 ? "2px solid var(--blue1)" : "")};
+  border: ${(props) => (props.color === 1 ? "1px solid var(--blue2)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};

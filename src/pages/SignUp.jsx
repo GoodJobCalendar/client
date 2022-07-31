@@ -147,10 +147,14 @@ const SignUpWrap = styled.div`
     border: 1px solid var(--blue2);
     border-radius: 6px;
     font-weight: 500;
+    :focus {
+      ::placeholder {
+        opacity: 0;
+      }
+    }
     ::placeholder {
       color: var(--blue3);
       font-weight: 500;
-      font-size: 16px;
     }
   }
 `;

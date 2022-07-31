@@ -39,7 +39,7 @@ const PwCheck = () => {
   const PwCheckBtn = async () => {
     // 인증번호 확인
     await axios
-      .patch("hhttps://goodjobcalendar.shop/api/auth/verifyNumberForOld", {
+      .patch("https://goodjobcalendar.shop/api/auth/verifyNumberForOld", {
         email: userInfo?.email,
         authNumber: authNumber,
       })

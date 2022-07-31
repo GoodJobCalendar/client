@@ -149,7 +149,7 @@ export const addScrap = (postingId) => {
         window.alert("스크랩이 완료되었어요!");
       })
       .catch((err) => {
-        console.log("스크랩 추가 에러: ", err);
+        console.error("스크랩 추가 에러: ", err);
         window.alert("이미 스크랩이 완료된 게시물입니다!");
       });
   };

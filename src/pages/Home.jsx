@@ -136,8 +136,9 @@ const HomeWrap = styled.div`
 `;
 const Title = styled.p`
   font-size: 14px;
-  margin-top: 13px;
-  margin-bottom: 2px;
+  margin-top: 12px;
+  margin-bottom: 4.6px;
+  color: var(--blue4);
 `;
 const SlideText = styled.p`
   font-size: 14px;
@@ -189,10 +190,9 @@ const CoverImg = styled.div`
   justify-content: center;
   align-items: center;
   > img {
-    bottom: 10%;
+    top: 50%;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 0;
   }
   animation: hideSplashScreen 0.4s ease-in-out forwards;
   animation-delay: 1s;
@@ -214,7 +214,6 @@ const EmailBtn = styled.button`
   width: 100%;
   > a {
     font-weight: 400;
-    font-size: 18px;
     padding: 17px 0;
     width: 100%;
     color: var(--blue3) !important;
@@ -234,7 +233,6 @@ const KaKaoBtn = styled.button`
   > a {
     padding: 17px 0;
     font-weight: 400;
-    font-size: 18px;
     width: 100%;
     color: #371f1e !important;
     display: flex;
@@ -254,7 +252,6 @@ const LoginBtn = styled.button`
   > a {
     padding: 17px 0;
     font-weight: 400;
-    font-size: 18px;
     color: #fff !important;
     width: 100%;
     display: block;

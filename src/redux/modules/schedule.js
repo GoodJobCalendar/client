@@ -128,7 +128,7 @@ export const detailPost = (scheduleId) => {
       headers: { Authorization: `Bearer ${myToken}` },
     };
     axios
-      .get(`hhttps://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
+      .get(`https://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__detailPost(res.data.data));
       })
@@ -147,7 +147,7 @@ export const loadMonth = (payload) => {
       params: { startDate: payload },
     };
     axios
-      .get("hhttps://goodjobcalendar.shop/api/schedule/monthly", data)
+      .get("https://goodjobcalendar.shop/api/schedule/monthly", data)
       .then((res) => {
         dispatch(__loadMonth(res.data.data));
       })
