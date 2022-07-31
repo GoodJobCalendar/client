@@ -147,6 +147,16 @@ export const addScrap = (postingId) => {
       .then((res) => {
         dispatch(__addScrap(res.data));
         window.alert("스크랩이 완료되었어요!");
+        axios
+          .get(`https://goodjobcalendar.shop/api/posting/${postingId}`, {
+            headers: { Authorization: `Bearer ${myToken}` },
+          })
+          .then((res) => {
+            dispatch(__loadJobDetails(res.data));
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
         console.error("스크랩 추가 에러: ", err);
