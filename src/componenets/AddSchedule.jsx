@@ -723,8 +723,7 @@ const DateContainer = styled.div`
 const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
-  padding: 5%;
-  padding-top: 60px;
+  padding: 20px;
   height: 150px;
   background-size: cover;
   background-position: bottom;
