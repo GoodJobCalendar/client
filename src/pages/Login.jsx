@@ -85,10 +85,10 @@ const Login = () => {
       <Footer>
         <Atherlogin>다른 서비스 계정을 로그인</Atherlogin>
         <KaKaoBtn>
-          <Link to={KAKAO_AUTH_URL}>
+          <a href={KAKAO_AUTH_URL}>
             <img src={kakaologo} alt="카카오로고" />
             <p>카카오톡 간편 로그인</p>
-          </Link>
+          </a>
         </KaKaoBtn>
       </Footer>
     </LoginWrap>
