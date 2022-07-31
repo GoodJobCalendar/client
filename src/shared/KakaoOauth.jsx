@@ -14,7 +14,7 @@ const KakaoOauth = (props) => {
 
   useEffect(() => {
     if (!!code) {
-      kakaoLoginDB(code);
+      dispatch(kakaoLoginDB(code));
     }
   }, [code]);
 
@@ -22,9 +22,8 @@ const KakaoOauth = (props) => {
     console.log(code);
     await axios
       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
-      .then((res) => {
-        dispatch(kakaoLoginDB(res));
-        setCookie("token", res.data.token, 5);
+      .then((response) => {
+        setCookie("token", response.data.token, 5);
         navigate("/main");
       })
       .catch((error) => {
