@@ -5,6 +5,7 @@ import userReducer from "./modules/user";
 import jobReducer from "./modules/job";
 import postReducer from "./modules/post";
 import scheduleReducer from "./modules/schedule";
+import KakaoOauth from "../shared/KakaoOauth";
 // import rootReducer from './modules';
 import dateReducer from "./modules/date";
 import searchReducer from "./modules/search";

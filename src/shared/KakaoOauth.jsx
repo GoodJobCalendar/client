@@ -1,22 +1,31 @@
 import React, { useEffect } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
-import { kakaoLoginDB } from "../redux/modules/user";
+// import { kakaoLoginDB } from "../redux/modules/user";
 
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { getCookie, setCookie } from "../shared/Cookie";
 const KakaoOauth = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
-    if (code) {
-      dispatch(kakaoLoginDB(code));
-      Navigate("/main")
+    if (!!code) {
+      console.log("꺄항");
+      axios
+        .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
+        .then((response) => {
+          setCookie("token", response.data.token, 5);
+          navigate("/main");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-  }, []);
+  }, [code]);
 
   // useEffect(() => {
   //   let authorization_code = new URL(window.location.href).searchParams.get(

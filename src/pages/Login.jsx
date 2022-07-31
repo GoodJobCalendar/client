@@ -85,10 +85,10 @@ const Login = () => {
       <Footer>
         <Atherlogin>다른 서비스 계정을 로그인</Atherlogin>
         <KaKaoBtn>
-          <Link to={KAKAO_AUTH_URL}>
+          <a href={KAKAO_AUTH_URL}>
             <img src={kakaologo} alt="카카오로고" />
             <p>카카오톡 간편 로그인</p>
-          </Link>
+          </a>
         </KaKaoBtn>
       </Footer>
     </LoginWrap>
@@ -136,13 +136,6 @@ const EmailInput = styled.input`
     (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
       "아이디와 비밀번호를 입력해주세요.") &&
     "var(--point3)!important"};
-  :focus {
-    color: ${(props) =>
-      props.errorcheck &&
-      (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
-        "아이디와 비밀번호를 입력해주세요.") &&
-      "var(--point3)!important"};
-  }
   ::placeholder {
     color: ${(props) =>
       props.errorcheck &&
@@ -152,19 +145,12 @@ const EmailInput = styled.input`
   }
 `;
 const PwInput = styled.input`
-  background-color: #fff;
-
   border: ${(props) =>
     props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
     "2px solid var(--point3)!important"};
   color: ${(props) =>
     props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
     "var(--point3)!important"};
-  :focus {
-    color: ${(props) =>
-      props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
-      "var(--point3)!important"};
-  }
   ::placeholder {
     color: ${(props) =>
       props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
