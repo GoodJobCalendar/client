@@ -61,12 +61,11 @@ const SignUp = () => {
           userName,
         })
         .then((res) => {
-          console.log(res);
           dispatch(setUser({ email, password, confirmPassword, userName }));
           navigate("/emailsend");
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           setCheck(error.response.data.msg);
         });
     }

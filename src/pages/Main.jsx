@@ -41,7 +41,6 @@ function Main() {
   const [loginOn, setLoginOn] = useState(false);
   const navData = true;
   const token = getCookie("token");
-  console.log(token);
   const active = useSelector((state) => state.date.active);
 
   //일정등록 이동
@@ -62,7 +61,6 @@ function Main() {
 
   const searchData = useSelector((state) => state.search.search);
 
-  console.log("검색 결과 원본입니다. searchData", searchData);
   const searchDataList = Object.entries(searchData);
   // const searchDataList = () => {
   //   if (!Object.entries) {
@@ -84,8 +82,6 @@ function Main() {
   const dataArraySum = dataArray?.reduce((acc, cur) => {
     return acc + cur;
   }, 0);
-
-  console.log(dataArraySum);
 
   function getDate(whatDay) {
     const week = ["일", "월", "화", "수", "목", "금", "토"];
@@ -109,43 +105,47 @@ function Main() {
     <MainWrap>
       <Nav navData={navData} />
       <FixBox>
-        <Search type="text" placeholder="일정 상세 검색" onChange={scheduleSearchEvent} />
+        <Search
+          type="text"
+          placeholder="일정 상세 검색"
+          onChange={scheduleSearchEvent}
+        />
         <AddButtoon onClick={MoveBtn}>+</AddButtoon>
       </FixBox>
       {search === "" ? (
         <ContentWrap>
           <ToggleBtn>
-            {weekMonth ? (
-              <>
-                {zoomInOut ? (
-                  <button
-                    onClick={() => {
-                      setZoomInOut(!zoomInOut);
-                    }}
-                  >
-                    <img src={zoomin} alt="월별달력확대" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setZoomInOut(!zoomInOut);
-                    }}
-                  >
-                    <img src={zoomout} alt="월별달력축소" />
-                  </button>
-                )}
-              </>
-            ) : (
+            {/* {weekMonth ? ( */}
+            <>
+              {zoomInOut ? (
+                <button
+                  onClick={() => {
+                    setZoomInOut(!zoomInOut);
+                  }}
+                >
+                  <img src={zoomin} alt="월별달력확대" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setZoomInOut(!zoomInOut);
+                  }}
+                >
+                  <img src={zoomout} alt="월별달력축소" />
+                </button>
+              )}
+            </>
+            {/* ) : (
               <div></div>
-            )}
-            <WeekMonth
+            )} */}
+            {/* <WeekMonth
               weekMonth={weekMonth}
               onClick={() => {
                 setWeekMonth(!weekMonth);
               }}
             >
               {weekMonth ? <Circle weekMonth={weekMonth}>M</Circle> : <Circle weekMonth={weekMonth}>W</Circle>}
-            </WeekMonth>
+            </WeekMonth> */}
           </ToggleBtn>
           {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
           {loginOn && (active?.isActive ? <DailyList /> : <MonthList />)}
@@ -169,7 +169,17 @@ function Main() {
             return (
               <SearchDataWrapper key={idx}>
                 <SearchDataDayWrap>
-                  <SearchDataDay>{year + "년 " + month + "월 " + day + "일 " + "(" + getDate(dday) + ")"}</SearchDataDay>
+                  <SearchDataDay>
+                    {year +
+                      "년 " +
+                      month +
+                      "월 " +
+                      day +
+                      "일 " +
+                      "(" +
+                      getDate(dday) +
+                      ")"}
+                  </SearchDataDay>
                   <SearchDataDDay>{"d" + (0 - result)}</SearchDataDDay>
                 </SearchDataDayWrap>
                 <SearchDataCardWrap>
@@ -180,10 +190,16 @@ function Main() {
                           <MainData>
                             <SearchDataColor color={data.color} />
                             <SearchDataTitleWrap>
-                              <SearchDataTime>{data.date.split(" ")[1].split(":")[0] + ":" + data.date.split(" ")[1].split(":")[1]}</SearchDataTime>
+                              <SearchDataTime>
+                                {data.date.split(" ")[1].split(":")[0] +
+                                  ":" +
+                                  data.date.split(" ")[1].split(":")[1]}
+                              </SearchDataTime>
                               <SearchDataTitle>
                                 {data.title.split(search)[0]}
-                                <span style={{ color: "#4F32FF" }}>{search}</span>
+                                <span style={{ color: "#4F32FF" }}>
+                                  {search}
+                                </span>
                                 {data.title.split(search)[1]}
                               </SearchDataTitle>
                             </SearchDataTitleWrap>
@@ -269,7 +285,8 @@ const NeedLoginModal = styled.div`
   align-items: center;
   background-color: #fff;
   z-index: 99999;
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
   padding: 40px 80px;
   width: 40%;

@@ -82,7 +82,6 @@ const UpdateSchedule = ({
     }
   }
   const [cover, setCover] = useState(coverimage());
-  console.log(detailInfo.coverImage);
 
   //컬러 미리보기
   const [colorPick, setColorPick] = useState(String(detailInfo?.color));
@@ -184,7 +183,6 @@ const UpdateSchedule = ({
     setImage(e.target.id);
     // setCoverShow(!coverShow);
   };
-  console.log(scheduleId);
   // 일정등록
   const addScheduleBtn = async () => {
     if ((companyName === "", title === "", allDate === "", place === "")) {

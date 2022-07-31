@@ -35,7 +35,7 @@ instances.interceptors.request.use(
   },
   //에러 전 호출
   (err) => {
-    console.log(err);
+    console.error(err);
   }
 );
 
@@ -54,7 +54,7 @@ api.interceptors.response.use(
     return success;
   },
   (error) => {
-    console.log(error);
+    console.error(error);
   }
 );
 

@@ -44,18 +44,15 @@ export const pwEmailUser = (email, userName) => {
 };
 
 export const kakaoLoginDB = (code) => {
-  console.log(code);
   return function (dispatch, getState) {
     axios
       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
-        console.log("카카오 로그인 성공", response);
         dispatch(setUser());
         setCookie("token", response.data.token, 5);
       })
       .catch((err) => {
-        console.log("카카오 로그인 에러", err);
-        window.alert("어림없어 돌아가.");
+        console.error(err);
       });
   };
 };

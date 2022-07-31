@@ -30,7 +30,6 @@ export function __scheduleUpdate(payload) {
 
 //개인일정 작성
 export const schedulePost = (payload) => {
-  console.log(payload);
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     axios({
@@ -79,7 +78,6 @@ export const scheduleUpdate = ({
     })
       .then((res) => {
         dispatch(__scheduleUpdate(res.data.data));
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.error(err);
@@ -102,8 +100,6 @@ export default function postReducer(state = initialState, action) {
       return produce(state, (draft) => {
         setCookie("is_login", "true");
         draft.is_login = true;
-        console.log(state);
-        console.log(action.payload);
         draft.update = action.payload;
       });
     }

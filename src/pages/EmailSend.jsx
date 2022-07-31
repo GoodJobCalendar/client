@@ -30,9 +30,7 @@ const EmailSend = () => {
         confirmPassword: userInfo.password,
         userName: userInfo.userName,
       })
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((error) => {
         console.error(error);
         setError(error.response.data.msg);
@@ -49,7 +47,6 @@ const EmailSend = () => {
         userName: userInfo.userName,
       })
       .then((res) => {
-        console.log(res);
         navigate("/signupsuccess");
       })
       .catch((error) => {

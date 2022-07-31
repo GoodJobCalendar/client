@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { loadJobList, loadCategoryList, loadJobDetails, addScrap } from "../redux/modules/job";
+import {
+  loadJobList,
+  loadCategoryList,
+  loadJobDetails,
+  addScrap,
+} from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
@@ -18,11 +23,7 @@ const JobDetail = () => {
 
   const id = params.id;
 
-  console.log(id);
-
   const jobDetail = useSelector((state) => state.job.details.data);
-
-  console.log(jobDetail);
 
   useEffect(() => {
     dispatch(loadJobDetails(id));
@@ -57,7 +58,11 @@ const JobDetail = () => {
           <InfoDetails style={{ fontWeight: "800" }}>
             {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
               ? "상시채용"
-              : jobDetail?.deadline.split(" ")[0] + " " + "(" + getDate(jobDetail?.deadline.split(" ")[0]) + ")"}
+              : jobDetail?.deadline.split(" ")[0] +
+                " " +
+                "(" +
+                getDate(jobDetail?.deadline.split(" ")[0]) +
+                ")"}
           </InfoDetails>
         </JobInfo>
 
@@ -80,7 +85,9 @@ const JobDetail = () => {
           <BackBtn onClick={() => navigate("/job")}>
             <BackBtnImg src={backBtn} />
           </BackBtn>
-          <ScrapBtn onClick={() => dispatch(addScrap(id))}>캘린더로 스크랩</ScrapBtn>
+          <ScrapBtn onClick={() => dispatch(addScrap(id))}>
+            캘린더로 스크랩
+          </ScrapBtn>
         </BtnWrap>
 
         <JobKoreabtn

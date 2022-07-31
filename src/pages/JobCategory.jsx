@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadJobList, loadCategoryList, selectCategory } from "../redux/modules/job";
+import {
+  loadJobList,
+  loadCategoryList,
+  selectCategory,
+} from "../redux/modules/job";
 
 import backBtn from "../assets/img/icon/Back.png";
 import open from "../assets/img/btn/open.png";
@@ -92,12 +96,16 @@ const JobCategory = () => {
 
   const careers = ["신입", "경력", "경력무관"];
 
-  const CompanyType = ["대기업", "중소/중견기업", "외국계기업", "공기업", "전체"];
+  const CompanyType = [
+    "대기업",
+    "중소/중견기업",
+    "외국계기업",
+    "공기업",
+    "전체",
+  ];
 
   const defaultCategory = useSelector((state) => state.job.category.data);
   const defaultCategor1y = useSelector((state) => state);
-
-  console.log(defaultCategor1y);
 
   const [categoryData, setCategoryData] = React.useState({
     jobMain: defaultCategory?.jobMain,
@@ -107,8 +115,6 @@ const JobCategory = () => {
     career: defaultCategory?.career,
     companyType: defaultCategory?.companyType,
   });
-
-  console.log(categoryData);
 
   useEffect(() => {
     dispatch(loadCategoryList());
@@ -132,7 +138,11 @@ const JobCategory = () => {
       <CategoryTap>
         <TasksBtnWrap onClick={() => setTaskToggle(!taskToggle)}>
           <TasksBtnText>직무</TasksBtnText>
-          {taskToggle === false ? <TasksBtnImg src={open} /> : <TasksBtnImg src={close} />}
+          {taskToggle === false ? (
+            <TasksBtnImg src={open} />
+          ) : (
+            <TasksBtnImg src={close} />
+          )}
         </TasksBtnWrap>
         {taskToggle === false ? (
           <></>
@@ -143,7 +153,13 @@ const JobCategory = () => {
                 key={idx}
                 categoryData={categoryData.jobMain}
                 tasksData={tasksData}
-                onClick={() => setCategoryData({ ...categoryData, jobMain: tasksData, jobSub: "" })}
+                onClick={() =>
+                  setCategoryData({
+                    ...categoryData,
+                    jobMain: tasksData,
+                    jobSub: "",
+                  })
+                }
               >
                 {tasksData}
               </JobTags>
@@ -159,7 +175,13 @@ const JobCategory = () => {
       ) : (
         <CategoryTap>
           {categoryData.jobMain === "전체" ? (
-            <DetailJobTags categoryData={categoryData.jobSub} tasksData={"전체"} onClick={() => setCategoryData({ ...categoryData, jobSub: "전체" })}>
+            <DetailJobTags
+              categoryData={categoryData.jobSub}
+              tasksData={"전체"}
+              onClick={() =>
+                setCategoryData({ ...categoryData, jobSub: "전체" })
+              }
+            >
               {"전체"}
             </DetailJobTags>
           ) : categoryData.jobMain === "경영·사무" ? (
@@ -169,7 +191,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -182,7 +206,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -195,7 +221,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -208,7 +236,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -221,7 +251,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -234,7 +266,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -247,7 +281,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -260,7 +296,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -273,7 +311,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -286,7 +326,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobMain}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -299,7 +341,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobMain}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -312,7 +356,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -325,7 +371,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -338,7 +386,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, jobSub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -353,7 +403,11 @@ const JobCategory = () => {
       <CategoryTap>
         <TasksBtnWrap onClick={() => setworkAreaToggle(!workAreaToggle)}>
           <TasksBtnText>근무지역</TasksBtnText>
-          {workAreaToggle === false ? <TasksBtnImg src={open} /> : <TasksBtnImg src={close} />}
+          {workAreaToggle === false ? (
+            <TasksBtnImg src={open} />
+          ) : (
+            <TasksBtnImg src={close} />
+          )}
         </TasksBtnWrap>
         {workAreaToggle === false ? (
           <></>
@@ -364,7 +418,13 @@ const JobCategory = () => {
                 key={idx}
                 categoryData={categoryData.cityMain}
                 tasksData={workAreaData}
-                onClick={() => setCategoryData({ ...categoryData, cityMain: workAreaData, citySub: "" })}
+                onClick={() =>
+                  setCategoryData({
+                    ...categoryData,
+                    cityMain: workAreaData,
+                    citySub: "",
+                  })
+                }
               >
                 {workAreaData}
               </WorkAreaTags>
@@ -380,7 +440,13 @@ const JobCategory = () => {
       ) : (
         <CategoryTap>
           {categoryData.cityMain === "전체" ? (
-            <DetailWorkAreaTags categoryData={categoryData.citySub} tasksData={"전체"} onClick={() => setCategoryData({ ...categoryData, citySub: "전체" })}>
+            <DetailWorkAreaTags
+              categoryData={categoryData.citySub}
+              tasksData={"전체"}
+              onClick={() =>
+                setCategoryData({ ...categoryData, citySub: "전체" })
+              }
+            >
               {"전체"}
             </DetailWorkAreaTags>
           ) : categoryData.cityMain === "서울" ? (
@@ -390,7 +456,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -403,7 +471,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -416,7 +486,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -429,7 +501,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -442,7 +516,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -455,7 +531,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -468,7 +546,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -481,7 +561,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -494,7 +576,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -507,7 +591,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -520,7 +606,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -533,7 +621,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -546,7 +636,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -559,7 +651,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -572,7 +666,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -585,7 +681,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -598,7 +696,9 @@ const JobCategory = () => {
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
+                  onClick={() =>
+                    setCategoryData({ ...categoryData, citySub: workAreaData })
+                  }
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -618,7 +718,9 @@ const JobCategory = () => {
               key={idx}
               categoryData={categoryData.career}
               tasksData={careersData}
-              onClick={() => setCategoryData({ ...categoryData, career: careersData })}
+              onClick={() =>
+                setCategoryData({ ...categoryData, career: careersData })
+              }
             >
               {careersData}
             </CareersTags>
@@ -634,7 +736,12 @@ const JobCategory = () => {
               key={idx}
               categoryData={categoryData.companyType}
               tasksData={CompanyTypeData}
-              onClick={() => window.alert("준비하고 있는 기능입니다!", setCategoryData({ ...categoryData, companyType: "대기업" }))}
+              onClick={() =>
+                window.alert(
+                  "준비하고 있는 기능입니다!",
+                  setCategoryData({ ...categoryData, companyType: "대기업" })
+                )
+              }
             >
               {CompanyTypeData}
             </CompanyTypeTags>
@@ -702,14 +809,16 @@ const TasksBtnImg = styled.img`
 const JobTags = styled.div`
   padding: 4px 10px;
   display: inline-block;
-  background: ${(props) => (props.categoryData === props.tasksData ? "#3284FF" : "transparent")};
+  background: ${(props) =>
+    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
   border-radius: 6px;
   margin: 2px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => (props.categoryData === props.tasksData ? "white" : "#3284FF")};
+  color: ${(props) =>
+    props.categoryData === props.tasksData ? "white" : "#3284FF"};
   cursor: pointer;
 `;
 
@@ -717,12 +826,14 @@ const DetailJobTags = styled.div`
   display: inline-block;
   padding: 2px 6px;
   margin: 4px;
-  background: ${(props) => (props.categoryData === props.tasksData ? "#3284FF" : "transparent")};
+  background: ${(props) =>
+    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) => (props.categoryData === props.tasksData ? "white" : "#74A0E3")};
+  color: ${(props) =>
+    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
   border: 1px solid #a6c9ff;
   box-sizing: border-box;
   cursor: pointer;
@@ -731,14 +842,16 @@ const DetailJobTags = styled.div`
 const WorkAreaTags = styled.div`
   padding: 4px 10px;
   display: inline-block;
-  background: ${(props) => (props.categoryData === props.tasksData ? "#3284FF" : "transparent")};
+  background: ${(props) =>
+    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
   border-radius: 6px;
   margin: 2px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => (props.categoryData === props.tasksData ? "white" : "#3284FF")};
+  color: ${(props) =>
+    props.categoryData === props.tasksData ? "white" : "#3284FF"};
   cursor: pointer;
 `;
 
@@ -746,12 +859,14 @@ const DetailWorkAreaTags = styled.div`
   display: inline-block;
   padding: 2px 6px;
   margin: 4px;
-  background: ${(props) => (props.categoryData === props.tasksData ? "#3284FF" : "transparent")};
+  background: ${(props) =>
+    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) => (props.categoryData === props.tasksData ? "white" : "#74A0E3")};
+  color: ${(props) =>
+    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
   border: 1px solid #a6c9ff;
   box-sizing: border-box;
   cursor: pointer;
@@ -761,12 +876,14 @@ const CareersTags = styled.div`
   display: inline-block;
   padding: 2px 6px;
   margin: 4px;
-  background: ${(props) => (props.categoryData === props.tasksData ? "#3284FF" : "transparent")};
+  background: ${(props) =>
+    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) => (props.categoryData === props.tasksData ? "white" : "#74A0E3")};
+  color: ${(props) =>
+    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
   border: 1px solid #a6c9ff;
   box-sizing: border-box;
   cursor: pointer;
@@ -776,12 +893,14 @@ const CompanyTypeTags = styled.div`
   display: inline-block;
   padding: 2px 6px;
   margin: 4px;
-  background: ${(props) => (props.categoryData === props.tasksData ? "#3284FF" : "transparent")};
+  background: ${(props) =>
+    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) => (props.categoryData === props.tasksData ? "white" : "#74A0E3")};
+  color: ${(props) =>
+    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
   border: 1px solid #a6c9ff;
   box-sizing: border-box;
   cursor: pointer;

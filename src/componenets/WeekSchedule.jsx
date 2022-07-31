@@ -5,7 +5,9 @@ import styled from "styled-components";
 const WeekSchedule = () => {
   const dispatch = useDispatch();
   const selectDay = useSelector((state) => state.date.select);
-  const date = selectDay ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm) : new Date();
+  const date = selectDay
+    ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm)
+    : new Date();
   const Year = date.getFullYear();
   const Month = date.getMonth() + 1;
   const Dates = date.getDate();
@@ -16,14 +18,21 @@ const WeekSchedule = () => {
   const DAY = ["일", "월", "화", "수", "목", "금", "토"];
   const toDate = date.getDate();
   const toDay = date.getDay();
-  console.log(Dates);
-  const Time = ["03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "22:00", "24:00"];
+  const Time = [
+    "03:00",
+    "06:00",
+    "09:00",
+    "12:00",
+    "15:00",
+    "18:00",
+    "22:00",
+    "24:00",
+  ];
 
   // const SelectDay = () => {
   //   dispatch();
   // };
 
-  console.log(new Date(date.setDate(toDate - toDay)));
   // 이번주 일요일 구하기
   function getBeginOfWeek(date = new Date(), startOfWeek = 0) {
     const result = new Date(date);
@@ -50,7 +59,12 @@ const WeekSchedule = () => {
             <li></li>
             {DAY.map((elm, idx) => {
               return (
-                <Day key={idx} idx={idx} selectDay={selectDay} getDay={getDay} /*onClick={SelectDay}*/>
+                <Day
+                  key={idx}
+                  idx={idx}
+                  selectDay={selectDay}
+                  getDay={getDay} /*onClick={SelectDay}*/
+                >
                   {elm}
                 </Day>
               );
@@ -59,19 +73,38 @@ const WeekSchedule = () => {
           <DayList>
             <li></li>
             {["", "", "", "", "", "", ""].map((elm, idx) => {
-              function getBeginOfWeek(date = selectDay ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm) : new Date(), startOfWeek = 0) {
+              function getBeginOfWeek(
+                date = selectDay
+                  ? new Date(
+                      selectDay?.year,
+                      selectDay?.month - 1,
+                      selectDay?.elm
+                    )
+                  : new Date(),
+                startOfWeek = 0
+              ) {
                 const result = new Date(date);
                 while (result.getDay() !== startOfWeek) {
                   result.setDate(result.getDate() - 1);
                 }
                 // dispatch();
-                return String(new Date(result.setDate(result.getDate() + idx))).split(" ")[2];
+                return String(
+                  new Date(result.setDate(result.getDate() + idx))
+                ).split(" ")[2];
               }
               const sunday = getBeginOfWeek();
-              console.log(sunday);
               return (
-                <DayNumberList key={idx} selectDay={selectDay} sunday={sunday} Dates={selectDay}>
-                  <DayNumber selectDay={selectDay} sunday={sunday} Dates={Dates}>
+                <DayNumberList
+                  key={idx}
+                  selectDay={selectDay}
+                  sunday={sunday}
+                  Dates={selectDay}
+                >
+                  <DayNumber
+                    selectDay={selectDay}
+                    sunday={sunday}
+                    Dates={Dates}
+                  >
                     {sunday}
                   </DayNumber>
                 </DayNumberList>
@@ -175,7 +208,8 @@ const Day = styled.li`
   :nth-child(7n + 2) {
     color: var(--point3);
   }
-  background-color: ${(props) => props.selectDay && props.idx === props.getDay && " var(--blue4)"};
+  background-color: ${(props) =>
+    props.selectDay && props.idx === props.getDay && " var(--blue4)"};
   color: ${(props) => props.selectDay && props.idx === props.getDay && "white"};
 `;
 const DayList = styled.ul`
@@ -196,7 +230,8 @@ const DayNumberList = styled.li`
     span {
       color: var(--point3);
     }
-    background-color: ${(props) => props.selectDay && props.sunday === props.Dates && " var(--blue4)"};
+    background-color: ${(props) =>
+      props.selectDay && props.sunday === props.Dates && " var(--blue4)"};
   }
 `;
 const DayNumber = styled.span`

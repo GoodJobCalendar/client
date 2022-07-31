@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
+import {
+  loadJobList,
+  loadCategoryList,
+  loadJobDetails,
+} from "../redux/modules/job";
 
 import Nav from "../componenets/Nav";
 
@@ -31,13 +35,18 @@ const Job = () => {
       <JobWrapper>
         <TeamNameList>
           <UpdateTime>{jobDataUpdate}</UpdateTime>
-          <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
+          <FilterBtn onClick={() => navigate("/jobCategory")}>
+            추천 조건
+          </FilterBtn>
         </TeamNameList>
 
         {jobDataList?.map((tasksData, idx) => {
           return (
             // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
-            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
+            <JobCard
+              key={idx}
+              onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
+            >
               <CompanyName>{tasksData.companyName}</CompanyName>
               <JobTitle>{tasksData.title}</JobTitle>
               <DetailInfo>
@@ -46,7 +55,11 @@ const Job = () => {
                   <JobTags>{tasksData.companyType}</JobTags>
                 </JobTagsWrap>
 
-                <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
+                <EndTime>
+                  {tasksData.deadline.split(" ")[0] === "2122-01-01"
+                    ? "상시채용"
+                    : "~" + tasksData.deadline.split(" ")[0]}
+                </EndTime>
               </DetailInfo>
               {/* <JobAdrress>
               <AdrressImg src={location} />
@@ -68,7 +81,7 @@ const JobWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(812px - 236px);
+  height: 100vh;
   background: #ecf1f8;
   overflow: hidden;
   overflow-y: scroll;

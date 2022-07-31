@@ -97,7 +97,6 @@ export const scheduleUpdate = ({
     })
       .then((res) => {
         dispatch(__scheduleUpdate(res.data.data));
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.error(err);
@@ -115,7 +114,6 @@ export const deletePost = (scheduleId) => {
       .delete(`https://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__deletePost(scheduleId));
-        console.log(res);
       })
       .catch((error) => {
         console.error(error);
@@ -133,7 +131,6 @@ export const detailPost = (scheduleId) => {
       .get(`hhttps://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
         dispatch(__detailPost(res.data.data));
-        console.log(res.data.data);
       })
       .catch((error) => {
         console.error(error);
@@ -153,7 +150,6 @@ export const loadMonth = (payload) => {
       .get("hhttps://goodjobcalendar.shop/api/schedule/monthly", data)
       .then((res) => {
         dispatch(__loadMonth(res.data.data));
-        console.log(res.data.data);
       })
       .catch((error) => {
         console.error(error);
@@ -173,7 +169,6 @@ export const loadDaily = (payload) => {
       .get("https://goodjobcalendar.shop/api/schedule/daily", data)
       .then((res) => {
         dispatch(__loadDaily(res.data.data));
-        console.log(res.data.data);
       })
       .catch((error) => {
         console.error(error);
@@ -189,8 +184,6 @@ export default function scheduleReducer(state = initialState, action) {
       return produce(state, (draft) => {
         setCookie("is_login", "true");
         draft.is_login = true;
-        console.log("state =", state.detail);
-        console.log("action =", action.payload);
         function a() {
           if (state.detail.scheduleId === action.payload.scheduleId) {
             return action.payload;
@@ -211,7 +204,6 @@ export default function scheduleReducer(state = initialState, action) {
     }
     case LIST_DETAIL: {
       return produce(state, (draft) => {
-        console.log("dddfsssfs=", state);
         draft.detail = action.payload;
       });
     }

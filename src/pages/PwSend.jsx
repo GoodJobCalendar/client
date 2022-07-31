@@ -35,7 +35,6 @@ const PwSend = () => {
         email,
       })
       .then((res) => {
-        console.log(res);
         dispatch(pwEmailUser(email, userName));
         navigate("/pwcheck");
       })

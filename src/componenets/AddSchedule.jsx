@@ -56,7 +56,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [memo, setMemo] = useState("");
   const [cover, setCover] = useState(cover1);
   //컬러 미리보기
-  const [colorPick, setColorPick] = useState("var(--point3)");
+  const [colorPick, setColorPick] = useState("");
   const [startDate, setStartDate] = useState(new Date());
 
   //Time Picker

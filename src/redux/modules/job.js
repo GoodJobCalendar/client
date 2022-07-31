@@ -60,17 +60,15 @@ const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 export const loadJobList = () => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
-    console.log(myToken);
     axios
       .get("https://goodjobcalendar.shop/api/posting", {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
         dispatch(__loadJobList(res.data));
-        console.log("리덕스 콘솔 1", res.data);
       })
       .catch((err) => {
-        console.log("추천채용 불러오기 에러입니다.: ", err);
+        console.error(err);
       });
   };
 };
@@ -85,17 +83,15 @@ export const loadCategoryList = () => {
       })
       .then((res) => {
         dispatch(__loadCategoryList(res.data));
-        console.log("리덕스 콘솔 2", res.data);
       })
       .catch((err) => {
-        console.log("추천채용 카테고리별 불러오기 에러입니다.: ", err);
+        console.error(err);
       });
   };
 };
 
 // 추천채용 카테고리 선택하기
 export const selectCategory = (categoryData) => {
-  console.log(categoryData);
   return function (dispatch, getState) {
     if (!categoryData) {
       window.alert("companyType이 없습니다!");
@@ -111,7 +107,7 @@ export const selectCategory = (categoryData) => {
         dispatch(__selectCategory(res.data));
       })
       .catch((err) => {
-        console.log("카테고리 선택 에러 : ", err);
+        console.error(err);
       });
   };
 };
@@ -120,17 +116,15 @@ export const selectCategory = (categoryData) => {
 export const loadJobDetails = (postingId) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
-    console.log(myToken);
     axios
       .get(`https://goodjobcalendar.shop/api/posting/${postingId}`, {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
         dispatch(__loadJobDetails(res.data));
-        console.log("리덕스 콘솔 3", res.data);
       })
       .catch((err) => {
-        console.log("추천채용 디테일 페이지 불러오기 에러입니다.: ", err);
+        console.error(err);
       });
   };
 };

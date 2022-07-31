@@ -23,7 +23,6 @@ const PwChange = () => {
         confirmNewPassword: confirmPassword,
       })
       .then((res) => {
-        console.log(res);
         navigate("/pwchangesuccess");
       })
       .catch((error) => {

@@ -44,15 +44,13 @@ export const searchMySchedule = (keyword) => {
       headers: { Authorization: `Bearer ${myToken}` },
       params: { keyword: keyword },
     };
-    console.log(bucket);
     axios
       .get("https://goodjobcalendar.shop/api/schedule/search", bucket)
       .then((res) => {
         dispatch(__searchMySchedule(res.data));
-        console.log("검색하기 리덕스 콘솔", res.data);
       })
       .catch((err) => {
-        console.log("검색하기 에러입니다.: ", err);
+        console.error(err);
       });
   };
 };

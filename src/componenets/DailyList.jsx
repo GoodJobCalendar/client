@@ -74,7 +74,6 @@ const DailyList = () => {
       if (week === "Sat") return "토요일";
     };
     const textDay = new Date(day);
-    console.log(textDay);
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
       4,
       2
@@ -106,7 +105,7 @@ const DailyList = () => {
                     : "D-day")}
               </Dday>
             </DayFlex>
-            <Link to={`/postdetail/${content?.scheduleId}`} key={idx}>
+            <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
                   {(content?.date).split(" ")[1].split(":")[0]}:

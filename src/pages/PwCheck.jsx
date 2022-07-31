@@ -29,9 +29,7 @@ const PwCheck = () => {
         email: userInfo?.email,
         userName: userInfo?.userName,
       })
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((error) => {
         console.error(error);
         setError(error.response.data.msg);
@@ -46,7 +44,6 @@ const PwCheck = () => {
         authNumber: authNumber,
       })
       .then((res) => {
-        console.log(res);
         navigate("/pwchange");
       })
       .catch((error) => {
