@@ -43,19 +43,19 @@ export const pwEmailUser = (email, userName) => {
   };
 };
 
-export const kakaoLoginDB = (code) => {
-  return function (dispatch, getState) {
-    axios
-      .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
-      .then((response) => {
-        dispatch(setUser());
-        setCookie("token", response.data.token, 5);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-};
+// export const kakaoLoginDB = (code) => {
+//   return function (dispatch, getState) {
+//     axios
+//       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
+//       .then((response) => {
+//         dispatch(setUser());
+//         setCookie("token", response.data.token, 5);
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//       });
+//   };
+// };
 //로그 아웃
 export const logoutUser = () => (dispatch, getState) => {
   dispatch(__logoutUser());
