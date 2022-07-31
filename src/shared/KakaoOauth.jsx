@@ -13,10 +13,10 @@ const KakaoOauth = (props) => {
   const code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
-    if (code) {
+    if (!!code) {
       dispatch(kakaoLoginDB(code));
     }
-  }, []);
+  }, [code]);
 
   const kakaoLoginDB = async (code) => {
     console.log(code);
