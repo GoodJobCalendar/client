@@ -43,7 +43,6 @@ const EmailSend = () => {
         authNumber: Number(authNumber),
         email: userInfo.email,
         password: userInfo.password,
-        confirmPassword: userInfo.password,
         userName: userInfo.userName,
       })
       .then((res) => {
