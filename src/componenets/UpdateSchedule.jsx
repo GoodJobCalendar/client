@@ -51,25 +51,7 @@ const UpdateSchedule = ({
   const [coverShow, setCoverShow] = useState(false);
   const [dateShow, setDateShow] = useState(true);
   const [timeShow, setTimeShow] = useState(false);
-  function colorInfo() {
-    if (detailInfo.color === 1) {
-      return cover1;
-    } else if (detailInfo.color === 2) {
-      return cover2;
-    } else if (detailInfo.color === 3) {
-      return cover3;
-    } else if (detailInfo.color === 4) {
-      return cover4;
-    }
-  }
-  //작성목록
-  const [color, setColor] = useState("");
-  const [sticker, setSticker] = useState(String(detailInfo.sticker));
-  const [image, setImage] = useState(detailInfo.coverImage);
-  const [companyName, setCompanyName] = useState(detailInfo.companyName);
-  const [title, setTitle] = useState(detailInfo.title);
-  const [place, setPlace] = useState(detailInfo.place);
-  const [memo, setMemo] = useState(detailInfo.memo);
+
   function coverimage() {
     if (detailInfo.coverImage === 1) {
       return cover1;
@@ -81,6 +63,16 @@ const UpdateSchedule = ({
       return cover4;
     }
   }
+  console.log("이미지", detailInfo.coverImage);
+  //작성목록
+  const [color, setColor] = useState("");
+  const [sticker, setSticker] = useState(String(detailInfo.sticker));
+  const [image, setImage] = useState(String(detailInfo.coverImage));
+  const [companyName, setCompanyName] = useState(detailInfo.companyName);
+  const [title, setTitle] = useState(detailInfo.title);
+  const [place, setPlace] = useState(detailInfo.place);
+  const [memo, setMemo] = useState(detailInfo.memo);
+
   const [cover, setCover] = useState(coverimage());
 
   //컬러 미리보기
@@ -354,7 +346,7 @@ const UpdateSchedule = ({
                       type="radio"
                       name="cover"
                       id="2"
-                      value="https://ifh.cc/g/3JtQVv.png"
+                      value="https://ifh.cc/g/CWMOwl.png"
                       onChange={coverChange}
                     />
                     응원
@@ -386,19 +378,7 @@ const UpdateSchedule = ({
             )}
           </TitleInput>
         </BtnFlex>
-        <Cover
-          src={
-            detailInfo?.coverImage === 1
-              ? cover1
-              : detailInfo?.coverImage === 2
-              ? cover2
-              : detailInfo?.coverImage === 3
-              ? cover3
-              : detailInfo?.coverImage === 4
-              ? cover4
-              : ""
-          }
-        />
+        <Cover src={cover} />
       </Header>
       <AddList>
         <InputText
@@ -460,7 +440,7 @@ const UpdateSchedule = ({
                 type="radio"
                 name="color"
                 id="5"
-                value="rgba(253, 247, 110, 1)"
+                value="rgba(110,253,150,1)"
                 onChange={colorChange}
               />
               <Color6 htmlFor="6"></Color6>
@@ -468,7 +448,7 @@ const UpdateSchedule = ({
                 type="radio"
                 name="color"
                 id="6"
-                value="rgba(253, 247, 110, 1)"
+                value="rgba(110,218,253,1)"
                 onChange={colorChange}
               />
               <Color7 htmlFor="7"></Color7>
@@ -476,7 +456,7 @@ const UpdateSchedule = ({
                 type="radio"
                 name="color"
                 id="7"
-                value="rgba(253, 247, 110, 1)"
+                value="rgba(130,110,253,1)"
                 onChange={colorChange}
               />
               <Color8 htmlFor="8"></Color8>
@@ -636,7 +616,7 @@ const NeedPost = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(17, 17, 17, 0.3);
-  z-index: 99999;
+  z-index: 999;
 `;
 const NeedPostBtn = styled.button`
   background-color: var(--blue4);
@@ -686,6 +666,7 @@ const UpdateSchesuleWrap = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 999;
   input {
     outline: none;
     padding: 18px;
@@ -710,9 +691,8 @@ const Btn = styled.button`
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
-  padding: 6px 10px;
   border-radius: 8px;
-  z-index: 99;
+  z-index: 999;
 `;
 const StickerAddBtn = styled.button`
   font-weight: 700;
@@ -768,16 +748,15 @@ const DateContainer = styled.div`
 const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
-  padding: 5%;
-  padding-top: 60px;
-  height: 150px;
+  padding: 20px;
+  height: 250px;
   background-size: cover;
-  background-position: bottom;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  background-color: var(--blue4);
 `;
 const AddFlex = styled.div`
   width: 100%;
@@ -915,12 +894,11 @@ const CoverList = styled.div`
 `;
 const Cover = styled.img`
   width: 100%;
-  height: 100%;
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  z-index: -1;
+  z-index: 1;
 `;
 const ColorList = styled.div`
   position: absolute;

@@ -170,12 +170,11 @@ const PostDailWrap = styled.div`
 `;
 const Cover = styled.img`
   width: 100%;
-  height: 100%;
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  z-index: -1;
+  z-index: 1;
 `;
 const Sticker = styled.img`
   width: 56px;
@@ -184,18 +183,19 @@ const Sticker = styled.img`
   position: absolute;
   bottom: -28px;
   right: 40px;
+  z-index: 1;
 `;
 const Header = styled.div`
   width: 90%;
-  padding: 5%;
-  padding-top: 60px;
-  height: 150px;
+  padding: 20px;
+  height: 250px;
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  background-color: var(--blue4);
 `;
 const Compony = styled.div`
   padding: 20px;
