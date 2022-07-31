@@ -15,26 +15,17 @@ const KakaoOauth = (props) => {
   useEffect(() => {
     if (!!code) {
       console.log("꺄항");
-      dispatch(kakaoLoginDB());
+      axios
+        .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
+        .then((response) => {
+          setCookie("token", response.data.token, 5);
+          navigate("/main");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, [code]);
-
-  const kakaoLoginDB = async (code) => {
-    if (code === "") {
-      console.log("이메일 형식이 맞지 않습니다.");
-      return;
-    }
-    console.log(code);
-    await axios
-      .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
-      .then((response) => {
-        setCookie("token", response.data.token, 5);
-        navigate("/main");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
 
   // useEffect(() => {
   //   let authorization_code = new URL(window.location.href).searchParams.get(
