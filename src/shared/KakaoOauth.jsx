@@ -12,6 +12,12 @@ const KakaoOauth = (props) => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
+  useEffect(() => {
+    if (!!code) {
+      kakaoLoginDB(code);
+    }
+  }, [code]);
+
   const kakaoLoginDB = async (code) => {
     console.log(code);
     await axios
@@ -25,13 +31,6 @@ const KakaoOauth = (props) => {
         console.error(error);
       });
   };
-
-  useEffect(() => {
-    if (!!code) {
-      dispatch(kakaoLoginDB(code));
-      navigate("/main");
-    }
-  }, [code]);
 
   // useEffect(() => {
   //   let authorization_code = new URL(window.location.href).searchParams.get(
