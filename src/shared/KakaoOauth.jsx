@@ -16,8 +16,9 @@ const KakaoOauth = (props) => {
     console.log(code);
     axios
       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
-      .then((response) => {
-        setCookie("token", response.data.token, 5);
+      .then((res) => {
+        dispatch(kakaoLoginDB(res));
+        setCookie("token", res.data.token, 5);
         navigate("/main");
       })
       .catch((error) => {
