@@ -25,7 +25,7 @@ const PwCheck = () => {
       return setError("인증번호를 입력해주세요.");
     }
     await axios
-      .post("r.com/api/auth/lostPassword", {
+      .post("https://goodjobcalendar.shop/api/auth/lostPassword", {
         email: userInfo?.email,
         userName: userInfo?.userName,
       })
@@ -169,14 +169,10 @@ const Email = styled.span`
   margin-bottom: 55px;
 `;
 const Input = styled.input`
-  border: ${(props) =>
-    props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;
+  border: ${(props) => (props.errorcheck !== "" ? "2px solid var(--point3)" : "")}!important;
   color: ${(props) => (props.errorcheck !== "" ? "var(--point3)" : "")};
   ::placeholder {
-    color: ${(props) =>
-      props.errorcheck && props.errorcheck !== ""
-        ? "var(--point3)"
-        : ""}!important;
+    color: ${(props) => (props.errorcheck && props.errorcheck !== "" ? "var(--point3)" : "")}!important;
   }
   margin-bottom: 72px;
 `;

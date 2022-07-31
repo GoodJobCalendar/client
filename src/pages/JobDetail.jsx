@@ -21,6 +21,8 @@ const JobDetail = () => {
 
   const jobDetail = useSelector((state) => state.job.details.data);
 
+  console.log(jobDetail);
+
   useEffect(() => {
     dispatch(loadJobDetails(id));
   }, [id]);
@@ -34,6 +36,8 @@ const JobDetail = () => {
 
     return dayOfWeek;
   }
+
+  const [isScrap, setIsScrap] = React.useState(false);
 
   return (
     <MainWrap>
@@ -77,7 +81,14 @@ const JobDetail = () => {
           <BackBtn onClick={() => navigate("/job")}>
             <BackBtnImg src={backBtn} />
           </BackBtn>
-          <ScrapBtn onClick={() => dispatch(addScrap(id))}>캘린더로 스크랩</ScrapBtn>
+          <ScrapBtn
+            scrap={jobDetail?.isScrap}
+            onClick={() => {
+              dispatch(addScrap(id));
+            }}
+          >
+            캘린더로 스크랩
+          </ScrapBtn>
         </BtnWrap>
 
         <JobKoreabtn
@@ -202,13 +213,14 @@ const ScrapBtn = styled.div`
   width: 167px;
   height: 54px;
   background: transparent;
+  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "transparent")};
   border-radius: 6px;
   text-align: center;
   line-height: 54px;
   cursor: pointer;
   box-sizing: border-box;
   border: 2px solid #3284ff;
-  color: #3284ff;
+  color: ${(props) => (props.scrap ? "white" : "#3284ff")};
 `;
 
 const JobKoreabtn = styled.div`
