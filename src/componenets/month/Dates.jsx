@@ -10,23 +10,27 @@ const Dates = (props) => {
   const [isActive, setIsActive] = useState(false);
   const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
-  useEffect(() => {
-    setMonthList(Object.entries(monthSchdule));
-  }, [monthList]);
   const zoom = useSelector((state) => state.date.zoom.zoomInOut);
-
-  let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(elm).padStart(2, "0")} 00:00:00`;
+  let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
+    elm
+  ).padStart(2, "0")} 00:00:00`;
 
   useEffect(() => {
     dispatch(activeDate(isActive));
   }, [isActive]);
+  useEffect(() => {
+    setMonthList(Object.entries(monthSchdule));
+  }, [monthList]);
 
   const list =
     monthList &&
     monthList?.map((value, idx) => (
       <FlexList key={idx}>
         {value[1]?.map((content, index) => {
-          if (index < 2 && content?.date.split(" ")[0] === dateKey.split(" ")[0]) {
+          if (
+            index < 2 &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+          ) {
             return (
               <TextList key={index} color={content.color}>
                 {content.title}
@@ -42,9 +46,16 @@ const Dates = (props) => {
     monthList?.map((value, idx) => (
       <Lists key={idx}>
         {value[1]?.map((content, index) => {
-          if (index >= 2 && index < 5 && content?.date.split(" ")[0] === dateKey.split(" ")[0]) {
+          if (
+            index >= 2 &&
+            index < 5 &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+          ) {
             return <List key={index} color={content.color}></List>;
-          } else if (index === 5 && content?.date.split(" ")[0] === dateKey.split(" ")[0]) {
+          } else if (
+            index === 5 &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+          ) {
             return (
               <PlusNumber key={index} color={content.color}>
                 +{index - 4}
@@ -60,9 +71,18 @@ const Dates = (props) => {
     monthList?.map((value, idx) => (
       <Lists key={idx}>
         {value[1]?.map((content, index) => {
-          if (index <= 2 && index < 5 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0]) {
+          if (
+            index <= 2 &&
+            index < 5 &&
+            content?.color &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+          ) {
             return <List key={index} color={content.color}></List>;
-          } else if (index === 5 && content?.color && content?.date.split(" ")[0] === dateKey.split(" ")[0]) {
+          } else if (
+            index === 5 &&
+            content?.color &&
+            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+          ) {
             return (
               <PlusNumber key={index} color={content.color}>
                 +{index - 2}
@@ -83,7 +103,12 @@ const Dates = (props) => {
           dispatch(selectDate(year, month, elm));
         }}
       >
-        <DateNum idx={idx} lastDate={lastDate} firstDate={firstDate} findToday={findToday}>
+        <DateNum
+          idx={idx}
+          lastDate={lastDate}
+          firstDate={firstDate}
+          findToday={findToday}
+        >
           <TodayCSS
             id={idx}
             type="radio"
@@ -168,11 +193,16 @@ const TextList = styled.p`
   box-sizing: border-box;
   border: ${(props) => (props.color === 1 ? "2px solid var(--blue1)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
-  background-color: ${(props) => (props.color === 3 ? "rgba(253, 187, 110, 1)" : "")};
-  background-color: ${(props) => (props.color === 4 ? "rgba(253, 247, 110, 1)" : "")};
-  background-color: ${(props) => (props.color === 5 ? "rgba(110, 253, 150, 1)" : "")};
-  background-color: ${(props) => (props.color === 6 ? "rgba(110, 218, 253, 1)" : "")};
-  background-color: ${(props) => (props.color === 7 ? "rgba(130, 110, 253, 1)" : "")};
+  background-color: ${(props) =>
+    props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const List = styled.p`
@@ -182,11 +212,16 @@ const List = styled.p`
   box-sizing: border-box;
   border: ${(props) => (props.color === 1 ? "2px solid var(--blue1)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
-  background-color: ${(props) => (props.color === 3 ? "rgba(253, 187, 110, 1)" : "")};
-  background-color: ${(props) => (props.color === 4 ? "rgba(253, 247, 110, 1)" : "")};
-  background-color: ${(props) => (props.color === 5 ? "rgba(110, 253, 150, 1)" : "")};
-  background-color: ${(props) => (props.color === 6 ? "rgba(110, 218, 253, 1)" : "")};
-  background-color: ${(props) => (props.color === 7 ? "rgba(130, 110, 253, 1)" : "")};
+  background-color: ${(props) =>
+    props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
+  background-color: ${(props) =>
+    props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const FlexList = styled.div`
