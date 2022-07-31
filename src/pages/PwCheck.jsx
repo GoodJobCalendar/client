@@ -41,7 +41,7 @@ const PwCheck = () => {
     await axios
       .patch("https://goodjobcalendar.shop/api/auth/verifyNumberForOld", {
         email: userInfo?.email,
-        authNumber: authNumber,
+        authNumber: Number(authNumber),
       })
       .then((res) => {
         navigate("/pwchange");
