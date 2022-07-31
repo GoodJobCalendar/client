@@ -20,7 +20,6 @@ const rootReducer = combineReducers({
   schedule: scheduleReducer,
   date: dateReducer,
   search: searchReducer,
-  KakaoOauth: KakaoOauth,
 });
 
 // 스토어를 만듭니다.
