@@ -120,7 +120,7 @@ const SignUp = () => {
           }}
           onKeyPress={onKeyPress}
         />
-        <Check>{errorCheck ? errorCheck : ""}</Check>
+        {errorCheck && <Check>{errorCheck}</Check>}
         <SignUpBtn onClick={SignupBtn}>이메일 인증받고 가입하기</SignUpBtn>
       </InputWrap>
       <Footer>

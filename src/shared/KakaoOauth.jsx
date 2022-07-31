@@ -19,6 +19,10 @@ const KakaoOauth = (props) => {
   }, [code]);
 
   const kakaoLoginDB = async (code) => {
+    if (code === "") {
+      console.log("이메일 형식이 맞지 않습니다.");
+      return;
+    }
     console.log(code);
     await axios
       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)

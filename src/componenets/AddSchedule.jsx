@@ -418,7 +418,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 type="radio"
                 name="color"
                 id="5"
-                value="rgba(253, 247, 110, 1)"
+                value="rgba(110,253,150,1)"
                 onChange={colorChange}
               />
               <Color6 htmlFor="6"></Color6>
@@ -426,7 +426,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 type="radio"
                 name="color"
                 id="6"
-                value="rgba(253, 247, 110, 1)"
+                value="rgba(110,218,253,1)"
                 onChange={colorChange}
               />
               <Color7 htmlFor="7"></Color7>
@@ -434,7 +434,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 type="radio"
                 name="color"
                 id="7"
-                value="rgba(253, 247, 110, 1)"
+                value="rgba(130,110,253,1)"
                 onChange={colorChange}
               />
               <Color8 htmlFor="8"></Color8>
@@ -723,8 +723,7 @@ const DateContainer = styled.div`
 const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
-  padding: 5%;
-  padding-top: 60px;
+  padding: 20px;
   height: 150px;
   background-size: cover;
   background-position: bottom;

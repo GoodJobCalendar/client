@@ -19,8 +19,8 @@ const PwChange = () => {
     await axios
       .patch("https://goodjobcalendar.shop/api/auth/newPassword", {
         email: userInfo.email,
-        newPassword: password,
-        confirmNewPassword: confirmPassword,
+        newPassword: Number(password),
+        confirmNewPassword: Number(confirmPassword),
       })
       .then((res) => {
         navigate("/pwchangesuccess");
