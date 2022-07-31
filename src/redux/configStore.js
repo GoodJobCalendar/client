@@ -5,6 +5,7 @@ import userReducer from "./modules/user";
 import jobReducer from "./modules/job";
 import postReducer from "./modules/post";
 import scheduleReducer from "./modules/schedule";
+import KakaoOauth from "../shared/KakaoOauth";
 // import rootReducer from './modules';
 import dateReducer from "./modules/date";
 import searchReducer from "./modules/search";
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   schedule: scheduleReducer,
   date: dateReducer,
   search: searchReducer,
+  KakaoOauth: KakaoOauth,
 });
 
 // 스토어를 만듭니다.
