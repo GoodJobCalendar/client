@@ -40,7 +40,7 @@ const EmailSend = () => {
   const AuthNumberCheckBtn = async () => {
     await axios
       .post("https://goodjobcalendar.shop/api/auth/verifyNumberForNew", {
-        authNumber,
+        authNumber: Number(authNumber),
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.password,
