@@ -150,19 +150,23 @@ const Input = styled.input`
   border: 1px solid var(--blue2);
   margin-bottom: ${(props) => (props.errorcheck ? "" : "72px")};
   border-radius: 6px;
-  ::placeholder {
-    color: var(--blue3);
-    font-weight: 500;
-    font-size: 16px;
-  }
+
   border: ${(props) =>
     props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;
   color: ${(props) => (props.errorcheck !== "" ? "var(--point3)" : "")};
   ::placeholder {
+    color: var(--blue3);
+    font-weight: 500;
+    font-size: 16px;
     color: ${(props) =>
       props.errorcheck && props.errorcheck !== ""
         ? "var(--point3)"
         : ""}!important;
+  }
+  :focus {
+    ::placeholder {
+      opacity: 0;
+    }
   }
 `;
 const ErrorCheck = styled.p`
@@ -182,7 +186,6 @@ const SignUpBtn = styled.button`
   justify-content: center;
   align-items: center;
   font-weight: 400;
-  font-size: 18px;
   color: #fff !important;
   margin-bottom: 8px;
 `;

@@ -42,7 +42,7 @@ function Main() {
   const navData = true;
   const token = getCookie("token");
   const active = useSelector((state) => state.date.active);
-
+  console.log(active);
   //일정등록 이동
   const MoveBtn = () => {
     navigate("/addschedule");
