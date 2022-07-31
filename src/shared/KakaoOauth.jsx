@@ -12,9 +12,9 @@ const KakaoOauth = (props) => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
-  const kakaoLoginDB = async (code) => {
+  const kakaoLoginDB = (code) => {
     console.log(code);
-    await axios
+    axios
       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
         setCookie("token", response.data.token, 5);
