@@ -29,6 +29,7 @@ const KakaoOauth = (props) => {
   useEffect(() => {
     if (!!code) {
       dispatch(kakaoLoginDB(code));
+      navigate("/main");
     }
   }, [code]);
 
