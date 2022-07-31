@@ -93,10 +93,10 @@ const Home = () => {
           <Link to="/signup">이메일로 시작</Link>
         </EmailBtn>
         <KaKaoBtn>
-          <Link to={KAKAO_AUTH_URL}>
+          <a href={KAKAO_AUTH_URL}>
             <img src={kakaologo} alt="카카오로고" />
             <p>카카오톡 간편 로그인</p>
-          </Link>
+          </a>
         </KaKaoBtn>
         <LoginBtn>
           <Link to="/login">로그인 하기</Link>
