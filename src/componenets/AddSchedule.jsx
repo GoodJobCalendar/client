@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { schedulePost } from "../redux/modules/post";
+import { schedulePost } from "../redux/modules/schedule";
 
 // 스티커
 import img1 from "../assets/img/sticker/sticker1.png";
@@ -724,8 +724,8 @@ const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
   padding: 20px;
-  height: 150px;
-  background-size: cover;
+  height: 184px;
+  background-size: contain;
   background-position: bottom;
   display: flex;
   flex-direction: column;

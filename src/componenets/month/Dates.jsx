@@ -14,13 +14,10 @@ const Dates = (props) => {
   let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
     elm
   ).padStart(2, "0")} 00:00:00`;
-
   useEffect(() => {
     dispatch(activeDate(isActive));
-  }, [isActive]);
-  useEffect(() => {
-    setMonthList(Object.entries(monthSchdule));
-  }, [monthList]);
+  }, [isActive, dateKey]);
+  setMonthList(Object.entries(monthSchdule));
 
   const list =
     monthList &&
@@ -40,28 +37,30 @@ const Dates = (props) => {
         })}
       </FlexList>
     ));
-
+  function CircleList(index, content) {
+    if (
+      index >= 2 &&
+      index < 5 &&
+      content?.date.split(" ")[0] === dateKey.split(" ")[0]
+    ) {
+      return <List key={index} color={content.color}></List>;
+    } else if (
+      index === 5 &&
+      content?.date.split(" ")[0] === dateKey.split(" ")[0]
+    ) {
+      return (
+        <PlusNumber key={index} color={content.color}>
+          +{index - 3}
+        </PlusNumber>
+      );
+    }
+  }
   const list2 =
     monthList &&
     monthList?.map((value, idx) => (
       <Lists key={idx}>
         {value[1]?.map((content, index) => {
-          if (
-            index >= 2 &&
-            index < 5 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
-          ) {
-            return <List key={index} color={content.color}></List>;
-          } else if (
-            index === 5 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
-          ) {
-            return (
-              <PlusNumber key={index} color={content.color}>
-                +{index - 3}
-              </PlusNumber>
-            );
-          }
+          return CircleList(index, content);
         })}
       </Lists>
     ));
@@ -74,13 +73,11 @@ const Dates = (props) => {
           if (
             index <= 2 &&
             index < 5 &&
-            content?.color &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0]
           ) {
             return <List key={index} color={content.color}></List>;
           } else if (
             index === 5 &&
-            content?.color &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0]
           ) {
             return (
@@ -123,7 +120,7 @@ const Dates = (props) => {
           </CheckDay>
         </DateNum>
         {zoom ? (
-          <>{list3}</>
+          <CircleLists>{list3}</CircleLists>
         ) : (
           <>
             {list}
@@ -181,6 +178,10 @@ const Lists = styled.div`
   gap: 2px;
   margin-top: 3px;
 `;
+const CircleLists = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const TextList = styled.p`
   width: 41px;
   white-space: nowrap;
@@ -191,9 +192,9 @@ const TextList = styled.p`
   font-size: 8px;
   margin-top: 3px;
   box-sizing: border-box;
-  color: #fff;
-  color: ${(props) => (props.color === 1 ? "var(--blue4)" : "")};
+  color: var(--black);
   border: ${(props) => (props.color === 1 ? "1px solid var(--blue2)" : "")};
+  color: ${(props) => (props.color === 2 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
@@ -204,8 +205,10 @@ const TextList = styled.p`
     props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
   background-color: ${(props) =>
     props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
+  color: ${(props) => (props.color === 7 ? "#fff" : "")};
   background-color: ${(props) =>
     props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
+  color: ${(props) => (props.color === 8 ? "#fff" : "")};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
 `;
 const List = styled.p`

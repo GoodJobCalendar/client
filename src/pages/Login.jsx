@@ -125,20 +125,36 @@ const InputWrap = styled.main`
   width: 100%;
 `;
 const EmailInput = styled.input`
+  background-color: #fff;
   border: ${(props) =>
-    props.errorcheck && (props.errorcheck === "이메일 형식이 맞지 않습니다." || "아이디와 비밀번호를 입력해주세요.") && "1px solid var(--point3)!important"};
+    props.errorcheck &&
+    (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+      "아이디와 비밀번호를 입력해주세요.") &&
+    "2px solid var(--point3)!important"};
   color: ${(props) =>
-    props.errorcheck && (props.errorcheck === "이메일 형식이 맞지 않습니다." || "아이디와 비밀번호를 입력해주세요.") && "var(--point3)!important"};
+    props.errorcheck &&
+    (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+      "아이디와 비밀번호를 입력해주세요.") &&
+    "var(--point3)!important"};
   ::placeholder {
     color: ${(props) =>
-      props.errorcheck && (props.errorcheck === "이메일 형식이 맞지 않습니다." || "아이디와 비밀번호를 입력해주세요.") && "var(--point3)!important"};
+      props.errorcheck &&
+      (props.errorcheck === "이메일 형식이 맞지 않습니다." ||
+        "아이디와 비밀번호를 입력해주세요.") &&
+      "var(--point3)!important"};
   }
 `;
 const PwInput = styled.input`
-  border: ${(props) => props.errorcheck === "아이디와 비밀번호를 입력해주세요." && "1px solid var(--point3)!important"};
-  color: ${(props) => props.errorcheck === "아이디와 비밀번호를 입력해주세요." && "var(--point3)!important"};
+  border: ${(props) =>
+    props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+    "2px solid var(--point3)!important"};
+  color: ${(props) =>
+    props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+    "var(--point3)!important"};
   ::placeholder {
-    color: ${(props) => props.errorcheck === "아이디와 비밀번호를 입력해주세요." && "var(--point3)!important"};
+    color: ${(props) =>
+      props.errorcheck === "아이디와 비밀번호를 입력해주세요." &&
+      "var(--point3)!important"};
   }
 `;
 const Header = styled.header`
@@ -187,7 +203,6 @@ const LoginBtn = styled.button`
   justify-content: center;
   align-items: center;
   font-weight: 400;
-  font-size: 18px;
   color: #fff !important;
 `;
 const KaKaoBtn = styled.button`
@@ -203,7 +218,6 @@ const KaKaoBtn = styled.button`
   > a {
     padding: 17px 0;
     font-weight: 400;
-    font-size: 18px;
     width: 100%;
     color: #371f1e !important;
     display: flex;

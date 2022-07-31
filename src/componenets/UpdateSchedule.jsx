@@ -749,21 +749,20 @@ const Pick = styled.div``;
 const Header = styled.div`
   width: 90%;
   padding: 20px;
-  height: 250px;
-  background-size: cover;
+  height: 184px;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  background-color: var(--blue4);
 `;
 const AddFlex = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 99;
+  z-index: 999;
 `;
 const BtnFlex = styled.div`
   width: 100%;
