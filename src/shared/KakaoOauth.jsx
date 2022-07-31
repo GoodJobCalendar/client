@@ -19,6 +19,7 @@ const KakaoOauth = (props) => {
   }, []);
 
   const kakaoLoginDB = async (code) => {
+    console.log(code);
     await axios
       .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
       .then((response) => {
