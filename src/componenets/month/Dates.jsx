@@ -40,28 +40,30 @@ const Dates = (props) => {
         })}
       </FlexList>
     ));
-
+  function CircleList(index, content) {
+    if (
+      index >= 2 &&
+      index < 5 &&
+      content?.date.split(" ")[0] === dateKey.split(" ")[0]
+    ) {
+      return <List key={index} color={content.color}></List>;
+    } else if (
+      index === 5 &&
+      content?.date.split(" ")[0] === dateKey.split(" ")[0]
+    ) {
+      return (
+        <PlusNumber key={index} color={content.color}>
+          +{index - 2}
+        </PlusNumber>
+      );
+    }
+  }
   const list2 =
     monthList &&
     monthList?.map((value, idx) => (
       <Lists key={idx}>
         {value[1]?.map((content, index) => {
-          if (
-            index >= 2 &&
-            index < 5 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
-          ) {
-            return <List key={index} color={content.color}></List>;
-          } else if (
-            index === 5 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
-          ) {
-            return (
-              <PlusNumber key={index} color={content.color}>
-                +{index - 3}
-              </PlusNumber>
-            );
-          }
+          return CircleList(index, content);
         })}
       </Lists>
     ));
@@ -74,13 +76,11 @@ const Dates = (props) => {
           if (
             index <= 2 &&
             index < 5 &&
-            content?.color &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0]
           ) {
             return <List key={index} color={content.color}></List>;
           } else if (
             index === 5 &&
-            content?.color &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0]
           ) {
             return (
@@ -123,7 +123,7 @@ const Dates = (props) => {
           </CheckDay>
         </DateNum>
         {zoom ? (
-          <>{list3}</>
+          <CircleLists>{list3}</CircleLists>
         ) : (
           <>
             {list}
@@ -180,6 +180,10 @@ const Lists = styled.div`
   align-items: center;
   gap: 2px;
   margin-top: 3px;
+`;
+const CircleLists = styled.div`
+  display: flex;
+  align-items: center;
 `;
 const TextList = styled.p`
   width: 41px;

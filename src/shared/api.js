@@ -60,7 +60,7 @@ api.interceptors.response.use(
 // kakao 연결용
 const kakao_redirect_uri = "https://goodjobcalendar.com/api/auth/kakao/callback";
 
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6bab61d2018ab50ba83a774f064b53e8&redirect_uri=${kakao_redirect_uri}&response_type=code`;
+export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${kakao_redirect_uri}&response_type=code`;
 // export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${kakao_redirect_uri}&response_type=code`;
 
 // console.log(KAKAO_AUTH_URL);

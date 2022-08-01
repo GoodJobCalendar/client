@@ -183,19 +183,19 @@ const Sticker = styled.img`
   position: absolute;
   bottom: -28px;
   right: 40px;
-  z-index: 1;
+  z-index: 2;
 `;
 const Header = styled.div`
   width: 90%;
   padding: 20px;
-  height: 250px;
-  background-size: cover;
+  height: 184px;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  background-color: var(--blue4);
+  background-color: var(--blue1);
 `;
 const Compony = styled.div`
   padding: 20px;
@@ -270,6 +270,7 @@ const BtnFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 9;
 `;
 const Btn = styled.button`
   background-color: transparent;

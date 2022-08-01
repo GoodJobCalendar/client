@@ -134,7 +134,6 @@ const SignUpBtn = styled.button`
   justify-content: center;
   align-items: center;
   font-weight: 400;
-  font-size: 18px;
   color: #fff !important;
   margin-bottom: 8px;
   margin-top: 80px;

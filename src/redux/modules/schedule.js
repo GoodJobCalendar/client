@@ -41,13 +41,17 @@ const initialState = {
 };
 
 // action
-const SCHEDULE_UPDATE = "post_reducer/SCHEDULE_UPDATE";
+const SCHEDULE_POST = "schedule_reducer/SCHEDULE_POST";
+const SCHEDULE_UPDATE = "schedule_reducer/SCHEDULE_UPDATE";
 const LIST_DETAIL = "schedule_reducer/LIST_DETAIL";
 const LIST_DELETE = "schedule_reducer/LIST_DELETE";
 const MONTH_LIST = "schedule_reducer/MONTH_LIST";
 const DAILY_LIST = "schedule_reducer/DAILY_LIST";
 
 // action creator
+export function __schedulePost(payload) {
+  return { type: SCHEDULE_POST, payload };
+}
 export function __scheduleUpdate(payload) {
   return { type: SCHEDULE_UPDATE, payload };
 }
@@ -65,6 +69,31 @@ export function __loadDaily(payload) {
 }
 
 //middleware
+
+//개인일정 작성
+export const schedulePost = (payload) => {
+  return function (dispatch, getState) {
+    const myToken = getCookie("token");
+    axios({
+      method: "post",
+      url: `https://goodjobcalendar.shop/api/schedule`,
+      data: payload,
+      headers: { Authorization: `Bearer ${myToken}` },
+    })
+      .then((res) => {
+        dispatch(__schedulePost(res.data.data));
+        dispatch(
+          loadMonth(
+            `${res.data.data.date.split(" ")[0].substr(0, 7)}-01 00:00:00`
+          )
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
 //개인일정 수정
 export const scheduleUpdate = ({
   image,
@@ -191,7 +220,6 @@ export default function scheduleReducer(state = initialState, action) {
             return state.detail;
           }
         }
-
         draft.detail = a();
       });
     }

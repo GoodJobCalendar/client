@@ -195,7 +195,6 @@ const SignUpBtn = styled.button`
   align-items: center;
   margin-bottom: 78px;
   font-weight: 400;
-  font-size: 18px;
   color: #fff !important;
 `;
 const EmailCheck = styled.input`
