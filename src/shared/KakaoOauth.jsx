@@ -14,7 +14,6 @@ const KakaoOauth = (props) => {
 
   useEffect(() => {
     if (!!code) {
-      console.log("꺄항");
       axios
         .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
         .then((response) => {
