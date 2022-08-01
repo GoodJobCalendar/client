@@ -44,5 +44,13 @@ input:focus {
         opacity: 0;
       }
     }
+    input, textarea, button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
 `;
 export default GlobalStyle;
