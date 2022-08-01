@@ -271,6 +271,7 @@ const GuideImg = styled.img`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  width: 100%;
 `;
 const GuideBg = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
