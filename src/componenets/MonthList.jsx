@@ -63,26 +63,30 @@ const MonthList = () => {
       <ScheduleListWrap key={idx}>
         {value[1]?.map((content, idx) => (
           <Fragment key={idx}>
-            <DayFlex>
-              <Day>{idx === 0 && fullDate(value[0])}</Day>
-              <Dday>
-                {idx === 0 &&
-                  (new Date(content.date.split(" ")[0]) - new Date(today) > 0
-                    ? `D- ${Math.floor(
-                        (new Date(content.date.split(" ")[0]) -
-                          new Date(today)) /
-                          (1000 * 60 * 60 * 24)
-                      )}`
-                    : new Date(content.date.split(" ")[0]) - new Date(today) !==
-                      0
-                    ? `D+ ${Math.floor(
-                        (new Date(today) -
-                          new Date(content.date.split(" ")[0])) /
-                          (1000 * 60 * 60 * 24)
-                      )}`
-                    : "D-day")}
-              </Dday>
-            </DayFlex>
+            {idx === 0 && (
+              <DayFlex>
+                <Day>{idx === 0 && fullDate(value[0])}</Day>
+                <Dday>
+                  {idx === 0 &&
+                    (new Date(content.date.split(" ")[0]) - new Date(today) > 0
+                      ? `D- ${Math.floor(
+                          (new Date(content.date.split(" ")[0]) -
+                            new Date(today)) /
+                            (1000 * 60 * 60 * 24)
+                        )}`
+                      : new Date(content.date.split(" ")[0]) -
+                          new Date(today) !==
+                        0
+                      ? `D+ ${Math.floor(
+                          (new Date(today) -
+                            new Date(content.date.split(" ")[0])) /
+                            (1000 * 60 * 60 * 24)
+                        )}`
+                      : "D-day")}
+                </Dday>
+              </DayFlex>
+            )}
+
             <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
@@ -144,10 +148,13 @@ const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 16px;
   a {
     width: 100%;
     height: 100%;
+    margin-top: 16px;
+    :nth-child(2) {
+      margin-top: 0;
+    }
   }
 `;
 const ScheduleItem = styled.div`
@@ -157,12 +164,13 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
-  margin-top: 16px;
 `;
 const DayFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 34px;
+  margin-bottom: 26px;
 `;
 const Color = styled.div`
   width: 3px;

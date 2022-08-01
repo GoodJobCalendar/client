@@ -752,7 +752,6 @@ const InputText = styled.input`
   padding: 10px;
 `;
 const PlaceText = styled.div`
-  margin-top: 16px;
   position: relative;
   img {
     position: absolute;
@@ -813,16 +812,27 @@ const TitleInput = styled.label`
   position: relative;
 `;
 const ColorPicker = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   background-color: ${(props) =>
-    props.colorPick ? props.colorPick : "var(--blue1)"};
+    props.colorPick ? props.colorPick : "var(--blue4)"};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
   right: 5%;
   top: 50%;
   transform: translateY(-50%);
+  ::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: ${(props) => (props.colorPick ? "" : "1px solid var(--blue4)")};
+  }
 `;
 const Background = styled.div`
   position: fixed;
@@ -874,7 +884,7 @@ const ColorList = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 18px;
   width: 90%;
   border-radius: 6px;
   background: var(--blue1);
@@ -886,8 +896,8 @@ const Input = styled.input`
   display: none;
 `;
 const Color1 = styled.label`
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28x;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -896,8 +906,8 @@ const Color1 = styled.label`
 `;
 const Color2 = styled.label`
   background-color: var(--point3);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -905,8 +915,8 @@ const Color2 = styled.label`
 `;
 const Color3 = styled.label`
   background-color: rgba(253, 187, 110, 1);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -914,8 +924,8 @@ const Color3 = styled.label`
 `;
 const Color4 = styled.label`
   background-color: rgba(253, 247, 110, 1);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -923,8 +933,8 @@ const Color4 = styled.label`
 `;
 const Color5 = styled.label`
   background-color: rgba(110, 253, 150, 1);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -932,8 +942,8 @@ const Color5 = styled.label`
 `;
 const Color6 = styled.label`
   background-color: rgba(110, 218, 253, 1);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -941,8 +951,8 @@ const Color6 = styled.label`
 `;
 const Color7 = styled.label`
   background-color: rgba(130, 110, 253, 1);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -950,8 +960,8 @@ const Color7 = styled.label`
 `;
 const Color8 = styled.label`
   background-color: var(--gray2);
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
@@ -1164,6 +1174,7 @@ const DateWrap = styled.div`
       inset 0px 8px 14px rgba(255, 255, 255, 0.3);
     border-radius: 6.83801px;
     border: 0;
+    margin-bottom: 16px;
   }
   .react-datepicker__month-container {
     width: 100%;
@@ -1279,6 +1290,7 @@ const Modal = styled.div`
   overflow: hidden;
   padding: 18px;
   text-align: center;
+  margin-bottom: 16px;
 
   .select-time {
     display: flex;
