@@ -177,8 +177,7 @@ const Cover = styled.img`
   z-index: 1;
 `;
 const Sticker = styled.img`
-  width: 56px;
-  height: 56px;
+  width: 92px;
   border-radius: 100%;
   position: absolute;
   bottom: -28px;
@@ -199,6 +198,7 @@ const Header = styled.div`
 `;
 const Compony = styled.div`
   padding: 20px;
+  padding-top: 40px;
   font-weight: 500;
   font-size: 20px;
 `;
@@ -232,9 +232,10 @@ const TimeTitle = styled.p`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+  margin-bottom: 20px;
 `;
 const Color = styled.div`
-  width: 25px;
+  width: 20px;
   height: 100%;
   background-color: ${(props) => props.color === 1 && "#fff"};
   background-color: ${(props) => props.color === 2 && "var(--point3)"};

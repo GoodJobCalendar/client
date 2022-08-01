@@ -16,9 +16,10 @@ import SearchData from "./SearchData";
 import zoomin from "../assets/img/icon/zoomin.png";
 import zoomout from "../assets/img/icon/zoomout.png";
 import locationGray from "../assets/img/icon/LocationGray.png";
+import searchImg from "../assets/img/icon/search.png";
+import needLogin from "../assets/img/illust/needlogin.png";
 
 // 스티커 배경
-import img1 from "../assets/img/sticker/sticker1.png";
 import img2 from "../assets/img/sticker/sticker2.png";
 import img3 from "../assets/img/sticker/sticker3.png";
 import img4 from "../assets/img/sticker/sticker4.png";
@@ -29,7 +30,6 @@ import img8 from "../assets/img/sticker/sticker8.png";
 
 // 리덕스
 import { searchMySchedule } from "../redux/modules/search";
-import needLogin from "../assets/img/illust/needlogin.png";
 import { useDispatch, useSelector } from "react-redux";
 import { zoomDate } from "../redux/modules/date";
 
@@ -105,11 +105,15 @@ function Main() {
     <MainWrap>
       <Nav navData={navData} />
       <FixBox>
-        <Search
-          type="text"
-          placeholder="일정 상세 검색"
-          onChange={scheduleSearchEvent}
-        />
+        <Search>
+          <input
+            type="text"
+            placeholder="일정 상세 검색"
+            onChange={scheduleSearchEvent}
+          />
+          <img src={searchImg} alt="돋보기 아이콘" />
+        </Search>
+
         <AddButtoon onClick={MoveBtn}>+</AddButtoon>
       </FixBox>
       {search === "" ? (
@@ -206,9 +210,7 @@ function Main() {
                           </MainData>
                           <Sticker
                             src={
-                              data.sticker === 1
-                                ? img1
-                                : data.sticker === 2
+                              data.sticker === 2
                                 ? img2
                                 : data.sticker === 3
                                 ? img3
@@ -336,8 +338,8 @@ const Circle = styled.span`
   background-color: ${(props) => (props.weekMonth ? "#fff" : "var(--blue4)")};
 `;
 const FixBox = styled.div`
-  width: calc(100% - 20px);
-  padding: 9px 22px;
+  width: calc(100% - 24px);
+  padding: 9px 12px;
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -349,32 +351,40 @@ const FixBox = styled.div`
   background-color: #fff;
   z-index: 999;
 `;
-const Search = styled.input`
-  padding: 18px 0;
-  border: 1px solid var(--blue2);
-  border-radius: 32px;
-  width: 243px;
-  padding-left: 27px;
-  ::placeholder {
-    font-weight: 500;
-    font-size: 16px;
-    color: var(--blue3);
+const Search = styled.label`
+  position: relative;
+  input {
+    width: 243px;
+    border: 1px solid var(--blue2);
+    border-radius: 32px;
+    padding: 18px 0;
+    padding-left: 27px;
+    ::placeholder {
+      font-weight: 500;
+      font-size: 16px;
+      color: var(--blue3);
+    }
+    &:focus {
+      outline: none;
+      border: 0;
+    }
   }
-  &:focus {
-    outline: none;
+  img {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    transform: translateY(-50%);
   }
-  width: 243px;
 `;
 const AddButtoon = styled.button`
   width: 60px;
   height: 60px;
+  line-height: 60px;
   background-color: var(--blue4);
   text-align: center;
   font-size: 28px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  line-height: 60px;
   color: #fff;
   border-radius: 100%;
   border: none;
@@ -382,22 +392,22 @@ const AddButtoon = styled.button`
 `;
 
 const SearchWrapper = styled.div`
-  height: calc(812px - 236px);
+  padding: 14px 17px;
+  padding-bottom: 78px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% -34px);
   background: #ecf1f8;
-  overflow: hidden;
+  height: calc(100vh - 253px);
   overflow-y: scroll;
 `;
 
 const UpBar = styled.div`
-  width: auto;
-
-  display: inline-block;
-  padding: 35px 34px 18px;
   display: flex;
   justify-content: space-between;
+  width: calc(100% -32px);
+  padding: 18px 16px;
+  border-bottom: 1px solid var(--blue2);
 `;
 
 const SearchInfo = styled.p`
@@ -414,7 +424,9 @@ const SearchHr = styled.hr`
   border: none;
 `;
 
-const SearchDataWrapper = styled.div``;
+const SearchDataWrapper = styled.div`
+  margin-top: 27px;
+`;
 
 const SearchDataDayWrap = styled.div`
   font-weight: 600;
@@ -422,7 +434,6 @@ const SearchDataDayWrap = styled.div`
   color: #3284ff;
   width: auto;
   display: inline-block;
-  padding: 27px 15px 34px;
   display: flex;
   justify-content: space-between;
 `;
@@ -431,6 +442,7 @@ const SearchDataDay = styled.div`
   font-weight: 600;
   font-size: 14px;
   color: #3284ff;
+  margin-bottom: 34px;
 `;
 
 const SearchDataDDay = styled.p`
@@ -450,13 +462,14 @@ const SearchDataCard = styled.div`
   height: 147px;
   background: #ffffff;
   border-radius: 6px;
-  margin: 8px auto;
+  margin-bottom: 16px;
 `;
 
 const MainDataWrap = styled.div`
   width: auto;
   display: inline-block;
   padding: 16px 14px 14px 10px;
+
   display: flex;
   justify-content: space-between;
 `;

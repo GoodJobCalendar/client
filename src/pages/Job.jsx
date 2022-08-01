@@ -80,14 +80,16 @@ const MainWrap = styled.div`
 const JobWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100vh;
+  align-items: center;
+  width: calc(100% - 34px);
+  padding: 0 17px;
+  height: calc(100vh - 158px);
   background: #ecf1f8;
-  overflow: hidden;
   overflow-y: scroll;
 `;
 
 const TeamNameList = styled.div`
+  width: 100%;
   height: 14px;
   display: inline-block;
   padding: 0px 24px;
@@ -111,8 +113,6 @@ const FilterBtn = styled.p`
 `;
 
 const JobCard = styled.div`
-  width: 302px;
-  height: 74px;
   background: white;
   border-radius: 15px;
   margin: 6px auto;
@@ -128,8 +128,6 @@ const EndTime = styled.div`
 `;
 
 const CompanyName = styled.div`
-  width: 307px;
-  height: 19px;
   font-weight: 500;
   font-size: 14px;
   line-height: 19px;
@@ -138,11 +136,17 @@ const CompanyName = styled.div`
 `;
 
 const JobTitle = styled.div`
-  height: 22px;
   font-weight: 500;
   font-size: 16px;
   color: #111111;
   margin-bottom: 16px;
+  width: 300px;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const DetailInfo = styled.div`

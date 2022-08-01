@@ -139,32 +139,34 @@ const JobCategory = () => {
         <TasksBtnWrap onClick={() => setTaskToggle(!taskToggle)}>
           <TasksBtnText>직무</TasksBtnText>
           {taskToggle === false ? (
-            <TasksBtnImg src={open} />
-          ) : (
             <TasksBtnImg src={close} />
+          ) : (
+            <TasksBtnImg src={open} />
           )}
         </TasksBtnWrap>
         {taskToggle === false ? (
           <></>
         ) : (
-          tasks.map((tasksData, idx) => {
-            return (
-              <JobTags
-                key={idx}
-                categoryData={categoryData.jobMain}
-                tasksData={tasksData}
-                onClick={() =>
-                  setCategoryData({
-                    ...categoryData,
-                    jobMain: tasksData,
-                    jobSub: "",
-                  })
-                }
-              >
-                {tasksData}
-              </JobTags>
-            );
-          })
+          <JobTagsFlex>
+            {tasks.map((tasksData, idx) => {
+              return (
+                <JobTags
+                  key={idx}
+                  categoryData={categoryData.jobMain}
+                  tasksData={tasksData}
+                  onClick={() =>
+                    setCategoryData({
+                      ...categoryData,
+                      jobMain: tasksData,
+                      jobSub: "",
+                    })
+                  }
+                >
+                  {tasksData}
+                </JobTags>
+              );
+            })}
+          </JobTagsFlex>
         )}
       </CategoryTap>
 
@@ -173,7 +175,7 @@ const JobCategory = () => {
       {taskToggle === false ? (
         <></>
       ) : (
-        <CategoryTap>
+        <DetailJobTagsFlex>
           {categoryData.jobMain === "전체" ? (
             <DetailJobTags
               categoryData={categoryData.jobSub}
@@ -397,39 +399,41 @@ const JobCategory = () => {
           ) : (
             <></>
           )}
-        </CategoryTap>
+        </DetailJobTagsFlex>
       )}
 
       <CategoryTap>
         <TasksBtnWrap onClick={() => setworkAreaToggle(!workAreaToggle)}>
           <TasksBtnText>근무지역</TasksBtnText>
           {workAreaToggle === false ? (
-            <TasksBtnImg src={open} />
-          ) : (
             <TasksBtnImg src={close} />
+          ) : (
+            <TasksBtnImg src={open} />
           )}
         </TasksBtnWrap>
         {workAreaToggle === false ? (
           <></>
         ) : (
-          workArea.map((workAreaData, idx) => {
-            return (
-              <WorkAreaTags
-                key={idx}
-                categoryData={categoryData.cityMain}
-                tasksData={workAreaData}
-                onClick={() =>
-                  setCategoryData({
-                    ...categoryData,
-                    cityMain: workAreaData,
-                    citySub: "",
-                  })
-                }
-              >
-                {workAreaData}
-              </WorkAreaTags>
-            );
-          })
+          <WorkAreaTagsFlex>
+            {workArea.map((workAreaData, idx) => {
+              return (
+                <WorkAreaTags
+                  key={idx}
+                  categoryData={categoryData.cityMain}
+                  tasksData={workAreaData}
+                  onClick={() =>
+                    setCategoryData({
+                      ...categoryData,
+                      cityMain: workAreaData,
+                      citySub: "",
+                    })
+                  }
+                >
+                  {workAreaData}
+                </WorkAreaTags>
+              );
+            })}
+          </WorkAreaTagsFlex>
         )}
       </CategoryTap>
 
@@ -438,7 +442,7 @@ const JobCategory = () => {
       {workAreaToggle === false ? (
         <></>
       ) : (
-        <CategoryTap>
+        <DetailWorkAreaTagsFlex>
           {categoryData.cityMain === "전체" ? (
             <DetailWorkAreaTags
               categoryData={categoryData.citySub}
@@ -707,46 +711,51 @@ const JobCategory = () => {
           ) : (
             <></>
           )}
-        </CategoryTap>
+        </DetailWorkAreaTagsFlex>
       )}
 
       <CategoryTap>
-        <div>경력</div>
-        {careers.map((careersData, idx) => {
-          return (
-            <CareersTags
-              key={idx}
-              categoryData={categoryData.career}
-              tasksData={careersData}
-              onClick={() =>
-                setCategoryData({ ...categoryData, career: careersData })
-              }
-            >
-              {careersData}
-            </CareersTags>
-          );
-        })}
+        <TasksText>경력</TasksText>
+
+        <CareersTagsFlex>
+          {careers.map((careersData, idx) => {
+            return (
+              <CareersTags
+                key={idx}
+                categoryData={categoryData.career}
+                tasksData={careersData}
+                onClick={() =>
+                  setCategoryData({ ...categoryData, career: careersData })
+                }
+              >
+                {careersData}
+              </CareersTags>
+            );
+          })}
+        </CareersTagsFlex>
       </CategoryTap>
 
       <CategoryTap>
-        <div>기업형태</div>
-        {CompanyType.map((CompanyTypeData, idx) => {
-          return (
-            <CompanyTypeTags
-              key={idx}
-              categoryData={categoryData.companyType}
-              tasksData={CompanyTypeData}
-              onClick={() =>
-                window.alert(
-                  "준비하고 있는 기능입니다!",
-                  setCategoryData({ ...categoryData, companyType: "대기업" })
-                )
-              }
-            >
-              {CompanyTypeData}
-            </CompanyTypeTags>
-          );
-        })}
+        <TasksText>기업형태</TasksText>
+        <CompanyTypeTagsFlex>
+          {CompanyType.map((CompanyTypeData, idx) => {
+            return (
+              <CompanyTypeTags
+                key={idx}
+                categoryData={categoryData.companyType}
+                tasksData={CompanyTypeData}
+                onClick={() =>
+                  window.alert(
+                    "준비하고 있는 기능입니다!",
+                    setCategoryData({ ...categoryData, companyType: "대기업" })
+                  )
+                }
+              >
+                {CompanyTypeData}
+              </CompanyTypeTags>
+            );
+          })}
+        </CompanyTypeTagsFlex>
       </CategoryTap>
     </MainWrapper>
   );
@@ -754,7 +763,7 @@ const JobCategory = () => {
 
 const MainWrapper = styled.div`
   background-color: var(--blue1);
-  height: 812px;
+  height: 100vh;
   overflow: hidden;
   overflow-y: scroll;
 `;
@@ -783,7 +792,11 @@ const SaveBtn = styled.div`
 `;
 
 const CategoryTap = styled.div`
-  padding: 12px 24px;
+  padding: 0 17px;
+  padding-top: 22px;
+`;
+const DetailJobTagsFlex = styled.div`
+  padding: 24px 17px;
 `;
 
 const TasksBtnWrap = styled.div`
@@ -800,6 +813,21 @@ const TasksBtnText = styled.div`
   line-height: 38px;
   cursor: pointer;
 `;
+const TasksText = styled.div`
+  margin-right: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #3284ff;
+  cursor: pointer;
+`;
+const CareersTagsFlex = styled.div`
+  padding: 33px 0;
+  padding-top: 22px;
+`;
+const CompanyTypeTagsFlex = styled.div`
+  padding: 33px 0;
+  padding-top: 22px;
+`;
 
 const TasksBtnImg = styled.img`
   margin-top: 15px;
@@ -810,98 +838,122 @@ const JobTags = styled.div`
   padding: 4px 10px;
   display: inline-block;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
+    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
   border-radius: 6px;
-  margin: 2px;
+  :nth-child(1) {
+    margin-right: calc(100% - 50px);
+  }
+  margin-right: 8px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
   color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "#3284FF"};
+    props.categoryData === props.tasksData ? "white" : "var(--blue4)"};
   cursor: pointer;
+`;
+const JobTagsFlex = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  padding: 24px 0;
 `;
 
 const DetailJobTags = styled.div`
   display: inline-block;
-  padding: 2px 6px;
-  margin: 4px;
+  padding: 6px 10px;
+  margin-bottom: 16px;
+  margin-right: 20px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
+    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
   color: ${(props) =>
     props.categoryData === props.tasksData ? "white" : "#74A0E3"};
-  border: 1px solid #a6c9ff;
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;
 
 const WorkAreaTags = styled.div`
-  padding: 4px 10px;
-  display: inline-block;
+  padding: 8px 10px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
+    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
   border-radius: 6px;
-  margin: 2px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
   color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "#3284FF"};
+    props.categoryData === props.tasksData ? "white" : "var(--blue4)"};
   cursor: pointer;
 `;
 
 const DetailWorkAreaTags = styled.div`
-  display: inline-block;
-  padding: 2px 6px;
+  padding: 6px 10px;
   margin: 4px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
+    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
   color: ${(props) =>
     props.categoryData === props.tasksData ? "white" : "#74A0E3"};
-  border: 1px solid #a6c9ff;
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
+`;
+const WorkAreaTagsFlex = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 6px 14px;
+  flex-wrap: wrap;
+  padding: 24px 0;
+`;
+const DetailWorkAreaTagsFlex = styled.div`
+  width: calc(100% - 32px);
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 24px 17px;
 `;
 
 const CareersTags = styled.div`
   display: inline-block;
-  padding: 2px 6px;
+  padding: 6px 10px;
   margin: 4px;
+  margin-bottom: 8px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
+    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
   color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
-  border: 1px solid #a6c9ff;
+    props.categoryData === props.tasksData ? "white" : "var(--blue3)"};
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;
 
 const CompanyTypeTags = styled.div`
   display: inline-block;
-  padding: 2px 6px;
+  padding: 4px 10px;
   margin: 4px;
+  margin-bottom: 8px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "#3284FF" : "transparent"};
+    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
   color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
-  border: 1px solid #a6c9ff;
+    props.categoryData === props.tasksData ? "white" : "var(--blue3)"};
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;

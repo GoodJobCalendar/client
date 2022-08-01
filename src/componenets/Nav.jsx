@@ -172,14 +172,14 @@ const NeedLoginModal = styled.div`
   width: 40%;
   text-align: center;
 `;
-const NavTitle = styled.span`
-  display: block;
+const NavTitle = styled.div`
   text-align: center;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex: 7;
   padding: 0 17px;
+  padding-bottom: 30px;
   span {
     font-weight: 700;
     display: block;
@@ -191,7 +191,6 @@ const NavList = styled.ul`
   align-items: flex-end;
   height: 70px;
   flex: 3;
-  padding-top: 30px;
   > * {
     flex: 1;
   }
@@ -221,13 +220,12 @@ const NavLink = styled(Link)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
 `;
 const NavItem = styled.li`
   :nth-of-type(1) {
     span {
       display: block;
-      padding: 8px;
+      padding: 8px 27.5px;
       border-bottom: ${(props) => (props.nav ? "2px solid var(--point1)" : "")};
       color: ${(props) => (props.nav ? "var(--point1)" : "")};
     }
@@ -235,13 +233,10 @@ const NavItem = styled.li`
   :nth-of-type(2) {
     span {
       display: block;
-      padding: 8px;
+      padding: 8px 27.5px;
       border-bottom: ${(props) => (props.nav ? "" : "2px solid var(--point1)")};
       color: ${(props) => (props.nav ? "" : "var(--point1)")};
     }
   }
   flex: 1;
-  img {
-    width: 15px;
-  }
 `;

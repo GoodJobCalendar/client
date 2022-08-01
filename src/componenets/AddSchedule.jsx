@@ -327,7 +327,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                       type="radio"
                       name="cover"
                       id="2"
-                      value="https://ifh.cc/g/3JtQVv.png"
+                      value="https://ifh.cc/g/Skyf8V.png"
                       onChange={coverChange}
                     />
                     응원
@@ -337,7 +337,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                       type="radio"
                       name="cover"
                       id="3"
-                      value="https://ifh.cc/g/9CLkcw.png"
+                      value="https://ifh.cc/g/3HVMOb.png"
                       onChange={coverChange}
                     />
                     출근
@@ -347,7 +347,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                       type="radio"
                       name="cover"
                       id="4"
-                      value="https://ifh.cc/g/brrtyz.png"
+                      value="https://ifh.cc/g/7nH36H.png"
                       onChange={coverChange}
                     />
                     일

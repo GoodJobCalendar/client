@@ -4,12 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { loadJobList, loadCategoryList, loadJobDetails, addScrap } from "../redux/modules/job";
+import {
+  loadJobList,
+  loadCategoryList,
+  loadJobDetails,
+  addScrap,
+} from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
 import coverimg from "../assets/img/cover/cover2.png";
-
+import msg from "../assets/img/btn/msg.png";
 const JobDetail = () => {
   const navigate = useNavigate();
 
@@ -52,34 +57,40 @@ const JobDetail = () => {
         <JobTitle>{jobDetail?.title}</JobTitle>
 
         <Line />
+        <JobInfoFlex>
+          <JobInfo>
+            <InfoTitle>모집마감일자</InfoTitle>
+            <InfoDetails style={{ fontWeight: "800" }}>
+              {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
+                ? "상시채용"
+                : jobDetail?.deadline.split(" ")[0] +
+                  " " +
+                  "(" +
+                  getDate(jobDetail?.deadline.split(" ")[0]) +
+                  ")"}
+            </InfoDetails>
+          </JobInfo>
 
-        <JobInfo>
-          <InfoTitle>모집마감일자</InfoTitle>
-          <InfoDetails style={{ fontWeight: "800" }}>
-            {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
-              ? "상시채용"
-              : jobDetail?.deadline.split(" ")[0] + " " + "(" + getDate(jobDetail?.deadline.split(" ")[0]) + ")"}
-          </InfoDetails>
-        </JobInfo>
+          <JobInfo>
+            <InfoTitle>지원 자격</InfoTitle>
+            <InfoDetails>{jobDetail?.career}</InfoDetails>
+          </JobInfo>
 
-        <JobInfo>
-          <InfoTitle>지원 자격</InfoTitle>
-          <InfoDetails>{jobDetail?.career}</InfoDetails>
-        </JobInfo>
+          <JobInfo>
+            <InfoTitle>직무</InfoTitle>
+            <InfoDetails>{jobDetail?.job[0]}</InfoDetails>
+          </JobInfo>
 
-        <JobInfo>
-          <InfoTitle>직무</InfoTitle>
-          <InfoDetails>{jobDetail?.job[0]}</InfoDetails>
-        </JobInfo>
-
-        <JobInfo>
-          <InfoTitle>지역</InfoTitle>
-          <InfoDetails>{jobDetail?.city}</InfoDetails>
-        </JobInfo>
+          <JobInfo>
+            <InfoTitle>지역</InfoTitle>
+            <InfoDetails>{jobDetail?.city}</InfoDetails>
+          </JobInfo>
+        </JobInfoFlex>
 
         <BtnWrap>
           <BackBtn onClick={() => navigate("/job")}>
-            <BackBtnImg src={backBtn} />
+            <img src={backBtn} alt="뒤로가기" />
+            관심없어요
           </BackBtn>
           <ScrapBtn
             scrap={jobDetail?.isScrap}
@@ -87,6 +98,7 @@ const JobDetail = () => {
               dispatch(addScrap(id));
             }}
           >
+            <MsgImg src={msg} alt="뒤로가기" />
             캘린더로 스크랩
           </ScrapBtn>
         </BtnWrap>
@@ -96,7 +108,8 @@ const JobDetail = () => {
             window.open(jobDetail?.url);
           }}
         >
-          <JobKoreaImg src={buttonText}></JobKoreaImg>
+          <img src={buttonText} alt="잡코리아공고링크연결" />
+          자세한 공고 잡코리아에서 확인
         </JobKoreabtn>
       </MainWrapper>
     </MainWrap>
@@ -106,6 +119,7 @@ const JobDetail = () => {
 const MainWrap = styled.div`
   position: relative;
   background: #ecf1f8;
+  height: 100vh;
 `;
 
 const Header = styled.img`
@@ -117,15 +131,13 @@ const Header = styled.img`
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  background: #ecf1f8;
-  padding-top: 40px;
+  width: calc(100% - 48px);
+  background: var(--blue1);
+  padding: 40px 24px;
 `;
 
 const CompanyWrap = styled.div`
   height: 23px;
-  display: inline-block;
-  padding: 0px 24px;
   display: flex;
   justify-content: space-between;
   line-height: 24px;
@@ -141,39 +153,44 @@ const CompanyName = styled.div`
 const CompanySize = styled.div`
   width: auto;
   height: 23px;
-  padding: 2px 6px;
+  padding: 3px 6px;
   gap: 10px;
   margin-right: 5px;
   background: #a6c9ff;
   border-radius: 19px;
   font-weight: 500;
   font-size: 14px;
-  line-height: 26px;
   color: #ffffff;
 `;
 
 const JobTitle = styled.div`
-  display: inline-block;
-  padding: 12px 24px;
+  width: 100%;
+  padding: 15px 0;
   font-weight: 500;
   font-size: 20px;
-  color: #111111;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Line = styled.hr`
-  width: 331px;
-  height: 0px;
-  margin: 15px auto 26px;
+  width: 100%;
   border: 1px solid #d1d1d1;
+  margin-bottom: 28px;
 `;
 
 const JobInfo = styled.div`
-  height: 20px;
-  display: inline-block;
-  padding: 12px 24px;
+  padding: 0 10px;
   display: flex;
   justify-content: space-between;
-  line-height: 24px;
+`;
+const JobInfoFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 `;
 
 const InfoTitle = styled.p`
@@ -190,18 +207,20 @@ const InfoDetails = styled.p`
 
 const BtnWrap = styled.div`
   display: flex;
-  padding: 12px 16px;
   justify-content: space-between;
-  margin-top: 130px;
+  margin-top: 100px;
 `;
 
 const BackBtn = styled.div`
-  width: 167px;
-  height: 54px;
+  padding: 18px 30px;
   background: #d1d1d1;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  color: #9a9a9a;
   display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const BackBtnImg = styled.img`
@@ -209,14 +228,21 @@ const BackBtnImg = styled.img`
   margin: auto;
 `;
 
+const MsgImg = styled.img`
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
 const ScrapBtn = styled.div`
-  width: 167px;
-  height: 54px;
+  position: relative;
+  padding: 18px 30px;
+  font-weight: 500;
   background: transparent;
-  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "transparent")};
+  background-color: ${(props) =>
+    props.scrap ? "var(--blue4)" : "transparent"};
   border-radius: 6px;
   text-align: center;
-  line-height: 54px;
   cursor: pointer;
   box-sizing: border-box;
   border: 2px solid #3284ff;
@@ -224,19 +250,16 @@ const ScrapBtn = styled.div`
 `;
 
 const JobKoreabtn = styled.div`
-  width: 343px;
-  height: 54px;
-  margin: 0px auto 29px;
   background: #3284ff;
   border-radius: 6px;
   display: flex;
+  gap: 10px;
   cursor: pointer;
-  padding: 7.5px 0px;
-`;
-
-const JobKoreaImg = styled.img`
-  width: 235px;
-  margin: auto;
+  padding: 18px 50px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 16px;
 `;
 
 export default JobDetail;
