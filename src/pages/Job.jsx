@@ -2,12 +2,9 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
-import {
-  loadJobList,
-  loadCategoryList,
-  loadJobDetails,
-} from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
 import Nav from "../componenets/Nav";
 
@@ -19,14 +16,48 @@ const Job = () => {
   const dispatch = useDispatch();
 
   const jobDataList = useSelector((state) => state.job.list?.data);
+  const jobDataList1 = useSelector((state) => state.job.list);
 
   const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
 
   const navData = false;
 
+  // console.log("jobDataList", jobDataList1);
+
   useEffect(() => {
     dispatch(loadJobList());
   }, []);
+
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
+
+  // const [pageNum, setPageNum] = React.useState(1);
+  // const { list, hasMore, isLoading } = React.useFetch(pageNum);
+  // const observerRef = React.useRef();
+
+  // const observer = (node) => {
+  //   if (isLoading) return;
+  //   if (observerRef.current) observerRef.current.disconnect();
+
+  //   observerRef.current = new IntersectionObserver(([entry]) => {
+  //     if (entry.isIntersecting && hasMore) {
+  //       setPageNum((page) => page + 1);
+  //     }
+  //   });
+
+  //   node && observerRef.current.observe(node);
+  // };
+
+  // let options = {
+  //   root: document.querySelector('#scrollArea'),
+  //   rootMargin: '0px',
+  //   threshold: 1.0
+  // }
+
+  // let observer1 = new IntersectionObserver(callback, options);
+
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
 
   return (
     <MainWrap>
@@ -35,39 +66,32 @@ const Job = () => {
       <JobWrapper>
         <TeamNameList>
           <UpdateTime>{jobDataUpdate}</UpdateTime>
-          <FilterBtn onClick={() => navigate("/jobCategory")}>
-            추천 조건
-          </FilterBtn>
+          <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
         </TeamNameList>
+        <div>
+          {jobDataList?.map((tasksData, idx) => {
+            return (
+              // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
+              <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
+                <CompanyName>{tasksData.companyName}</CompanyName>
+                <JobTitle>{tasksData.title}</JobTitle>
+                <DetailInfo>
+                  <JobTagsWrap>
+                    <JobTags>{tasksData.career}</JobTags>
+                    <JobTags>{tasksData.companyType}</JobTags>
+                  </JobTagsWrap>
 
-        {jobDataList?.map((tasksData, idx) => {
-          return (
-            // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
-            <JobCard
-              key={idx}
-              onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
-            >
-              <CompanyName>{tasksData.companyName}</CompanyName>
-              <JobTitle>{tasksData.title}</JobTitle>
-              <DetailInfo>
-                <JobTagsWrap>
-                  <JobTags>{tasksData.career}</JobTags>
-                  <JobTags>{tasksData.companyType}</JobTags>
-                </JobTagsWrap>
-
-                <EndTime>
-                  {tasksData.deadline.split(" ")[0] === "2122-01-01"
-                    ? "상시채용"
-                    : "~" + tasksData.deadline.split(" ")[0]}
-                </EndTime>
-              </DetailInfo>
-              {/* <JobAdrress>
+                  <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
+                </DetailInfo>
+                {/* <JobAdrress>
               <AdrressImg src={location} />
               {tasksData.city}
             </JobAdrress> */}
-            </JobCard>
-          );
-        })}
+              </JobCard>
+            );
+          })}
+          {/* <div ref={observer}></div> */}
+        </div>
       </JobWrapper>
     </MainWrap>
   );
