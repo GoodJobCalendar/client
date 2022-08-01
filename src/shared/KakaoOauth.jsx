@@ -12,12 +12,13 @@ const KakaoOauth = (props) => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
+  console.log(window.location.href);
+  console.log(code);
+
   useEffect(() => {
     if (!!code) {
       axios
-        .get(
-          `https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`
-        )
+        .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
         .then((response) => {
           setCookie("token", response.data.token, 5);
           navigate("/main");
