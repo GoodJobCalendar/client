@@ -75,7 +75,7 @@ const Login = () => {
           onKeyPress={onKeyPress}
           errorcheck={errorcheck}
         />
-        {errorcheck && <ErrorCheck>{errorcheck}</ErrorCheck>}
+        <ErrorCheck>{errorcheck}&nbsp;</ErrorCheck>
         <LoginBtn onClick={loginBtn}>로그인</LoginBtn>
         <PwCheck>
           비밀번호를 혹시 잊어버리셨나요?

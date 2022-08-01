@@ -12,8 +12,8 @@ const KakaoOauth = (props) => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
-  console.log(window.location.href);
-  console.log(code);
+  // console.log(window.location.href);
+  // console.log(code);
 
   useEffect(() => {
     if (!!code) {
