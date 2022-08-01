@@ -197,7 +197,7 @@ const TextList = styled.p`
   box-sizing: border-box;
   color: #fff;
   color: ${(props) => (props.color === 1 ? "var(--blue4)" : "")};
-  border: ${(props) => (props.color === 1 ? "1px solid var(--blue2)" : "")};
+  border: ${(props) => (props.color === 1 ? "1px solid var(--blue3)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
@@ -211,13 +211,14 @@ const TextList = styled.p`
   background-color: ${(props) =>
     props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
+  background-color: ${(props) => (props.color === 9 ? "var(--blue4)" : "")};
 `;
 const List = styled.p`
   width: 5px;
   height: 5px;
   border-radius: 100%;
   box-sizing: border-box;
-  border: ${(props) => (props.color === 1 ? "1px solid var(--blue2)" : "")};
+  border: ${(props) => (props.color === 1 ? "1px solid var(--blue3)" : "")};
   background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
   background-color: ${(props) =>
     props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
@@ -230,6 +231,7 @@ const List = styled.p`
   background-color: ${(props) =>
     props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
+  background-color: ${(props) => (props.color === 9 ? "var(--blue4)" : "")};
 `;
 const FlexList = styled.div`
   display: flex;

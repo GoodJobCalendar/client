@@ -13,7 +13,7 @@ import element_w from "../assets/img/icon/element_w.png";
 import element_c from "../assets/img/icon/element_c.png";
 import logout from "../assets/img/icon/logout.png";
 import needLogin from "../assets/img/illust/needlogin.png";
-
+import guideImg from "../assets/img/guide.png";
 import { deleteCookie } from "./../shared/Cookie";
 
 const Nav = (props) => {
@@ -22,6 +22,7 @@ const Nav = (props) => {
   const dispatch = useDispatch();
   const [nav, setNav] = useState(props.navData);
   const [loginOn, setLoginOn] = useState(false);
+  const [guideOn, setGuide] = useState(true);
   // const is_Login = useSelector((state) => state.user.is_login);
 
   const logOut = () => {
@@ -38,7 +39,20 @@ const Nav = (props) => {
   return (
     <NavWrap>
       {loginOn ? (
-        ""
+        guideOn ? (
+          <GuideBg>
+            <button
+              onClick={() => {
+                setGuide(!guideOn);
+              }}
+            >
+              x
+            </button>
+            <GuideImg src={guideImg} alt="가이드" />
+          </GuideBg>
+        ) : (
+          ""
+        )
       ) : (
         <NeedLogin>
           <NeedLoginModal>
@@ -111,6 +125,32 @@ const Nav = (props) => {
 };
 
 export default Nav;
+
+const GuideImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+const GuideBg = styled.div`
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  width: 100%;
+  height: 100vh;
+  button {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    background-color: transparent;
+    color: #fff !important;
+    z-index: 999;
+    font-size: 20px;
+  }
+`;
 const NavWrap = styled.div`
   width: 100%;
   height: 158px;

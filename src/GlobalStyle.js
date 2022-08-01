@@ -44,5 +44,6 @@ input:focus {
         opacity: 0;
       }
     }
+
 `;
 export default GlobalStyle;

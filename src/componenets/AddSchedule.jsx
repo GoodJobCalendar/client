@@ -897,7 +897,7 @@ const Input = styled.input`
 `;
 const Color1 = styled.label`
   width: 28px;
-  height: 28x;
+  height: 28px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
