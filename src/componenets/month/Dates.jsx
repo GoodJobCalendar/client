@@ -20,7 +20,7 @@ const Dates = (props) => {
   }, [isActive]);
   useEffect(() => {
     setMonthList(Object.entries(monthSchdule));
-  }, [monthList]);
+  }, [monthList, dateKey]);
 
   const list =
     monthList &&
