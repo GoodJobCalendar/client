@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { loadJobList, loadCategoryList, loadJobDetails, addScrap } from "../redux/modules/job";
+import {
+  loadJobList,
+  loadCategoryList,
+  loadJobDetails,
+  addScrap,
+} from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
@@ -58,7 +63,11 @@ const JobDetail = () => {
             <InfoDetails style={{ fontWeight: "800" }}>
               {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
                 ? "상시채용"
-                : jobDetail?.deadline.split(" ")[0] + " " + "(" + getDate(jobDetail?.deadline.split(" ")[0]) + ")"}
+                : jobDetail?.deadline.split(" ")[0] +
+                  " " +
+                  "(" +
+                  getDate(jobDetail?.deadline.split(" ")[0]) +
+                  ")"}
             </InfoDetails>
           </JobInfo>
 
@@ -81,7 +90,7 @@ const JobDetail = () => {
         <BtnWrap>
           <BackBtn onClick={() => navigate("/job")}>
             <img src={backBtn} alt="뒤로가기" />
-            관심없어요
+            다른 채용공고
           </BackBtn>
           <ScrapBtn
             scrap={jobDetail?.isScrap}
@@ -230,7 +239,8 @@ const ScrapBtn = styled.div`
   padding: 18px 30px;
   font-weight: 500;
   background: transparent;
-  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "transparent")};
+  background-color: ${(props) =>
+    props.scrap ? "var(--blue4)" : "transparent"};
   border-radius: 6px;
   text-align: center;
   cursor: pointer;
