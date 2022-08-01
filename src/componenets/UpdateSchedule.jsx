@@ -82,7 +82,7 @@ const UpdateSchedule = ({
       return "var(--gray2)";
     }
   }
-  console.log("이미지", detailInfo.coverImage);
+  // console.log("이미지", detailInfo.coverImage);
   //작성목록
   const [color, setColor] = useState("");
   const [sticker, setSticker] = useState(String(detailInfo.sticker));

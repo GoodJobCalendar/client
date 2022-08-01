@@ -57,13 +57,15 @@ const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 // 미들웨어
 
 // 추천채용 불러오기
-export const loadJobList = () => {
+export const loadJobList = (page) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
+    const bucket = {
+      headers: { Authorization: `Bearer ${myToken}` },
+      // params: { page: page },
+    };
     axios
-      .get("https://goodjobcalendar.shop/api/posting", {
-        headers: { Authorization: `Bearer ${myToken}` },
-      })
+      .get(`https://goodjobcalendar.shop/api/postings`, bucket)
       .then((res) => {
         dispatch(__loadJobList(res.data));
       })

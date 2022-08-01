@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { getCookie } from "../shared/Cookie";
 
-import {
-  loadJobList,
-  loadCategoryList,
-  loadJobDetails,
-} from "../redux/modules/job";
+import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
 
 import Nav from "../componenets/Nav";
 
 import location from "../assets/img/icon/Location.png";
+
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Job = () => {
   const navigate = useNavigate();
@@ -20,54 +20,61 @@ const Job = () => {
 
   const jobDataList = useSelector((state) => state.job.list?.data);
 
+  const jobDataList1 = useSelector((state) => state.job.list);
+
   const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
 
   const navData = false;
 
+  const [page, setpage] = React.useState(0);
+
   useEffect(() => {
     dispatch(loadJobList());
   }, []);
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
+
+  // const handleScroll = () => {
+  //   const scrollHeight = document.getElementById("para").scrollHeight;
+  //   const scrollTop = document.getElementById("para").scrollTop;
+  //   const clientHeight = document.getElementById("para").clientHeight;
+  //   if (scrollTop + clientHeight >= scrollHeight - 1) {
+  //     // 페이지 끝에 도달하면 추가 데이터를 받아온다
+  //     setScroll(scroll + 1);
+  //     // console.log("꺄항1");
+  //   }
+  // };
+
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
+  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
 
   return (
     <MainWrap>
       <Nav navData={navData} />
 
-      <JobWrapper>
+      <JobWrapper id="para">
         <TeamNameList>
           <UpdateTime>{jobDataUpdate}</UpdateTime>
-          <FilterBtn onClick={() => navigate("/jobCategory")}>
-            추천 조건
-          </FilterBtn>
+          <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
         </TeamNameList>
+        <div>
+          {jobDataList?.map((tasksData, idx) => {
+            return (
+              <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
+                <CompanyName>{tasksData.companyName}</CompanyName>
+                <JobTitle>{tasksData.title}</JobTitle>
+                <DetailInfo>
+                  <JobTagsWrap>
+                    <JobTags>{tasksData.career}</JobTags>
+                    <JobTags>{tasksData.companyType}</JobTags>
+                  </JobTagsWrap>
 
-        {jobDataList?.map((tasksData, idx) => {
-          return (
-            // <JobCard onClick={() => {console.log(tasksData.postingId)}}>
-            <JobCard
-              key={idx}
-              onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
-            >
-              <CompanyName>{tasksData.companyName}</CompanyName>
-              <JobTitle>{tasksData.title}</JobTitle>
-              <DetailInfo>
-                <JobTagsWrap>
-                  <JobTags>{tasksData.career}</JobTags>
-                  <JobTags>{tasksData.companyType}</JobTags>
-                </JobTagsWrap>
-
-                <EndTime>
-                  {tasksData.deadline.split(" ")[0] === "2122-01-01"
-                    ? "상시채용"
-                    : "~" + tasksData.deadline.split(" ")[0]}
-                </EndTime>
-              </DetailInfo>
-              {/* <JobAdrress>
-              <AdrressImg src={location} />
-              {tasksData.city}
-            </JobAdrress> */}
-            </JobCard>
-          );
-        })}
+                  <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
+                </DetailInfo>
+              </JobCard>
+            );
+          })}
+        </div>
       </JobWrapper>
     </MainWrap>
   );
