@@ -12,34 +12,6 @@ import img8 from "../assets/img/sticker/sticker8.png";
 import { Link } from "react-router-dom";
 const DailyList = () => {
   const dailySchedule = useSelector((state) => state.schedule.daily);
-  const response = {
-    220703: [
-      {
-        scheduleId: 43,
-        color: 3,
-        memo: null,
-        sticker: 4,
-        coverImage: 0,
-        place: "집",
-        date: "2022-07-03 01:01:01",
-        companyName: "짱좋은회사3",
-        type: "manual",
-        title: "면접1",
-      },
-      {
-        scheduleId: 43,
-        color: 3,
-        memo: null,
-        sticker: 4,
-        coverImage: 0,
-        place: "집",
-        date: "2022-07-03 01:01:01",
-        companyName: "짱좋은회사3",
-        type: "manual",
-        title: "면접1",
-      },
-    ],
-  };
   const dailyList = Object.entries(dailySchedule);
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
