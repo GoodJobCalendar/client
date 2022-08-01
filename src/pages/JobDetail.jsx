@@ -220,7 +220,7 @@ const BackBtn = styled.div`
   color: #9a9a9a;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 `;
 
 const BackBtnImg = styled.img`
