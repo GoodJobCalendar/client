@@ -47,7 +47,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [timeShow, setTimeShow] = useState(false);
 
   //작성목록
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("1");
   const [sticker, setSticker] = useState("1");
   const [image, setImage] = useState("1");
   const [companyName, setCompanyName] = useState("");
