@@ -63,7 +63,26 @@ const UpdateSchedule = ({
       return cover4;
     }
   }
-  console.log("이미지", detailInfo.coverImage);
+  function colorPickOn(detailInfo) {
+    if (detailInfo === 1) {
+      return "var(--blue1)";
+    } else if (detailInfo === 2) {
+      return "var(--point3)";
+    } else if (detailInfo === 3) {
+      return "rgba(253,187,110,1)";
+    } else if (detailInfo === 4) {
+      return "rgba(253,247,110,1)";
+    } else if (detailInfo === 5) {
+      return "rgba(110,253,150,1)";
+    } else if (detailInfo === 6) {
+      return "rgba(110,218,253,1)";
+    } else if (detailInfo === 7) {
+      return "rgba(130,110,253,1)";
+    } else if (detailInfo === 8) {
+      return "var(--gray2)";
+    }
+  }
+  // console.log("이미지", detailInfo.coverImage);
   //작성목록
   const [color, setColor] = useState("");
   const [sticker, setSticker] = useState(String(detailInfo.sticker));
@@ -76,7 +95,7 @@ const UpdateSchedule = ({
   const [cover, setCover] = useState(coverimage());
 
   //컬러 미리보기
-  const [colorPick, setColorPick] = useState(String(detailInfo?.color));
+  const [colorPick, setColorPick] = useState(colorPickOn(detailInfo?.color));
 
   const [startDate, setStartDate] = useState(new Date(detailInfo?.date));
 
@@ -346,7 +365,7 @@ const UpdateSchedule = ({
                       type="radio"
                       name="cover"
                       id="2"
-                      value="https://ifh.cc/g/CWMOwl.png"
+                      value="https://ifh.cc/g/Skyf8V.png"
                       onChange={coverChange}
                     />
                     응원
@@ -356,7 +375,7 @@ const UpdateSchedule = ({
                       type="radio"
                       name="cover"
                       id="3"
-                      value="https://ifh.cc/g/9CLkcw.png"
+                      value="https://ifh.cc/g/3HVMOb.png"
                       onChange={coverChange}
                     />
                     출근
@@ -366,7 +385,7 @@ const UpdateSchedule = ({
                       type="radio"
                       name="cover"
                       id="4"
-                      value="https://ifh.cc/g/brrtyz.png"
+                      value="https://ifh.cc/g/7nH36H.png"
                       onChange={coverChange}
                     />
                     일
