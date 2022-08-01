@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { getCookie } from "../shared/Cookie";
+import { getCookie, setCookie } from "../shared/Cookie";
 
 // 컴포넌트
 import Nav from "../componenets/Nav";
@@ -115,6 +115,7 @@ function Main() {
           <button
             onClick={() => {
               setGuide(!guideOn);
+              setCookie("not seen a day", true);
             }}
           >
             x

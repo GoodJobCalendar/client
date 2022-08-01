@@ -157,7 +157,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   // 일정등록
   const addScheduleBtn = async () => {
-    if ((companyName === "", title === "", allDate === "", place === "")) {
+    if (
+      (companyName === "",
+      title === "",
+      allDate === "",
+      place === "",
+      memo === "")
+    ) {
       setEmpty(!empty);
     } else {
       dispatch(
