@@ -18,6 +18,7 @@ import zoomout from "../assets/img/icon/zoomout.png";
 import locationGray from "../assets/img/icon/LocationGray.png";
 import searchImg from "../assets/img/icon/search.png";
 import needLogin from "../assets/img/illust/needlogin.png";
+import guideImg from "../assets/img/guide.png";
 
 // 스티커 배경
 import img2 from "../assets/img/sticker/sticker2.png";
@@ -39,6 +40,8 @@ function Main() {
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
   const [loginOn, setLoginOn] = useState(false);
+  const [guideOn, setGuide] = useState(true);
+
   const navData = true;
   const token = getCookie("token");
   const active = useSelector((state) => state.date.active);
@@ -103,6 +106,24 @@ function Main() {
   }, [loginOn]);
   return (
     <MainWrap>
+      {guideOn ? (
+        <GuideBg
+          onClick={() => {
+            setGuide(!guideOn);
+          }}
+        >
+          <button
+            onClick={() => {
+              setGuide(!guideOn);
+            }}
+          >
+            x
+          </button>
+          <GuideImg src={guideImg} alt="가이드" />
+        </GuideBg>
+      ) : (
+        ""
+      )}
       <Nav navData={navData} />
       <FixBox>
         <Search>
@@ -245,6 +266,31 @@ function Main() {
   );
 }
 export default Main;
+const GuideImg = styled.img`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+const GuideBg = styled.div`
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  width: 100%;
+  height: 100vh;
+  button {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    background-color: transparent;
+    color: #fff !important;
+    z-index: 999;
+    font-size: 20px;
+  }
+`;
 const NeedLogin = styled.div`
   position: absolute;
   top: 50%;
