@@ -9,6 +9,7 @@ import img5 from "../assets/img/sticker/sticker5.png";
 import img6 from "../assets/img/sticker/sticker6.png";
 import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
+import img9 from "../assets/img/sticker/sticker9.png";
 import { Link } from "react-router-dom";
 const DailyList = () => {
   const dailySchedule = useSelector((state) => state.schedule.daily);
@@ -117,6 +118,10 @@ const DailyList = () => {
                   <Sticker>
                     <img src={img8} alt="" />
                   </Sticker>
+                ) : content?.sticker === 9 ? (
+                  <Sticker>
+                    <img src={img9} alt="" />
+                  </Sticker>
                 ) : (
                   ""
                 )}
@@ -175,6 +180,7 @@ const Color = styled.div`
   background-color: ${(props) =>
     props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
+  background-color: ${(props) => (props.color === 9 ? "var(--blue4)" : "")};
 `;
 const Day = styled.p`
   font-weight: 600;

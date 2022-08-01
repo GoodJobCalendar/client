@@ -14,12 +14,14 @@ import img5 from "../assets/img/sticker/sticker5.png";
 import img6 from "../assets/img/sticker/sticker6.png";
 import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
+import img9 from "../assets/img/sticker/sticker9.png";
 
 //커버 이미지
 import cover1 from "../assets/img/cover/cover1.png";
 import cover2 from "../assets/img/cover/cover2.png";
 import cover3 from "../assets/img/cover/cover3.png";
 import cover4 from "../assets/img/cover/cover4.png";
+import cover5 from "../assets/img/cover/cover5.png";
 
 //아이콘 이미지
 import arrow from "../assets/img/icon/Back.png";
@@ -75,6 +77,8 @@ const PostDetail = () => {
               ? cover3
               : detailInfo?.coverImage === 4
               ? cover4
+              : detailInfo?.coverImage === 5
+              ? cover5
               : ""
           }
         />
@@ -96,6 +100,8 @@ const PostDetail = () => {
               ? img7
               : detailInfo?.sticker === 8
               ? img8
+              : detailInfo?.sticker === 9
+              ? img9
               : ""
           }
         />
@@ -247,6 +253,7 @@ const Color = styled.div`
   background-color: ${(props) => props.color === 6 && "rgba(110, 218, 253, 1)"};
   background-color: ${(props) => props.color === 7 && "rgba(130, 110, 253, 1)"};
   background-color: ${(props) => props.color === 8 && "var(--gray2)"};
+  background-color: ${(props) => props.color === 9 && "var(--blue4)"};
   position: absolute;
   left: 0;
   top: 0;
