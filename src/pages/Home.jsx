@@ -14,9 +14,9 @@ import { KAKAO_AUTH_URL } from "../shared/api";
 
 // 이미지
 import logo from "../assets/img/logo.png";
-import logo_w from "../assets/img/logo_w.png";
-import logotext from "../assets/img/logo_text.png";
-import logotext_w from "../assets/img/logo_text_w.png";
+import logo_w from "../assets/img/logo_w.svg";
+import logotext from "../assets/img/logo_text.svg";
+import logotext_w from "../assets/img/logo_text_w.svg";
 import slide1 from "../assets/img/slide/slide1.png";
 import slide2 from "../assets/img/slide/slide2.png";
 import slide3 from "../assets/img/slide/slide3.png";
