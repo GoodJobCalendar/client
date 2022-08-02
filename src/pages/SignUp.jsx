@@ -120,7 +120,7 @@ const SignUp = () => {
           }}
           onKeyPress={onKeyPress}
         />
-        {errorCheck && <Check>{errorCheck}</Check>}
+        {<Check>{errorCheck}&nbsp;</Check>}
         <SignUpBtn onClick={SignupBtn}>이메일 인증받고 가입하기</SignUpBtn>
       </InputWrap>
       <Footer>
@@ -168,6 +168,12 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   gap: 9px;
+  height: 24px;
+  img {
+    :nth-child(1) {
+      height: 100%;
+    }
+  }
 `;
 const Title = styled.h1`
   font-weight: 600;
@@ -200,7 +206,7 @@ const SignUpBtn = styled.button`
 const EmailCheck = styled.input`
   border: ${(props) =>
     props.mailCheckState && props.mailCheckState !== 201
-      ? "2px solid var(--point3)"
+      ? "1px solid var(--point3)"
       : ""}!important;
   color: ${(props) =>
     props.mailCheckState && props.mailCheckState !== 201
@@ -210,7 +216,7 @@ const EmailCheck = styled.input`
 const PassWord = styled.input`
   border: ${(props) =>
     props.confirmPassword && props.password !== props.confirmPassword
-      ? "2px solid var(--point3)"
+      ? "1px solid var(--point3)"
       : ""}!important;
   color: ${(props) =>
     props.password && props.password !== props.confirmPassword

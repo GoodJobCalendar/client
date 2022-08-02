@@ -667,7 +667,6 @@ const AddSchesuleWrap = styled.div`
 `;
 const Btn = styled.button`
   font-weight: 700;
-  font-size: 12px;
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
