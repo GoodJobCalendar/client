@@ -503,7 +503,7 @@ const UpdateSchedule = ({
             <TimeOpenBtn
               onClick={timeShowBtn}
               timeShow={timeShow}
-            >{`${hour}:${selectMinute}`}</TimeOpenBtn>
+            >{`${hour?.hour}:${selectMinute?.selectMinute}`}</TimeOpenBtn>
           </DateFlex>
         </DateContainer>
         <Pick>
