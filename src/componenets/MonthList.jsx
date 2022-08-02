@@ -26,21 +26,11 @@ const MonthList = () => {
     const date = new Date(
       `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
     );
-    const week = [
-      "일요일",
-      "월요일",
-      "화요일",
-      "수요일",
-      "목요일",
-      "금요일",
-      "토요일",
-    ];
 
-    const dayOfWeek = week[new Date(date).getDay()];
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
       4,
       2
-    )}일 ${dayOfWeek && dayOfWeek}`;
+    )}일 `;
   };
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
@@ -59,7 +49,23 @@ const MonthList = () => {
     if (mm === "Dec") return "12";
   };
   const today = `${yy}-${Month(mm)}-${day}`;
+  function getDate(whatDay) {
+    //날짜문자열 형식은 자유로운 편
 
+    const week = [
+      "일요일",
+      "월요일",
+      "화요일",
+      "수요일",
+      "목요일",
+      "금요일",
+      "토요일",
+    ];
+
+    const dayOfWeek = week[new Date(whatDay).getDay()];
+
+    return dayOfWeek;
+  }
   const list =
     monthList &&
     monthList?.map((value, idx) => (
@@ -68,7 +74,10 @@ const MonthList = () => {
           <Fragment key={idx}>
             {idx === 0 && (
               <DayFlex>
-                <Day>{idx === 0 && fullDate(value[0])}</Day>
+                <Day>
+                  {idx === 0 && fullDate(value[0])}
+                  {/* {getDate(idx === 0 && fullDate(value[0]))} */}
+                </Day>
                 <Dday>
                   {idx === 0 &&
                     (new Date(content.date.split(" ")[0]) - new Date(today) > 0
