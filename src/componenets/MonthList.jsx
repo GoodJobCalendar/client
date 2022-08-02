@@ -76,7 +76,7 @@ const MonthList = () => {
               <DayFlex>
                 <Day>
                   {idx === 0 && fullDate(value[0])}
-                  {/* {getDate(idx === 0 && fullDate(value[0]))} */}
+                  {getDate(idx === 0 && fullDate(value[0]))}
                 </Day>
                 <Dday>
                   {idx === 0 &&

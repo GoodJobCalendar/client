@@ -67,7 +67,7 @@ const DailyList = () => {
             <DayFlex key={value[1].scheduleId}>
               <Day>
                 {idx === 0 && fullDate(value[0])}
-                {/* {getDate(idx === 0 && fullDate(value[0]))} */}
+                {idx === 0 && getDate(day)}
               </Day>
               <Dday>
                 {idx === 0 &&
