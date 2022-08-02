@@ -212,7 +212,7 @@ const BtnWrap = styled.div`
 `;
 
 const BackBtn = styled.div`
-  padding: 18px 30px;
+  padding: 18px 25px;
   background: #d1d1d1;
   border-radius: 6px;
   cursor: pointer;
@@ -236,7 +236,7 @@ const MsgImg = styled.img`
 `;
 const ScrapBtn = styled.div`
   position: relative;
-  padding: 18px 30px;
+  padding: 18px 25px;
   font-weight: 500;
   background: transparent;
   background-color: ${(props) =>
