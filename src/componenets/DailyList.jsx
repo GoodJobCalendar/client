@@ -152,10 +152,13 @@ const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 16px;
   a {
     width: 100%;
     height: 100%;
+    margin-top: 16px;
+    :nth-child(2) {
+      margin-top: 0;
+    }
   }
 `;
 const ScheduleItem = styled.div`
@@ -165,12 +168,13 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
-  margin-top: 16px;
 `;
 const DayFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 34px;
+  margin-bottom: 26px;
 `;
 const Color = styled.div`
   width: 3px;
