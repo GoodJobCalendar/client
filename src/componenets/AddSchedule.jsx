@@ -217,7 +217,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           </NeedPostModal>
         </NeedPost>
       )}
-      <Header style={{ backgroundImage: `url(${cover})` }}>
+      <Header
+        style={{ backgroundImage: `url(${cover}) center center no-repeat` }}
+      >
         <AddFlex>
           <Btn onClick={moveBtn}>
             <img src={arrow} alt="뒤로가기" />
