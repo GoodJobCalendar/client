@@ -25,9 +25,8 @@ const initialState = {
     },
   },
   select: [],
-  list: {
-    data: [],
-  },
+  list: [],
+
   details: {
     career: "",
     city: "",
@@ -39,6 +38,8 @@ const initialState = {
     url: "",
   },
   scrap: [],
+  page: 0,
+  postings: [],
 };
 
 // 액션 생성 함수
@@ -57,17 +58,36 @@ const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 // 미들웨어
 
 // 추천채용 불러오기
+// export const loadJobList = (page) => {
+//   return function (dispatch, getState) {
+//     const myToken = getCookie("token");
+//     const bucket = {
+//       headers: { Authorization: `Bearer ${myToken}` },
+//       params: { page: page },
+//     };
+//     axios
+//       .get(`http://14.34.139.253:3000/api/postings`, bucket)
+//       .then((res) => {
+//         dispatch(__loadJobList(res.data));
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//       });
+//   };
+// };
+
 export const loadJobList = (page) => {
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const bucket = {
       headers: { Authorization: `Bearer ${myToken}` },
-      // params: { page: page },
+      params: { page: page },
     };
     axios
       .get(`https://goodjobcalendar.shop/api/postings`, bucket)
       .then((res) => {
-        dispatch(__loadJobList(res.data));
+        // console.log("추천채용 불러고기 resdata", res.data.data);
+        dispatch(__loadJobList(res.data.data));
       })
       .catch((err) => {
         console.error(err);
@@ -84,7 +104,8 @@ export const loadCategoryList = () => {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
-        dispatch(__loadCategoryList(res.data));
+        // console.log("카테고리별 불러오기 resdata", res.data.data);
+        dispatch(__loadCategoryList(res.data.data));
       })
       .catch((err) => {
         console.error(err);
@@ -106,6 +127,7 @@ export const selectCategory = (categoryData) => {
       headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
+        // console.log("카테고리 선택하기 resdata", res.data);
         dispatch(__selectCategory(res.data));
       })
       .catch((err) => {
