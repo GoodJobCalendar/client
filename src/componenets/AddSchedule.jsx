@@ -730,7 +730,7 @@ const Header = styled.div`
   width: 90%;
   padding: 20px;
   height: 184px;
-  background-size: contain;
+  background-size: cover;
   background-position: bottom;
   display: flex;
   flex-direction: column;
