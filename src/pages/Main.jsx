@@ -180,7 +180,7 @@ function Main() {
             </WeekMonth> */}
           </ToggleBtn>
           {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-          {loginOn && (active?.isActive ? <DailyList /> : <MonthList />)}
+          {active?.isActive ? <DailyList /> : <MonthList />}
         </ContentWrap>
       ) : (
         <SearchWrapper>
