@@ -217,9 +217,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           </NeedPostModal>
         </NeedPost>
       )}
-      <Header
-        style={{ backgroundImage: `url(${cover}) center center no-repeat` }}
-      >
+      <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
           <Btn onClick={moveBtn}>
             <img src={arrow} alt="뒤로가기" />
@@ -739,6 +737,7 @@ const Header = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-repeat: no-repeat;
 `;
 const AddFlex = styled.div`
   width: 100%;
