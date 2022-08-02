@@ -8,7 +8,7 @@ import {
   selectCategory,
 } from "../redux/modules/job";
 
-import backBtn from "../assets/img/icon/Back.png";
+import backBtn from "../assets/img/icon/Back.svg";
 import open from "../assets/img/btn/open.png";
 import close from "../assets/img/btn/close.png";
 

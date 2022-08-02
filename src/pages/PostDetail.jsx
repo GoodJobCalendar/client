@@ -24,12 +24,12 @@ import cover4 from "../assets/img/cover/cover4.png";
 import cover5 from "../assets/img/cover/cover5.png";
 
 //아이콘 이미지
-import arrow from "../assets/img/icon/Back.png";
-import update from "../assets/img/icon/Edit.png";
+import arrow from "../assets/img/icon/Back.svg";
+import update from "../assets/img/icon/Edit.svg";
 import UpdateSchedule from "../componenets/UpdateSchedule";
-import logomini from "../assets/img/icon/Logo_mini.png";
-import location from "../assets/img/icon/Location.png";
-import time from "../assets/img/icon/Time.png";
+import logomini from "../assets/img/icon/Logo_mini.svg";
+import location from "../assets/img/icon/Location.svg";
+import time from "../assets/img/icon/Time.svg";
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

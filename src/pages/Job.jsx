@@ -5,11 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getCookie } from "../shared/Cookie";
 
-import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/job";
+import {
+  loadJobList,
+  loadCategoryList,
+  loadJobDetails,
+} from "../redux/modules/job";
 
 import Nav from "../componenets/Nav";
 
-import location from "../assets/img/icon/Location.png";
+import location from "../assets/img/icon/Location.svg";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -55,12 +59,17 @@ const Job = () => {
       <JobWrapper id="para">
         <TeamNameList>
           <UpdateTime>{jobDataUpdate}</UpdateTime>
-          <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
+          <FilterBtn onClick={() => navigate("/jobCategory")}>
+            추천 조건
+          </FilterBtn>
         </TeamNameList>
         <div>
           {jobDataList?.map((tasksData, idx) => {
             return (
-              <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
+              <JobCard
+                key={idx}
+                onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
+              >
                 <CompanyName>{tasksData.companyName}</CompanyName>
                 <JobTitle>{tasksData.title}</JobTitle>
                 <DetailInfo>
@@ -69,7 +78,11 @@ const Job = () => {
                     <JobTags>{tasksData.companyType}</JobTags>
                   </JobTagsWrap>
 
-                  <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
+                  <EndTime>
+                    {tasksData.deadline.split(" ")[0] === "2122-01-01"
+                      ? "상시채용"
+                      : "~" + tasksData.deadline.split(" ")[0]}
+                  </EndTime>
                 </DetailInfo>
               </JobCard>
             );

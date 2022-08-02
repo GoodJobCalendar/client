@@ -21,11 +21,11 @@ import cover3 from "../assets/img/cover/cover3.png";
 import cover4 from "../assets/img/cover/cover4.png";
 
 // 아이콘
-import time from "../assets/img/icon/Time.png";
-import location from "../assets/img/icon/Location.png";
-import memoimg from "../assets/img/icon/memo.png";
+import time from "../assets/img/icon/Time.svg";
+import location from "../assets/img/icon/Location.svg";
+import memoimg from "../assets/img/icon/memo.svg";
 import emptyImg from "../assets/img/illust/needlogin.png";
-import arrow from "../assets/img/icon/Back.png";
+import arrow from "../assets/img/icon/Back.svg";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -825,7 +825,7 @@ const PlaceText = styled.div`
     width: calc(90% - 24px);
     padding-left: 44px !important;
   }
-  background: url(../assets/img/icon/Location.png) center center no-repeat !important;
+  background: url(../assets/img/icon/Location.svg) center center no-repeat !important;
 `;
 const Background = styled.div`
   position: fixed;
