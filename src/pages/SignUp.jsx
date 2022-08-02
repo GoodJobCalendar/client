@@ -9,7 +9,7 @@ import { setUser } from "./../redux/modules/user";
 
 // 이미지
 import logo from "../assets/img/logo.png";
-import logo_text from "../assets/img/logo_text.png";
+import logo_text from "../assets/img/logo_text.svg";
 
 import axios from "axios";
 
