@@ -21,7 +21,7 @@ import slide1 from "../assets/img/slide/slide1.png";
 import slide2 from "../assets/img/slide/slide2.png";
 import slide3 from "../assets/img/slide/slide3.png";
 import cover from "../assets/img/cover.png";
-import kakaologo from "../assets/img/icon/kakaobtn.png";
+import kakaologo from "../assets/img/icon/kakaobtn.svg";
 
 const Home = () => {
   return (

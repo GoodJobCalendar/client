@@ -7,11 +7,11 @@ import { logoutUser, __logoutUser } from "./../redux/modules/user";
 import { getCookie } from "../shared/Cookie";
 
 //이미지
-import calendar_w from "../assets/img/icon/calendar_w.png";
-import calendar_c from "../assets/img/icon/calendar_c.png";
-import element_w from "../assets/img/icon/element_w.png";
-import element_c from "../assets/img/icon/element_c.png";
-import logout from "../assets/img/icon/logout.png";
+import calendar_w from "../assets/img/icon/calendar_w.svg";
+import calendar_c from "../assets/img/icon/calendar_c.svg";
+import element_w from "../assets/img/icon/element_w.svg";
+import element_c from "../assets/img/icon/element_c.svg";
+import logout from "../assets/img/icon/logout.svg";
 import needLogin from "../assets/img/illust/needlogin.png";
 import { deleteCookie } from "./../shared/Cookie";
 

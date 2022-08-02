@@ -14,7 +14,7 @@ import { KAKAO_AUTH_URL } from "../shared/api";
 
 // 이미지
 import logo from "../assets/img/logo.png";
-import kakaologo from "../assets/img/icon/kakaobtn.png";
+import kakaologo from "../assets/img/icon/kakaobtn.svg";
 import axios from "axios";
 
 const Login = () => {
