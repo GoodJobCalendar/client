@@ -33,26 +33,25 @@ const DailyList = () => {
   };
   const today = `${yy}-${Month(mm)}-${day}`;
   const fullDate = (day) => {
-    const date = new Date(
-      `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
-    );
-    const week = [
-      "일요일",
-      "월요일",
-      "화요일",
-      "수요일",
-      "목요일",
-      "금요일",
-      "토요일",
-    ];
-
-    const dayOfWeek = week[new Date(date).getDay()];
-    const textDay = new Date(day);
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
       4,
       2
-    )}일 ${dayOfWeek}`;
+    )}일 `;
   };
+  const date = new Date(
+    `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
+  );
+  const weekText = [
+    "일요일",
+    "월요일",
+    "화요일",
+    "수요일",
+    "목요일",
+    "금요일",
+    "토요일",
+  ];
+
+  const dayOfWeek = weekText[new Date(date).getDay()];
   const list =
     dailyList &&
     dailyList?.map((value, index) => (
@@ -60,7 +59,10 @@ const DailyList = () => {
         {value[1]?.map((content, idx) => (
           <>
             <DayFlex key={value[1].scheduleId}>
-              <Day>{idx === 0 && fullDate(value[0])}</Day>
+              <Day>
+                {idx === 0 && fullDate(value[0])}
+                {dayOfWeek}
+              </Day>
               <Dday>
                 {idx === 0 &&
                   (new Date(content.date.split(" ")[0]) - new Date(today) > 0
