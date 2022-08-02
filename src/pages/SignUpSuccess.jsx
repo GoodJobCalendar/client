@@ -59,7 +59,6 @@ const Header = styled.header`
   position: relative;
   width: 100%;
   padding-bottom: 50px;
-  margin-bottom: 73px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,8 +101,7 @@ const SignUpBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 78px;
   font-weight: 400;
   color: #fff !important;
-  margin-top: 72px;
+  margin-top: 68px;
 `;
