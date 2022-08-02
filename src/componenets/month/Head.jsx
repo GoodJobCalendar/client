@@ -128,6 +128,7 @@ const BtnBox = styled.div`
     font-size: 22px;
     color: var(--blue4);
     line-height: 30px;
+    background-color: transparent;
   }
 `;
 const Btn = styled.button`
