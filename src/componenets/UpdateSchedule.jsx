@@ -52,14 +52,14 @@ const UpdateSchedule = ({
   const [dateShow, setDateShow] = useState(true);
   const [timeShow, setTimeShow] = useState(false);
 
-  function coverimage() {
-    if (detailInfo.coverImage === 1) {
+  function coverimage(detailInfo) {
+    if (detailInfo === 1) {
       return cover1;
-    } else if (detailInfo.coverImage === 2) {
+    } else if (detailInfo === 2) {
       return cover2;
-    } else if (detailInfo.coverImage === 3) {
+    } else if (detailInfo === 3) {
       return cover3;
-    } else if (detailInfo.coverImage === 4) {
+    } else if (detailInfo === 4) {
       return cover4;
     }
   }
@@ -86,13 +86,13 @@ const UpdateSchedule = ({
   //작성목록
   const [color, setColor] = useState("");
   const [sticker, setSticker] = useState(String(detailInfo.sticker));
-  const [image, setImage] = useState(String(detailInfo.coverImage));
+  const [image, setImage] = useState("");
   const [companyName, setCompanyName] = useState(detailInfo.companyName);
   const [title, setTitle] = useState(detailInfo.title);
   const [place, setPlace] = useState(detailInfo.place);
   const [memo, setMemo] = useState(detailInfo.memo);
 
-  const [cover, setCover] = useState(coverimage());
+  const [cover, setCover] = useState(coverimage(detailInfo.coverImage));
 
   //컬러 미리보기
   const [colorPick, setColorPick] = useState(colorPickOn(detailInfo?.color));

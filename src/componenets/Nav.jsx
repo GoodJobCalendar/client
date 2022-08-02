@@ -13,7 +13,6 @@ import element_w from "../assets/img/icon/element_w.png";
 import element_c from "../assets/img/icon/element_c.png";
 import logout from "../assets/img/icon/logout.png";
 import needLogin from "../assets/img/illust/needlogin.png";
-
 import { deleteCookie } from "./../shared/Cookie";
 
 const Nav = (props) => {
@@ -111,6 +110,7 @@ const Nav = (props) => {
 };
 
 export default Nav;
+
 const NavWrap = styled.div`
   width: 100%;
   height: 158px;

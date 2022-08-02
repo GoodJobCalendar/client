@@ -39,5 +39,11 @@ const GlobalStyle = createGlobalStyle`
   input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
+input:focus {
+      ::placeholder {
+        opacity: 0;
+      }
+    }
+
 `;
 export default GlobalStyle;

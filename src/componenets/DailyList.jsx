@@ -9,37 +9,10 @@ import img5 from "../assets/img/sticker/sticker5.png";
 import img6 from "../assets/img/sticker/sticker6.png";
 import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
+import img9 from "../assets/img/sticker/sticker9.png";
 import { Link } from "react-router-dom";
 const DailyList = () => {
   const dailySchedule = useSelector((state) => state.schedule.daily);
-  const response = {
-    220703: [
-      {
-        scheduleId: 43,
-        color: 3,
-        memo: null,
-        sticker: 4,
-        coverImage: 0,
-        place: "집",
-        date: "2022-07-03 01:01:01",
-        companyName: "짱좋은회사3",
-        type: "manual",
-        title: "면접1",
-      },
-      {
-        scheduleId: 43,
-        color: 3,
-        memo: null,
-        sticker: 4,
-        coverImage: 0,
-        place: "집",
-        date: "2022-07-03 01:01:01",
-        companyName: "짱좋은회사3",
-        type: "manual",
-        title: "면접1",
-      },
-    ],
-  };
   const dailyList = Object.entries(dailySchedule);
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
@@ -60,25 +33,31 @@ const DailyList = () => {
   };
   const today = `${yy}-${Month(mm)}-${day}`;
   const fullDate = (day) => {
-    const date = new Date(
-      `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
-    );
-    let [week, month, dd, year, sTime] = date.toString().split(" ");
-    let Week = (week) => {
-      if (week === "Sun") return "일요일";
-      if (week === "Mon") return "월요일";
-      if (week === "Tue") return "화요일";
-      if (week === "Wed") return "수요일";
-      if (week === "Thu") return "목요일";
-      if (week === "Fri") return "금요일";
-      if (week === "Sat") return "토요일";
-    };
-    const textDay = new Date(day);
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
       4,
       2
-    )}일 ${Week(week)}`;
+    )}일 `;
   };
+  const date = new Date(
+    `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
+  );
+  function getDate(whatDay) {
+    //날짜문자열 형식은 자유로운 편
+
+    const week = [
+      "일요일",
+      "월요일",
+      "화요일",
+      "수요일",
+      "목요일",
+      "금요일",
+      "토요일",
+    ];
+
+    const dayOfWeek = week[new Date(whatDay).getDay()];
+
+    return dayOfWeek;
+  }
   const list =
     dailyList &&
     dailyList?.map((value, index) => (
@@ -86,7 +65,10 @@ const DailyList = () => {
         {value[1]?.map((content, idx) => (
           <>
             <DayFlex key={value[1].scheduleId}>
-              <Day>{idx === 0 && fullDate(value[0])}</Day>
+              <Day>
+                {idx === 0 && fullDate(value[0])}
+                {idx === 0 && getDate(day)}
+              </Day>
               <Dday>
                 {idx === 0 &&
                   (new Date(content.date.split(" ")[0]) - new Date(today) > 0
@@ -144,6 +126,10 @@ const DailyList = () => {
                 ) : content?.sticker === 8 ? (
                   <Sticker>
                     <img src={img8} alt="" />
+                  </Sticker>
+                ) : content?.sticker === 9 ? (
+                  <Sticker>
+                    <img src={img9} alt="" />
                   </Sticker>
                 ) : (
                   ""
@@ -203,6 +189,7 @@ const Color = styled.div`
   background-color: ${(props) =>
     props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
+  background-color: ${(props) => (props.color === 9 ? "var(--blue4)" : "")};
 `;
 const Day = styled.p`
   font-weight: 600;

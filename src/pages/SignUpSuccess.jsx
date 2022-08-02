@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUpImg from "../assets/img/illust/signupsuccess.png";
 
 //회원이름
 const SignupSucess = () => {
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.user);
 
   return (
@@ -21,8 +22,12 @@ const SignupSucess = () => {
         </TitleText>
       </Header>
       <Main>
-        <SignUpBtn>
-          <Link to="/login">로그인하기</Link>
+        <SignUpBtn
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          로그인하기
         </SignUpBtn>
       </Main>
     </EmailWrap>
@@ -54,7 +59,9 @@ const Header = styled.header`
   position: relative;
   width: 100%;
   padding-bottom: 50px;
-  margin-bottom: 73px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const TitleText = styled.div`
   position: absolute;
@@ -63,6 +70,7 @@ const TitleText = styled.div`
   top: 70%;
   width: 100%;
   text-align: center;
+  z-index: 999;
 `;
 const Title = styled.h1`
   font-weight: 700;
@@ -75,8 +83,9 @@ const SubTitle = styled.p`
   margin-top: 16px;
 `;
 const Banner = styled.img`
-  width: 100%;
+  width: 60%;
   border-radius: 26px;
+  margin-bottom: 16px;
 `;
 const Main = styled.main`
   display: flex;
@@ -92,8 +101,7 @@ const SignUpBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 78px;
   font-weight: 400;
   color: #fff !important;
-  margin-top: 72px;
+  margin-top: 68px;
 `;

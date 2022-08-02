@@ -13,6 +13,7 @@ import img5 from "../assets/img/sticker/sticker5.png";
 import img6 from "../assets/img/sticker/sticker6.png";
 import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
+import img9 from "../assets/img/sticker/sticker9.png";
 
 const MonthList = () => {
   const [monthList, setMonthList] = useState();
@@ -20,19 +21,11 @@ const MonthList = () => {
   useEffect(() => {
     setMonthList(Object.entries(monthSchdule));
   }, [monthSchdule]);
+
   const fullDate = (day) => {
     const date = new Date(`20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`);
-    let [week, month, dd, year, sTime] = date.toString().split(" ");
-    let Week = (week) => {
-      if (week === "Sun") return "일요일";
-      if (week === "Mon") return "월요일";
-      if (week === "Tue") return "화요일";
-      if (week === "Wed") return "수요일";
-      if (week === "Thu") return "목요일";
-      if (week === "Fri") return "금요일";
-      if (week === "Sat") return "토요일";
-    };
-    return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(4, 2)}일 ${Week(week)}`;
+
+    return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(4, 2)}일 `;
   };
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
@@ -51,26 +44,38 @@ const MonthList = () => {
     if (mm === "Dec") return "12";
   };
   const today = `${yy}-${Month(mm)}-${day}`;
+  function getDate(whatDay) {
+    //날짜문자열 형식은 자유로운 편
 
-  console.log(today);
+    const week = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
+    const dayOfWeek = week[new Date(whatDay).getDay()];
+
+    return dayOfWeek;
+  }
   const list =
     monthList &&
     monthList?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
         {value[1]?.map((content, idx) => (
           <Fragment key={idx}>
-            <DayFlex>
-              <Day>{idx === 0 && fullDate(value[0])}</Day>
-              <Dday>
-                {idx === 0 &&
-                  (new Date(content.date.split(" ")[0]) - new Date(today) > 0
-                    ? `D- ${Math.floor((new Date(content.date.split(" ")[0]) - new Date(today)) / (1000 * 60 * 60 * 24))}`
-                    : new Date(content.date.split(" ")[0]) - new Date(today) !== 0
-                    ? `D+ ${Math.floor((new Date(today) - new Date(content.date.split(" ")[0])) / (1000 * 60 * 60 * 24))}`
-                    : "D-day")}
-              </Dday>
-            </DayFlex>
+            {idx === 0 && (
+              <DayFlex>
+                <Day>
+                  {idx === 0 && fullDate(value[0])}
+                  {idx === 0 && getDate(day)}
+                </Day>
+                <Dday>
+                  {idx === 0 &&
+                    (new Date(content.date.split(" ")[0]) - new Date(today) > 0
+                      ? `D- ${Math.floor((new Date(content.date.split(" ")[0]) - new Date(today)) / (1000 * 60 * 60 * 24))}`
+                      : new Date(content.date.split(" ")[0]) - new Date(today) !== 0
+                      ? `D+ ${Math.floor((new Date(today) - new Date(content.date.split(" ")[0])) / (1000 * 60 * 60 * 24))}`
+                      : "D-day")}
+                </Dday>
+              </DayFlex>
+            )}
+
             <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
@@ -110,6 +115,10 @@ const MonthList = () => {
                   <Sticker>
                     <img src={img8} alt="" />
                   </Sticker>
+                ) : content?.sticker === 9 ? (
+                  <Sticker>
+                    <img src={img9} alt="" />
+                  </Sticker>
                 ) : (
                   ""
                 )}
@@ -131,10 +140,13 @@ const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 16px;
   a {
     width: 100%;
     height: 100%;
+    margin-top: 16px;
+    :nth-child(2) {
+      margin-top: 0;
+    }
   }
 `;
 const ScheduleItem = styled.div`
@@ -144,12 +156,13 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
-  margin-top: 16px;
 `;
 const DayFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 34px;
+  margin-bottom: 26px;
 `;
 const Color = styled.div`
   width: 3px;
@@ -163,6 +176,7 @@ const Color = styled.div`
   background-color: ${(props) => (props.color === 6 ? "rgba(110, 218, 253, 1)" : "")};
   background-color: ${(props) => (props.color === 7 ? "rgba(130, 110, 253, 1)" : "")};
   background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
+  background-color: ${(props) => (props.color === 9 ? "var(--blue4)" : "")};
 `;
 const Day = styled.p`
   font-weight: 600;

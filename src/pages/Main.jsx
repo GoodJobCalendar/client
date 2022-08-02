@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { getCookie } from "../shared/Cookie";
+import { getCookie, setCookie } from "../shared/Cookie";
 
 // 컴포넌트
 import Nav from "../componenets/Nav";
@@ -18,6 +18,7 @@ import zoomout from "../assets/img/icon/zoomout.png";
 import locationGray from "../assets/img/icon/LocationGray.png";
 import searchImg from "../assets/img/icon/search.png";
 import needLogin from "../assets/img/illust/needlogin.png";
+import guideImg from "../assets/img/guide.png";
 
 // 스티커 배경
 import img2 from "../assets/img/sticker/sticker2.png";
@@ -36,9 +37,12 @@ import { zoomDate } from "../redux/modules/date";
 function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
   const [loginOn, setLoginOn] = useState(false);
+  const [guideOn, setGuide] = useState(true);
+
   const navData = true;
   const token = getCookie("token");
   const active = useSelector((state) => state.date.active);
@@ -96,13 +100,37 @@ function Main() {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
 
+  const [showModal, setShowModal] = useState(false);
+  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+
   useEffect(() => {
-    if (token) {
-      setLoginOn(true);
-    }
-  }, [loginOn]);
+    const handleShowModal = () => {
+      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+        return;
+      }
+
+      if (!HAS_VISITED_BEFORE) {
+        setShowModal(true);
+        let expires = new Date();
+        expires = expires.setHours(expires.getHours() + 24);
+        localStorage.setItem("hasVisitedBefore", expires);
+      }
+    };
+
+    window.setTimeout(handleShowModal, 2000);
+  }, [HAS_VISITED_BEFORE]);
+
+  const handleClose = () => setShowModal(false);
   return (
     <MainWrap>
+      {showModal ? (
+        <GuideBg onClick={handleClose}>
+          <button onClick={handleClose}>x</button>
+          <GuideImg src={guideImg} alt="가이드" />
+        </GuideBg>
+      ) : (
+        ""
+      )}
       <Nav navData={navData} />
       <FixBox>
         <Search>
@@ -152,7 +180,7 @@ function Main() {
             </WeekMonth> */}
           </ToggleBtn>
           {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-          {loginOn && (active?.isActive ? <DailyList /> : <MonthList />)}
+          {active?.isActive ? <DailyList /> : <MonthList />}
         </ContentWrap>
       ) : (
         <SearchWrapper>
@@ -245,6 +273,32 @@ function Main() {
   );
 }
 export default Main;
+const GuideImg = styled.img`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+`;
+const GuideBg = styled.div`
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  width: 100%;
+  height: 100vh;
+  button {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    background-color: transparent;
+    color: #fff !important;
+    z-index: 999;
+    font-size: 20px;
+  }
+`;
 const NeedLogin = styled.div`
   position: absolute;
   top: 50%;

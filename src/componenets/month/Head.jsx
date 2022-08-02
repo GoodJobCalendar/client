@@ -117,6 +117,7 @@ const YearBtnBox = styled.div`
     font-weight: 700;
     font-size: 14px;
     color: var(--blue3);
+    background-color: transparent;
   }
 `;
 const BtnBox = styled.div`
@@ -128,12 +129,14 @@ const BtnBox = styled.div`
     font-size: 22px;
     color: var(--blue4);
     line-height: 30px;
+    background-color: transparent;
   }
 `;
 const Btn = styled.button`
   text-align: center;
   cursor: pointer;
   color: var(--blue3);
+  background-color: transparent;
 `;
 const Days = styled.div`
   display: flex;
