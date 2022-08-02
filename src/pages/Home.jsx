@@ -194,7 +194,7 @@ const CoverImg = styled.div`
     position: absolute;
     right: 0;
   }
-  animation: hideSplashScreen 0.4s ease-in-out forwards;
+  animation: hideSplashScreen 0.6s ease-in-out forwards;
   animation-delay: 1s;
   @keyframes hideSplashScreen {
     from {

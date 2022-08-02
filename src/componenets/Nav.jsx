@@ -67,13 +67,12 @@ const Nav = (props) => {
             <Line></Line>
           </LineList>
         </Ham> */}
-
         {token ? (
           <>
             <LogOutBtn style={{ opacity: "0" }}>
               <img src={logout} alt="로그아웃" />
             </LogOutBtn>
-            <span>취준생캘린더</span>
+            <span>{nav ? "취준생캘린더" : "추천채용"}</span>
             <LogOutBtn onClick={logOut}>
               <img src={logout} alt="로그아웃" />
             </LogOutBtn>
@@ -83,8 +82,7 @@ const Nav = (props) => {
             <LogOutBtn style={{ opacity: "0" }}>
               <img src={logout} alt="로그아웃" />
             </LogOutBtn>
-            <span>취준생캘린더</span>
-
+            <span>{nav ? "취준생캘린더" : "추천채용"}</span>
             <LogOutBtn style={{ opacity: "0" }}>
               <img src={logout} alt="로그아웃" />
             </LogOutBtn>
