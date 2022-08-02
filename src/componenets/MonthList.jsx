@@ -21,24 +21,26 @@ const MonthList = () => {
   useEffect(() => {
     setMonthList(Object.entries(monthSchdule));
   }, [monthSchdule]);
+
   const fullDate = (day) => {
     const date = new Date(
       `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
     );
-    let [week, month, dd, year, sTime] = date.toString().split(" ");
-    let Week = (week) => {
-      if (week === "Sun") return "일요일";
-      if (week === "Mon") return "월요일";
-      if (week === "Tue") return "화요일";
-      if (week === "Wed") return "수요일";
-      if (week === "Thu") return "목요일";
-      if (week === "Fri") return "금요일";
-      if (week === "Sat") return "토요일";
-    };
+    const week = [
+      "일요일",
+      "월요일",
+      "화요일",
+      "수요일",
+      "목요일",
+      "금요일",
+      "토요일",
+    ];
+
+    const dayOfWeek = week[new Date(date).getDay()];
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
       4,
       2
-    )}일 ${Week(week)}`;
+    )}일 ${dayOfWeek}`;
   };
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
