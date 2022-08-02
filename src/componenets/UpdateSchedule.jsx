@@ -84,9 +84,9 @@ const UpdateSchedule = ({
   }
   // console.log("이미지", detailInfo.coverImage);
   //작성목록
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState(colorPickOn(detailInfo?.color));
   const [sticker, setSticker] = useState(String(detailInfo.sticker));
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(coverimage(detailInfo.coverImage));
   const [companyName, setCompanyName] = useState(detailInfo.companyName);
   const [title, setTitle] = useState(detailInfo.title);
   const [place, setPlace] = useState(detailInfo.place);
