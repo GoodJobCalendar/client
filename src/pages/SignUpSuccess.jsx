@@ -60,6 +60,9 @@ const Header = styled.header`
   width: 100%;
   padding-bottom: 50px;
   margin-bottom: 73px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const TitleText = styled.div`
   position: absolute;
@@ -81,8 +84,9 @@ const SubTitle = styled.p`
   margin-top: 16px;
 `;
 const Banner = styled.img`
-  width: 100%;
+  width: 60%;
   border-radius: 26px;
+  margin-bottom: 16px;
 `;
 const Main = styled.main`
   display: flex;
