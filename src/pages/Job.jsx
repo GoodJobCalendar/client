@@ -18,32 +18,44 @@ const Job = () => {
 
   const dispatch = useDispatch();
 
-  const jobDataList = useSelector((state) => state.job.list?.data);
-
+  const jobDataList = useSelector((state) => state.job.list);
+  // const jobDataList = useSelector((state) => state.job.list?.postings);
   const jobDataList1 = useSelector((state) => state.job.list);
+  const page = useSelector((state) => state.job.page);
+
+  console.log(jobDataList);
+  // console.log(page);
+
+  const [pages, setpages] = useState(page);
+  // console.log("페이지는 = ", pages);
+  // const [is_loading, setIs_loading] = useState(false);
+  // const [hasMore, sethasMore] = useState(true);
+
+  const getDataNext = () => {
+    let count = pages + 1;
+    if (jobDataList?.length < 10) {
+      return window.alert("마지막 페이지 입니다");
+    }
+    dispatch(loadJobList(count));
+    setpages(count);
+  };
+
+  const getDataBefore = () => {
+    let count = pages - 1;
+    if (pages === 0) {
+      return window.alert("첫페이지 입니다");
+    }
+    dispatch(loadJobList(count));
+    setpages(count);
+  };
 
   const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
 
   const navData = false;
 
-  const [page, setpage] = React.useState(0);
-
   useEffect(() => {
-    dispatch(loadJobList());
+    dispatch(loadJobList(page));
   }, []);
-  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
-  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
-
-  // const handleScroll = () => {
-  //   const scrollHeight = document.getElementById("para").scrollHeight;
-  //   const scrollTop = document.getElementById("para").scrollTop;
-  //   const clientHeight = document.getElementById("para").clientHeight;
-  //   if (scrollTop + clientHeight >= scrollHeight - 1) {
-  //     // 페이지 끝에 도달하면 추가 데이터를 받아온다
-  //     setScroll(scroll + 1);
-  //     // console.log("꺄항1");
-  //   }
-  // };
 
   // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
   // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
@@ -57,23 +69,51 @@ const Job = () => {
           <UpdateTime>{jobDataUpdate}</UpdateTime>
           <FilterBtn onClick={() => navigate("/jobCategory")}>추천 조건</FilterBtn>
         </TeamNameList>
-        <div>
-          {jobDataList?.map((tasksData, idx) => {
-            return (
-              <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
-                <CompanyName>{tasksData.companyName}</CompanyName>
-                <JobTitle>{tasksData.title}</JobTitle>
-                <DetailInfo>
-                  <JobTagsWrap>
-                    <JobTags>{tasksData.career}</JobTags>
-                    <JobTags>{tasksData.companyType}</JobTags>
-                  </JobTagsWrap>
+        {/* <div
+          id="scrollableDiv"
+          style={{
+            height: "auto",
+            overflow: "scroll",
+            display: "flex",
+            flexDirection: "column-reverse",
+          }}
+        >
+          <InfiniteScroll
+            dataLength={10}
+            // scrollThreshold="0.9"
+            next={getData}
+            hasMore={hasMore}
+            scrollableTarget="scrollableDiv"
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <CardWrapper> */}
+        {jobDataList?.map((tasksData, idx) => {
+          return (
+            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.id}`)}>
+              <CompanyName>{tasksData.companyName}</CompanyName>
+              <JobTitle>{tasksData.title}</JobTitle>
+              <DetailInfo>
+                <JobTagsWrap>
+                  <JobTags>{tasksData.career}</JobTags>
+                  <JobTags>{tasksData.companyType}</JobTags>
+                </JobTagsWrap>
 
-                  <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
-                </DetailInfo>
-              </JobCard>
-            );
-          })}
+                <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
+              </DetailInfo>
+            </JobCard>
+          );
+        })}
+        {/* </CardWrapper> */}
+        {/* </InfiniteScroll>
+        </div> */}
+        <div style={{ display: "flex", gap: "60px", padding: "20px" }}>
+          <button onClick={getDataBefore}>이전</button>
+          <button onClick={getDataNext}>다음</button>
         </div>
       </JobWrapper>
     </MainWrap>
@@ -92,6 +132,12 @@ const JobWrapper = styled.div`
   padding: 0 17px;
   height: calc(100vh - 158px);
   background: #ecf1f8;
+  overflow-y: scroll;
+`;
+
+const CardWrapper = styled.div`
+  height: 500px;
+  margin-top: 10px;
   overflow-y: scroll;
 `;
 
@@ -178,3 +224,24 @@ const JobTags = styled.div`
 `;
 
 export default Job;
+
+{
+  /* <div>
+{jobDataList?.map((tasksData, idx) => {
+  return (
+    <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
+      <CompanyName>{tasksData.companyName}</CompanyName>
+      <JobTitle>{tasksData.title}</JobTitle>
+      <DetailInfo>
+        <JobTagsWrap>
+          <JobTags>{tasksData.career}</JobTags>
+          <JobTags>{tasksData.companyType}</JobTags>
+        </JobTagsWrap>
+
+        <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
+      </DetailInfo>
+    </JobCard>
+  );
+})}
+</div> */
+}
