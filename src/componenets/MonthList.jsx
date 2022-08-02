@@ -40,7 +40,7 @@ const MonthList = () => {
     return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
       4,
       2
-    )}일 ${dayOfWeek}`;
+    )}일 ${dayOfWeek && dayOfWeek}`;
   };
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
