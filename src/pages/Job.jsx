@@ -94,7 +94,7 @@ const Job = () => {
             <CardWrapper> */}
         {jobDataList?.map((tasksData, idx) => {
           return (
-            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.id}`)}>
+            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
               <CompanyName>{tasksData.companyName}</CompanyName>
               <JobTitle>{tasksData.title}</JobTitle>
               <DetailInfo>
