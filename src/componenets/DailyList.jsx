@@ -41,17 +41,15 @@ const DailyList = () => {
   const date = new Date(
     `20${day.substr(0, 2)},${day.substr(2, 2)},${day.substr(4, 2)}`
   );
-  const weekText = [
-    "일요일",
-    "월요일",
-    "화요일",
-    "수요일",
-    "목요일",
-    "금요일",
-    "토요일",
-  ];
+  function getDate(whatDay) {
+    //날짜문자열 형식은 자유로운 편
 
-  const dayOfWeek = weekText[new Date(date).getDay()];
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+    const dayOfWeek = week[new Date(whatDay).getDay()];
+
+    return dayOfWeek;
+  }
   const list =
     dailyList &&
     dailyList?.map((value, index) => (
@@ -61,7 +59,7 @@ const DailyList = () => {
             <DayFlex key={value[1].scheduleId}>
               <Day>
                 {idx === 0 && fullDate(value[0])}
-                {dayOfWeek}
+                {getDate(idx === 0 && fullDate(value[0]))}
               </Day>
               <Dday>
                 {idx === 0 &&
