@@ -37,6 +37,7 @@ import { zoomDate } from "../redux/modules/date";
 function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
   const [loginOn, setLoginOn] = useState(false);
@@ -99,27 +100,32 @@ function Main() {
     dispatch(zoomDate(zoomInOut));
   }, [zoomInOut]);
 
+  const [showModal, setShowModal] = useState(false);
+  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+
   useEffect(() => {
-    if (token) {
-      setLoginOn(true);
-    }
-  }, [loginOn]);
+    const handleShowModal = () => {
+      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+        return;
+      }
+
+      if (!HAS_VISITED_BEFORE) {
+        setShowModal(true);
+        let expires = new Date();
+        expires = expires.setHours(expires.getHours() + 24);
+        localStorage.setItem("hasVisitedBefore", expires);
+      }
+    };
+
+    window.setTimeout(handleShowModal, 2000);
+  }, [HAS_VISITED_BEFORE]);
+
+  const handleClose = () => setShowModal(false);
   return (
     <MainWrap>
-      {guideOn ? (
-        <GuideBg
-          onClick={() => {
-            setGuide(!guideOn);
-          }}
-        >
-          <button
-            onClick={() => {
-              setGuide(!guideOn);
-              setCookie("not seen a day", true);
-            }}
-          >
-            x
-          </button>
+      {showModal ? (
+        <GuideBg onClick={handleClose}>
+          <button onClick={handleClose}>x</button>
           <GuideImg src={guideImg} alt="가이드" />
         </GuideBg>
       ) : (

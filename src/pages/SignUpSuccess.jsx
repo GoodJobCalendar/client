@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUpImg from "../assets/img/illust/signupsuccess.png";
 
 //회원이름
 const SignupSucess = () => {
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.user);
 
   return (
@@ -21,8 +22,12 @@ const SignupSucess = () => {
         </TitleText>
       </Header>
       <Main>
-        <SignUpBtn>
-          <Link to="/login">로그인하기</Link>
+        <SignUpBtn
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          로그인하기
         </SignUpBtn>
       </Main>
     </EmailWrap>
@@ -63,6 +68,7 @@ const TitleText = styled.div`
   top: 70%;
   width: 100%;
   text-align: center;
+  z-index: 999;
 `;
 const Title = styled.h1`
   font-weight: 700;
