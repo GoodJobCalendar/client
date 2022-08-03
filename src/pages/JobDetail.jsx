@@ -14,7 +14,7 @@ import {
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
 import coverimg from "../assets/img/cover/cover2.png";
-import msg from "../assets/img/btn/msg.png";
+import msg from "../assets/img/btn/msg.svg";
 const JobDetail = () => {
   const navigate = useNavigate();
 
@@ -98,7 +98,7 @@ const JobDetail = () => {
               dispatch(addScrap(id));
             }}
           >
-            <MsgImg src={msg} alt="뒤로가기" />
+            {jobDetail?.isScrap && <MsgImg src={msg} alt="캘린더로 스크랩" />}
             캘린더로 스크랩
           </ScrapBtn>
         </BtnWrap>
