@@ -98,7 +98,16 @@ const JobDetail = () => {
               dispatch(addScrap(id));
             }}
           >
-            {jobDetail?.isScrap && <MsgImg src={msg} alt="캘린더로 스크랩" />}
+            {jobDetail?.isScrap && (
+              <>
+                <MsgText>
+                  <span>취준 캘린더</span>에서
+                  <br />
+                  확인해보세요!
+                </MsgText>
+                <MsgImg src={msg} alt="캘린더로 스크랩" />
+              </>
+            )}
             캘린더로 스크랩
           </ScrapBtn>
         </BtnWrap>
@@ -233,6 +242,21 @@ const MsgImg = styled.img`
   top: -65px;
   left: 50%;
   transform: translateX(-50%);
+`;
+const MsgText = styled.p`
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--blue3);
+  width: 100%;
+  span {
+    font-weight: 700;
+    color: var(--blue3);
+  }
+  z-index: 99;
 `;
 const ScrapBtn = styled.div`
   position: relative;
