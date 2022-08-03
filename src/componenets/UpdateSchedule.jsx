@@ -13,12 +13,14 @@ import img5 from "../assets/img/sticker/sticker5.png";
 import img6 from "../assets/img/sticker/sticker6.png";
 import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
+import img9 from "../assets/img/sticker/sticker9.png";
 
 // 커버 이미지
 import cover1 from "../assets/img/cover/cover1.png";
 import cover2 from "../assets/img/cover/cover2.png";
 import cover3 from "../assets/img/cover/cover3.png";
 import cover4 from "../assets/img/cover/cover4.png";
+import cover5 from "../assets/img/cover/cover5.png";
 
 // 아이콘
 import time from "../assets/img/icon/Time.svg";
@@ -61,8 +63,11 @@ const UpdateSchedule = ({
       return cover3;
     } else if (detailInfo === 4) {
       return cover4;
+    } else if (detailInfo === 5) {
+      return cover5;
     }
   }
+
   function colorPickOn(detailInfo) {
     if (detailInfo === 1) {
       return "var(--blue1)";
@@ -80,29 +85,34 @@ const UpdateSchedule = ({
       return "rgba(130,110,253,1)";
     } else if (detailInfo === 8) {
       return "var(--gray2)";
+    } else if (detailInfo === 9) {
+      return "var(--blue4)";
     }
   }
   // console.log("이미지", detailInfo.coverImage);
   //작성목록
-  const [color, setColor] = useState(colorPickOn(detailInfo?.color));
-  const [sticker, setSticker] = useState(String(detailInfo.sticker));
-  const [image, setImage] = useState(coverimage(detailInfo.coverImage));
-  const [companyName, setCompanyName] = useState(detailInfo.companyName);
-  const [title, setTitle] = useState(detailInfo.title);
-  const [place, setPlace] = useState(detailInfo.place);
-  const [memo, setMemo] = useState(detailInfo.memo);
+  const [color, setColor] = useState(detailInfo?.color);
+  const [sticker, setSticker] = useState(String(detailInfo?.sticker));
+  const [image, setImage] = useState(detailInfo?.coverImage);
+  const [companyName, setCompanyName] = useState(detailInfo?.companyName);
+  const [title, setTitle] = useState(detailInfo?.title);
+  const [place, setPlace] = useState(detailInfo?.place);
+  const [memo, setMemo] = useState(detailInfo?.memo);
 
-  const [cover, setCover] = useState(coverimage(detailInfo.coverImage));
+  const [cover, setCover] = useState(coverimage(detailInfo?.coverImage));
 
   //컬러 미리보기
   const [colorPick, setColorPick] = useState(colorPickOn(detailInfo?.color));
 
   const [startDate, setStartDate] = useState(new Date(detailInfo?.date));
-
+  const hh = detailInfo?.date.split(" ")[1].substr(3, 2);
+  const tt = detailInfo?.date.split(" ")[1].substr(0, 2);
   //Time Picker
-  const [selectTime, setSelectTime] = useState("오전");
-  const [selectHour, setSelectHour] = useState("01");
-  const [selectMinute, setSelectMinute] = useState("00");
+  const [selectTime, setSelectTime] = useState(tt > 12 ? "오후" : "오전");
+  const [selectHour, setSelectHour] = useState(
+    String(tt - 12).padStart(2, "0")
+  );
+  const [selectMinute, setSelectMinute] = useState(hh);
 
   //Date Picker
   let [week, month, day, year, sTime] = startDate.toString().split(" ");
@@ -191,7 +201,7 @@ const UpdateSchedule = ({
   // 커버 이미지 미리보기 / 커버 이미지 pick
   const coverChange = (e) => {
     setCover(e.target.value);
-    setImage(e.target.id);
+    setImage(Number(e.target.id));
     // setCoverShow(!coverShow);
   };
   // 일정등록
@@ -706,6 +716,7 @@ const UpdateSchesuleWrap = styled.div`
 `;
 const Btn = styled.button`
   font-weight: 700;
+  font-size: 12px;
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
@@ -824,7 +835,7 @@ const PlaceText = styled.div`
     width: calc(90% - 24px);
     padding-left: 44px !important;
   }
-  background: url(../assets/img/icon/Location.svg) center center no-repeat !important;
+  background: url(../assets/img/icon/Location.png) center center no-repeat !important;
 `;
 const Background = styled.div`
   position: fixed;
@@ -1048,12 +1059,9 @@ const CoverPick1 = styled.label`
   cursor: pointer;
   :nth-child(1) {
     border: ${(props) =>
-      props.image === "1"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "1" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.image === "1" ? "700px" : "500px")};
+      props.image === 1 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 1 ? "var(--blue4)" : "var(--gray2)")};
+    font-weight: ${(props) => (props.image === 1 ? "700px" : "500px")};
   }
 `;
 const StickerCoverLine = styled.div`
@@ -1076,7 +1084,7 @@ const ColorCoverLine = styled.div`
 `;
 const CoverLine = styled.div`
   border-bottom: ${(props) =>
-    props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    props.image === 1 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
@@ -1165,29 +1173,20 @@ const CoverPick = styled.label`
   cursor: pointer;
   :nth-child(2) {
     border: ${(props) =>
-      props.image === "2"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "2" ? "var(--blue4)" : "var(--gray2)"};
+      props.image === 2 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 2 ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "2" ? "700px" : "500px")};
   }
   :nth-child(3) {
     border: ${(props) =>
-      props.image === "3"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "3" ? "var(--blue4)" : "var(--gray2)"};
+      props.image === 3 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 3 ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "3" ? "700px" : "500px")};
   }
   :nth-child(4) {
     border: ${(props) =>
-      props.image === "4"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "4" ? "var(--blue4)" : "var(--gray2)"};
+      props.image === 4 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 4 ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "4" ? "700px" : "500px")};
   }
 `;
