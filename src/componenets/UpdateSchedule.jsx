@@ -106,12 +106,17 @@ const UpdateSchedule = ({
 
   const [startDate, setStartDate] = useState(new Date(detailInfo?.date));
   const hh = detailInfo?.date.split(" ")[1].substr(3, 2);
-  const tt = detailInfo?.date.split(" ")[1].substr(0, 2);
+  const ttt = detailInfo?.date.split(" ")[1].substr(0, 2);
+  const tt = () => {
+    if (tt > 12) {
+      return "오후";
+    } else {
+      return "오전";
+    }
+  };
   //Time Picker
-  const [selectTime, setSelectTime] = useState(tt > 12 ? "오후" : "오전");
-  const [selectHour, setSelectHour] = useState(
-    String(tt - 12).padStart(2, "0")
-  );
+  const [selectTime, setSelectTime] = useState(tt(ttt));
+  const [selectHour, setSelectHour] = useState(ttt);
   const [selectMinute, setSelectMinute] = useState(hh);
 
   //Date Picker
