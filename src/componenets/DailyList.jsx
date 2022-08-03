@@ -10,7 +10,7 @@ import img6 from "../assets/img/sticker/sticker6.png";
 import img7 from "../assets/img/sticker/sticker7.png";
 import img8 from "../assets/img/sticker/sticker8.png";
 import img9 from "../assets/img/sticker/sticker9.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const DailyList = () => {
   const dailySchedule = useSelector((state) => state.schedule.daily);
   const dailyList = Object.entries(dailySchedule);
@@ -63,39 +63,31 @@ const DailyList = () => {
     dailyList?.map((value, index) => (
       <ScheduleListWrap key={index}>
         {value[1]?.map((content, idx) => (
-          <div>
-            {idx === 0 && (
-              <DayFlex key={value[1].scheduleId}>
-                <Day>
-                  {idx === 0 && fullDate(value[0])}
-                  {idx === 0 && getDate(day)}
-                </Day>
-                <Dday>
-                  {idx === 0 &&
-                    (new Date(content.date.split(" ")[0]) - new Date(today) > 0
-                      ? `D- ${Math.floor(
-                          (new Date(content.date.split(" ")[0]) -
-                            new Date(today)) /
-                            (1000 * 60 * 60 * 24)
-                        )}`
-                      : new Date(content.date.split(" ")[0]) -
-                          new Date(today) !==
-                        0
-                      ? `D+ ${Math.floor(
-                          (new Date(today) -
-                            new Date(content.date.split(" ")[0])) /
-                            (1000 * 60 * 60 * 24)
-                        )}`
-                      : "D-day")}
-                </Dday>
-              </DayFlex>
-            )}
-
-            <MoveDetail
-              onClick={() => {
-                Navigate(`/postdetail/${content?.scheduleId}`);
-              }}
-            >
+          <>
+            <DayFlex key={value[1].scheduleId}>
+              <Day>
+                {idx === 0 && fullDate(value[0])}
+                {idx === 0 && getDate(day)}
+              </Day>
+              <Dday>
+                {idx === 0 &&
+                  (new Date(content.date.split(" ")[0]) - new Date(today) > 0
+                    ? `D- ${Math.floor(
+                        (new Date(content.date.split(" ")[0]) -
+                          new Date(today)) /
+                          (1000 * 60 * 60 * 24)
+                      )}`
+                    : new Date(content.date.split(" ")[0]) - new Date(today) !==
+                      0
+                    ? `D+ ${Math.floor(
+                        (new Date(today) -
+                          new Date(content.date.split(" ")[0])) /
+                          (1000 * 60 * 60 * 24)
+                      )}`
+                    : "D-day")}
+              </Dday>
+            </DayFlex>
+            <Link to={`/postdetail/${content?.scheduleId}`}>
               <ScheduleItem>
                 <TimeText>
                   {(content?.date).split(" ")[1].split(":")[0]}:
@@ -143,8 +135,8 @@ const DailyList = () => {
                   ""
                 )}
               </ScheduleItem>
-            </MoveDetail>
-          </div>
+            </Link>
+          </>
         ))}
       </ScheduleListWrap>
     ));
@@ -176,9 +168,6 @@ const ScheduleItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
-`;
-const MoveDetail = styled.div`
-  margin-bottom: 16px;
 `;
 const DayFlex = styled.div`
   display: flex;
