@@ -46,4 +46,5 @@ function Mobile() {
 export default Mobile;
 const MobileWrap = styled.div`
   width: 100%;
+  overflow-x: hidden;
 `;
