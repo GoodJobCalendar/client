@@ -57,6 +57,7 @@ const MonthList = () => {
     const dayOfWeek = week[new Date(whatDay).getDay()];
     return dayOfWeek;
   }
+
   const list =
     monthList &&
     monthList?.map((value, idx) => (
@@ -67,7 +68,13 @@ const MonthList = () => {
               <DayFlex>
                 <Day>
                   {idx === 0 && fullDate(value[0])}
-                  {idx === 0 && getDate(day)}
+                  {idx === 0 &&
+                    getDate(
+                      `20${value[0].substr(0, 2)}-${value[0].substr(
+                        2,
+                        2
+                      )}-${value[0].substr(4, 2)}`
+                    )}
                 </Day>
                 <Dday>
                   {idx === 0 &&
