@@ -164,6 +164,8 @@ const TodayCSS = styled.input`
 const CheckDay = styled.label`
   z-index: 1;
   box-sizing: border-box;
+  width: 34px;
+  height: 34px;
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
   color: ${(props) => props.findToday && "var(--blue4)!important"};
   padding: ${(props) => (props.findToday ? "8px" : "10px")};

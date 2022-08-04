@@ -382,7 +382,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               setTitle(event.target.value);
             }}
           />
-          <ColorPicker onClick={colorShowBtn} colorPick={colorPick} />
+          <ColorPicker
+            onClick={colorShowBtn}
+            colorPick={colorPick}
+            colorPickerShow={colorPickerShow}
+          />
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1">
@@ -642,7 +646,6 @@ const NeedPostModal = styled.div`
 
 const AddSchesuleWrap = styled.div`
   background-color: var(--blue1);
-
   width: 100%;
   height: 100vh;
   font-weight: 500;
@@ -826,7 +829,7 @@ const ColorPicker = styled.button`
   border: 5px solid var(--gray1);
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: ${(props) => (props.colorPickerShow ? "19%" : "50%")};
   transform: translateY(-50%);
   ::after {
     content: "";
@@ -883,16 +886,13 @@ const CoverList = styled.div`
 `;
 
 const ColorList = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 18px;
   width: 90%;
   border-radius: 6px;
+  margin-top: 16px;
   background: var(--blue1);
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
     inset 0px 8px 14px rgba(255, 255, 255, 0.3);
