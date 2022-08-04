@@ -432,7 +432,11 @@ const UpdateSchedule = ({
             }}
             value={title}
           />
-          <ColorPicker onClick={colorShowBtn} colorPick={colorPick} />
+          <ColorPicker
+            onClick={colorShowBtn}
+            colorPick={colorPick}
+            colorPickerShow={colorPickerShow}
+          />
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1">
@@ -882,16 +886,27 @@ const TitleInput = styled.label`
   position: relative;
 `;
 const ColorPicker = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   background-color: ${(props) =>
-    props.colorPick ? props.colorPick : "var(--blue1)"};
+    props.colorPick ? props.colorPick : "var(--blue4)"};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: ${(props) => (props.colorPickerShow ? "19%" : "50%")};
   transform: translateY(-50%);
+  ::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: ${(props) => (props.colorPick ? "" : "1px solid var(--blue4)")};
+  }
 `;
 
 const StickerList = styled.div`
@@ -934,16 +949,13 @@ const Cover = styled.img`
   z-index: 1;
 `;
 const ColorList = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 18px;
   width: 90%;
   border-radius: 6px;
+  margin-top: 16px;
   background: var(--blue1);
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
     inset 0px 8px 14px rgba(255, 255, 255, 0.3);

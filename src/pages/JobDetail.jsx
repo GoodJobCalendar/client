@@ -248,7 +248,7 @@ const MsgText = styled.p`
   top: -55px;
   left: 50%;
   transform: translateX(-50%);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 14px;
   color: var(--blue3);
   width: 100%;
