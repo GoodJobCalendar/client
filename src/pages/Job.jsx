@@ -9,7 +9,6 @@ import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/
 
 import Nav from "../componenets/Nav";
 
-import location from "../assets/img/icon/Location.png";
 import nextCursorBtn from "../assets/img/btn/nextCursor.png";
 import previousCursorBtn from "../assets/img/btn/previousCursor.png";
 
