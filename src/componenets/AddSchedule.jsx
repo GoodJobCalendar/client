@@ -22,11 +22,11 @@ import cover3 from "../assets/img/cover/cover3.png";
 import cover4 from "../assets/img/cover/cover4.png";
 
 // 아이콘
-import time from "../assets/img/icon/Time.png";
-import location from "../assets/img/icon/Location.png";
-import memoimg from "../assets/img/icon/memo.png";
+import time from "../assets/img/icon/Time.svg";
+import location from "../assets/img/icon/Location.svg";
+import memoimg from "../assets/img/icon/memo.svg";
 import emptyImg from "../assets/img/illust/needlogin.png";
-import arrow from "../assets/img/icon/Back.png";
+import arrow from "../assets/img/icon/Back.svg";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -382,7 +382,11 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               setTitle(event.target.value);
             }}
           />
-          <ColorPicker onClick={colorShowBtn} colorPick={colorPick} />
+          <ColorPicker
+            onClick={colorShowBtn}
+            colorPick={colorPick}
+            colorPickerShow={colorPickerShow}
+          />
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1">
@@ -642,7 +646,6 @@ const NeedPostModal = styled.div`
 
 const AddSchesuleWrap = styled.div`
   background-color: var(--blue1);
-
   width: 100%;
   height: 100vh;
   font-weight: 500;
@@ -667,7 +670,6 @@ const AddSchesuleWrap = styled.div`
 `;
 const Btn = styled.button`
   font-weight: 700;
-  font-size: 12px;
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
@@ -731,7 +733,7 @@ const Header = styled.div`
   width: 90%;
   padding: 20px;
   height: 184px;
-  background-size: contain;
+  background-size: cover;
   background-position: bottom;
   display: flex;
   flex-direction: column;
@@ -787,7 +789,7 @@ const PlaceText = styled.div`
     width: calc(90% - 24px);
     padding-left: 44px !important;
   }
-  background: url(../assets/img/icon/Location.png) center center no-repeat !important;
+  background: url(../assets/img/icon/Location.svg) center center no-repeat !important;
 `;
 const TextArea = styled.div`
   position: relative;
@@ -827,7 +829,7 @@ const ColorPicker = styled.button`
   border: 5px solid var(--gray1);
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: ${(props) => (props.colorPickerShow ? "19%" : "50%")};
   transform: translateY(-50%);
   ::after {
     content: "";
@@ -848,7 +850,7 @@ const Background = styled.div`
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 99;
 `;
 const StickerList = styled.div`
@@ -884,16 +886,13 @@ const CoverList = styled.div`
 `;
 
 const ColorList = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 18px;
   width: 90%;
   border-radius: 6px;
+  margin-top: 16px;
   background: var(--blue1);
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
     inset 0px 8px 14px rgba(255, 255, 255, 0.3);

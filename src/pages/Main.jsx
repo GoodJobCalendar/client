@@ -13,10 +13,10 @@ import DailyList from "../componenets/DailyList";
 import SearchData from "./SearchData";
 
 // 이미지
-import zoomin from "../assets/img/icon/zoomin.png";
-import zoomout from "../assets/img/icon/zoomout.png";
-import locationGray from "../assets/img/icon/LocationGray.png";
-import searchImg from "../assets/img/icon/search.png";
+import zoomin from "../assets/img/icon/zoomin.svg";
+import zoomout from "../assets/img/icon/zoomout.svg";
+import locationGray from "../assets/img/icon/LocationGray.svg";
+import searchImg from "../assets/img/icon/search.svg";
 import needLogin from "../assets/img/illust/needlogin.png";
 import guideImg from "../assets/img/guide.png";
 
@@ -365,6 +365,9 @@ const ToggleBtn = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  button {
+    background-color: transparent;
+  }
 `;
 const WeekMonth = styled.button`
   height: 27px;

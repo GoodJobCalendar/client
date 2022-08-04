@@ -75,17 +75,16 @@ const Dates = (props) => {
         {value[1]?.map((content, index) => {
           if (
             index <= 2 &&
-            index < 5 &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0]
           ) {
             return <List key={index} color={content.color}></List>;
           } else if (
-            index === 5 &&
+            index === 3 &&
             content?.date.split(" ")[0] === dateKey.split(" ")[0]
           ) {
             return (
               <PlusNumber key={index} color={content.color}>
-                +{index - 1}
+                +{index - 2}
               </PlusNumber>
             );
           }
@@ -165,6 +164,8 @@ const TodayCSS = styled.input`
 const CheckDay = styled.label`
   z-index: 1;
   box-sizing: border-box;
+  width: 34px;
+  height: 34px;
   border: ${(props) => props.findToday && "2px solid var(--blue4)"};
   color: ${(props) => props.findToday && "var(--blue4)!important"};
   padding: ${(props) => (props.findToday ? "8px" : "10px")};

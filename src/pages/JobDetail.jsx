@@ -14,7 +14,7 @@ import {
 import buttonText from "../assets/img/btn/buttonText.png";
 import backBtn from "../assets/img/btn/backBtn.png";
 import coverimg from "../assets/img/cover/cover2.png";
-import msg from "../assets/img/btn/msg.png";
+import msg from "../assets/img/btn/msg.svg";
 const JobDetail = () => {
   const navigate = useNavigate();
 
@@ -98,7 +98,16 @@ const JobDetail = () => {
               dispatch(addScrap(id));
             }}
           >
-            <MsgImg src={msg} alt="뒤로가기" />
+            {jobDetail?.isScrap && (
+              <>
+                <MsgText>
+                  <span>취준 캘린더</span>에서
+                  <br />
+                  확인해보세요!
+                </MsgText>
+                <MsgImg src={msg} alt="캘린더로 스크랩" />
+              </>
+            )}
             캘린더로 스크랩
           </ScrapBtn>
         </BtnWrap>
@@ -212,7 +221,7 @@ const BtnWrap = styled.div`
 `;
 
 const BackBtn = styled.div`
-  padding: 18px 30px;
+  padding: 18px 25px;
   background: #d1d1d1;
   border-radius: 6px;
   cursor: pointer;
@@ -234,9 +243,24 @@ const MsgImg = styled.img`
   left: 50%;
   transform: translateX(-50%);
 `;
+const MsgText = styled.p`
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--blue3);
+  width: 100%;
+  span {
+    font-weight: 700;
+    color: var(--blue3);
+  }
+  z-index: 99;
+`;
 const ScrapBtn = styled.div`
   position: relative;
-  padding: 18px 30px;
+  padding: 18px 25px;
   font-weight: 500;
   background: transparent;
   background-color: ${(props) =>

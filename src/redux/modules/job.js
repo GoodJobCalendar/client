@@ -173,7 +173,6 @@ export const addScrap = (postingId) => {
     })
       .then((res) => {
         dispatch(__addScrap(res.data));
-        window.alert("스크랩이 완료되었어요!");
         axios
           .get(`https://goodjobcalendar.shop/api/posting/${postingId}`, {
             headers: { Authorization: `Bearer ${myToken}` },

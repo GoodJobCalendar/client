@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadJobList, loadCategoryList, selectCategory } from "../redux/modules/job";
 
-import backBtn from "../assets/img/icon/Back.png";
+import backBtn from "../assets/img/icon/Back.svg";
 import open from "../assets/img/btn/open.png";
 import close from "../assets/img/btn/close.png";
 
@@ -698,7 +698,6 @@ const BackBtn = styled.img`
 
 const SaveBtn = styled.div`
   font-weight: 700;
-  font-size: 12.0999px;
   color: #ffffff;
   cursor: pointer;
 `;
