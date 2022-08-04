@@ -725,7 +725,6 @@ const UpdateSchesuleWrap = styled.div`
 `;
 const Btn = styled.button`
   font-weight: 700;
-  font-size: 12px;
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
@@ -846,6 +845,7 @@ const PlaceText = styled.div`
   }
   background: url(../assets/img/icon/Location.png) center center no-repeat !important;
 `;
+
 const Background = styled.div`
   position: fixed;
   top: 50%;
@@ -853,7 +853,7 @@ const Background = styled.div`
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 99;
 `;
 const TextArea = styled.div`
