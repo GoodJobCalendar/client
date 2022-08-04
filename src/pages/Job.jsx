@@ -10,6 +10,8 @@ import { loadJobList, loadCategoryList, loadJobDetails } from "../redux/modules/
 import Nav from "../componenets/Nav";
 
 import location from "../assets/img/icon/Location.png";
+import nextCursorBtn from "../assets/img/btn/nextCursor.png";
+import previousCursorBtn from "../assets/img/btn/previousCursor.png";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -18,35 +20,36 @@ const Job = () => {
 
   const dispatch = useDispatch();
 
-  const jobDataList = useSelector((state) => state.job.list);
+  const jobDataList = useSelector((state) => state.job.list.data);
   // const jobDataList = useSelector((state) => state.job.list?.postings);
-  const jobDataList1 = useSelector((state) => state.job.list);
+  const nextCursor = useSelector((state) => state.job.list.nextCursor);
+  const previousCursor = useSelector((state) => state.job.list.previousCursor);
   const page = useSelector((state) => state.job.page);
 
-  console.log(jobDataList);
+  // console.log(nextCursor);
   // console.log(page);
 
-  const [pages, setpages] = useState(page);
-  // console.log("페이지는 = ", pages);
+  const [pages, setpages] = useState();
+  console.log("페이지는 = ", pages);
   // const [is_loading, setIs_loading] = useState(false);
   // const [hasMore, sethasMore] = useState(true);
 
   const getDataNext = () => {
-    let count = pages + 1;
-    if (jobDataList?.length < 10) {
-      return window.alert("마지막 페이지 입니다");
-    }
-    dispatch(loadJobList(count));
-    setpages(count);
+    // let count = pages + 1;
+    // if (jobDataList?.length < 10) {
+    //   return window.alert("마지막 페이지 입니다");
+    // }
+    dispatch(loadJobList(nextCursor, 0));
+    // setpages(nextCursor);
   };
 
   const getDataBefore = () => {
-    let count = pages - 1;
-    if (pages === 0) {
-      return window.alert("첫페이지 입니다");
-    }
-    dispatch(loadJobList(count));
-    setpages(count);
+    // let count = pages - 1;
+    // if (pages === 0) {
+    //   return window.alert("첫페이지 입니다");
+    // }
+    dispatch(loadJobList(0, previousCursor));
+    // setpages(pages);
   };
 
   const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
@@ -54,7 +57,7 @@ const Job = () => {
   const navData = false;
 
   useEffect(() => {
-    dispatch(loadJobList(page));
+    dispatch(loadJobList(nextCursor));
   }, []);
 
   // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
@@ -111,9 +114,9 @@ const Job = () => {
         {/* </CardWrapper> */}
         {/* </InfiniteScroll>
         </div> */}
-        <div style={{ display: "flex", gap: "60px", padding: "20px" }}>
-          <button onClick={getDataBefore}>이전</button>
-          <button onClick={getDataNext}>다음</button>
+        <div style={{ display: "flex", gap: "6px", padding: "20px" }}>
+          <img src={previousCursorBtn} onClick={getDataBefore}></img>
+          <img src={nextCursorBtn} onClick={getDataNext}></img>
         </div>
       </JobWrapper>
     </MainWrap>

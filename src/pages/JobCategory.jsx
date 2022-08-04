@@ -90,7 +90,7 @@ const JobCategory = () => {
     "전체",
   ];
 
-  const careers = ["신입", "경력", "경력무관"];
+  const careers = ["신입", "경력", "신입·경력"];
 
   const CompanyType = ["대기업", "중소/중견기업", "외국계기업", "공기업", "전체"];
 
@@ -641,9 +641,9 @@ const JobCategory = () => {
             return (
               <CareersTags
                 key={idx}
-                categoryData={categoryData.career}
+                categoryData={categoryData.career === "경력무관" ? "신입·경력" : categoryData.career}
                 tasksData={careersData}
-                onClick={() => setCategoryData({ ...categoryData, career: careersData })}
+                onClick={() => setCategoryData({ ...categoryData, career: careersData === "신입·경력" ? "경력무관" : careersData })}
               >
                 {careersData}
               </CareersTags>
