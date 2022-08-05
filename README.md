@@ -58,12 +58,13 @@
 # ⚓️ Links
 
 - Project homepage: https://goodjobcalendar.com/
-- Repository: https://github.com/A-Chool
 
 <hr>
-
-| 이름       | 포지션       | 개인 깃허브 or 이메일          |
-| ---------- | ------------ | ------------------------------ |
-| **손유정** | `프론트엔드` | https://github.com/YoujungSon |
-| **이경태** | `프론트엔드` | https://github.com/kyeongbong |
-
+# ⭐️ 팀 구성
+| 이름     | 깃허브 주소                                                     | 포지션     |<br>
+|:--------:|:--------------------------------------------------------------:|:-----------:|<br>
+| 김성현🔰 | [https://github.com/rtg1014](https://github.com/rtg1014)       | Backend |<br>
+| 이경태   | [https://github.com/kyeongbong](https://github.com/kyeongbong) | Frontend     |<br>
+| 손유정   | [https://github.com/YoujungSon](https://github.com/YoujungSon) | Frontend     |<br>
+| 황성원   | [https://github.com/Magiof](https://github.com/Magiof)         | Backend     |<br>
+|:--------:|:--------------------------------------------------------------:|:-----------:|<br>
