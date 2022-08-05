@@ -10,6 +10,11 @@
 ## 🍀 Service Architecture
 ![image](https://user-images.githubusercontent.com/88040809/182815061-b112eccc-a957-4913-be7d-4597f96c7166.png)
 
+## 🗓 프로젝트 기간
+- 2022년 7월 01일 ~ 2022년 08월 05일
+- 1차 배포 : 2022년 08월 02일
+- 발표자료 : https://www.miricanvas.com/v/11b5fgn
+
 ### 🚀 기능
 
 #### 😃 간단하고 안전한 회원가입
@@ -48,7 +53,12 @@
   <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white">
   <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white">
   <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white">
+
 <br>
+# ⚓️ Links
+
+- Project homepage: https://goodjobcalendar.com/
+- Repository: https://github.com/A-Chool
 
 <hr>
 
