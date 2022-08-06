@@ -55,16 +55,27 @@
   <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white">
 
 <br>
-# ⚓️ Links
 
-- Project homepage: https://goodjobcalendar.com/
+# ⚓️ Links
+- Project homepage: https://goodjobcalendar.com
+- BackEnd github : https://github.com/Magiof/goodjob_BE
+- FrontEnd github : https://github.com/YoujungSon/Good-Job-Calender
 
 <hr>
-# ⭐️ 팀 구성
-| 이름     | 깃허브 주소                                                     | 포지션     |<br>
-|:--------:|:--------------------------------------------------------------:|:-----------:|<br>
-| 김성현🔰 | [https://github.com/rtg1014](https://github.com/rtg1014)       | Backend |<br>
-| 이경태   | [https://github.com/kyeongbong](https://github.com/kyeongbong) | Frontend     |<br>
-| 손유정   | [https://github.com/YoujungSon](https://github.com/YoujungSon) | Frontend     |<br>
-| 황성원   | [https://github.com/Magiof](https://github.com/Magiof)         | Backend     |<br>
-|:--------:|:--------------------------------------------------------------:|:-----------:|<br>
+
+## 👪프론트엔드 팀원 소개
+<br>
+
+| 이름     | 깃허브 주소 & 프토폴리오                                                | 
+|:--------:|:----------------------------------------------------------:|
+| 손유정(FE)   | [https://github.com/YoujungSon](https://github.com/YoujungSon)                   |
+| 이경태(FE)   | [https://github.com/kyeongbong](https://github.com/kyeongbong)                       |
+| 김성현(BE)   | [https://github.com/rtg1014](https://github.com/rtg1014)                       |
+| 황성원(BE)   | [https://github.com/Magiof](https://github.com/Magiof)                       |
+| 안지선(DESIGNER)   | [https://daisycom.oopy.io](https://daisycom.oopy.io)                       |
+<br>
+
+
+## 🔥이슈 및 트러블슈팅
+
+<a href="https://github.com/YoujungSon/Good-Job-Calender/wiki/%5BFrontEnd%5DTrouble-Shooting" target="_blank"><img height="40"  src="https://img.shields.io/static/v1?label=React&message=손유정 &color=95D0F6&style=for-the-badge&>"/></a>
