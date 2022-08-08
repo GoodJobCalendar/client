@@ -50,7 +50,7 @@ const PostDetail = () => {
   };
 
   useEffect(() => {
-    dispatch(detailPost(scheduleId, startDate));
+    dispatch(detailPost(scheduleId, startDate?.startDate));
   }, []);
 
   return (
