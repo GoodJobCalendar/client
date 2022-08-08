@@ -58,6 +58,27 @@ const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 // 미들웨어
 
 // 추천채용 불러오기
+export const loadJobList = (nextCursor, previousCursor) => {
+  console.log(nextCursor, previousCursor);
+  return function (dispatch, getState) {
+    const myToken = getCookie("token");
+    const bucket = {
+      headers: { Authorization: `Bearer ${myToken}` },
+      params: { nextCursor: nextCursor, previousCursor: previousCursor },
+    };
+    axios
+      .get(`https://goodjobcalendar.shop/api/postings`, bucket)
+      .then((res) => {
+        console.log("추천채용 불러고기 resdata", res.data);
+        dispatch(__loadJobList(res.data));
+      })
+      .catch((err) => {
+        console.error(err);
+        window.alert("마지막 페이지입니다.");
+      });
+  };
+};
+
 // export const loadJobList = (page) => {
 //   return function (dispatch, getState) {
 //     const myToken = getCookie("token");
@@ -66,34 +87,16 @@ const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 //       params: { page: page },
 //     };
 //     axios
-//       .get(`http://14.34.139.253:3000/api/postings`, bucket)
+//       .get(`https://goodjobcalendar.shop/api/postings`, bucket)
 //       .then((res) => {
-//         dispatch(__loadJobList(res.data));
+//         // console.log("추천채용 불러고기 resdata", res.data.data);
+//         dispatch(__loadJobList(res.data.data));
 //       })
 //       .catch((err) => {
 //         console.error(err);
 //       });
 //   };
 // };
-
-export const loadJobList = (page) => {
-  return function (dispatch, getState) {
-    const myToken = getCookie("token");
-    const bucket = {
-      headers: { Authorization: `Bearer ${myToken}` },
-      params: { page: page },
-    };
-    axios
-      .get(`https://goodjobcalendar.shop/api/postings`, bucket)
-      .then((res) => {
-        // console.log("추천채용 불러고기 resdata", res.data.data);
-        dispatch(__loadJobList(res.data.data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-};
 
 // 추천채용 카테고리별 불러오기
 export const loadCategoryList = () => {
@@ -193,6 +196,7 @@ export default handleActions(
   {
     [LOAD_JOB_LIST]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action);
         draft.list = action.payload.list;
       }),
     [LOAD_CATEGORY_LIST]: (state, action) =>
