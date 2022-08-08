@@ -226,13 +226,6 @@ export default function scheduleReducer(state = initialState, action) {
         draft.detail = a();
       });
     }
-    case LIST_DELETE: {
-      return produce(state, (draft) => {
-        draft.month = draft.month.filter((value) => {
-          return value.scheduleId !== Number(action.payload);
-        });
-      });
-    }
     case LIST_DETAIL: {
       return produce(state, (draft) => {
         draft.detail = action.payload;
