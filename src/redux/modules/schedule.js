@@ -134,6 +134,7 @@ export const scheduleUpdate = ({
 };
 //일정 삭제
 export const deletePost = (scheduleId, startDate) => {
+  console.log(scheduleId, startDate);
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {

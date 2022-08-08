@@ -39,6 +39,7 @@ const PostDetail = () => {
   const detailInfo = useSelector((state) => state.schedule.detail);
 
   const startDate = `${detailInfo?.date.split(" ")[0].substr(0, 8)}01 00:00:00`;
+  console.log(startDate, "dfdf");
   //뒤로가기
   const moveBtn = () => {
     navigate("/main");
@@ -50,7 +51,7 @@ const PostDetail = () => {
   };
 
   useEffect(() => {
-    dispatch(detailPost(scheduleId, startDate?.startDate));
+    dispatch(detailPost(scheduleId));
   }, []);
 
   return (
@@ -139,7 +140,7 @@ const PostDetail = () => {
         </TextWrap>
         <Delete
           onClick={() => {
-            dispatch(deletePost(scheduleId));
+            dispatch(deletePost(scheduleId, startDate));
             navigate("/main");
           }}
         >
