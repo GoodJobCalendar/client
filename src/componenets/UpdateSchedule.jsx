@@ -104,7 +104,9 @@ const UpdateSchedule = ({
   //컬러 미리보기
   const [colorPick, setColorPick] = useState(colorPickOn(detailInfo?.color));
 
-  const [startDate, setStartDate] = useState(new Date(detailInfo?.date));
+  let now = detailInfo?.date;
+  now = now.replace(/-/g, "/");
+  const [startDate, setStartDate] = useState(new Date(now));
   const hh = detailInfo?.date.split(" ")[1].substr(3, 2);
   const ttt = detailInfo?.date.split(" ")[1].substr(0, 2);
   const tt = () => {
