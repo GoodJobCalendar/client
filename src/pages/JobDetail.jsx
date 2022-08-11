@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -100,10 +100,12 @@ const JobDetail = () => {
           >
             {jobDetail?.isScrap && (
               <>
-                <MsgText>
-                  <span>취준 캘린더</span>에서
-                  <br />
-                  확인해보세요!
+                <MsgText to="/main">
+                  <p>
+                    <span>취준 캘린더</span>에서
+                    <br />
+                    확인해보세요!
+                  </p>
                 </MsgText>
                 <MsgImg src={msg} alt="캘린더로 스크랩" />
               </>
@@ -243,7 +245,7 @@ const MsgImg = styled.img`
   left: 50%;
   transform: translateX(-50%);
 `;
-const MsgText = styled.p`
+const MsgText = styled(Link)`
   position: absolute;
   top: -55px;
   left: 50%;
