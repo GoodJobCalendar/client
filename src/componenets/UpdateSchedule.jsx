@@ -104,7 +104,9 @@ const UpdateSchedule = ({
   //컬러 미리보기
   const [colorPick, setColorPick] = useState(colorPickOn(detailInfo?.color));
 
-  const [startDate, setStartDate] = useState(new Date(detailInfo?.date));
+  let now = detailInfo?.date;
+  now = now.replace(/-/g, "/");
+  const [startDate, setStartDate] = useState(new Date(now));
   const hh = detailInfo?.date.split(" ")[1].substr(3, 2);
   const ttt = detailInfo?.date.split(" ")[1].substr(0, 2);
   const tt = () => {
@@ -698,9 +700,9 @@ const NeedPostModal = styled.div`
 const UpdateSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-weight: 500;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
