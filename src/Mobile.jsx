@@ -16,6 +16,7 @@ import JobDetail from "./pages/JobDetail";
 import JobCategory from "./pages/JobCategory";
 import AddSchedule from "./componenets/AddSchedule";
 import PostDetail from "./pages/PostDetail";
+import Mypage from "./pages/Mypage";
 
 function Mobile() {
   return (
@@ -38,6 +39,7 @@ function Mobile() {
         <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/postdetail/:scheduleId" element={<PostDetail />} />
+        <Route path="/mypage" element={<Mypage/>}/>
       </Routes>
     </MobileWrap>
   );
