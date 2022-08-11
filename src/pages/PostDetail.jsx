@@ -54,6 +54,10 @@ const PostDetail = () => {
     dispatch(detailPost(scheduleId));
   }, []);
 
+  function deleteSchedule() {
+    dispatch(deletePost(scheduleId, startDate));
+    navigate("/main");
+  }
   return (
     <>
       <Header>
@@ -138,14 +142,7 @@ const PostDetail = () => {
           </Text>
           {detailInfo?.memo && <Text>{detailInfo?.memo}</Text>}
         </TextWrap>
-        <Delete
-          onClick={() => {
-            dispatch(deletePost(scheduleId, startDate));
-            navigate("/main");
-          }}
-        >
-          일정 삭제하기
-        </Delete>
+        <Delete onClick={deleteSchedule}>일정 삭제하기</Delete>
         {detailInfo?.memo === null && (
           <Move
             onClick={() => {
