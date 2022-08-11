@@ -654,7 +654,7 @@ const NeedPost = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(17, 17, 17, 0.3);
   z-index: 999;
 `;
