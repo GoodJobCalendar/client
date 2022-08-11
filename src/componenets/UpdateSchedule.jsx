@@ -654,7 +654,7 @@ const NeedPost = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(17, 17, 17, 0.3);
   z-index: 999;
 `;
@@ -700,7 +700,7 @@ const NeedPostModal = styled.div`
 const UpdateSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-weight: 500;
   position: fixed;
   top: 0;
