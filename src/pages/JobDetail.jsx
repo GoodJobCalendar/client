@@ -92,6 +92,7 @@ const JobDetail = () => {
             <img src={backBtn} alt="뒤로가기" />
             다른 채용공고
           </BackBtn>
+
           <ScrapBtnWrap>
             {jobDetail?.isScrap && (
               <>
@@ -267,16 +268,19 @@ const ScrapBtnWrap = styled.div`
   position: relative;
 `;
 const ScrapBtn = styled.button`
+  font-size: 16px;
   padding: 18px 25px;
+  border-radius: 6px;
+  box-sizing: border-box;
   font-weight: 500;
-  background: transparent;
+  border: ${(props) =>
+    props.scrap
+      ? "2px solid  transparent"
+      : "2px solid var(--blue4)!important"};
   background-color: ${(props) =>
     props.scrap ? "var(--blue4)" : "transparent"};
-  border-radius: 6px;
   text-align: center;
   cursor: pointer;
-  box-sizing: border-box;
-  border: 2px solid #3284ff;
   color: ${(props) => (props.scrap ? "white" : "#3284ff")};
 `;
 
