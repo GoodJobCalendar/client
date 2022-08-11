@@ -92,12 +92,7 @@ const JobDetail = () => {
             <img src={backBtn} alt="뒤로가기" />
             다른 채용공고
           </BackBtn>
-          <ScrapBtn
-            scrap={jobDetail?.isScrap}
-            onClick={() => {
-              dispatch(addScrap(id));
-            }}
-          >
+          <ScrapBtnWrap>
             {jobDetail?.isScrap && (
               <>
                 <MsgText to="/main">
@@ -110,8 +105,15 @@ const JobDetail = () => {
                 <MsgImg src={msg} alt="캘린더로 스크랩" />
               </>
             )}
-            캘린더로 스크랩
-          </ScrapBtn>
+            <ScrapBtn
+              scrap={jobDetail?.isScrap}
+              onClick={() => {
+                dispatch(addScrap(id));
+              }}
+            >
+              캘린더로 스크랩
+            </ScrapBtn>
+          </ScrapBtnWrap>
         </BtnWrap>
 
         <JobKoreabtn
@@ -254,14 +256,17 @@ const MsgText = styled(Link)`
   font-size: 14px;
   color: var(--blue3);
   width: 100%;
+  text-align: center;
   span {
     font-weight: 700;
     color: var(--blue3);
   }
   z-index: 99;
 `;
-const ScrapBtn = styled.div`
+const ScrapBtnWrap = styled.div`
   position: relative;
+`;
+const ScrapBtn = styled.button`
   padding: 18px 25px;
   font-weight: 500;
   background: transparent;
