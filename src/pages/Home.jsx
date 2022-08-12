@@ -110,10 +110,10 @@ export default Home;
 const HomeWrap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
   height: 100vh;
   padding: 0 30px;
+  padding-top: 100px;
   background-color: var(--blue1);
   overflow: hidden;
   .mySwiper1 {
