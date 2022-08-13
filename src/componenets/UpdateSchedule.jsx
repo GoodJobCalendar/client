@@ -204,7 +204,33 @@ const UpdateSchedule = ({
     setSticker(e.target.id);
     // setStickerShow(!stickerShow);
   };
-
+  // 커버 이미지 미리보기 / 커버 이미지 pick
+  function stickerChangeView(sticker) {
+    if (sticker === "1") {
+      return img1;
+    }
+    if (sticker === "2") {
+      return img2;
+    }
+    if (sticker === "3") {
+      return img3;
+    }
+    if (sticker === "4") {
+      return img4;
+    }
+    if (sticker === "5") {
+      return img5;
+    }
+    if (sticker === "6") {
+      return img6;
+    }
+    if (sticker === "7") {
+      return img7;
+    }
+    if (sticker === "8") {
+      return img8;
+    }
+  }
   // 커버 이미지 미리보기 / 커버 이미지 pick
   const coverChange = (e) => {
     setCover(e.target.value);
@@ -417,14 +443,17 @@ const UpdateSchedule = ({
         <Cover src={cover} />
       </Header>
       <AddList>
-        <InputText
-          type="text"
-          placeholder="회사 이름"
-          onChange={(event) => {
-            setCompanyName(event.target.value);
-          }}
-          value={companyName}
-        />
+        <TitleInput>
+          <InputText
+            type="text"
+            placeholder="회사 이름"
+            onChange={(event) => {
+              setCompanyName(event.target.value);
+            }}
+            value={companyName}
+          />
+          <StickerView src={stickerChangeView(sticker)} alt="스티커미리보기" />
+        </TitleInput>
         <TitleInput>
           <InputText
             type="text"
@@ -887,6 +916,13 @@ const TextArea = styled.div`
 const TitleInput = styled.label`
   position: relative;
 `;
+const StickerView = styled.img`
+  position: absolute;
+  width: 40px;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+`;
 const ColorPicker = styled.button`
   width: 18px;
   height: 18px;
@@ -895,7 +931,7 @@ const ColorPicker = styled.button`
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
-  right: 5%;
+  right: 8%;
   top: ${(props) => (props.colorPickerShow ? "19%" : "50%")};
   transform: translateY(-50%);
   ::after {
