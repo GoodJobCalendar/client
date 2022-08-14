@@ -18,7 +18,7 @@ import zoomout from "../assets/img/icon/zoomout.svg";
 import locationGray from "../assets/img/icon/LocationGray.svg";
 import searchImg from "../assets/img/icon/search.svg";
 import needLogin from "../assets/img/illust/needlogin.png";
-import guideImg from "../assets/img/guide.png";
+import guideImg from "../assets/img/guide.svg";
 
 // 스티커 배경
 import img2 from "../assets/img/sticker/sticker2.png";
