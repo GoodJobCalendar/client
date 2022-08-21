@@ -5,11 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { getCookie, setCookie } from "../shared/Cookie";
 
 // 컴포넌트
-import Nav from "../componenets/Nav";
-import WeekSchedule from "../componenets/WeekSchedule";
-import MonthSchedule from "./../componenets/month/MonthSchedule";
-import MonthList from "../componenets/MonthList";
-import DailyList from "../componenets/DailyList";
+import Nav from "../components/Nav";
+import WeekSchedule from "../components/WeekSchedule";
+import MonthSchedule from "./../components/month/MonthSchedule";
+import MonthList from "../components/MonthList";
+import DailyList from "../components/DailyList";
 import SearchData from "./SearchData";
 
 // 이미지
