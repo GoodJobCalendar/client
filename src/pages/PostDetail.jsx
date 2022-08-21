@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { detailPost, deletePost, __deletePost } from "../redux/modules/schedule";
+import {
+  detailPost,
+  deletePost,
+  __deletePost,
+} from "../redux/modules/schedule";
 import axios from "axios";
 
 //스티커 이미지
@@ -27,7 +31,7 @@ import cover5 from "../assets/img/cover/cover5.png";
 //아이콘 이미지
 import arrow from "../assets/img/icon/Back.svg";
 import update from "../assets/img/icon/Edit.svg";
-import UpdateSchedule from "../componenets/UpdateSchedule";
+import UpdateSchedule from "../components/UpdateSchedule";
 import logomini from "../assets/img/icon/Logo_mini.svg";
 import location from "../assets/img/icon/Location.svg";
 import time from "../assets/img/icon/Time.svg";
@@ -72,8 +76,7 @@ const PostDetail = () => {
       .catch((error) => {
         console.error(error);
       });
-    
-  }
+  };
   return (
     <>
       <Header>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import img1 from "../assets/img/sticker/sticker1.png";
@@ -63,9 +63,9 @@ const DailyList = () => {
     dailyList?.map((value, idx) => (
       <ScheduleListWrap key={idx}>
         {value[1]?.map((content, idx) => (
-          <>
+          <Fragment key={idx}>
             {idx === 0 && (
-              <DayFlex key={idx}>
+              <DayFlex>
                 <Day>
                   {idx === 0 && fullDate(value[0])}
                   {idx === 0 &&
@@ -146,7 +146,7 @@ const DailyList = () => {
                 )}
               </ScheduleItem>
             </Link>
-          </>
+          </Fragment>
         ))}
       </ScheduleListWrap>
     ));

@@ -2,25 +2,23 @@ import React, { useState, useEffect } from "react";
 import Head from "./Head";
 import Body from "./Body";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { schedule } from "../../redux/modules/date";
 
 const MonthSchedule = () => {
   let DATE = new Date();
   const YEAR = DATE.getFullYear();
   const MONTH = DATE.getMonth() + 1;
+  const TODAY = DATE.getDate();
   const [month, setMonth] = useState(MONTH);
   const [year, setYear] = useState(YEAR);
   const [totalDate, setTotalDate] = useState([]);
+  const [today, setToday] = useState(TODAY);
 
-  const changeDate = (month) => {
+  const changeDate = () => {
     //이전 날짜
-    let PVLastDate = new Date(year, month - 1, 0).getDate();
-    let PVLastDay = new Date(year, month - 1, 0).getDay();
+    const PVLastDay = new Date(year, month - 1, 0).getDay();
     //다음 날짜
     const ThisLasyDay = new Date(year, month, 0).getDay();
     const ThisLasyDate = new Date(year, month, 0).getDate();
-
     //이전 날짜 만들기
     let PVLD = [];
     if (PVLastDay !== 6) {
@@ -44,19 +42,12 @@ const MonthSchedule = () => {
   };
 
   useEffect(() => {
-    setTotalDate(changeDate(7));
-  }, []);
+    setToday(TODAY);
+  }, [TODAY]);
 
   useEffect(() => {
-    setTotalDate(changeDate(month));
-  }, [month, year]);
-
-  const [today, setToday] = useState(0);
-
-  const goToday = () => {
-    let TODAY = new Date().getDate();
-    setToday(TODAY);
-  };
+    setTotalDate(changeDate());
+  }, [year, month]);
 
   return (
     <MonthWrap>
@@ -64,7 +55,6 @@ const MonthSchedule = () => {
         year={Number(year)}
         month={Number(month)}
         setMonth={setMonth}
-        goToday={goToday}
         setYear={setYear}
       />
       <Body

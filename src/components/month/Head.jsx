@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { loadMonth } from "../../redux/modules/schedule";
 
 const Head = (props) => {
-  const { year, month, setYear, setMonth, goToday } = props;
+  const { year, month, setYear, setMonth } = props;
   const dispatch = useDispatch();
 
   const monthPlus = () => {
@@ -35,11 +35,10 @@ const Head = (props) => {
   const fullDate = `${year}-${monthNumber}-01 00:00:00`;
 
   useEffect(() => {
-    dispatch(loadMonth(`${year}-${monthNumber}-01 00:00:00`));
-  }, [monthNumber]);
+    dispatch(loadMonth(fullDate));
+  }, [month]);
 
   // 오늘날짜소환!
-  goToday();
   const DAY = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (

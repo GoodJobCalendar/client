@@ -1,19 +1,19 @@
-import React from 'react'
-import styled from 'styled-components'
-import Nav from '../componenets/Nav'
+import React from "react";
+import styled from "styled-components";
+import Nav from "../components/Nav";
 
 const Mypage = () => {
   return (
     <>
-    <Nav/>
-    <Outer>Mypage</Outer>
+      <Nav />
+      <Outer>Mypage</Outer>
     </>
-  )
-}
+  );
+};
 
-export default Mypage
+export default Mypage;
 
 const Outer = styled.div`
   background-color: white;
   height: 83.5vh;
-`
+`;
