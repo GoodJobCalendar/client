@@ -7,21 +7,18 @@ const MonthSchedule = () => {
   let DATE = new Date();
   const YEAR = DATE.getFullYear();
   const MONTH = DATE.getMonth() + 1;
+  const TODAY = DATE.getDate();
   const [month, setMonth] = useState(MONTH);
   const [year, setYear] = useState(YEAR);
   const [totalDate, setTotalDate] = useState([]);
-  const [today, setToday] = useState(new Date().getDate());
-  let TODAY = new Date().getDate();
-  useEffect(() => {
-    setToday(TODAY);
-  }, [TODAY]);
+  const [today, setToday] = useState(TODAY);
+
   const changeDate = () => {
     //이전 날짜
-    let PVLastDay = new Date(year, month - 1, 0).getDay();
+    const PVLastDay = new Date(year, month - 1, 0).getDay();
     //다음 날짜
     const ThisLasyDay = new Date(year, month, 0).getDay();
     const ThisLasyDate = new Date(year, month, 0).getDate();
-
     //이전 날짜 만들기
     let PVLD = [];
     if (PVLastDay !== 6) {
@@ -45,8 +42,12 @@ const MonthSchedule = () => {
   };
 
   useEffect(() => {
-    setTotalDate(changeDate(month));
-  }, []);
+    setToday(TODAY);
+  }, [TODAY]);
+
+  useEffect(() => {
+    setTotalDate(changeDate());
+  }, [year, month]);
 
   return (
     <MonthWrap>
