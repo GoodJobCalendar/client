@@ -167,17 +167,19 @@ function Main() {
                 </button>
               )}
             </>
-            {/* ) : (
-              <div></div>
-            )} */}
-            {/* <WeekMonth
+
+            <WeekMonth
               weekMonth={weekMonth}
               onClick={() => {
                 setWeekMonth(!weekMonth);
               }}
             >
-              {weekMonth ? <Circle weekMonth={weekMonth}>M</Circle> : <Circle weekMonth={weekMonth}>W</Circle>}
-            </WeekMonth> */}
+              {weekMonth ? (
+                <Circle weekMonth={weekMonth}>M</Circle>
+              ) : (
+                <Circle weekMonth={weekMonth}>W</Circle>
+              )}
+            </WeekMonth>
           </ToggleBtn>
           {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
           {active?.isActive ? <DailyList /> : <MonthList />}
@@ -293,7 +295,6 @@ const GuideBg = styled.div`
     position: absolute;
     top: 10%;
     right: 10%;
-    background-color: transparent;
     color: #fff !important;
     z-index: 999;
     font-size: 20px;
@@ -365,9 +366,6 @@ const ToggleBtn = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  button {
-    background-color: transparent;
-  }
 `;
 const WeekMonth = styled.button`
   height: 27px;

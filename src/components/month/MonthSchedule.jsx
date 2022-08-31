@@ -4,31 +4,33 @@ import Body from "./Body";
 import styled from "styled-components";
 
 const MonthSchedule = () => {
-  let DATE = new Date();
-  const YEAR = DATE.getFullYear();
-  const MONTH = DATE.getMonth() + 1;
-  const TODAY = DATE.getDate();
-  const [month, setMonth] = useState(MONTH);
-  const [year, setYear] = useState(YEAR);
-  const [totalDate, setTotalDate] = useState([]);
-  const [today, setToday] = useState(TODAY);
+  let DATE = new Date(); // Sun Aug 21 2022 23:42:11 GMT+0900 (한국 표준시)
+  const YEAR = DATE.getFullYear(); // 2022
+  const MONTH = DATE.getMonth() + 1; // 8
+  const TODAY = DATE.getDate(); // 21
+  const [month, setMonth] = useState(MONTH); // 8
+  const [year, setYear] = useState(YEAR); // 2022
+  const [totalDate, setTotalDate] = useState([]); // ['  ', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, '  ', '  ', '  ']
+  const [today, setToday] = useState(new Date().getDate()); // 21
 
   const changeDate = () => {
-    //이전 날짜
-    const PVLastDay = new Date(year, month - 1, 0).getDay();
-    //다음 날짜
-    const ThisLasyDay = new Date(year, month, 0).getDay();
-    const ThisLasyDate = new Date(year, month, 0).getDate();
+    //지난달 마지막 일자의 요일(Number)
+    const PrevDay = new Date(year, month - 1, 0).getDay();
+    //이번달 마지막 일자의 요일(Number)
+    const ThisDay = new Date(year, month, 0).getDay();
+    //이번달 마지막 일자(Number)
+    const ThisDate = new Date(year, month, 0).getDate();
+
     //이전 날짜 만들기
     let PVLD = [];
-    if (PVLastDay !== 6) {
-      for (let i = 0; i < PVLastDay + 1; i++) {
+    if (PrevDay !== 6) {
+      for (let i = 0; i < PrevDay + 1; i++) {
         PVLD.unshift(`  `);
       }
     }
     //다음 날짜 만들기
     let TLD = [];
-    for (let i = 1; i < 7 - ThisLasyDay; i++) {
+    for (let i = 1; i < 7 - ThisDay; i++) {
       if (i === 0) {
         return TLD;
       }
@@ -37,7 +39,7 @@ const MonthSchedule = () => {
 
     //현재날짜
     let TD = [];
-    TD = [...Array(ThisLasyDate + 1).keys()].slice(1);
+    TD = [...Array(ThisDate + 1).keys()].slice(1);
     return PVLD.concat(TD, TLD);
   };
 

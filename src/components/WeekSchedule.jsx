@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const WeekSchedule = () => {
   const dispatch = useDispatch();
+  const [selectDate, setSelectDate] = useState(false);
   const selectDay = useSelector((state) => state.date.select);
   const date = selectDay
     ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm)
@@ -12,6 +13,8 @@ const WeekSchedule = () => {
   const Month = date.getMonth() + 1;
   const Dates = date.getDate();
   const getDay = date.getDay();
+  console.log("getDay", getDay);
+
   const First = new Date(date.getFullYear() / (Month + 1) + 1);
   const monthFirstDateDay = First.getDay();
   const weekIndex = Math.floor((Dates + monthFirstDateDay) / 7);
@@ -29,9 +32,9 @@ const WeekSchedule = () => {
     "24:00",
   ];
 
-  // const SelectDay = () => {
-  //   dispatch();
-  // };
+  const SelectDay = () => {
+    setSelectDate(true);
+  };
 
   // 이번주 일요일 구하기
   function getBeginOfWeek(date = new Date(), startOfWeek = 0) {
@@ -59,12 +62,7 @@ const WeekSchedule = () => {
             <li></li>
             {DAY.map((elm, idx) => {
               return (
-                <Day
-                  key={idx}
-                  idx={idx}
-                  selectDay={selectDay}
-                  getDay={getDay} /*onClick={SelectDay}*/
-                >
+                <Day key={idx} idx={idx} selectDay={selectDay}>
                   {elm}
                 </Day>
               );
@@ -93,14 +91,24 @@ const WeekSchedule = () => {
                 ).split(" ")[2];
               }
               const sunday = getBeginOfWeek();
+              console.log("sunday", sunday);
               return (
                 <DayNumberList
                   key={idx}
                   selectDay={selectDay}
                   sunday={sunday}
-                  Dates={selectDay}
+                  selectDate={selectDate}
                 >
+                  <DayInput
+                    type="radio"
+                    name="day"
+                    id={idx}
+                    selectDate={selectDate}
+                    onClick={SelectDay}
+                  />
                   <DayNumber
+                    htmlFor={idx}
+                    selectDate={selectDate}
                     selectDay={selectDay}
                     sunday={sunday}
                     Dates={Dates}
@@ -136,20 +144,24 @@ const WeekWrap = styled.div`
   border-radius: 6px;
   box-shadow: 0px 1.81132px 43.4717px rgba(0, 0, 0, 0.04);
 `;
+
 const Head = styled.div`
   display: flex;
   justify-content: center;
   gap: 25px;
   margin-bottom: 21px;
 `;
+
 const WeekTitle = styled.p`
   font-weight: 600;
   font-size: 22px;
   color: var(--blue4);
 `;
+
 const WeekBtn = styled.button`
   color: var(--blue3);
 `;
+
 const Title = styled.div`
   padding-top: 13px;
   li {
@@ -160,11 +172,13 @@ const Title = styled.div`
     align-items: center;
   }
 `;
+
 const Days = styled.ul`
   display: flex;
   border-radius: 7px 7px 0 0;
   width: 100%;
 `;
+
 const TimeWrap = styled.li`
   display: flex;
   align-items: center;
@@ -179,11 +193,13 @@ const TimeText = styled.p`
   padding: 15px 0;
   padding-right: 12px;
 `;
+
 const TimeLine = styled.div`
   width: 100%;
   height: 1px;
   border-top: 1px dotted var(--blue2);
 `;
+
 const Schedule = styled.div`
   position: absolute;
   top: 50%;
@@ -194,6 +210,7 @@ const Schedule = styled.div`
   border-radius: 4px;
   padding: 3px;
 `;
+
 const Day = styled.li`
   border-top-left-radius: 21px;
   border-top-right-radius: 21px;
@@ -208,37 +225,48 @@ const Day = styled.li`
   :nth-child(7n + 2) {
     color: var(--point3);
   }
-  background-color: ${(props) =>
-    props.selectDay && props.idx === props.getDay && " var(--blue4)"};
-  color: ${(props) => props.selectDay && props.idx === props.getDay && "white"};
 `;
+
 const DayList = styled.ul`
   display: flex;
-  background-color: #fff;
   width: 100%;
 `;
+
 const DayNumberList = styled.li`
+  cursor: pointer;
   border-bottom-left-radius: 21px;
   border-bottom-right-radius: 21px;
-
   :nth-child(7n + 1) {
-    span {
+    label {
       color: var(--blue3);
     }
   }
   :nth-child(7n + 2) {
-    span {
+    label {
       color: var(--point3);
     }
-    background-color: ${(props) =>
-      props.selectDay && props.sunday === props.Dates && " var(--blue4)"};
   }
 `;
-const DayNumber = styled.span`
+const DayInput = styled.input`
+  display: none;
+  :checked + label {
+    background-color: ${(props) => (props.selectDate ? "var(--blue4)" : "")};
+    color: ${(props) => (props.selectDate ? "#fff!important" : "")};
+  }
+`;
+const DayNumber = styled.label`
+  display: block;
   text-align: center;
   font-weight: 900;
   font-size: 12px;
-  color: var(--gray3);
   border-radius: 100%;
-  padding: 4px;
+  padding: 5px;
+  color: ${(props) =>
+    Number(props.sunday) === Number(props.Dates)
+      ? "var(--blue4)"
+      : "var(--gray3)"};
+  border: ${(props) =>
+    Number(props.sunday) === Number(props.Dates)
+      ? "1px solid var(--blue4)"
+      : ""};
 `;
