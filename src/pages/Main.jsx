@@ -33,6 +33,7 @@ import img8 from "../assets/img/sticker/sticker8.png";
 import { searchMySchedule } from "../redux/modules/search";
 import { useDispatch, useSelector } from "react-redux";
 import { zoomDate } from "../redux/modules/date";
+import WeekList from "../components/WeekList";
 
 function Main() {
   const navigate = useNavigate();
@@ -147,27 +148,29 @@ function Main() {
       {search === "" ? (
         <ContentWrap>
           <ToggleBtn>
-            {/* {weekMonth ? ( */}
-            <>
-              {zoomInOut ? (
-                <button
-                  onClick={() => {
-                    setZoomInOut(!zoomInOut);
-                  }}
-                >
-                  <img src={zoomin} alt="월별달력확대" />
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setZoomInOut(!zoomInOut);
-                  }}
-                >
-                  <img src={zoomout} alt="월별달력축소" />
-                </button>
-              )}
-            </>
-
+            {weekMonth ? (
+              <>
+                {zoomInOut ? (
+                  <button
+                    onClick={() => {
+                      setZoomInOut(!zoomInOut);
+                    }}
+                  >
+                    <img src={zoomin} alt="월별달력확대" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setZoomInOut(!zoomInOut);
+                    }}
+                  >
+                    <img src={zoomout} alt="월별달력축소" />
+                  </button>
+                )}
+              </>
+            ) : (
+              <div></div>
+            )}
             <WeekMonth
               weekMonth={weekMonth}
               onClick={() => {
@@ -181,8 +184,18 @@ function Main() {
               )}
             </WeekMonth>
           </ToggleBtn>
-          {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-          {active?.isActive ? <DailyList /> : <MonthList />}
+          {weekMonth ? (
+            <MonthSchedule />
+          ) : (
+            <WeekSchedule weekMonth={weekMonth} />
+          )}
+          {active?.isActive ? (
+            <DailyList />
+          ) : weekMonth ? (
+            <MonthList />
+          ) : (
+            <WeekList />
+          )}
         </ContentWrap>
       ) : (
         <SearchWrapper>

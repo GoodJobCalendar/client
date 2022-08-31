@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { loadweekly } from "../redux/modules/schedule";
 
-const WeekSchedule = () => {
+const WeekSchedule = ({ weekMonth }) => {
   const dispatch = useDispatch();
   const [selectDate, setSelectDate] = useState(false);
   const selectDay = useSelector((state) => state.date.select);
@@ -21,6 +22,20 @@ const WeekSchedule = () => {
   const DAY = ["일", "월", "화", "수", "목", "금", "토"];
   const toDate = date.getDate();
   const toDay = date.getDay();
+  console.log("arr", Dates);
+  function getBeginOfWeek(
+    date = selectDay
+      ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm)
+      : new Date(),
+    startOfWeek = 0
+  ) {
+    const result = new Date(date);
+    while (result.getDay() !== startOfWeek) {
+      result.setDate(result.getDate() - 1);
+    }
+    return String(new Date(result.setDate(result.getDate()))).split(" ")[2];
+  }
+
   const Time = [
     "03:00",
     "06:00",
@@ -31,20 +46,17 @@ const WeekSchedule = () => {
     "22:00",
     "24:00",
   ];
-
+  const datekey = `${Year}-${String(Month).padStart(
+    2,
+    "0"
+  )}-${getBeginOfWeek()} 00:00:00`;
+  console.log(datekey);
+  useEffect(() => {
+    dispatch(loadweekly(datekey));
+  }, []);
   const SelectDay = () => {
     setSelectDate(true);
   };
-
-  // 이번주 일요일 구하기
-  function getBeginOfWeek(date = new Date(), startOfWeek = 0) {
-    const result = new Date(date);
-    while (result.getDay() !== startOfWeek) {
-      result.setDate(result.getDate() - 0);
-    }
-    return String(result).split(" ")[2];
-  }
-  // const start = startOfWeek(date);
   return (
     <>
       <Head>
