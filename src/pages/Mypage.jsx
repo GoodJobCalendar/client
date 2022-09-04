@@ -2,13 +2,15 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import { getCookie } from "../shared/Cookie";
+import { getCookie, deleteCookie } from "../shared/Cookie";
 import backBtn from "../assets/img/icon/Back.svg";
 import mypagebird from "../assets/img/illust/mypagebird.svg"
 import Triangle from "../assets/img/icon/Triangle.svg"
+import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
   const myToken = getCookie("token");
+  const navigate = useNavigate()
   
   return (
     <>
@@ -31,7 +33,10 @@ const Mypage = () => {
           >최종 수정일</p> 2018.08.06</ModifyDate>
           <ModifyBtn>수정</ModifyBtn>
         </ModiWrap>
-        <LogoutBtn>로그아웃</LogoutBtn>
+        <LogoutBtn onClick={()=>{
+          deleteCookie("token")
+          navigate("/")
+        }}>로그아웃</LogoutBtn>
       </PersonalInfo>
     </Outer>
     <Footer/>

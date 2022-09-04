@@ -21,6 +21,7 @@ const Footer = () => {
         </FootInner>
         <FootInner>
           <FootMain>CONTACT</FootMain>
+          <Footbaby>문의</Footbaby>
           <Footbaby>깃허브</Footbaby>
         </FootInner>
         <hr/>
@@ -35,6 +36,7 @@ const FootWrap = styled.div`
   background-color: #111111;
   height: 466px;
   padding: 30px 0 0 0;
+
 `
 
 const FootSmallWrap =styled.div`
@@ -43,7 +45,7 @@ const FootSmallWrap =styled.div`
 `
 const FootInner = styled.div`
   padding: 10px 0 0 0;
-  line-height: 21px;
+  line-height: 15px;
 `
 
 const FootMain = styled.div`
@@ -55,6 +57,6 @@ const FootMain = styled.div`
 
 const Footbaby =styled.div`
     color: white;
-    font-weight: 500;
+    font-weight: 350;
     font-size: 10px;
 `
