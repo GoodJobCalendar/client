@@ -1,26 +1,43 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import { getCookie, deleteCookie } from "../shared/Cookie";
 import backBtn from "../assets/img/icon/Back.svg";
 import mypagebird from "../assets/img/illust/mypagebird.svg"
+import mypagebird2 from "../assets/img/illust/mypagebird2.svg"
 import Triangle from "../assets/img/icon/Triangle.svg"
 import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
   const myToken = getCookie("token");
   const navigate = useNavigate()
+  const [num, setNum] = useState(1)
   
   return (
     <>
     <MyNavWrap>
       <MyBack src={backBtn}/>
-      <MyTitle>마이페이지</MyTitle>
+      <MyTitle
+        onClick={()=>{
+          navigate(-1)
+        }}
+      >마이페이지</MyTitle>
+      {num===0? 
+      <>
+      <MyImg src={mypagebird2}></MyImg>
+      <MyNotice>아직 찜해둔 공고 리스트가 없군요!</MyNotice>
+      <MyBubble style={{width:"162px", left:"103px"}}> <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>채용공고 담으러 가기</span></MyBubble>
+      <MyTri src={Triangle}/></>
+      :
+      <>
       <MyImg src={mypagebird}></MyImg>
       <MyNotice>찜해둔 공고 리스트를 확인해보세요!</MyNotice>
-      <MyBubble>총 24개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
+      <MyBubble>총 {num}개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
       <MyTri src={Triangle}/>
+      </>
+      }
+      
     </MyNavWrap> 
     <Outer>
       <PersonalInfo>
