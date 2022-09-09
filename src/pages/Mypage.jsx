@@ -47,9 +47,9 @@ const Mypage = () => {
         <Email>daisy_com@kakao.com</Email>
         <PersonalTitle style={{marginTop:"16px"}}>비밀번호</PersonalTitle>
         <ModiWrap>
-          <ModifyDate><p
-          style={{color:"var(--blue4)", marginRight:"10px"}}
-          >최종 수정일</p> 2018.08.06</ModifyDate>
+          <ModifyDate>비밀번호 바꾼지<p
+          style={{color:"var(--blue4)", margin:"0 10px"}}
+          >6개월</p> 이 지났어요!</ModifyDate>
           <ModifyBtn>수정</ModifyBtn>
         </ModiWrap>
         <LogoutBtn onClick={()=>{

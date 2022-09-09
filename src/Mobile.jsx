@@ -17,6 +17,7 @@ import JobCategory from "./pages/JobCategory";
 import AddSchedule from "./components/AddSchedule";
 import PostDetail from "./pages/PostDetail";
 import Mypage from "./pages/Mypage";
+import ZZim from "./pages/ZZim";
 
 function Mobile() {
   return (
@@ -40,6 +41,7 @@ function Mobile() {
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/postdetail/:scheduleId" element={<PostDetail />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path = "/zzim" element={<ZZim/>}/>
       </Routes>
     </MobileWrap>
   );
