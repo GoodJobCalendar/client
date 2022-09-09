@@ -1,33 +1,35 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { getCookie, deleteCookie } from "../shared/Cookie";
+// css
+import styled from "styled-components";
 import backBtn from "../assets/img/icon/Back.svg";
 import mypagebird from "../assets/img/illust/mypagebird.svg"
 import mypagebird2 from "../assets/img/illust/mypagebird2.svg"
 import Triangle from "../assets/img/icon/Triangle.svg"
-import { useNavigate } from "react-router-dom";
+
 
 const Mypage = () => {
   const myToken = getCookie("token");
   const navigate = useNavigate()
-  const [num, setNum] = useState(1)
+  const [num, setNum] = useState(33)
   
   return (
     <>
     <MyNavWrap>
-      <MyBack src={backBtn}/>
-      <MyTitle
-        onClick={()=>{
-          navigate(-1)
-        }}
-      >마이페이지</MyTitle>
+      <MyBack 
+       onClick={()=>{
+        navigate(-1)
+      }}
+      src={backBtn}/>
+      <MyTitle>마이페이지</MyTitle>
       {num===0? 
       <>
       <MyImg src={mypagebird2}></MyImg>
       <MyNotice>아직 찜해둔 공고 리스트가 없군요!</MyNotice>
-      <MyBubble style={{width:"162px", left:"103px"}}> <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>채용공고 담으러 가기</span></MyBubble>
+      <MyBubble style={{width:"162px", left:"105px"}}> <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>채용공고 담으러 가기</span></MyBubble>
       <MyTri src={Triangle}/></>
       :
       <>
@@ -65,14 +67,14 @@ export default Mypage;
 
 const Outer = styled.div`
   background-color: var(--blue1);
-  height: 320px;
+  height: 364px;
 `;
 
 const PersonalInfo =styled.div`
   width: 90%;
   height: 256px;
   margin: auto;
-  padding: 24px 0 0 0;
+  padding: 54px 0 0 0;
 `
 
 const PersonalTitle =styled.div`
@@ -108,7 +110,7 @@ const ModifyDate =styled.div`
 const ModifyBtn =styled.div`
   color: var(--blue3);
   width: 55px;
-  height: 50px;
+  height: 48px;
   border: 1px var(--blue3) solid;
   display: flex;
   align-items: center;
@@ -130,13 +132,14 @@ const LogoutBtn =styled.div`
 `
 
 const MyTitle = styled.div`
-  height: 50px;
+  height: 56px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 700;
   font-size: 12.0999px;
   color: white;
+  letter-spacing: 1px;
 `
 
 const MyNotice = styled.div`
@@ -159,14 +162,14 @@ const MyBubble = styled.div`
   align-items: center;
   position: absolute;
   font-weight: 500;
-  top: 76px;
+  top: 83px;
   left: 123px;
   box-shadow: 0px 3px 9px rgba(116, 160, 227, 0.14);
 `
 
 const MyNavWrap = styled.div`
   width: 100%;
-  height: 187px;
+  height: 197px;
   background-color: var(--blue4);
   display: flex;
   flex-direction: column;

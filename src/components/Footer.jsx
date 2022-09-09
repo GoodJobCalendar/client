@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import Github from "../assets/img/icon/Github.svg"
+import Behance from "../assets/img/icon/Behance.svg"
+import Notion from "../assets/img/icon/Notion.svg"
 
 const Footer = () => {
   return (
@@ -13,18 +16,17 @@ const Footer = () => {
           <Footbaby>BackEnd : 김성현 황성원</Footbaby>
         </FootInner>
         <FootInner>
-          <FootMain>ETC</FootMain>
-          <Footbaby>공지사항</Footbaby>
-          <Footbaby>이용약관</Footbaby>
-          <Footbaby>개인정보처리방침</Footbaby>
-          <Footbaby>FAQ</Footbaby>
-        </FootInner>
-        <FootInner>
           <FootMain>CONTACT</FootMain>
           <Footbaby>문의</Footbaby>
-          <Footbaby>깃허브</Footbaby>
         </FootInner>
-        <hr/>
+        <Hr/>
+        <FooterIcon>
+          <img src={Github} alt="githubicon"/>
+          <img src={Github} alt="githubicon"/>
+          <img src={Behance} alt="behanceicon"/>
+          <img src={Notion} alt="notionicon"/>
+        </FooterIcon>
+        <FooterCopy>Copyright ©CATLAB.All rights reserved</FooterCopy>
       </FootSmallWrap>  
     </FootWrap>
   )
@@ -34,17 +36,15 @@ export default Footer
 
 const FootWrap = styled.div`
   background-color: #111111;
-  height: 466px;
-  padding: 30px 0 0 0;
-
+  height: 321px;
+  padding: 28px;
 `
 
 const FootSmallWrap =styled.div`
-  width: 80%;
   margin: auto;
 `
 const FootInner = styled.div`
-  padding: 10px 0 0 0;
+  padding: 10px 0 ;
   line-height: 15px;
 `
 
@@ -52,11 +52,32 @@ const FootMain = styled.div`
   color: white;
   font-weight: 700;
   font-size: 10px;
-  padding: 10px 0;
+  padding: 15px 0;
 `
 
 const Footbaby =styled.div`
     color: white;
     font-weight: 350;
     font-size: 10px;
+`
+const Hr = styled.div`
+  border: 1px solid white;
+  margin: 20px 0 15px;
+`
+
+const FooterIcon =styled.div`
+  display: flex;
+  justify-content: space-between;
+  img{
+    width: 40px;
+    height: 40px;
+  }
+`
+const FooterCopy = styled.div`
+  color: white;
+  margin: auto;
+  font-weight: 350;
+  font-size: 10px;
+  text-align: center;
+  margin-top: 24px;
 `
