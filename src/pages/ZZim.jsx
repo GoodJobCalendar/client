@@ -11,6 +11,8 @@ import { getCookie } from '../shared/Cookie';
 const ZZim = () => {
   const navigate = useNavigate()
 
+
+  // 스크랩목록
   useEffect(()=>{
     const myToken = getCookie("token");
     const getZzim = async() =>{
@@ -34,7 +36,7 @@ const ZZim = () => {
         </Main>
       </UpBar>
       <MiddleButton>
-        <div>스크랩순</div>
+        <div style={{color:"var(--blue4)"}}>스크랩순</div>
         <div>|</div>
         <div>날짜순</div>
       </MiddleButton>
@@ -118,7 +120,7 @@ const MiddleButton =styled.div`
 const BottomBox =styled.div`
   position: fixed;
   bottom: 30px;
-  left: 16px;
+  left: 23px;
 `
 
 const JobCard = styled.div`

@@ -12,9 +12,9 @@ import {
 } from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
-import backBtn from "../assets/img/btn/backBtn.png";
-import coverimg from "../assets/img/cover/cover2.png";
+import back from "../assets/img/icon/Back.svg";
 import msg from "../assets/img/btn/msg.svg";
+import backbird from "../assets/img/illust/JobDetailBird.svg"
 const JobDetail = () => {
   const navigate = useNavigate();
 
@@ -46,7 +46,13 @@ const JobDetail = () => {
 
   return (
     <MainWrap>
-      <Header src={coverimg} />
+      <Header>
+      <MyBack 
+       onClick={()=>{
+        navigate(-1)
+      }}
+      src={back}/>
+      </Header>
 
       <MainWrapper>
         <CompanyWrap>
@@ -86,11 +92,12 @@ const JobDetail = () => {
             <InfoDetails>{jobDetail?.city}</InfoDetails>
           </JobInfo>
         </JobInfoFlex>
-
+        <BackWrap>
+        <BackBird src={backbird}></BackBird>
+        </BackWrap>
         <BtnWrap>
           <BackBtn onClick={() => navigate("/job")}>
-            <img src={backBtn} alt="뒤로가기" />
-            다른 채용공고
+           채용공고 찜
           </BackBtn>
 
           <ScrapBtnWrap>
@@ -136,15 +143,24 @@ const MainWrap = styled.div`
   height: 100vh;
 `;
 
-const Header = styled.img`
+const MyBack = styled.img`
+  width: 16px;
+  position: absolute;
+  left: 4%;
+  top: 33%;
+`
+
+const Header = styled.div`
   width: 100%;
-  height: 230px;
-  border-radius: 0px 0px 18px;
+  height: 8vh;
+  position: relative;
+  background-color: var(--blue4);
 `;
 
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 92vh;
   width: calc(100% - 48px);
   background: var(--blue1);
   padding: 40px 24px;
@@ -222,19 +238,39 @@ const InfoDetails = styled.p`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 100px;
+  /* margin-top: 100px; */
 `;
 
+const BackWrap = styled.div`
+  position: relative;
+  height: 30vh;
+`
+const BackBird = styled.img`
+  position: absolute;
+  bottom: -26px;
+  right: -20px;
+  opacity: 0.15;
+`
+
+
+
 const BackBtn = styled.div`
+  width: 157px;
+  height: 54px;
+  font-size: 16px;
   padding: 18px 25px;
-  background: #d1d1d1;
   border-radius: 6px;
-  cursor: pointer;
+  box-sizing: border-box;
   font-weight: 500;
-  color: #9a9a9a;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  border: ${(props) =>
+    props.scrap
+      ? "2px solid  transparent"
+      : "2px solid transparent"};
+  background-color: ${(props) =>
+    props.scrap ? "var(--blue4)" : "white"};
+  text-align: center;
+  cursor: pointer;
+  color: ${(props) => (props.scrap ? "white" : "#3284ff")};
 `;
 
 const BackBtnImg = styled.img`
@@ -268,6 +304,8 @@ const ScrapBtnWrap = styled.div`
   position: relative;
 `;
 const ScrapBtn = styled.button`
+  width: 157px;
+  height: 54px;
   font-size: 16px;
   padding: 18px 25px;
   border-radius: 6px;
@@ -276,9 +314,9 @@ const ScrapBtn = styled.button`
   border: ${(props) =>
     props.scrap
       ? "2px solid  transparent"
-      : "2px solid var(--blue4)!important"};
+      : "2px solid transparent"};
   background-color: ${(props) =>
-    props.scrap ? "var(--blue4)" : "transparent"};
+    props.scrap ? "var(--blue4)" : "white"};
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.scrap ? "white" : "#3284ff")};

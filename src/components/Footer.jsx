@@ -36,7 +36,7 @@ export default Footer
 
 const FootWrap = styled.div`
   background-color: #111111;
-  height: 321px;
+  height: 34vh;
   padding: 28px;
 `
 

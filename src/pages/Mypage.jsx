@@ -67,7 +67,7 @@ export default Mypage;
 
 const Outer = styled.div`
   background-color: var(--blue1);
-  height: 364px;
+  height: 41vh;
 `;
 
 const PersonalInfo =styled.div`
@@ -169,7 +169,7 @@ const MyBubble = styled.div`
 
 const MyNavWrap = styled.div`
   width: 100%;
-  height: 197px;
+  height: 20vh;
   background-color: var(--blue4);
   display: flex;
   flex-direction: column;
