@@ -3,7 +3,7 @@ import Head from "./Head";
 import Body from "./Body";
 import styled from "styled-components";
 
-const MonthSchedule = () => {
+const MonthSchedule = ({ setIsActive, isActive }) => {
   let DATE = new Date(); // Sun Aug 21 2022 23:42:11 GMT+0900 (한국 표준시)
   const YEAR = DATE.getFullYear(); // 2022
   const MONTH = DATE.getMonth() + 1; // 8
@@ -64,6 +64,8 @@ const MonthSchedule = () => {
         today={today}
         month={Number(month)}
         year={Number(year)}
+        setIsActive={setIsActive}
+        isActive={isActive}
       />
     </MonthWrap>
   );

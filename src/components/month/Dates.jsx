@@ -5,9 +5,18 @@ import { activeDate, selectDate } from "../../redux/modules/date";
 import { loadDaily } from "../../redux/modules/schedule";
 
 const Dates = (props) => {
-  const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
+  const {
+    lastDate,
+    firstDate,
+    elm,
+    findToday,
+    month,
+    year,
+    idx,
+    setIsActive,
+    isActive,
+  } = props;
   const dispatch = useDispatch();
-  const [isActive, setIsActive] = useState(false);
   const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
   const zoom = useSelector((state) => state.date.zoom.zoomInOut);

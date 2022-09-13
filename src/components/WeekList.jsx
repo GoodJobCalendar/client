@@ -22,7 +22,6 @@ const WeekList = () => {
     setWeekList(Object.entries(weekSchdule));
   }, [weekSchdule]);
 
-  console.log(weekSchdule);
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
   let Month = (mm) => {
     if (mm === "Jan") return "01";

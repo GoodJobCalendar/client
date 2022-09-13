@@ -43,10 +43,10 @@ function Main() {
   const [zoomInOut, setZoomInOut] = useState(true);
   const [loginOn, setLoginOn] = useState(false);
   const [guideOn, setGuide] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   const navData = true;
   const token = getCookie("token");
-  const active = useSelector((state) => state.date.active);
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -185,17 +185,15 @@ function Main() {
             </WeekMonth>
           </ToggleBtn>
           {weekMonth ? (
-            <MonthSchedule />
+            <MonthSchedule isActive={isActive} setIsActive={setIsActive} />
           ) : (
-            <WeekSchedule weekMonth={weekMonth} />
+            <WeekSchedule
+              weekMonth={weekMonth}
+              isActive={isActive}
+              setIsActive={setIsActive}
+            />
           )}
-          {active?.isActive ? (
-            <DailyList />
-          ) : weekMonth ? (
-            <MonthList />
-          ) : (
-            <WeekList />
-          )}
+          {isActive ? <DailyList /> : weekMonth ? <MonthList /> : <WeekList />}
         </ContentWrap>
       ) : (
         <SearchWrapper>
