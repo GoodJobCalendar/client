@@ -38,6 +38,7 @@ const FootWrap = styled.div`
   background-color: #111111;
   height: 34vh;
   padding: 28px;
+  overflow-y: hidden;
 `
 
 const FootSmallWrap =styled.div`

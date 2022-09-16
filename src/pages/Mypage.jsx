@@ -67,7 +67,7 @@ export default Mypage;
 
 const Outer = styled.div`
   background-color: var(--blue1);
-  height: 41vh;
+  height: 40.2vh;
 `;
 
 const PersonalInfo =styled.div`

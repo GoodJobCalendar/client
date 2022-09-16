@@ -96,8 +96,20 @@ const JobDetail = () => {
         <BackBird src={backbird}></BackBird>
         </BackWrap>
         <BtnWrap>
-          <BackBtn onClick={() => navigate("/job")}>
-           채용공고 찜
+          <BackBtn>
+          {jobDetail?.isScrap && (
+              <>
+                <MsgText1 to="/zzim">
+                  <p>
+                    <span>스크랩한 모든 공고</span>를
+                    <br />
+                    확인해보세요!
+                  </p>
+                </MsgText1>
+                <MsgImg1 src={msg} alt="캘린더로 스크랩" />
+              </>
+            )}
+          채용공고 찜
           </BackBtn>
 
           <ScrapBtnWrap>
@@ -160,7 +172,7 @@ const Header = styled.div`
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 92vh;
+  height: 83vh;
   width: calc(100% - 48px);
   background: var(--blue1);
   padding: 40px 24px;
@@ -243,7 +255,7 @@ const BtnWrap = styled.div`
 
 const BackWrap = styled.div`
   position: relative;
-  height: 30vh;
+  height: 40vh;
 `
 const BackBird = styled.img`
   position: absolute;
@@ -260,6 +272,7 @@ const BackBtn = styled.div`
   font-size: 16px;
   padding: 18px 25px;
   border-radius: 6px;
+  position: relative;
   box-sizing: border-box;
   font-weight: 500;
   border: ${(props) =>
@@ -284,6 +297,14 @@ const MsgImg = styled.img`
   left: 50%;
   transform: translateX(-50%);
 `;
+
+const MsgImg1 = styled.img`
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const MsgText = styled(Link)`
   position: absolute;
   top: -55px;
@@ -296,10 +317,34 @@ const MsgText = styled(Link)`
   text-align: center;
   span {
     font-weight: 700;
-    color: var(--blue3);
+    color: var(--blue4);
+  }
+  p{
+    color: var(--blue4);
   }
   z-index: 99;
 `;
+
+const MsgText1 = styled(Link)`
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--blue3);
+  width: 100%;
+  text-align: center;
+  span {
+    font-weight: 700;
+    color: var(--blue4);
+  }
+  p{
+    color: var(--blue4);
+  }
+  z-index: 99;
+`;
+
 const ScrapBtnWrap = styled.div`
   position: relative;
 `;

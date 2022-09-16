@@ -15,13 +15,16 @@ import Nav from "../components/Nav";
 
 import nextCursorBtn from "../assets/img/btn/nextCursor.png";
 import previousCursorBtn from "../assets/img/btn/previousCursor.png";
+import zzimbtn from "../assets/img/btn/ZzimBtn.svg";
+import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const Job = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+  const [tool, setTool] = useState(false);
+
 
   const jobDataList = useSelector((state) => state.job.list.data);
   // const jobDataList = useSelector((state) => state.job.list?.postings);
@@ -69,14 +72,24 @@ const Job = () => {
   return (
     <MainWrap>
       <Nav navData={navData} />
-
       <JobWrapper id="para">
+        <Outer>
         <TeamNameList>
           <UpdateTime>{jobDataUpdate}</UpdateTime>
           <FilterBtn onClick={() => navigate("/jobCategory")}>
             추천 조건
           </FilterBtn>
         </TeamNameList>
+        <Tooltip>
+        {tool?
+        <> 
+        <Tooltip2 src={Tooltipmark} onClick={()=>{setTool(!tool)}}/>
+          <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent>
+          </>
+          :<Tooltip2 src={Tooltipmark} onClick={()=>{setTool(!tool)}}/>}
+          
+        </Tooltip>
+        </Outer>
         {/* <div
           id="scrollableDiv"
           style={{
@@ -130,6 +143,9 @@ const Job = () => {
           <img src={previousCursorBtn} onClick={getDataBefore}></img>
           <img src={nextCursorBtn} onClick={getDataNext}></img>
         </div>
+        <ZzimBtn src={zzimbtn} onClick={()=>{
+          navigate("/zzim")
+        }}/>
       </JobWrapper>
     </MainWrap>
   );
@@ -139,6 +155,40 @@ const MainWrap = styled.div`
   position: relative;
 `;
 
+const Outer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const ZzimBtn = styled.img`
+  position: absolute;
+  right: 16px;
+  bottom: 3%;
+  opacity: 90%;
+  &:hover{
+    cursor: pointer;
+  }
+`
+
+const Tooltipcontent =styled.div`
+  color: var(--blue2);
+  font-size: 10px;
+`
+const Tooltip =styled.div`
+  color: var(--blue2);
+  display: flex;
+  margin: 10px 0 ;
+  align-items: center;
+  /* &:hover{
+    ${Tooltipcontent}{
+      display: block;
+    }
+  } */
+`
+const Tooltip2 = styled.img`
+ display: flex;
+ margin: 0 8px 0 0;
+`
 const JobWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -157,13 +207,13 @@ const CardWrapper = styled.div`
 `;
 
 const TeamNameList = styled.div`
-  width: 100%;
+  width: 335px;
   height: 14px;
-  display: inline-block;
-  padding: 0px 24px;
+  display: flex;
+  /* padding: 0px 24px 0 0; */
   display: flex;
   justify-content: space-between;
-  margin: 44px 0 31px;
+  margin: 24px 0 5px;
 `;
 
 const UpdateTime = styled.p`
