@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import { getCookie, deleteCookie } from "../shared/Cookie";
+import { getCookie, deleteCookie, setCookie } from "../shared/Cookie";
 // css
 import styled from "styled-components";
 import backBtn from "../assets/img/icon/Back.svg";
@@ -30,6 +30,7 @@ const Mypage = () => {
        setUserInfo(res.data.data)
        setSocial(res.data.data.type)
        setDate(res.data.data.updatedAt.split("T")[0])
+       setCookie("email", res.data.data.email )
       })
       .catch((err) => {
         console.error(err);
@@ -115,7 +116,8 @@ const Mypage = () => {
           >{parseInt(diff/currMonth)}개월</p> 이 지났어요!</ModifyDate>
           <ModifyBtn
           onClick={()=>{
-            navigate("/pwChange")
+            // navigate("/pwChange")
+            alert("현재 준비중 입니다.")
           }}
           >수정</ModifyBtn>
         </ModiWrap>
