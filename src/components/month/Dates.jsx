@@ -5,9 +5,18 @@ import { activeDate, selectDate } from "../../redux/modules/date";
 import { loadDaily } from "../../redux/modules/schedule";
 
 const Dates = (props) => {
-  const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
+  const {
+    lastDate,
+    firstDate,
+    elm,
+    findToday,
+    month,
+    year,
+    idx,
+    setIsActive,
+    isActive,
+  } = props;
   const dispatch = useDispatch();
-  const [isActive, setIsActive] = useState(false);
   const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
   const zoom = useSelector((state) => state.date.zoom.zoomInOut);
@@ -108,7 +117,7 @@ const Dates = (props) => {
           firstDate={firstDate}
           findToday={findToday}
         >
-          <TodayCSS
+          <TodayInput
             id={idx}
             type="radio"
             name="day"
@@ -152,12 +161,11 @@ const Form = styled.li`
 
 const DateNum = styled.div``;
 
-const TodayCSS = styled.input`
+const TodayInput = styled.input`
   display: none;
-  z-index: 1;
   :checked + label {
-    background-color: ${(props) => (props.isActive ? "var(--blue4)" : "")};
-    color: ${(props) => (props.isActive ? "#fff!important" : "")};
+    background-color: ${(props) => props.isActive && "var(--blue4)"};
+    color: ${(props) => props.isActive && "#fff!important"};
   }
 `;
 

@@ -38,6 +38,23 @@ const initialState = {
       },
     ],
   },
+  weekly: {
+    220830: [
+      {
+        color: 1,
+        companyName: "현대오토에버㈜",
+        coverImage: 1,
+        date: "2121-12-31 15:00:00",
+        memo: null,
+        place: "서울 강남구",
+        postingId: 2406,
+        scheduleId: 54,
+        sticker: 1,
+        title: "App개발 경력 채용",
+        type: "auto",
+      },
+    ],
+  },
 };
 
 // action
@@ -46,6 +63,7 @@ const SCHEDULE_UPDATE = "schedule_reducer/SCHEDULE_UPDATE";
 const LIST_DETAIL = "schedule_reducer/LIST_DETAIL";
 const LIST_DELETE = "schedule_reducer/LIST_DELETE";
 const MONTH_LIST = "schedule_reducer/MONTH_LIST";
+const WEEK_LIST = "schedule_reducer/WEEK_LIST";
 const DAILY_LIST = "schedule_reducer/DAILY_LIST";
 
 // action creator
@@ -63,6 +81,9 @@ export function __detailPost(payload) {
 }
 export function __loadMonth(payload) {
   return { type: MONTH_LIST, payload };
+}
+export function __loadWeekly(payload) {
+  return { type: WEEK_LIST, payload };
 }
 export function __loadDaily(payload) {
   return { type: DAILY_LIST, payload };
@@ -189,6 +210,24 @@ export const loadMonth = (payload) => {
   };
 };
 
+//주간일정 조회
+export const loadweekly = (payload) => {
+  return function (dispatch, getState) {
+    const myToken = getCookie("token");
+    const data = {
+      headers: { Authorization: `Bearer ${myToken}` },
+      params: { startDate: payload },
+    };
+    axios
+      .get("https://goodjobcalendar.shop/api/schedule/weekly", data)
+      .then((res) => {
+        dispatch(__loadWeekly(res.data.data));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
 //일간일정 조회
 export const loadDaily = (payload) => {
   return function (dispatch, getState) {
@@ -234,6 +273,11 @@ export default function scheduleReducer(state = initialState, action) {
     case MONTH_LIST: {
       return produce(state, (draft) => {
         draft.month = action.payload;
+      });
+    }
+    case WEEK_LIST: {
+      return produce(state, (draft) => {
+        draft.weekly = action.payload;
       });
     }
     case DAILY_LIST: {

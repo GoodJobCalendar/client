@@ -33,6 +33,7 @@ import img8 from "../assets/img/sticker/sticker8.png";
 import { searchMySchedule } from "../redux/modules/search";
 import { useDispatch, useSelector } from "react-redux";
 import { zoomDate } from "../redux/modules/date";
+import WeekList from "../components/WeekList";
 
 function Main() {
   const navigate = useNavigate();
@@ -42,10 +43,10 @@ function Main() {
   const [zoomInOut, setZoomInOut] = useState(true);
   const [loginOn, setLoginOn] = useState(false);
   const [guideOn, setGuide] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   const navData = true;
   const token = getCookie("token");
-  const active = useSelector((state) => state.date.active);
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -147,40 +148,52 @@ function Main() {
       {search === "" ? (
         <ContentWrap>
           <ToggleBtn>
-            {/* {weekMonth ? ( */}
-            <>
-              {zoomInOut ? (
-                <button
-                  onClick={() => {
-                    setZoomInOut(!zoomInOut);
-                  }}
-                >
-                  <img src={zoomin} alt="월별달력확대" />
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setZoomInOut(!zoomInOut);
-                  }}
-                >
-                  <img src={zoomout} alt="월별달력축소" />
-                </button>
-              )}
-            </>
-            {/* ) : (
+            {weekMonth ? (
+              <>
+                {zoomInOut ? (
+                  <button
+                    onClick={() => {
+                      setZoomInOut(!zoomInOut);
+                    }}
+                  >
+                    <img src={zoomin} alt="월별달력확대" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setZoomInOut(!zoomInOut);
+                    }}
+                  >
+                    <img src={zoomout} alt="월별달력축소" />
+                  </button>
+                )}
+              </>
+            ) : (
               <div></div>
-            )} */}
-            {/* <WeekMonth
+            )}
+            <WeekMonth
               weekMonth={weekMonth}
               onClick={() => {
                 setWeekMonth(!weekMonth);
               }}
             >
-              {weekMonth ? <Circle weekMonth={weekMonth}>M</Circle> : <Circle weekMonth={weekMonth}>W</Circle>}
-            </WeekMonth> */}
+              {weekMonth ? (
+                <Circle weekMonth={weekMonth}>M</Circle>
+              ) : (
+                <Circle weekMonth={weekMonth}>W</Circle>
+              )}
+            </WeekMonth>
           </ToggleBtn>
-          {weekMonth ? <MonthSchedule /> : <WeekSchedule />}
-          {active?.isActive ? <DailyList /> : <MonthList />}
+          {weekMonth ? (
+            <MonthSchedule isActive={isActive} setIsActive={setIsActive} />
+          ) : (
+            <WeekSchedule
+              weekMonth={weekMonth}
+              isActive={isActive}
+              setIsActive={setIsActive}
+            />
+          )}
+          {isActive ? <DailyList /> : weekMonth ? <MonthList /> : <WeekList />}
         </ContentWrap>
       ) : (
         <SearchWrapper>
@@ -293,7 +306,6 @@ const GuideBg = styled.div`
     position: absolute;
     top: 10%;
     right: 10%;
-    background-color: transparent;
     color: #fff !important;
     z-index: 999;
     font-size: 20px;
@@ -365,9 +377,6 @@ const ToggleBtn = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  button {
-    background-color: transparent;
-  }
 `;
 const WeekMonth = styled.button`
   height: 27px;
