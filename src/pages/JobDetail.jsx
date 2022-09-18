@@ -13,8 +13,9 @@ import buttonText from "../assets/img/btn/buttonText.png";
 import back from "../assets/img/icon/Back.svg";
 import msg from "../assets/img/btn/msg.svg";
 import backbird from "../assets/img/illust/JobDetailBird.svg"
-import alwaysBird from "../assets/img/illust/AlwaysBird.svg"
+import alwaysBird from "../assets/img/illust/notfound.svg";
 import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
+
 import { useState } from "react";
 const JobDetail = () => {
   const navigate = useNavigate();

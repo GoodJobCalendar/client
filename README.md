@@ -70,6 +70,7 @@
 |:--------:|:----------------------------------------------------------:|
 | 손유정(FE)   | [https://github.com/YoujungSon](https://github.com/YoujungSon)                   |
 | 이경태(FE)   | [https://github.com/kyeongbong](https://github.com/kyeongbong)                       |
+| 최서현(FE)   | [https://github.com/horang-e](https://github.com/horang-e)                       |
 | 김성현(BE)   | [https://github.com/rtg1014](https://github.com/rtg1014)                       |
 | 황성원(BE)   | [https://github.com/Magiof](https://github.com/Magiof)                       |
 | 안지선(DESIGNER)   | [https://daisycom.oopy.io](https://daisycom.oopy.io)                       |

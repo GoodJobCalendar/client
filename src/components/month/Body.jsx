@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Dates from "./Dates";
 
 const Body = (props) => {
-  const { totalDate, today, month, year } = props;
+  const { totalDate, today, month, year, isActive, setIsActive } = props;
   const lastDate = totalDate.indexOf(1);
   const firstDate = totalDate.indexOf(1, 7);
   //today
@@ -29,6 +29,8 @@ const Body = (props) => {
             }
             month={month}
             year={year}
+            isActive={isActive}
+            setIsActive={setIsActive}
           ></Dates>
         );
       })}

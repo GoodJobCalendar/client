@@ -61,12 +61,12 @@ const PostDetail = () => {
   }, []);
   const myToken = getCookie("token");
 
-  const deleteSchedule = () => {
+  const deleteSchedule = async () => {
     const data = {
       headers: { Authorization: `Bearer ${myToken}` },
       params: { startDate: startDate },
     };
-    axios
+    await axios
       .delete(`https://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
         console.log(res, "아아ㅏㅇ아ㅏ아");
