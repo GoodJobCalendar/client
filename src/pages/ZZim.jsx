@@ -9,13 +9,22 @@ import axios from 'axios';
 import { getCookie } from '../shared/Cookie';
 import { useState } from 'react';
 import { api } from '../shared/api';
+import Pagination from '../components/Pagination';
 
 const ZZim = () => {
   const navigate = useNavigate()
   const [list, setList] = useState([])
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
 
-  
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(totalPage)
+
+  const paginate = currentPage;
 
   // 스크랩목록
   useEffect(()=>{
@@ -28,6 +37,8 @@ const ZZim = () => {
                 .then((res)=>{
                   console.log(res.data.data)
                   setList(res.data.data)
+                  setTotalPage(Math.ceil(list?.length / postPerPage))
+                  
                 })
     }
     getZzim()
@@ -46,9 +57,13 @@ const ZZim = () => {
         <div style={{color:"var(--blue4)"}}
         >스크랩순</div>
         <div>|</div>
-        <div>날짜순</div>
+        <div
+        onClick={()=>{
+          alert("준비중인 기능입니다.")
+        }}
+        >날짜순</div>
       </MiddleButton>
-    {list?.map((tasksData, idx)=>{
+    {currentPosts?.map((tasksData, idx)=>{
       return(
         <JobCard
               key={idx}
@@ -69,15 +84,16 @@ const ZZim = () => {
                 </EndTime>
               </DetailInfo>
             </JobCard>
-
       )
-    })}
+    })} 
+    <Pagination
+        postPerPage={postPerPage}
+        totalPosts={list?.length}
+        setCurrentPage={setCurrentPage}
+      />
       
 
-      <BottomBox>
-          <img src={previousCursorBtn} alt="이전"/>
-          <img src={nextCursorBtn} alt="이후"/>
-      </BottomBox>
+      
     </MainWrapper>
   )
 }
