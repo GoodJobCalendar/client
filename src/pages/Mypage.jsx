@@ -14,7 +14,8 @@ import mypagebird2 from "../assets/img/illust/mypagebird2.svg"
 const Mypage = () => {
   const myToken = getCookie("token");
   const navigate = useNavigate()
-  const [num, setNum] = useState(0)
+  const [num, setNum] = useState(22)
+  const [social, setSocial] = useState(false)
   
   return (
     <>
@@ -28,31 +29,38 @@ const Mypage = () => {
       {num===0? 
       <>
       <MyImg src={mypagebird2}></MyImg>
-      {/* <MyNotice>아직 찜해둔 공고 리스트가 없군요!</MyNotice> */}
       <MyBubble style={{width:"162px", left:"105px"}}
        onClick={()=>{
         navigate("/Job")
       }}
       > <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}
       >채용공고 담으러 가기</span></MyBubble>
-      {/* <MyTri src={Triangle}/> */}
       </>
       :
       <>
       <MyImg src={mypagebird}></MyImg>
-      {/* <MyNotice>찜해둔 공고 리스트를 확인해보세요!</MyNotice> */}
       <MyBubble
        onClick={()=>{
         navigate("/Zzim")
       }}
       >총 {num}개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
-      {/* <MyTri src={Triangle}/> */}
       </>
       }
       
     </MyNavWrap> 
     <Outer>
       <PersonalInfo>
+        {social?
+        <>
+        <PersonalTitle>카카오 간편 로그인 이용중</PersonalTitle>
+        <Email>daisy_com@kakao.com</Email>
+        <LogoutBtn onClick={()=>{
+          deleteCookie("token")
+          navigate("/")
+        }}>로그아웃</LogoutBtn>
+        </>
+        :
+        <>
         <PersonalTitle>Email</PersonalTitle>
         <Email>daisy_com@kakao.com</Email>
         <PersonalTitle style={{marginTop:"16px"}}>비밀번호</PersonalTitle>
@@ -70,6 +78,8 @@ const Mypage = () => {
           deleteCookie("token")
           navigate("/")
         }}>로그아웃</LogoutBtn>
+        </>}
+        
       </PersonalInfo>
     </Outer>
     <Footer/>
@@ -176,19 +186,18 @@ const MyBubble = styled.div`
   align-items: center;
   position: absolute;
   font-weight: 500;
-  top: 57px;
+  bottom: 43%;
   left: 118px;
   box-shadow: 0px 3px 9px rgba(52, 46, 45, 0.468);
   cursor: pointer;
   &::after{
-    border-top: 13px solid white;
+    border-top: 14px solid white;
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     border-bottom: 0px solid transparent;
     content: "";
     position: absolute;
-    top: 35px;
-    /* left: 0%; */
+    top: 34px;
   }
 `
 
@@ -223,5 +232,5 @@ const MyImg = styled.img`
   right: 50%;
   border: none;
   border-radius: 50%;
-  transform: translate(50%, 3%);
+  transform: translate(52%, 3%);
 `

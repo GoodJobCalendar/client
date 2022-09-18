@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
-  loadJobList,
-  loadCategoryList,
   loadJobDetails,
   addScrap,
 } from "../redux/modules/job";
@@ -15,6 +13,9 @@ import buttonText from "../assets/img/btn/buttonText.png";
 import back from "../assets/img/icon/Back.svg";
 import msg from "../assets/img/btn/msg.svg";
 import backbird from "../assets/img/illust/JobDetailBird.svg"
+import alwaysBird from "../assets/img/illust/AlwaysBird.svg"
+import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
+import { useState } from "react";
 const JobDetail = () => {
   const navigate = useNavigate();
 
@@ -25,8 +26,9 @@ const JobDetail = () => {
   const id = params.id;
 
   const jobDetail = useSelector((state) => state.job.details.data);
-
-  // console.log(jobDetail);
+  console.log(jobDetail);
+  const [deadDate, setDeadDate] = useState(`${jobDetail?.deadline}`)
+  console.log(deadDate);
 
   useEffect(() => {
     dispatch(loadJobDetails(id));
@@ -43,9 +45,13 @@ const JobDetail = () => {
   }
 
   const [isScrap, setIsScrap] = React.useState(false);
+  const [sangsi, setSangsi] = React.useState(false);
 
   return (
-    <MainWrap>
+    <>
+    <MainWrap
+    sangsi={sangsi}
+    >
       <Header>
       <MyBack 
        onClick={()=>{
@@ -53,13 +59,15 @@ const JobDetail = () => {
       }}
       src={back}/>
       </Header>
-
       <MainWrapper>
+      <Tooltip>
+        <Tooltip2 src={Tooltipmark} />
+          <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent>
+        </Tooltip>
         <CompanyWrap>
           <CompanyName>{jobDetail?.companyName}</CompanyName>
           <CompanySize>{jobDetail?.companyType}</CompanySize>
         </CompanyWrap>
-
         <JobTitle>{jobDetail?.title}</JobTitle>
 
         <Line />
@@ -96,7 +104,8 @@ const JobDetail = () => {
         <BackBird src={backbird}></BackBird>
         </BackWrap>
         <BtnWrap>
-          <ZimmbtnWarp>
+          <ZimmbtnWarp
+          >
           {jobDetail?.isScrap && (
               <>
                 <MsgText1 to="/zzim">
@@ -114,29 +123,37 @@ const JobDetail = () => {
                채용공고 찜
             </BackBtn>
           </ZimmbtnWarp>
-
-          <ScrapBtnWrap>
-            {jobDetail?.isScrap && (
-              <>
-                <MsgText to="/main">
-                  <p>
-                    <span>취준 캘린더</span>에서
-                    <br />
-                    확인해보세요!
-                  </p>
-                </MsgText>
-                <MsgImg src={msg} alt="캘린더로 스크랩" />
-              </>
-            )}
-            <ScrapBtn
-              scrap={jobDetail?.isScrap}
-              onClick={() => {
-                dispatch(addScrap(id));
-              }}
-            >
-              캘린더로 스크랩
-            </ScrapBtn>
-          </ScrapBtnWrap>
+          {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
+                ? <ScrapBtn1
+                onClick={()=>{
+                  setSangsi(true)
+                }}
+                >
+                  캘린더로 스크랩
+                </ScrapBtn1>
+                :  <ScrapBtnWrap>
+                {jobDetail?.isScrap && (
+                  <>
+                    <MsgText to="/main">
+                      <p>
+                        <span>취준 캘린더</span>에서
+                        <br />
+                        확인해보세요!
+                      </p>
+                    </MsgText>
+                    <MsgImg src={msg} alt="캘린더로 스크랩" />
+                  </>
+                )}
+                <ScrapBtn
+                  scrap={jobDetail?.isScrap}
+                  onClick={() => {
+                    dispatch(addScrap(id));
+                  }}
+                >
+                  캘린더로 스크랩
+                </ScrapBtn>
+              </ScrapBtnWrap>}
+         
         </BtnWrap>
 
         <JobKoreabtn
@@ -149,6 +166,26 @@ const JobDetail = () => {
         </JobKoreabtn>
       </MainWrapper>
     </MainWrap>
+    {sangsi&&
+    <Always>
+          <AlwaysModal>
+            <img src={alwaysBird} alt="상시채용" />
+            <p>
+              <span>상시채용공고</span>는
+              <br />
+              <span>찜 기능을 활용</span>해보세요!
+            </p>
+            <AlwaysBtn
+              onClick={() => {
+                setSangsi(false)
+              }}
+            >
+              확인
+            </AlwaysBtn>
+          </AlwaysModal>
+          </Always>
+    }
+    </>
   );
 };
 
@@ -156,6 +193,12 @@ const MainWrap = styled.div`
   position: relative;
   background: #ecf1f8;
   height: 100vh;
+  >*{
+    filter: 
+  ${(props) =>
+    props.sangsi
+      ? "blur(1.4px)"
+      : "blur(0px)"};}
 `;
 
 const MyBack = styled.img`
@@ -171,6 +214,36 @@ const Header = styled.div`
   position: relative;
   background-color: var(--blue4);
 `;
+
+const Tooltipcontent =styled.div`
+  color: var(--blue2);
+  font-size: 11px;
+  display: none;
+  position: absolute;
+  right: 34px;
+  top: -15px;
+`
+const Tooltip =styled.div`
+  color: var(--blue2);
+  display: flex;
+  margin: 0 0 15px 0 ;
+ align-items: center;
+ position: relative;
+`
+const Tooltip2 = styled.img`
+ display: flex;
+ margin: 0 8px 19px 0;
+ position: absolute;
+ width: 18px;
+ height: 18px;
+ right: 0;
+ &:hover {
+   ~div{
+    display: block;
+   }
+  }
+ 
+`
 
 const MainWrapper = styled.div`
   display: flex;
@@ -348,10 +421,14 @@ const MsgText1 = styled(Link)`
 `;
 const ZimmbtnWarp = styled.div`
   position: relative;
+  filter: blur(0px)!important;
 `
 const ScrapBtnWrap = styled.div`
    position: relative;
 `;
+
+
+
 const ScrapBtn = styled.button`
   width: 157px;
   height: 54px;
@@ -371,6 +448,22 @@ const ScrapBtn = styled.button`
   color: ${(props) => (props.scrap ? "white" : "#3284ff")};
 `;
 
+const ScrapBtn1 = styled.button`
+  width: 157px;
+  height: 54px;
+  font-size: 16px;
+  padding: 18px 25px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-weight: 500;
+  border: 2px solid  transparent;
+  background-color: white;
+  text-align: center;
+  cursor: pointer;
+  color: var(--blue4);
+  z-index: 1;
+`;
+
 const JobKoreabtn = styled.div`
   background: #3284ff;
   border-radius: 6px;
@@ -382,6 +475,54 @@ const JobKoreabtn = styled.div`
   font-weight: 500;
   font-size: 16px;
   margin-top: 16px;
+`;
+
+const Always = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+`;
+const AlwaysBtn = styled.button`
+  background-color: var(--blue4);
+  padding: 16px 60px;
+  color: #fff;
+  border-radius: 9px;
+  margin-top: 17px;
+`;
+const AlwaysModal = styled.div`
+  img{
+    width: 119px;
+    margin-bottom: 10px;
+  }
+  p {
+    font-weight: 500;
+    color: var(--blue4);
+    letter-spacing: 0.9px;
+  }
+  span {
+    font-weight: 700;
+    color: var(--blue4);
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 99999;
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 21px;
+  padding: 40px 80px;
+  width: 40%;
+  text-align: center;
 `;
 
 export default JobDetail;

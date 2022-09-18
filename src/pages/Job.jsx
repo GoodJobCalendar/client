@@ -23,9 +23,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const Job = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [tool, setTool] = useState(false);
-
-
   const jobDataList = useSelector((state) => state.job.list.data);
   // const jobDataList = useSelector((state) => state.job.list?.postings);
   const nextCursor = useSelector((state) => state.job.list.nextCursor);
@@ -81,13 +78,8 @@ const Job = () => {
           </FilterBtn>
         </TeamNameList>
         <Tooltip>
-        {tool?
-        <> 
-        <Tooltip2 src={Tooltipmark} onClick={()=>{setTool(!tool)}}/>
+        <Tooltip2 src={Tooltipmark} />
           <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent>
-          </>
-          :<Tooltip2 src={Tooltipmark} onClick={()=>{setTool(!tool)}}/>}
-          
         </Tooltip>
         </Outer>
         {/* <div
@@ -173,21 +165,24 @@ const ZzimBtn = styled.img`
 const Tooltipcontent =styled.div`
   color: var(--blue2);
   font-size: 10px;
+  display: none;
 `
 const Tooltip =styled.div`
   color: var(--blue2);
   display: flex;
   margin: 10px 0 ;
   align-items: center;
-  /* &:hover{
-    ${Tooltipcontent}{
-      display: block;
-    }
-  } */
+ 
 `
 const Tooltip2 = styled.img`
  display: flex;
  margin: 0 8px 0 0;
+ &:hover {
+   ~div{
+    display: block;
+   }
+  }
+ 
 `
 const JobWrapper = styled.div`
   display: flex;
