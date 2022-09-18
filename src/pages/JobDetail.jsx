@@ -5,28 +5,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
-  loadJobList,
-  loadCategoryList,
   loadJobDetails,
   addScrap,
+  addLike,
+  deleteLike,
 } from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
-import backBtn from "../assets/img/btn/backBtn.png";
-import coverimg from "../assets/img/cover/cover2.png";
+import back from "../assets/img/icon/Back.svg";
 import msg from "../assets/img/btn/msg.svg";
+import backbird from "../assets/img/illust/JobDetailBird.svg"
+import alwaysBird from "../assets/img/illust/notfound.svg";
+import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
+
+import { useState } from "react";
+import axios from "axios";
+import { getCookie } from "../shared/Cookie";
+import { api } from "../shared/api";
 const JobDetail = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const params = useParams();
-
+  const myToken = getCookie("token");
   const id = params.id;
 
   const jobDetail = useSelector((state) => state.job.details.data);
-
-  // console.log(jobDetail);
+  console.log(jobDetail);
+  const [deadDate, setDeadDate] = useState(`${jobDetail?.deadline}`)
+  console.log(deadDate);
 
   useEffect(() => {
     dispatch(loadJobDetails(id));
@@ -42,18 +50,42 @@ const JobDetail = () => {
     return dayOfWeek;
   }
 
-  const [isScrap, setIsScrap] = React.useState(false);
+  const [isLike, setIsLike] = React.useState(false);
+  const [sangsi, setSangsi] = React.useState(false);
+
+  const like = async()=>{
+    api
+      .post(`api/posting/like/${id}`)
+      .then((res) => {
+       console.log(res)
+       setIsLike(!isLike)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   return (
-    <MainWrap>
-      <Header src={coverimg} />
-
+    <>
+    <MainWrap
+    sangsi={sangsi}
+    >
+      <Header>
+      <MyBack 
+       onClick={()=>{
+        navigate(-1)
+      }}
+      src={back}/>
+      </Header>
       <MainWrapper>
+      <Tooltip>
+        <Tooltip2 src={Tooltipmark} />
+          {/* <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent> */}
+        </Tooltip>
         <CompanyWrap>
           <CompanyName>{jobDetail?.companyName}</CompanyName>
           <CompanySize>{jobDetail?.companyType}</CompanySize>
         </CompanyWrap>
-
         <JobTitle>{jobDetail?.title}</JobTitle>
 
         <Line />
@@ -86,35 +118,72 @@ const JobDetail = () => {
             <InfoDetails>{jobDetail?.city}</InfoDetails>
           </JobInfo>
         </JobInfoFlex>
-
+        <BackWrap>
+        <BackBird src={backbird}></BackBird>
+        </BackWrap>
         <BtnWrap>
-          <BackBtn onClick={() => navigate("/job")}>
-            <img src={backBtn} alt="뒤로가기" />
-            다른 채용공고
-          </BackBtn>
-
-          <ScrapBtnWrap>
-            {jobDetail?.isScrap && (
+          <ZimmbtnWarp
+          >
+          {jobDetail?.isLike ? (
               <>
-                <MsgText to="/main">
+                <MsgText1 to="/zzim">
                   <p>
-                    <span>취준 캘린더</span>에서
+                    <span>스크랩한 모든 공고</span>를
                     <br />
                     확인해보세요!
                   </p>
-                </MsgText>
-                <MsgImg src={msg} alt="캘린더로 스크랩" />
+                </MsgText1>
+                <MsgImg1 src={msg} alt="캘린더로 스크랩" />
+                <BackBtn
+                scrap={jobDetail?.isLike}
+                onClick={() => {
+                  dispatch(deleteLike(id));
+                }}>
+                  채용공고 찜
+                </BackBtn>
               </>
-            )}
-            <ScrapBtn
-              scrap={jobDetail?.isScrap}
-              onClick={() => {
-                dispatch(addScrap(id));
-              }}
+            ):<BackBtn 
+            scrap={jobDetail?.isLike}
+            onClick={() => {
+              dispatch(addLike(id));
+            }}
             >
-              캘린더로 스크랩
-            </ScrapBtn>
-          </ScrapBtnWrap>
+               채용공고 찜
+            </BackBtn>}
+            
+          </ZimmbtnWarp>
+          {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
+                ? <ScrapBtn1
+                onClick={()=>{
+                  setSangsi(true)
+                }}
+                >
+                  캘린더로 스크랩
+                </ScrapBtn1>
+                :  <ScrapBtnWrap>
+                {jobDetail?.isScrap && (
+                  <>
+                    <MsgText to="/main">
+                      <p>
+                        <span>취준 캘린더</span>에서
+                        <br />
+                        확인해보세요!
+                      </p>
+                    </MsgText>
+                    <MsgImg src={msg} alt="캘린더로 스크랩" />
+                    
+                  </>
+                )}
+                <ScrapBtn
+                  scrap={jobDetail?.isScrap}
+                  onClick={() => {
+                    dispatch(addScrap(id));
+                  }}
+                >
+                  캘린더로 스크랩
+                </ScrapBtn>
+              </ScrapBtnWrap>}
+         
         </BtnWrap>
 
         <JobKoreabtn
@@ -127,6 +196,26 @@ const JobDetail = () => {
         </JobKoreabtn>
       </MainWrapper>
     </MainWrap>
+    {sangsi&&
+    <Always>
+          <AlwaysModal>
+            <img src={alwaysBird} alt="상시채용" />
+            <p>
+              <span>상시채용공고</span>는
+              <br />
+              <span>찜 기능을 활용</span>해보세요!
+            </p>
+            <AlwaysBtn
+              onClick={() => {
+                setSangsi(false)
+              }}
+            >
+              확인
+            </AlwaysBtn>
+          </AlwaysModal>
+          </Always>
+    }
+    </>
   );
 };
 
@@ -134,17 +223,62 @@ const MainWrap = styled.div`
   position: relative;
   background: #ecf1f8;
   height: 100vh;
+  >*{
+    filter: 
+  ${(props) =>
+    props.sangsi
+      ? "blur(1.4px)"
+      : "blur(0px)"};}
 `;
 
-const Header = styled.img`
+const MyBack = styled.img`
+  width: 16px;
+  position: absolute;
+  left: 4%;
+  top: 33%;
+`
+
+const Header = styled.div`
   width: 100%;
-  height: 230px;
-  border-radius: 0px 0px 18px;
+  height: 8vh;
+  position: relative;
+  background-color: var(--blue4);
 `;
+
+const Tooltipcontent =styled.div`
+  color: var(--blue2);
+  font-size: 11px;
+  display: none;
+  position: absolute;
+  right: 34px;
+  top: -15px;
+`
+const Tooltip =styled.div`
+  color: var(--blue2);
+  display: flex;
+  margin: 0 0 15px 0 ;
+ align-items: center;
+ position: relative;
+`
+const Tooltip2 = styled.img`
+ display: flex;
+ margin: 0 8px 19px 0;
+ position: absolute;
+ width: 18px;
+ height: 18px;
+ right: 0;
+ &:hover {
+   ~div{
+    display: block;
+   }
+  }
+ 
+`
 
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 83vh;
   width: calc(100% - 48px);
   background: var(--blue1);
   padding: 40px 24px;
@@ -222,19 +356,39 @@ const InfoDetails = styled.p`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 100px;
+  /* margin-top: 100px; */
 `;
 
+const BackWrap = styled.div`
+  position: relative;
+  height: 40vh;
+`
+const BackBird = styled.img`
+  position: absolute;
+  bottom: -26px;
+  right: -20px;
+  opacity: 0.15;
+`
+
+
+
 const BackBtn = styled.div`
+  width: 157px;
+  height: 54px;
+  font-size: 16px;
   padding: 18px 25px;
-  background: #d1d1d1;
   border-radius: 6px;
-  cursor: pointer;
+  box-sizing: border-box;
   font-weight: 500;
-  color: #9a9a9a;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  border: ${(props) =>
+    props.scrap
+      ? "2px solid  transparent"
+      : "2px solid transparent"};
+  background-color: ${(props) =>
+    props.scrap ? "var(--blue4)" : "white"};
+  text-align: center;
+  cursor: pointer;
+  color: ${(props) => (props.scrap ? "white" : "#3284ff")};
 `;
 
 const BackBtnImg = styled.img`
@@ -248,6 +402,14 @@ const MsgImg = styled.img`
   left: 50%;
   transform: translateX(-50%);
 `;
+
+const MsgImg1 = styled.img`
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const MsgText = styled(Link)`
   position: absolute;
   top: -55px;
@@ -260,14 +422,46 @@ const MsgText = styled(Link)`
   text-align: center;
   span {
     font-weight: 700;
-    color: var(--blue3);
+    color: var(--blue4);
+  }
+  p{
+    color: var(--blue4);
   }
   z-index: 99;
 `;
-const ScrapBtnWrap = styled.div`
-  position: relative;
+
+const MsgText1 = styled(Link)`
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--blue3);
+  width: 100%;
+  text-align: center;
+  span {
+    font-weight: 700;
+    color: var(--blue4);
+  }
+  p{
+    color: var(--blue4);
+  }
+  z-index: 99;
 `;
+const ZimmbtnWarp = styled.div`
+  position: relative;
+  filter: blur(0px)!important;
+`
+const ScrapBtnWrap = styled.div`
+   position: relative;
+`;
+
+
+
 const ScrapBtn = styled.button`
+  width: 157px;
+  height: 54px;
   font-size: 16px;
   padding: 18px 25px;
   border-radius: 6px;
@@ -276,12 +470,28 @@ const ScrapBtn = styled.button`
   border: ${(props) =>
     props.scrap
       ? "2px solid  transparent"
-      : "2px solid var(--blue4)!important"};
+      : "2px solid transparent"};
   background-color: ${(props) =>
-    props.scrap ? "var(--blue4)" : "transparent"};
+    props.scrap ? "var(--blue4)" : "white"};
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.scrap ? "white" : "#3284ff")};
+`;
+
+const ScrapBtn1 = styled.button`
+  width: 157px;
+  height: 54px;
+  font-size: 16px;
+  padding: 18px 25px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-weight: 500;
+  border: 2px solid  transparent;
+  background-color: white;
+  text-align: center;
+  cursor: pointer;
+  color: var(--blue4);
+  z-index: 1;
 `;
 
 const JobKoreabtn = styled.div`
@@ -295,6 +505,55 @@ const JobKoreabtn = styled.div`
   font-weight: 500;
   font-size: 16px;
   margin-top: 16px;
+`;
+
+const Always = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+`;
+const AlwaysBtn = styled.button`
+  background-color: var(--blue4);
+  padding: 16px 60px;
+  color: #fff;
+  border-radius: 9px;
+  margin-top: 17px;
+`;
+const AlwaysModal = styled.div`
+  img{
+    width: 119px;
+    margin-bottom: 10px;
+  }
+  p {
+    font-weight: 500;
+    color: var(--blue4);
+    letter-spacing: 0.9px;
+  }
+  span {
+    font-weight: 700;
+    color: var(--blue4);
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 99999;
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
+    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  border-radius: 21px;
+  padding: 40px 30px;
+  width: 50%;
+  height: 210px;
+  text-align: center;
 `;
 
 export default JobDetail;
