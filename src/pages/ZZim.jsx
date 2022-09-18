@@ -7,10 +7,15 @@ import previousCursorBtn from "../assets/img/btn/previousCursor.png";
 import { useEffect } from 'react';
 import axios from 'axios';
 import { getCookie } from '../shared/Cookie';
+import { useState } from 'react';
+import { api } from '../shared/api';
 
 const ZZim = () => {
   const navigate = useNavigate()
+  const [list, setList] = useState([])
 
+
+  
 
   // 스크랩목록
   useEffect(()=>{
@@ -19,13 +24,15 @@ const ZZim = () => {
       const head = {
         headers: {Authorization: `Bearer ${myToken}`}
       }
-      await axios.get("https://goodjobcalendar.shop/api/schedule/scrap",head)
+      await axios.get("https://goodjobcalendar.shop/api/posting/likes",head)
                 .then((res)=>{
                   console.log(res.data.data)
+                  setList(res.data.data)
                 })
     }
     getZzim()
   },[])
+
 
   return (
     <MainWrapper>
@@ -36,32 +43,36 @@ const ZZim = () => {
         </Main>
       </UpBar>
       <MiddleButton>
-        <div style={{color:"var(--blue4)"}}>스크랩순</div>
+        <div style={{color:"var(--blue4)"}}
+        >스크랩순</div>
         <div>|</div>
         <div>날짜순</div>
       </MiddleButton>
-
-      <JobCard
-              // key={idx}
-              // onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
+    {list?.map((tasksData, idx)=>{
+      return(
+        <JobCard
+              key={idx}
+              onClick={() => navigate(`/jobDetail/${tasksData.id}`)}
             >
-              <CompanyName>터그코리아</CompanyName>
-              <JobTitle>터크코리아㈜ 영업지원 신입/경력 직원 채용</JobTitle>
+              <CompanyName>{tasksData.companyName}</CompanyName>
+              <JobTitle>{tasksData.title}</JobTitle>
               <DetailInfo>
                 <JobTagsWrap>
-                  <JobTags>신입·경력</JobTags>
-                  <JobTags>중소·중견기업</JobTags>
+                  <JobTags>{tasksData.career.type}</JobTags>
+                  <JobTags>{tasksData.companyType.type}</JobTags>
                 </JobTagsWrap>
 
                 <EndTime>
-               ~ 2122-01-01
-                  {/* {tasksData.deadline.split(" ")[0] === "2122-01-01"
+                {tasksData.deadline.split(" ")[0] === "2122-01-01"
                     ? "상시채용"
-                    : "~" + tasksData.deadline.split(" ")[0]} */}
+                    : "~" + tasksData.deadline.split("T")[0]}
                 </EndTime>
               </DetailInfo>
             </JobCard>
 
+      )
+    })}
+      
 
       <BottomBox>
           <img src={previousCursorBtn} alt="이전"/>

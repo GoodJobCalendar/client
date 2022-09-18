@@ -190,7 +190,7 @@ const JobWrapper = styled.div`
   align-items: center;
   width: calc(100% - 34px);
   padding: 0 17px;
-  height: calc(100vh - 158px);
+  height: calc(100vh - 122px);
   background: #ecf1f8;
   overflow-y: scroll;
 `;

@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import {
   loadJobDetails,
   addScrap,
+  addLike,
+  deleteLike,
 } from "../redux/modules/job";
 
 import buttonText from "../assets/img/btn/buttonText.png";
@@ -17,13 +19,16 @@ import alwaysBird from "../assets/img/illust/notfound.svg";
 import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
 
 import { useState } from "react";
+import axios from "axios";
+import { getCookie } from "../shared/Cookie";
+import { api } from "../shared/api";
 const JobDetail = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const params = useParams();
-
+  const myToken = getCookie("token");
   const id = params.id;
 
   const jobDetail = useSelector((state) => state.job.details.data);
@@ -45,8 +50,20 @@ const JobDetail = () => {
     return dayOfWeek;
   }
 
-  const [isScrap, setIsScrap] = React.useState(false);
+  const [isLike, setIsLike] = React.useState(false);
   const [sangsi, setSangsi] = React.useState(false);
+
+  const like = async()=>{
+    api
+      .post(`api/posting/like/${id}`)
+      .then((res) => {
+       console.log(res)
+       setIsLike(!isLike)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   return (
     <>
@@ -63,7 +80,7 @@ const JobDetail = () => {
       <MainWrapper>
       <Tooltip>
         <Tooltip2 src={Tooltipmark} />
-          <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent>
+          {/* <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent> */}
         </Tooltip>
         <CompanyWrap>
           <CompanyName>{jobDetail?.companyName}</CompanyName>
@@ -107,7 +124,7 @@ const JobDetail = () => {
         <BtnWrap>
           <ZimmbtnWarp
           >
-          {jobDetail?.isScrap && (
+          {jobDetail?.isLike ? (
               <>
                 <MsgText1 to="/zzim">
                   <p>
@@ -117,12 +134,23 @@ const JobDetail = () => {
                   </p>
                 </MsgText1>
                 <MsgImg1 src={msg} alt="캘린더로 스크랩" />
+                <BackBtn
+                scrap={jobDetail?.isLike}
+                onClick={() => {
+                  dispatch(deleteLike(id));
+                }}>
+                  채용공고 찜
+                </BackBtn>
               </>
-            )}
-            <BackBtn 
-            scrap={jobDetail?.isScrap}>
+            ):<BackBtn 
+            scrap={jobDetail?.isLike}
+            onClick={() => {
+              dispatch(addLike(id));
+            }}
+            >
                채용공고 찜
-            </BackBtn>
+            </BackBtn>}
+            
           </ZimmbtnWarp>
           {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
                 ? <ScrapBtn1
@@ -143,6 +171,7 @@ const JobDetail = () => {
                       </p>
                     </MsgText>
                     <MsgImg src={msg} alt="캘린더로 스크랩" />
+                    
                   </>
                 )}
                 <ScrapBtn
@@ -521,8 +550,9 @@ const AlwaysModal = styled.div`
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
     inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
-  padding: 40px 80px;
-  width: 40%;
+  padding: 40px 30px;
+  width: 50%;
+  height: 210px;
   text-align: center;
 `;
 

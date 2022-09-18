@@ -11,7 +11,8 @@ import calendar_w from "../assets/img/icon/calendar_w.svg";
 import calendar_c from "../assets/img/icon/calendar_c.svg";
 import element_w from "../assets/img/icon/element_w.svg";
 import element_c from "../assets/img/icon/element_c.svg";
-import logout from "../assets/img/icon/logout.svg";
+import MypageBtn from "../assets/img/icon/MypageBtn.svg";
+import heart from "../assets/img/icon/Heart.svg";
 import needLogin from "../assets/img/illust/needlogin.png";
 import { deleteCookie } from "./../shared/Cookie";
 
@@ -67,27 +68,21 @@ const Nav = (props) => {
             <Line></Line>
           </LineList>
         </Ham> */}
-        {token ? (
-          <>
-            <LogOutBtn style={{ opacity: "0" }}>
-              <img src={logout} alt="로그아웃" />
+            <LogOutBtn
+            onClick={()=>{
+              navigate("/mypage")
+            }}
+            >
+              <img src={MypageBtn} alt="마이페이지" />
             </LogOutBtn>
-            <span>{nav ? "취준생캘린더" : "추천채용"}</span>
-            <LogOutBtn onClick={logOut}>
-              <img src={logout} alt="로그아웃" />
+            <span 
+            style={{fontSize:"12px",letterSpacing:"0.8px"}}
+            >{nav ? "취준캘린더" : "추천채용"}</span>
+            <LogOutBtn onClick={()=>{
+              navigate("/zzim")
+            }}>
+              <img src={heart} alt="찜페이지" />
             </LogOutBtn>
-          </>
-        ) : (
-          <>
-            <LogOutBtn style={{ opacity: "0" }}>
-              <img src={logout} alt="로그아웃" />
-            </LogOutBtn>
-            <span>{nav ? "취준생캘린더" : "추천채용"}</span>
-            <LogOutBtn style={{ opacity: "0" }}>
-              <img src={logout} alt="로그아웃" />
-            </LogOutBtn>
-          </>
-        )}
       </NavTitle>
       <NavList>
         <NavItem nav={nav}>
@@ -111,7 +106,7 @@ export default Nav;
 
 const NavWrap = styled.div`
   width: 100%;
-  height: 158px;
+  height: 100%;
   background-color: var(--blue4);
   display: flex;
   flex-direction: column;
@@ -173,11 +168,12 @@ const NeedLoginModal = styled.div`
 const NavTitle = styled.div`
   text-align: center;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   flex: 7;
-  padding: 0 17px;
+  padding: 20px 17px;
   padding-bottom: 30px;
+  height: 56px;
   span {
     font-weight: 700;
     display: block;
@@ -218,6 +214,7 @@ const NavLink = styled(Link)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 12px;
 `;
 const NavItem = styled.li`
   :nth-of-type(1) {

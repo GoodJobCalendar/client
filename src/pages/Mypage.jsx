@@ -14,8 +14,53 @@ import mypagebird2 from "../assets/img/illust/mypagebird2.svg"
 const Mypage = () => {
   const myToken = getCookie("token");
   const navigate = useNavigate()
-  const [num, setNum] = useState(22)
-  const [social, setSocial] = useState(false)
+  const [social, setSocial] = useState()
+  const [userInfo, setUserInfo] = useState()
+  const [date, setDate] = useState("")
+
+  useEffect(()=>{
+    const myinfo = async()=>{
+      const head = {
+      headers: { Authorization: `Bearer ${myToken}` },
+    };
+    axios
+      .get("https://goodjobcalendar.shop/api/auth/userInfo", head)
+      .then((res) => {
+       console.log(res.data.data)
+       setUserInfo(res.data.data)
+       setSocial(res.data.data.type)
+       setDate(res.data.data.updatedAt.split("T")[0])
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    }
+    myinfo()
+  },[])
+
+
+  // 비밀번호 변경일
+      const strDate1 = date
+      console.log(strDate1)
+      const strDate2 = new Date();
+      let year = strDate2.getFullYear(); // 년도
+      let month = strDate2.getMonth() + 1;  // 월
+      let day = strDate2.getDate();  // 날짜
+      const today = year + '-' + month + '-' + day
+      console.log(today)
+      const arr1 = strDate1.split('-');
+      console.log(arr1)
+      const arr2 = today.split('-');
+      const dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+      console.log(arr2)
+      const dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+
+      const diff = dat2 - dat1;
+      const currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+      const currMonth = currDay * 30;// 월 만듬
+      console.log(parseInt(diff/currMonth))
+
+
   
   return (
     <>
@@ -26,7 +71,7 @@ const Mypage = () => {
       }}
       src={backBtn}/>
       <MyTitle>마이페이지</MyTitle>
-      {num===0? 
+      {userInfo?.countLikePostings===0? 
       <>
       <MyImg src={mypagebird2}></MyImg>
       <MyBubble style={{width:"162px", left:"105px"}}
@@ -43,17 +88,17 @@ const Mypage = () => {
        onClick={()=>{
         navigate("/Zzim")
       }}
-      >총 {num}개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
+      >총 {userInfo?.countLikePostings}개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
       </>
       }
       
     </MyNavWrap> 
     <Outer>
       <PersonalInfo>
-        {social?
+        {social==="kakao"?
         <>
         <PersonalTitle>카카오 간편 로그인 이용중</PersonalTitle>
-        <Email>daisy_com@kakao.com</Email>
+        <Email>{userInfo?.email}</Email>
         <LogoutBtn onClick={()=>{
           deleteCookie("token")
           navigate("/")
@@ -62,12 +107,12 @@ const Mypage = () => {
         :
         <>
         <PersonalTitle>Email</PersonalTitle>
-        <Email>daisy_com@kakao.com</Email>
+        <Email>{userInfo?.email}</Email>
         <PersonalTitle style={{marginTop:"16px"}}>비밀번호</PersonalTitle>
         <ModiWrap>
           <ModifyDate>비밀번호 바꾼지<p
           style={{color:"var(--blue4)", margin:"0 10px"}}
-          >6개월</p> 이 지났어요!</ModifyDate>
+          >{parseInt(diff/currMonth)}개월</p> 이 지났어요!</ModifyDate>
           <ModifyBtn
           onClick={()=>{
             navigate("/pwChange")
