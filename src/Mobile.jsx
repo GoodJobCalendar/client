@@ -17,6 +17,7 @@ import JobCategory from "./pages/JobCategory";
 import AddSchedule from "./components/AddSchedule";
 import PostDetail from "./pages/PostDetail";
 import Mypage from "./pages/Mypage";
+import NotFound from "./components/NotFound";
 
 function Mobile() {
   return (
@@ -40,6 +41,7 @@ function Mobile() {
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/postdetail/:scheduleId" element={<PostDetail />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </MobileWrap>
   );
@@ -48,5 +50,6 @@ function Mobile() {
 export default Mobile;
 const MobileWrap = styled.div`
   width: 100%;
+  height: 100%;
   overflow-x: hidden;
 `;
