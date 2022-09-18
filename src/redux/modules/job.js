@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import { getCookie } from "../../shared/Cookie";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../shared/api";
 
 // 액션
 const LOAD_JOB_LIST = "LOAD_JOB_LIST";
@@ -170,6 +171,66 @@ export const addScrap = (postingId) => {
         postingId: Number(postingId),
       },
       headers: { Authorization: `Bearer ${myToken}` },
+    })
+      .then((res) => {
+        dispatch(__addScrap(res.data));
+        axios
+          .get(`https://goodjobcalendar.shop/api/posting/${postingId}`, {
+            headers: { Authorization: `Bearer ${myToken}` },
+          })
+          .then((res) => {
+            dispatch(__loadJobDetails(res.data));
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error("스크랩 추가 에러: ", err);
+        window.alert("이미 스크랩이 완료된 게시물입니다!");
+      });
+  };
+};
+
+export const addLike = (postingId) => {
+  return function (dispatch, getState) {
+    if (!postingId) {
+      window.alert("postingId가 없습니다!");
+    }
+    const myToken = getCookie("token");
+    api({
+      method: "post",
+      url: `https://goodjobcalendar.shop/api/posting/like/${postingId}`,
+    })
+      .then((res) => {
+        dispatch(__addScrap(res.data));
+        axios
+          .get(`https://goodjobcalendar.shop/api/posting/${postingId}`, {
+            headers: { Authorization: `Bearer ${myToken}` },
+          })
+          .then((res) => {
+            dispatch(__loadJobDetails(res.data));
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error("스크랩 추가 에러: ", err);
+        window.alert("이미 스크랩이 완료된 게시물입니다!");
+      });
+  };
+};
+
+export const deleteLike = (postingId) => {
+  return function (dispatch, getState) {
+    if (!postingId) {
+      window.alert("postingId가 없습니다!");
+    }
+    const myToken = getCookie("token");
+    api({
+      method: "delete",
+      url: `https://goodjobcalendar.shop/api/posting/like/${postingId}`,
     })
       .then((res) => {
         dispatch(__addScrap(res.data));

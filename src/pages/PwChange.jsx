@@ -94,21 +94,20 @@ const Header = styled.header`
 `;
 const TitleText = styled.div`
   position: absolute;
-  left: 50%;
+  left: 53%;
   transform: translateX(-50%);
-  top: 70%;
   width: 100%;
-  text-align: center;
+  /* text-align: center; */
 `;
-const Title = styled.h1`
-  font-weight: 700;
-  font-size: 24px;
+const Title = styled.div`
+  font-weight: 600;
+  font-size: 20px;
 `;
-const SubTitle = styled.p`
+const SubTitle = styled.div`
   font-weight: 500;
   font-size: 14px;
   color: var(--gray4);
-  margin-top: 16px;
+  margin-top: 8px;
 `;
 const Main = styled.main`
   display: flex;
@@ -147,6 +146,5 @@ const Input = styled.input`
         ? "var(--point3)"
         : ""}!important;
   }
-
-  margin-bottom: 72px;
+  margin-bottom: 24px;
 `;
