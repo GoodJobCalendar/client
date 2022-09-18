@@ -27,9 +27,9 @@ const Home = () => {
   return (
     <HomeWrap>
       <header>
-        <img src={logo} alt="로고" />
+        <LogoImg src={logo} alt="로고" />
         <Title>당신의 취준 메이트</Title>
-        <img src={logotext} alt="로고" />
+        <LogoTextImg src={logotext} alt="로고" />
       </header>
       <main>
         <Swiper
@@ -79,14 +79,14 @@ const Home = () => {
             </SlideBox>
           </SwiperSlide>
         </Swiper>
-        <CoverImg>
-          <Logo>
-            <img src={logo_w} alt="로고" />
+        <SplashScreenWrap>
+          <SplashScreen>
+            <SplashScreenLogoImg src={logo_w} alt="로고" />
             <p>당신의 취준 메이트</p>
-            <img src={logotext_w} alt="굿잡캘린더" />
-          </Logo>
-          <img src={cover} alt="배경" />
-        </CoverImg>
+            <SplashScreenLogoTextImg src={logotext_w} alt="굿잡캘린더" />
+          </SplashScreen>
+          <SplashScreenBgImg src={cover} alt="배경" />
+        </SplashScreenWrap>
       </main>
       <FooterWrap>
         <EmailBtn>
@@ -94,7 +94,7 @@ const Home = () => {
         </EmailBtn>
         <KaKaoBtn>
           <a href={KAKAO_AUTH_URL}>
-            <img src={kakaologo} alt="카카오로고" />
+            <KaKaoBtnImg src={kakaologo} alt="카카오로고" />
             <p>카카오톡 간편 로그인</p>
           </a>
         </KaKaoBtn>
@@ -134,6 +134,14 @@ const HomeWrap = styled.div`
     }
   }
 `;
+const LogoImg = styled.img`
+  width: 43px;
+  height: 40px;
+`;
+const LogoTextImg = styled.img`
+  width: 94px;
+  height: 19px;
+`;
 const Title = styled.p`
   font-size: 14px;
   margin-top: 12px;
@@ -165,21 +173,12 @@ const SlideBox = styled.div`
     align-items: center;
   }
 `;
-const SlideImg = styled.img``;
-
-const Logo = styled.div`
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  p {
-    color: white;
-    font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 13px;
-  }
+const SlideImg = styled.img`
+  width: 375px;
+  height: 224px;
 `;
-const CoverImg = styled.div`
+
+const SplashScreenWrap = styled.div`
   background-color: var(--blue4);
   position: absolute;
   top: 0;
@@ -189,11 +188,6 @@ const CoverImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  > img {
-    top: 50%;
-    position: absolute;
-    right: 0;
-  }
   animation: hideSplashScreen 0.6s ease-in-out forwards;
   animation-delay: 1s;
   @keyframes hideSplashScreen {
@@ -207,7 +201,31 @@ const CoverImg = styled.div`
   }
   z-index: 999;
 `;
-
+const SplashScreenBgImg = styled.img`
+  position: absolute;
+  top: 32%;
+  right: 0;
+`;
+const SplashScreen = styled.div`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  p {
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 13px;
+  }
+`;
+const SplashScreenLogoImg = styled.img`
+  width: 120px;
+  height: 120px;
+`;
+const SplashScreenLogoTextImg = styled.img`
+  width: 180px;
+  height: 38px;
+`;
 const EmailBtn = styled.button`
   background: #ffffff;
   border-radius: 6px;
@@ -240,6 +258,10 @@ const KaKaoBtn = styled.button`
     align-items: center;
     gap: 8px;
   }
+`;
+const KaKaoBtnImg = styled.img`
+  width: 17px;
+  height: 15px;
 `;
 const LoginBtn = styled.button`
   background: var(--blue4);
