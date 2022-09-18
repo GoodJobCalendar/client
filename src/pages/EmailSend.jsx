@@ -4,10 +4,9 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
-
 //이미지
 import mailSendImg from "../assets/img/illust/mailsend.png";
+import apis from "../shared/apis";
 
 const EmailSend = () => {
   const navigate = useNavigate();
@@ -23,14 +22,14 @@ const EmailSend = () => {
   };
   // 이메일 인증 메일 전송
   const MailsendBtn = async () => {
-    await axios
-      .post("https://goodjobcalendar.shop/api/auth/local", {
+    await apis
+      .sendEmailAuthNumber({
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.password,
         userName: userInfo.userName,
       })
-      .then((res) => {})
+      .then(() => {})
       .catch((error) => {
         console.error(error);
         setError(error.response.data.msg);
@@ -38,14 +37,14 @@ const EmailSend = () => {
   };
   // 인증번호 확인 & 회원가입완료
   const AuthNumberCheckBtn = async () => {
-    await axios
-      .post("https://goodjobcalendar.shop/api/auth/verifyNumberForNew", {
+    await apis
+      .checkEmailAuthNumber({
         authNumber: Number(authNumber),
         email: userInfo.email,
         password: userInfo.password,
         userName: userInfo.userName,
       })
-      .then((res) => {
+      .then(() => {
         navigate("/signupsuccess");
       })
       .catch((error) => {

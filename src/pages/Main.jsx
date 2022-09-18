@@ -171,7 +171,7 @@ function Main() {
             ) : (
               <div></div>
             )}
-            <WeekMonth
+            {/* <WeekMonth
               weekMonth={weekMonth}
               onClick={() => {
                 setWeekMonth(!weekMonth);
@@ -182,7 +182,7 @@ function Main() {
               ) : (
                 <Circle weekMonth={weekMonth}>W</Circle>
               )}
-            </WeekMonth>
+            </WeekMonth> */}
           </ToggleBtn>
           {weekMonth ? (
             <MonthSchedule isActive={isActive} setIsActive={setIsActive} />

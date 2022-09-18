@@ -1,8 +1,6 @@
 import { produce } from "immer";
 
-const initialState = {
-  is_login: null,
-};
+const initialState = {};
 
 // action
 const ZOOM_DATE = "date_reducer/ZOOM_DATE";

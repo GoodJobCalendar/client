@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getCookie, setCookie } from "../shared/Cookie";
+import { setCookie } from "../shared/Cookie";
+import apis from "../shared/apis";
 
 // 컴포넌트
 import { emailCheck } from "../shared/SignUpCheck";
-import { loginDB } from "./../redux/modules/user";
 
 // 카카오
 import { KAKAO_AUTH_URL } from "../shared/api";
@@ -15,15 +14,12 @@ import { KAKAO_AUTH_URL } from "../shared/api";
 // 이미지
 import logo from "../assets/img/logo.png";
 import kakaologo from "../assets/img/icon/kakaobtn.svg";
-import axios from "axios";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errorcheck, setError] = useState();
-  const token = getCookie("token");
 
   // 로그인
   const onKeyPress = (e) => {
@@ -40,10 +36,10 @@ const Login = () => {
       setError("이메일 형식이 맞지 않습니다.");
       return;
     }
-    await axios
-      .post("https://goodjobcalendar.shop/api/auth", { email, password })
+    await apis
+      .login({ email, password })
       .then((response) => {
-        setCookie("token", response.data.token, 5);
+        setCookie("token", response.data.token, 24);
         navigate("/main");
       })
       .catch((error) => {

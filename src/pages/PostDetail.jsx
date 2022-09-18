@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  detailPost,
-  deletePost,
-  __deletePost,
-} from "../redux/modules/schedule";
+import { detailPost, __deletePost } from "../redux/modules/schedule";
 import axios from "axios";
 
 //스티커 이미지
@@ -36,6 +32,7 @@ import logomini from "../assets/img/icon/Logo_mini.svg";
 import location from "../assets/img/icon/Location.svg";
 import time from "../assets/img/icon/Time.svg";
 import { getCookie } from "../shared/Cookie";
+import apis from "./../shared/apis";
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -66,8 +63,8 @@ const PostDetail = () => {
       headers: { Authorization: `Bearer ${myToken}` },
       params: { startDate: startDate },
     };
-    await axios
-      .delete(`https://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
+    await apis
+      .deletePost({ data, scheduleId })
       .then((res) => {
         console.log(res, "아아ㅏㅇ아ㅏ아");
         dispatch(__deletePost(scheduleId));

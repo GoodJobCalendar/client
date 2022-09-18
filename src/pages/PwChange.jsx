@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import apis from "../shared/apis";
 
 const PwChange = () => {
   const navigate = useNavigate();
@@ -16,11 +16,11 @@ const PwChange = () => {
     if (password === "" || confirmPassword === "") {
       return setError("인증번호를 입력해주세요.");
     }
-    await axios
-      .patch("https://goodjobcalendar.shop/api/auth/newPassword", {
+    await apis
+      .pwChange({
         email: userInfo.email,
-        newPassword: Number(password),
-        confirmNewPassword: Number(confirmPassword),
+        newPassword: password,
+        confirmNewPassword: confirmPassword,
       })
       .then((res) => {
         navigate("/pwchangesuccess");
@@ -147,5 +147,6 @@ const Input = styled.input`
         ? "var(--point3)"
         : ""}!important;
   }
+
   margin-bottom: 72px;
 `;
