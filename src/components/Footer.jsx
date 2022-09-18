@@ -21,10 +21,10 @@ const Footer = () => {
         </FootInner>
         <Hr/>
         <FooterIcon>
-          <img src={Github} alt="githubicon"/>
-          <img src={Github} alt="githubicon"/>
+          <a href='https://github.com/rtg1014/goodjob_BE' target="_blank"><img src={Github} alt="githubicon"/></a>
+          <a href='https://github.com/YoujungSon/Good-Job-Calender' target="_blank"><img src={Github} alt="githubicon"/></a>
           <img src={Behance} alt="behanceicon"/>
-          <img src={Notion} alt="notionicon"/>
+          <a target="_blank" href='https://marked-chemistry-398.notion.site/3f8a1983d30844b3b8b812a7e3d995f0'><img src={Notion} alt="notionicon"/></a>
         </FooterIcon>
         <FooterCopy>Copyright ©CATLAB.All rights reserved</FooterCopy>
       </FootSmallWrap>  
@@ -38,7 +38,7 @@ const FootWrap = styled.div`
   background-color: #111111;
   height: 34vh;
   padding: 28px;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 `
 
 const FootSmallWrap =styled.div`
@@ -63,7 +63,7 @@ const Footbaby =styled.div`
 `
 const Hr = styled.div`
   border: 1px solid white;
-  margin: 20px 0 15px;
+  margin: 10px 0 10px;
 `
 
 const FooterIcon =styled.div`
@@ -81,4 +81,5 @@ const FooterCopy = styled.div`
   font-size: 10px;
   text-align: center;
   margin-top: 24px;
+  margin-bottom: 20px;
 `

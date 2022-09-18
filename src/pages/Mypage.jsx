@@ -8,13 +8,13 @@ import styled from "styled-components";
 import backBtn from "../assets/img/icon/Back.svg";
 import mypagebird from "../assets/img/illust/mypagebird.svg"
 import mypagebird2 from "../assets/img/illust/mypagebird2.svg"
-import Triangle from "../assets/img/icon/Triangle.svg"
+
 
 
 const Mypage = () => {
   const myToken = getCookie("token");
   const navigate = useNavigate()
-  const [num, setNum] = useState(33)
+  const [num, setNum] = useState(0)
   
   return (
     <>
@@ -28,15 +28,25 @@ const Mypage = () => {
       {num===0? 
       <>
       <MyImg src={mypagebird2}></MyImg>
-      <MyNotice>아직 찜해둔 공고 리스트가 없군요!</MyNotice>
-      <MyBubble style={{width:"162px", left:"105px"}}> <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>채용공고 담으러 가기</span></MyBubble>
-      <MyTri src={Triangle}/></>
+      {/* <MyNotice>아직 찜해둔 공고 리스트가 없군요!</MyNotice> */}
+      <MyBubble style={{width:"162px", left:"105px"}}
+       onClick={()=>{
+        navigate("/Job")
+      }}
+      > <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}
+      >채용공고 담으러 가기</span></MyBubble>
+      {/* <MyTri src={Triangle}/> */}
+      </>
       :
       <>
       <MyImg src={mypagebird}></MyImg>
-      <MyNotice>찜해둔 공고 리스트를 확인해보세요!</MyNotice>
-      <MyBubble>총 {num}개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
-      <MyTri src={Triangle}/>
+      {/* <MyNotice>찜해둔 공고 리스트를 확인해보세요!</MyNotice> */}
+      <MyBubble
+       onClick={()=>{
+        navigate("/Zzim")
+      }}
+      >총 {num}개 <span style={{fontWeight:"700", marginLeft:"3px", color:"var(--blue4)"}}>보러가기</span></MyBubble>
+      {/* <MyTri src={Triangle}/> */}
       </>
       }
       
@@ -50,7 +60,11 @@ const Mypage = () => {
           <ModifyDate>비밀번호 바꾼지<p
           style={{color:"var(--blue4)", margin:"0 10px"}}
           >6개월</p> 이 지났어요!</ModifyDate>
-          <ModifyBtn>수정</ModifyBtn>
+          <ModifyBtn
+          onClick={()=>{
+            navigate("/pwChange")
+          }}
+          >수정</ModifyBtn>
         </ModiWrap>
         <LogoutBtn onClick={()=>{
           deleteCookie("token")
@@ -162,9 +176,20 @@ const MyBubble = styled.div`
   align-items: center;
   position: absolute;
   font-weight: 500;
-  top: 83px;
-  left: 123px;
-  box-shadow: 0px 3px 9px rgba(116, 160, 227, 0.14);
+  top: 57px;
+  left: 118px;
+  box-shadow: 0px 3px 9px rgba(52, 46, 45, 0.468);
+  cursor: pointer;
+  &::after{
+    border-top: 13px solid white;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top: 35px;
+    /* left: 0%; */
+  }
 `
 
 const MyNavWrap = styled.div`

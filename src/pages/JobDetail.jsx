@@ -96,7 +96,7 @@ const JobDetail = () => {
         <BackBird src={backbird}></BackBird>
         </BackWrap>
         <BtnWrap>
-          <BackBtn>
+          <ZimmbtnWarp>
           {jobDetail?.isScrap && (
               <>
                 <MsgText1 to="/zzim">
@@ -109,8 +109,11 @@ const JobDetail = () => {
                 <MsgImg1 src={msg} alt="캘린더로 스크랩" />
               </>
             )}
-          채용공고 찜
-          </BackBtn>
+            <BackBtn 
+            scrap={jobDetail?.isScrap}>
+               채용공고 찜
+            </BackBtn>
+          </ZimmbtnWarp>
 
           <ScrapBtnWrap>
             {jobDetail?.isScrap && (
@@ -272,7 +275,6 @@ const BackBtn = styled.div`
   font-size: 16px;
   padding: 18px 25px;
   border-radius: 6px;
-  position: relative;
   box-sizing: border-box;
   font-weight: 500;
   border: ${(props) =>
@@ -344,9 +346,11 @@ const MsgText1 = styled(Link)`
   }
   z-index: 99;
 `;
-
-const ScrapBtnWrap = styled.div`
+const ZimmbtnWarp = styled.div`
   position: relative;
+`
+const ScrapBtnWrap = styled.div`
+   position: relative;
 `;
 const ScrapBtn = styled.button`
   width: 157px;
