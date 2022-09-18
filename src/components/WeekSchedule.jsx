@@ -7,21 +7,15 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
   const dispatch = useDispatch();
   const weekSchdule = useSelector((state) => state.schedule.weekly);
   const selectDay = useSelector((state) => state.date.select);
-  const date = selectDay
+  const standardDate = selectDay
     ? new Date(selectDay?.year, selectDay?.month - 1, selectDay?.elm)
     : new Date();
-
-  const Month = date.getMonth() + 1;
-  const [monthNum, setMonthNum] = useState(Month);
-  const First = new Date(date.getFullYear() / (monthNum + 1) + 1);
-  const Dates = First.getDate();
-  const monthFirstDateDay = First.getDay();
+  const [changeDate, setChangeDate] = useState(standardDate);
+  const month = changeDate.getMonth() + 1;
+  const date = changeDate.getDate();
+  const year = changeDate.getFullYear();
   const [weekList, setWeekList] = useState();
-  const [year, setYear] = useState(date.getFullYear());
-  const [weekNum, setWeekNum] = useState(monthFirstDateDay);
-  const [plusNum, setPlusNum] = useState(0);
   const [pickDays, setPickDays] = useState();
-  const [dateKey, setDateKey] = useState(date);
 
   const DAY = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -36,7 +30,7 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
     "24:00",
   ];
 
-  const getWeekNumber = (dateFrom = new Date(date)) => {
+  const getWeekNumber = (dateFrom = new Date(changeDate)) => {
     // 해당 날짜 (일)
     const currentDate = dateFrom.getDate();
 
@@ -49,83 +43,58 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
     // ((요일 - 1) + 해당 날짜) / 7일로 나누기 = N 주차
     return parseInt((weekDay - 1 + currentDate) / 7) + 1;
   };
-
-  const weekIndex = getWeekNumber(new Date(dateKey));
+  const weekIndex = getWeekNumber();
+  const dateKey = `${year}-${month}-${getBeginOfWeek(0)} 00:00:00`;
   const weekPlus = () => {
-    const w = weekNum + 1;
-    setWeekNum(w);
-    if (weekIndex === 1) {
-      const m = monthNum + 1;
-      setMonthNum(m);
-    }
-
-    setPlusNum(plusNum + 7);
+    const d = new Date(
+      changeDate.getFullYear(),
+      changeDate.getMonth(),
+      changeDate.getDate() + 7
+    );
+    setChangeDate(d);
   };
 
   const weekMius = () => {
-    setPlusNum(plusNum - 7);
-    if (weekIndex === 1) {
-      const m = monthNum - 1;
-      setMonthNum(m);
-    } else {
-      const w = weekNum - 1;
-      setWeekNum(w);
-    }
+    const d = new Date(
+      changeDate.getFullYear(),
+      changeDate.getMonth(),
+      changeDate.getDate() - 7
+    );
+    setChangeDate(d);
   };
 
   const yearPlus = () => {
-    const y = year + 1;
-    setYear(y);
+    const d = new Date(
+      changeDate.getFullYear() + 1,
+      changeDate.getMonth(),
+      changeDate.getDate()
+    );
+    setChangeDate(d);
   };
 
   const yearMius = () => {
-    const y = year - 1;
-    setYear(y);
+    const d = new Date(
+      changeDate.getFullYear() - 1,
+      changeDate.getMonth(),
+      changeDate.getDate()
+    );
+    setChangeDate(d);
   };
 
   function getBeginOfWeek(idx) {
-    const result = new Date(date);
-    while (result.getDay() !== 0) {
-      result.setDate(result.getDate() - 1);
-    }
-    return String(
-      new Date(result.setDate(result.getDate() + plusNum + idx))
-    ).split(" ")[2];
-  }
+    const result = new Date(changeDate);
 
+    while (result.getDay() !== 0) {
+      result.setDate(result.getDate() - result.getDay());
+    }
+    return result.getDate() + idx;
+  }
   useEffect(() => {
     setWeekList(Object.entries(weekSchdule));
-  }, [weekSchdule, plusNum]);
-
+  }, [weekSchdule]);
   useEffect(() => {
-    const d = `${year}-${monthNum}-${getBeginOfWeek(0)} 00:00:00`;
-    setDateKey(d);
     dispatch(loadweekly(dateKey));
-  }, [dateKey, plusNum]);
-
-  function monthTextList() {
-    const result = new Date(date);
-    while (result.getDay() !== 0) {
-      result.setDate(result.getDate() - 1);
-    }
-    let [week, monthText, day, year, sTime] = result.toString().split(" ");
-
-    const Month = (monthText) => {
-      if (monthText === "Jan") return "01";
-      if (monthText === "Feb") return "02";
-      if (monthText === "Mar") return "03";
-      if (monthText === "Apr") return "04";
-      if (monthText === "May") return "05";
-      if (monthText === "Jun") return "06";
-      if (monthText === "Jul") return "07";
-      if (monthText === "Aug") return "08";
-      if (monthText === "Sep") return "09";
-      if (monthText === "Oct") return "10";
-      if (monthText === "Nov") return "11";
-      if (monthText === "Dec") return "12";
-    };
-    return Month(monthText).padStart(2, "0");
-  }
+  }, [changeDate]);
 
   return (
     <>
@@ -138,7 +107,7 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
         <WeekBtns>
           <WeekBtn onClick={weekMius}>&lt;</WeekBtn>
           <WeekTitle>
-            {`${monthTextList()}월 ${weekIndex}`}
+            {`${String(month).padStart(2, "0")}월 ${weekIndex}`}
             주차
           </WeekTitle>
           <WeekBtn onClick={weekPlus}>&gt;</WeekBtn>
@@ -167,7 +136,7 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
             <li></li>
             {["", "", "", "", "", "", ""].map((elm, idx) => {
               const days = getBeginOfWeek(idx);
-              const pickDay = `${year}-${String(monthNum).padStart(
+              const pickDay = `${year}-${String(month).padStart(
                 2,
                 "0"
               )}-${days} 00:00:00`;
@@ -182,7 +151,7 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
                   <DayNumber
                     htmlFor={idx}
                     days={days}
-                    Dates={Dates}
+                    date={date}
                     onClick={() => {
                       setIsActive(!isActive);
                       dispatch(loadDaily(pickDay));
@@ -202,44 +171,7 @@ const WeekSchedule = ({ setIsActive, isActive }) => {
               return (
                 <TimeWrap key={idx}>
                   <TimeText>{elm}</TimeText>
-                  <TimeLine>
-                    {weekList &&
-                      weekList?.map((value, idx) => (
-                        <Fragment key={idx}>
-                          {value[1]?.map((val, index) => {
-                            const days = getBeginOfWeek(
-                              new Date(val.date).getDay()
-                            );
-                            const defalutTtime = Number(elm.split(":")[0]);
-                            const listTime = Number(
-                              val.date.split(" ")[1].split(":")[0]
-                            );
-                            const listDay = new Date(val.date).getDay();
-                            if (
-                              defalutTtime >= listTime &&
-                              defalutTtime < listTime + 3
-                            ) {
-                              return (
-                                <Schedule
-                                  key={val.scheduleId}
-                                  color={val.color}
-                                  listDay={listDay}
-                                >
-                                  <ScheduleText color={val.color}>
-                                    {val.title}
-                                  </ScheduleText>
-                                </Schedule>
-                              );
-                              // : (
-                              //   <ScheduleDotList listDay={listDay}>
-                              //     <ScheduleDot color={val.color}></ScheduleDot>
-                              //   </ScheduleDotList>
-                              // );
-                            }
-                          })}
-                        </Fragment>
-                      ))}
-                  </TimeLine>
+                  <TimeLine></TimeLine>
                 </TimeWrap>
               );
             })}
@@ -381,54 +313,52 @@ const ScheduleText = styled.p`
   color: ${(props) => (props.color === 4 ? "var(--black)" : "")};
 `;
 const ScheduleDotList = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
   position: absolute;
   bottom: 0;
-  left: ${(props) => (props.listDay === 0 ? "calc((100%/ 8) * 1 - 5px)" : "")};
-  left: ${(props) => (props.listDay === 1 ? "calc((100%/ 8) * 2 - 5px)" : "")};
-  left: ${(props) => (props.listDay === 2 ? "calc((100%/ 8) * 3 - 5px)" : "")};
-  left: ${(props) => (props.listDay === 3 ? "calc((100%/ 8) * 4 - 5px)" : "")};
-  left: ${(props) => (props.listDay === 4 ? "calc((100%/ 8) * 5 - 5px)" : "")};
-  left: ${(props) => (props.listDay === 5 ? "calc((100%/ 8) * 6 - 5px)" : "")};
-  left: ${(props) => (props.listDay === 6 ? "calc((100%/ 8) * 7 - 5px)" : "")};
+  left: ${(props) => props.listDay === 0 && "calc((100% / 8) * 1 + 24px)"};
+  left: ${(props) => props.listDay === 1 && "calc((100% / 8) * 2 + 24px)"};
+  left: ${(props) => props.listDay === 2 && "calc((100% / 8) * 3 + 24px)"};
+  left: ${(props) => props.listDay === 3 && "calc((100% / 8) * 4 + 24px)"};
+  left: ${(props) => props.listDay === 4 && "calc((100% / 8) * 5 + 24px)"};
+  left: ${(props) => props.listDay === 5 && "calc((100% / 8) * 6 + 24px)"};
+  left: ${(props) => props.listDay === 6 && "calc((100% / 8) * 7 + 24px)"};
+`;
+const Flex = styled.ul`
+  > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const ScheduleDot = styled.li`
   width: 3px;
   height: 3px;
-  border: ${(props) => (props.color === 1 ? "1px solid var(--blue3)" : "")};
-  background-color: ${(props) => (props.color === 2 ? "var(--point3)" : "")};
-  background-color: ${(props) =>
-    props.color === 3 ? "rgba(253, 187, 110, 1)" : ""};
-
-  background-color: ${(props) =>
-    props.color === 4 ? "rgba(253, 247, 110, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 5 ? "rgba(110, 253, 150, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 6 ? "rgba(110, 218, 253, 1)" : ""};
-  background-color: ${(props) =>
-    props.color === 7 ? "rgba(130, 110, 253, 1)" : ""};
-  background-color: ${(props) => (props.color === 8 ? "var(--gray2)" : "")};
-  background-color: ${(props) => (props.color === 9 ? "var(--blue4)" : "")};
+  border-radius: 100%;
+  border: ${(props) => props.color === 1 && "1px solid var(--blue3)"};
+  background-color: ${(props) => props.color === 2 && "var(--point3)"};
+  background-color: ${(props) => props.color === 3 && "rgba(253, 187, 110, 1)"};
+  background-color: ${(props) => props.color === 4 && "rgba(253, 247, 110, 1)"};
+  background-color: ${(props) => props.color === 5 && "rgba(110, 253, 150, 1)"};
+  background-color: ${(props) => props.color === 6 && "rgba(110, 218, 253, 1)"};
+  background-color: ${(props) => props.color === 7 && "rgba(130, 110, 253, 1)"};
+  background-color: ${(props) => props.color === 8 && "var(--gray2)"};
 `;
 
 const Schedule = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: ${(props) =>
-    props.listDay === 0 ? "calc((100% / 8) * 1 + 12px)" : ""};
-  left: ${(props) =>
-    props.listDay === 1 ? "calc((100% / 8) * 2 + 12px)" : ""};
-  left: ${(props) =>
-    props.listDay === 2 ? "calc((100% / 8) * 3 + 12px)" : ""};
-  left: ${(props) =>
-    props.listDay === 3 ? "calc((100% / 8) * 4 + 12px)" : ""};
-  left: ${(props) =>
-    props.listDay === 4 ? "calc((100% / 8) * 5 + 12px)" : ""};
-  left: ${(props) =>
-    props.listDay === 5 ? "calc((100% / 8) * 6 + 12px)" : ""};
-  left: ${(props) =>
-    props.listDay === 6 ? "calc((100% / 8) * 7 + 12px)" : ""};
+  left: ${(props) => props.listDay === 0 && "calc((100% / 8) * 1 + 12px)"};
+  left: ${(props) => props.listDay === 1 && "calc((100% / 8) * 2 + 12px)"};
+  left: ${(props) => props.listDay === 2 && "calc((100% / 8) * 3 + 12px)"};
+  left: ${(props) => props.listDay === 3 && "calc((100% / 8) * 4 + 12px)"};
+  left: ${(props) => props.listDay === 4 && "calc((100% / 8) * 5 + 12px)"};
+  left: ${(props) => props.listDay === 5 && "calc((100% / 8) * 6 + 12px)"};
+  left: ${(props) => props.listDay === 6 && "calc((100% / 8) * 7 + 12px)"};
   border-radius: 4px;
   padding: 3px !important;
   width: calc((100% / 8) - 6px);
@@ -506,11 +436,11 @@ const DayNumber = styled.label`
     justify-content: center;
     align-items: center;
     color: ${(props) =>
-      Number(props.days) === Number(props.Dates)
+      Number(props.days) === Number(props.date)
         ? "var(--blue4)"
         : "var(--gray3)"};
     border: ${(props) =>
-      Number(props.days) === Number(props.Dates)
+      Number(props.days) === Number(props.date)
         ? "1px solid var(--blue4)"
         : ""};
     box-sizing: border-box;

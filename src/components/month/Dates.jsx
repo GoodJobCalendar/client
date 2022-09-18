@@ -117,7 +117,7 @@ const Dates = (props) => {
           firstDate={firstDate}
           findToday={findToday}
         >
-          <TodayCSS
+          <TodayInput
             id={idx}
             type="radio"
             name="day"
@@ -161,12 +161,11 @@ const Form = styled.li`
 
 const DateNum = styled.div``;
 
-const TodayCSS = styled.input`
+const TodayInput = styled.input`
   display: none;
-  z-index: 1;
   :checked + label {
-    background-color: ${(props) => (props.isActive ? "var(--blue4)" : "")};
-    color: ${(props) => (props.isActive ? "#fff!important" : "")};
+    background-color: ${(props) => props.isActive && "var(--blue4)"};
+    color: ${(props) => props.isActive && "#fff!important"};
   }
 `;
 
