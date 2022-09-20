@@ -153,9 +153,9 @@ const Outer = styled.div`
 `
 
 const ZzimBtn = styled.img`
-  position: absolute;
+  position: fixed;
   right: 16px;
-  bottom: 3%;
+  bottom: 50px;
   opacity: 90%;
   &:hover{
     cursor: pointer;
