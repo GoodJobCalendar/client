@@ -96,8 +96,7 @@ const ZZim = () => {
         }}
         >날짜순</Deadline>
       </MiddleButton>
-      <div 
-      style={{overflowY:"scroll"}}>
+      < JobCardWrap>
     {currentPosts?.map((tasksData, idx)=>{
       return(
         <JobCard
@@ -121,12 +120,14 @@ const ZZim = () => {
             </JobCard>
       )
     })} 
-    </div>
+    </JobCardWrap>
+    <BottomWrap>
     <Pagination
         postPerPage={postPerPage}
         totalPosts={list?.length}
         setCurrentPage={setCurrentPage}
       />
+      </BottomWrap>
     </MainWrapper>
   )
 }
@@ -136,15 +137,15 @@ export default ZZim
 const MainWrapper = styled.div`
   background-color: var(--blue1);
   height: 100vh;
-  overflow: hidden;
-
+  overflow-y: scroll;
 `;
 
 const UpBar = styled.div`
   height: 56px;
   background: #3284ff;
   display: flex;
-  position: relative;
+  position: fixed;
+  width: 100%;
 `;
 
 const BackBtn = styled.img`
@@ -168,6 +169,7 @@ const MiddleButton =styled.div`
   display: flex;
   width: 113px;
   padding: 24px 16px 24px 256px; 
+  margin-top: 56px;
   gap: 8px;
   div{
     font-weight: 500;
@@ -187,6 +189,12 @@ const BottomBox =styled.div`
   position: fixed;
   bottom: 30px;
   left: 23px;
+`
+
+const JobCardWrap = styled.div`
+  height: 80vh;
+  /* border: 1px red solid; */
+  overflow-y: scroll;
 `
 
 const JobCard = styled.div`
@@ -248,3 +256,10 @@ const EndTime = styled.div`
   font-size: 12px;
   color: #74a0e3;
 `;
+
+const BottomWrap =styled.div`
+  position: fixed;
+  width: 100%;
+  /* height: 5vh; */
+  /* border: 1px red solid; */
+`

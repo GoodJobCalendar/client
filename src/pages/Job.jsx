@@ -60,7 +60,7 @@ const Job = () => {
   const navData = false;
 
   useEffect(() => {
-    dispatch(loadJobList(nextCursor));
+    dispatch(loadJobList(previousCursor));
   }, []);
 
   // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
