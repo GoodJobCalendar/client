@@ -324,10 +324,11 @@ const JobTitle = styled.div`
   text-overflow: ellipsis;
 `;
 
-const Line = styled.hr`
+const Line = styled.div`
   width: 100%;
   border: 1px solid #d1d1d1;
   margin-bottom: 28px;
+  margin-top: 5px;
 `;
 
 const JobInfo = styled.div`

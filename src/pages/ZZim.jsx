@@ -96,6 +96,8 @@ const ZZim = () => {
         }}
         >날짜순</Deadline>
       </MiddleButton>
+      <div 
+      style={{overflowY:"scroll"}}>
     {currentPosts?.map((tasksData, idx)=>{
       return(
         <JobCard
@@ -119,6 +121,7 @@ const ZZim = () => {
             </JobCard>
       )
     })} 
+    </div>
     <Pagination
         postPerPage={postPerPage}
         totalPosts={list?.length}
@@ -193,7 +196,7 @@ const JobCard = styled.div`
   cursor: pointer;
   padding: 21px 22px 20px 19px;
   width: 302px;
-  overflow-y: scroll;
+  
 `;
 
 const CompanyName = styled.div`
