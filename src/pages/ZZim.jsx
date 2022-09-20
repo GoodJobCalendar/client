@@ -14,7 +14,9 @@ import Pagination from '../components/Pagination';
 const ZZim = () => {
   const navigate = useNavigate()
   const [list, setList] = useState([])
+  const [toggle, setToggle] = useState(false)
 
+  // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
@@ -25,7 +27,8 @@ const ZZim = () => {
   console.log(totalPage)
 
   const paginate = currentPage;
-
+  const myToken = getCookie("token");
+  
   // 스크랩목록
   useEffect(()=>{
     const myToken = getCookie("token");
@@ -33,16 +36,40 @@ const ZZim = () => {
       const head = {
         headers: {Authorization: `Bearer ${myToken}`}
       }
-      await axios.get("https://goodjobcalendar.shop/api/posting/likes",head)
+      await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",head)
                 .then((res)=>{
                   console.log(res.data.data)
                   setList(res.data.data)
                   setTotalPage(Math.ceil(list?.length / postPerPage))
-                  
                 })
     }
     getZzim()
   },[])
+
+  const getZzim1 = async() =>{
+    const head = {
+      headers: {Authorization: `Bearer ${myToken}`}
+    }
+    await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",head)
+              .then((res)=>{
+                console.log(res.data.data)
+                setList(res.data.data)
+                setTotalPage(Math.ceil(list?.length / postPerPage))
+                setToggle(false)
+              })
+  }
+
+  const getZzimDead = async() =>{
+    const head = {
+      headers: {Authorization: `Bearer ${myToken}`}
+    }
+    await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=deadline&orderBy=asc",head)
+              .then((res)=>{
+                console.log(res.data.data)
+                setList(res.data.data)
+                setTotalPage(Math.ceil(list?.length / postPerPage))
+              })
+  }
 
 
   return (
@@ -54,14 +81,20 @@ const ZZim = () => {
         </Main>
       </UpBar>
       <MiddleButton>
-        <div style={{color:"var(--blue4)"}}
-        >스크랩순</div>
-        <div>|</div>
-        <div
+        <Scrap
+        toggle={toggle}
+        onClick={ 
+          getZzim1
+            } 
+        >스크랩순</Scrap>
+        <div style={{color:"var(--gray3)"}}>|</div>
+        <Deadline
+        toggle={toggle}
         onClick={()=>{
-          alert("준비중인 기능입니다.")
+          setToggle(true)
+          getZzimDead()
         }}
-        >날짜순</div>
+        >날짜순</Deadline>
       </MiddleButton>
     {currentPosts?.map((tasksData, idx)=>{
       return(
@@ -78,7 +111,7 @@ const ZZim = () => {
                 </JobTagsWrap>
 
                 <EndTime>
-                {tasksData.deadline.split(" ")[0] === "2122-01-01"
+                {tasksData.deadline.split("T")[0] === "2121-12-31"
                     ? "상시채용"
                     : "~" + tasksData.deadline.split("T")[0]}
                 </EndTime>
@@ -91,9 +124,6 @@ const ZZim = () => {
         totalPosts={list?.length}
         setCurrentPage={setCurrentPage}
       />
-      
-
-      
     </MainWrapper>
   )
 }
@@ -140,8 +170,14 @@ const MiddleButton =styled.div`
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
-    color: var(--gray3);
   }
+`
+
+const Scrap = styled.div`
+  color: ${(props)=> props.toggle? "var(--gray4)": "var(--blue4)"};
+`
+const Deadline = styled.div`
+ color: ${(props)=> props.toggle? "var(--blue4)": "var(--gray3)"}; 
 `
 
 const BottomBox =styled.div`
@@ -157,6 +193,7 @@ const JobCard = styled.div`
   cursor: pointer;
   padding: 21px 22px 20px 19px;
   width: 302px;
+  overflow-y: scroll;
 `;
 
 const CompanyName = styled.div`
