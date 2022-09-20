@@ -137,7 +137,7 @@ export default ZZim
 const MainWrapper = styled.div`
   background-color: var(--blue1);
   height: 100vh;
-  overflow-y: scroll;
+  overflow: hidden;
 `;
 
 const UpBar = styled.div`
