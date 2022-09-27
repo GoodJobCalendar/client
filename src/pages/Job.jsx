@@ -60,7 +60,7 @@ const Job = () => {
   const navData = false;
 
   useEffect(() => {
-    dispatch(loadJobList(nextCursor));
+    dispatch(loadJobList(previousCursor));
   }, []);
 
   // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
@@ -153,9 +153,9 @@ const Outer = styled.div`
 `
 
 const ZzimBtn = styled.img`
-  position: absolute;
+  position: fixed;
   right: 16px;
-  bottom: 3%;
+  bottom: 4%;
   opacity: 90%;
   &:hover{
     cursor: pointer;

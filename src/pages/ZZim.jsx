@@ -14,7 +14,9 @@ import Pagination from '../components/Pagination';
 const ZZim = () => {
   const navigate = useNavigate()
   const [list, setList] = useState([])
+  const [toggle, setToggle] = useState(false)
 
+  // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
@@ -25,7 +27,8 @@ const ZZim = () => {
   console.log(totalPage)
 
   const paginate = currentPage;
-
+  const myToken = getCookie("token");
+  
   // 스크랩목록
   useEffect(()=>{
     const myToken = getCookie("token");
@@ -33,16 +36,40 @@ const ZZim = () => {
       const head = {
         headers: {Authorization: `Bearer ${myToken}`}
       }
-      await axios.get("https://goodjobcalendar.shop/api/posting/likes",head)
+      await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",head)
                 .then((res)=>{
                   console.log(res.data.data)
                   setList(res.data.data)
                   setTotalPage(Math.ceil(list?.length / postPerPage))
-                  
                 })
     }
     getZzim()
   },[])
+
+  const getZzim1 = async() =>{
+    const head = {
+      headers: {Authorization: `Bearer ${myToken}`}
+    }
+    await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",head)
+              .then((res)=>{
+                console.log(res.data.data)
+                setList(res.data.data)
+                setTotalPage(Math.ceil(list?.length / postPerPage))
+                setToggle(false)
+              })
+  }
+
+  const getZzimDead = async() =>{
+    const head = {
+      headers: {Authorization: `Bearer ${myToken}`}
+    }
+    await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=deadline&orderBy=asc",head)
+              .then((res)=>{
+                console.log(res.data.data)
+                setList(res.data.data)
+                setTotalPage(Math.ceil(list?.length / postPerPage))
+              })
+  }
 
 
   return (
@@ -54,15 +81,22 @@ const ZZim = () => {
         </Main>
       </UpBar>
       <MiddleButton>
-        <div style={{color:"var(--blue4)"}}
-        >스크랩순</div>
-        <div>|</div>
-        <div
+        <Scrap
+        toggle={toggle}
+        onClick={ 
+          getZzim1
+            } 
+        >스크랩순</Scrap>
+        <div style={{color:"var(--gray3)"}}>|</div>
+        <Deadline
+        toggle={toggle}
         onClick={()=>{
-          alert("준비중인 기능입니다.")
+          setToggle(true)
+          getZzimDead()
         }}
-        >날짜순</div>
+        >날짜순</Deadline>
       </MiddleButton>
+      < JobCardWrap>
     {currentPosts?.map((tasksData, idx)=>{
       return(
         <JobCard
@@ -78,7 +112,7 @@ const ZZim = () => {
                 </JobTagsWrap>
 
                 <EndTime>
-                {tasksData.deadline.split(" ")[0] === "2122-01-01"
+                {tasksData.deadline.split("T")[0] === "2121-12-31"
                     ? "상시채용"
                     : "~" + tasksData.deadline.split("T")[0]}
                 </EndTime>
@@ -86,14 +120,14 @@ const ZZim = () => {
             </JobCard>
       )
     })} 
+    </JobCardWrap>
+    <BottomWrap>
     <Pagination
         postPerPage={postPerPage}
         totalPosts={list?.length}
         setCurrentPage={setCurrentPage}
       />
-      
-
-      
+      </BottomWrap>
     </MainWrapper>
   )
 }
@@ -104,14 +138,14 @@ const MainWrapper = styled.div`
   background-color: var(--blue1);
   height: 100vh;
   overflow: hidden;
-
 `;
 
 const UpBar = styled.div`
   height: 56px;
   background: #3284ff;
   display: flex;
-  position: relative;
+  position: fixed;
+  width: 100%;
 `;
 
 const BackBtn = styled.img`
@@ -135,19 +169,32 @@ const MiddleButton =styled.div`
   display: flex;
   width: 113px;
   padding: 24px 16px 24px 256px; 
+  margin-top: 56px;
   gap: 8px;
   div{
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
-    color: var(--gray3);
   }
+`
+
+const Scrap = styled.div`
+  color: ${(props)=> props.toggle? "var(--gray4)": "var(--blue4)"};
+`
+const Deadline = styled.div`
+ color: ${(props)=> props.toggle? "var(--blue4)": "var(--gray3)"}; 
 `
 
 const BottomBox =styled.div`
   position: fixed;
   bottom: 30px;
   left: 23px;
+`
+
+const JobCardWrap = styled.div`
+  height: 80vh;
+  /* border: 1px red solid; */
+  overflow-y: scroll;
 `
 
 const JobCard = styled.div`
@@ -157,6 +204,7 @@ const JobCard = styled.div`
   cursor: pointer;
   padding: 21px 22px 20px 19px;
   width: 302px;
+  
 `;
 
 const CompanyName = styled.div`
@@ -208,3 +256,10 @@ const EndTime = styled.div`
   font-size: 12px;
   color: #74a0e3;
 `;
+
+const BottomWrap =styled.div`
+  position: fixed;
+  width: 100%;
+  /* height: 5vh; */
+  /* border: 1px red solid; */
+`
