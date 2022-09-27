@@ -5,12 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { emailCheck, passwordCheck } from "../shared/SignUpCheck";
-import { __setUser } from "./../redux/modules/user";
+import { setUser } from "./../redux/modules/user";
 
 // 이미지
 import logo from "../assets/img/logo.png";
 import logo_text from "../assets/img/logo_text.svg";
-import apis from "../shared/apis";
+
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -20,10 +21,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorCheck, setCheck] = useState("");
-
   // 회원가입
-
-  // 엔터 눌렀을 때 클릭 이벤트 실행
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       SignupBtn();
@@ -31,7 +29,6 @@ const SignUp = () => {
   };
   const SignupBtn = async (e) => {
     e.preventDefault();
-
     //빈칸 확인
     if (
       email === "" ||
@@ -56,10 +53,15 @@ const SignUp = () => {
       return setCheck("비밀번호가 일치하지 않습니다.");
     } else {
       //회원가입
-      await apis
-        .signUp({ email, password, confirmPassword, userName })
-        .then(() => {
-          dispatch(__setUser({ email, password, confirmPassword, userName }));
+      await axios
+        .post("https://goodjobcalendar.shop/api/auth/local", {
+          email,
+          password,
+          confirmPassword,
+          userName,
+        })
+        .then((res) => {
+          dispatch(setUser({ email, password, confirmPassword, userName }));
           navigate("/emailsend");
         })
         .catch((error) => {

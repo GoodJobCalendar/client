@@ -8,6 +8,7 @@ import { emailCheck } from "../shared/SignUpCheck";
 import { pwEmailUser } from "../redux/modules/user";
 
 import axios from "axios";
+import apis from "../shared/apis";
 
 const PwSend = () => {
   const navigate = useNavigate();
@@ -29,11 +30,8 @@ const PwSend = () => {
     else if (!emailCheck(email)) {
       return setError("이메일 형식이 아닙니다.");
     }
-    await axios
-      .post("https://goodjobcalendar.shop/api/auth/lostPassword", {
-        userName,
-        email,
-      })
+    await apis
+      .sendPwAuthNumber({ userName, email })
       .then((res) => {
         dispatch(pwEmailUser(email, userName));
         navigate("/pwcheck");

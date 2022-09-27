@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import mailSendImg from "../assets/img/illust/mailsend.png";
 
 import axios from "axios";
+import apis from "../shared/apis";
 
 const PwCheck = () => {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ const PwCheck = () => {
     if (authNumber === "") {
       return setError("인증번호를 입력해주세요.");
     }
-    await axios
-      .post("https://goodjobcalendar.shop/api/auth/lostPassword", {
+    await apis
+      .SendPwAuthNumber({
         email: userInfo?.email,
         userName: userInfo?.userName,
       })
@@ -38,8 +39,8 @@ const PwCheck = () => {
 
   const PwCheckBtn = async () => {
     // 인증번호 확인
-    await axios
-      .patch("https://goodjobcalendar.shop/api/auth/verifyNumberForOld", {
+    await apis
+      .checkPwAuthNumber({
         email: userInfo?.email,
         authNumber: Number(authNumber),
       })
@@ -168,10 +169,14 @@ const Email = styled.span`
   margin-bottom: 55px;
 `;
 const Input = styled.input`
-  border: ${(props) => (props.errorcheck !== "" ? "2px solid var(--point3)" : "")}!important;
+  border: ${(props) =>
+    props.errorcheck !== "" ? "2px solid var(--point3)" : ""}!important;
   color: ${(props) => (props.errorcheck !== "" ? "var(--point3)" : "")};
   ::placeholder {
-    color: ${(props) => (props.errorcheck && props.errorcheck !== "" ? "var(--point3)" : "")}!important;
+    color: ${(props) =>
+      props.errorcheck && props.errorcheck !== ""
+        ? "var(--point3)"
+        : ""}!important;
   }
   margin-bottom: 72px;
 `;
