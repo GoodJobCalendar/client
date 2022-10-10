@@ -17,9 +17,6 @@ import img8 from "../assets/img/sticker/sticker8.png";
 
 // 커버 이미지
 import cover1 from "../assets/img/cover/cover1.png";
-import cover2 from "../assets/img/cover/cover2.png";
-import cover3 from "../assets/img/cover/cover3.png";
-import cover4 from "../assets/img/cover/cover4.png";
 
 // 아이콘
 import time from "../assets/img/icon/Time.svg";

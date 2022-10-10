@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "./Cookie";
+import { getCookie } from "./cookie";
 
 export const api = axios.create({
   baseURL: "https://goodjobcalendar.shop/",
@@ -44,7 +44,10 @@ api.interceptors.response.use(
   (success) => {
     const response = success.data;
 
-    if (response.statusCode === 200 && response.responseMessage === "조회 성공") {
+    if (
+      response.statusCode === 200 &&
+      response.responseMessage === "조회 성공"
+    ) {
       return response.posts;
     }
 
@@ -58,7 +61,8 @@ api.interceptors.response.use(
 // export const TokenCheck = localStorage.getItem("token") ? true : false;
 
 // kakao 연결용
-const kakao_redirect_uri = "https://goodjobcalendar.com/api/auth/kakao/callback";
+const kakao_redirect_uri =
+  "https://goodjobcalendar.com/api/auth/kakao/callback";
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${kakao_redirect_uri}&response_type=code`;
 // export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${kakao_redirect_uri}&response_type=code`;

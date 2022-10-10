@@ -1,20 +1,20 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import backBtn from "../assets/img/icon/Back.svg";
 import nextCursorBtn from "../assets/img/btn/nextCursor.png";
 import previousCursorBtn from "../assets/img/btn/previousCursor.png";
-import { useEffect } from 'react';
-import axios from 'axios';
-import { getCookie } from '../shared/Cookie';
-import { useState } from 'react';
-import { api } from '../shared/api';
-import Pagination from '../components/Pagination';
+import { useEffect } from "react";
+import axios from "axios";
+import { getCookie } from "../shared/cookie";
+import { useState } from "react";
+import { api } from "../shared/api";
+import Pagination from "../components/Pagination";
 
 const ZZim = () => {
-  const navigate = useNavigate()
-  const [list, setList] = useState([])
-  const [toggle, setToggle] = useState(false)
+  const navigate = useNavigate();
+  const [list, setList] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,82 +24,90 @@ const ZZim = () => {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost);
-  console.log(totalPage)
+  console.log(totalPage);
 
   const paginate = currentPage;
   const myToken = getCookie("token");
-  
+
   // 스크랩목록
-  useEffect(()=>{
+  useEffect(() => {
     const myToken = getCookie("token");
-    const getZzim = async() =>{
+    const getZzim = async () => {
       const head = {
-        headers: {Authorization: `Bearer ${myToken}`}
-      }
-      await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",head)
-                .then((res)=>{
-                  console.log(res.data.data)
-                  setList(res.data.data)
-                  setTotalPage(Math.ceil(list?.length / postPerPage))
-                })
-    }
-    getZzim()
-  },[])
+        headers: { Authorization: `Bearer ${myToken}` },
+      };
+      await axios
+        .get(
+          "https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",
+          head
+        )
+        .then((res) => {
+          console.log(res.data.data);
+          setList(res.data.data);
+          setTotalPage(Math.ceil(list?.length / postPerPage));
+        });
+    };
+    getZzim();
+  }, []);
 
-  const getZzim1 = async() =>{
+  const getZzim1 = async () => {
     const head = {
-      headers: {Authorization: `Bearer ${myToken}`}
-    }
-    await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",head)
-              .then((res)=>{
-                console.log(res.data.data)
-                setList(res.data.data)
-                setTotalPage(Math.ceil(list?.length / postPerPage))
-                setToggle(false)
-              })
-  }
+      headers: { Authorization: `Bearer ${myToken}` },
+    };
+    await axios
+      .get(
+        "https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",
+        head
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        setList(res.data.data);
+        setTotalPage(Math.ceil(list?.length / postPerPage));
+        setToggle(false);
+      });
+  };
 
-  const getZzimDead = async() =>{
+  const getZzimDead = async () => {
     const head = {
-      headers: {Authorization: `Bearer ${myToken}`}
-    }
-    await axios.get("https://goodjobcalendar.shop/api/posting/likes?condition=deadline&orderBy=asc",head)
-              .then((res)=>{
-                console.log(res.data.data)
-                setList(res.data.data)
-                setTotalPage(Math.ceil(list?.length / postPerPage))
-              })
-  }
-
+      headers: { Authorization: `Bearer ${myToken}` },
+    };
+    await axios
+      .get(
+        "https://goodjobcalendar.shop/api/posting/likes?condition=deadline&orderBy=asc",
+        head
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        setList(res.data.data);
+        setTotalPage(Math.ceil(list?.length / postPerPage));
+      });
+  };
 
   return (
     <MainWrapper>
       <UpBar>
         <BackBtn src={backBtn} onClick={() => navigate(-1)} />
-        <Main>
-          공고찜
-        </Main>
+        <Main>공고찜</Main>
       </UpBar>
       <MiddleButton>
-        <Scrap
-        toggle={toggle}
-        onClick={ 
-          getZzim1
-            } 
-        >스크랩순</Scrap>
-        <div style={{color:"var(--gray3)"}}>|</div>
+        <Scrap toggle={toggle} onClick={getZzim1}>
+          스크랩순
+        </Scrap>
+        <div style={{ color: "var(--gray3)" }}>|</div>
         <Deadline
-        toggle={toggle}
-        onClick={()=>{
-          setToggle(true)
-          getZzimDead()
-        }}
-        >날짜순</Deadline>
+          toggle={toggle}
+          onClick={() => {
+            setToggle(true);
+            getZzimDead();
+          }}
+        >
+          날짜순
+        </Deadline>
       </MiddleButton>
-      < JobCardWrap>
-    {currentPosts?.map((tasksData, idx)=>{
-      return(
-        <JobCard
+      <JobCardWrap>
+        {currentPosts?.map((tasksData, idx) => {
+          return (
+            <JobCard
               key={idx}
               onClick={() => navigate(`/jobDetail/${tasksData.id}`)}
             >
@@ -112,27 +120,27 @@ const ZZim = () => {
                 </JobTagsWrap>
 
                 <EndTime>
-                {tasksData.deadline.split("T")[0] === "2121-12-31"
+                  {tasksData.deadline.split("T")[0] === "2121-12-31"
                     ? "상시채용"
                     : "~" + tasksData.deadline.split("T")[0]}
                 </EndTime>
               </DetailInfo>
             </JobCard>
-      )
-    })} 
-    </JobCardWrap>
-    <BottomWrap>
-    <Pagination
-        postPerPage={postPerPage}
-        totalPosts={list?.length}
-        setCurrentPage={setCurrentPage}
-      />
+          );
+        })}
+      </JobCardWrap>
+      <BottomWrap>
+        <Pagination
+          postPerPage={postPerPage}
+          totalPosts={list?.length}
+          setCurrentPage={setCurrentPage}
+        />
       </BottomWrap>
     </MainWrapper>
-  )
-}
+  );
+};
 
-export default ZZim
+export default ZZim;
 
 const MainWrapper = styled.div`
   background-color: var(--blue1);
@@ -165,37 +173,37 @@ const Main = styled.div`
   letter-spacing: 1px;
 `;
 
-const MiddleButton =styled.div`
+const MiddleButton = styled.div`
   display: flex;
   width: 113px;
-  padding: 24px 16px 24px 256px; 
+  padding: 24px 16px 24px 256px;
   margin-top: 56px;
   gap: 8px;
-  div{
+  div {
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
   }
-`
+`;
 
 const Scrap = styled.div`
-  color: ${(props)=> props.toggle? "var(--gray4)": "var(--blue4)"};
-`
+  color: ${(props) => (props.toggle ? "var(--gray4)" : "var(--blue4)")};
+`;
 const Deadline = styled.div`
- color: ${(props)=> props.toggle? "var(--blue4)": "var(--gray3)"}; 
-`
+  color: ${(props) => (props.toggle ? "var(--blue4)" : "var(--gray3)")};
+`;
 
-const BottomBox =styled.div`
+const BottomBox = styled.div`
   position: fixed;
   bottom: 30px;
   left: 23px;
-`
+`;
 
 const JobCardWrap = styled.div`
   height: 80vh;
   /* border: 1px red solid; */
   overflow-y: scroll;
-`
+`;
 
 const JobCard = styled.div`
   background: white;
@@ -204,7 +212,6 @@ const JobCard = styled.div`
   cursor: pointer;
   padding: 21px 22px 20px 19px;
   width: 302px;
-  
 `;
 
 const CompanyName = styled.div`
@@ -257,9 +264,9 @@ const EndTime = styled.div`
   color: #74a0e3;
 `;
 
-const BottomWrap =styled.div`
+const BottomWrap = styled.div`
   position: fixed;
   width: 100%;
   /* height: 5vh; */
   /* border: 1px red solid; */
-`
+`;

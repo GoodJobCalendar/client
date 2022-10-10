@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { detailPost, __deletePost } from "../redux/modules/schedule";
-import axios from "axios";
 
 //스티커 이미지
 import img1 from "../assets/img/sticker/sticker1.png";
@@ -31,7 +30,7 @@ import UpdateSchedule from "../components/UpdateSchedule";
 import logomini from "../assets/img/icon/Logo_mini.svg";
 import location from "../assets/img/icon/Location.svg";
 import time from "../assets/img/icon/Time.svg";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../shared/cookie";
 import apis from "./../shared/apis";
 const PostDetail = () => {
   const navigate = useNavigate();

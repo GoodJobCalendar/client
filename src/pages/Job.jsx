@@ -2,14 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { getCookie } from "../shared/Cookie";
 
-import {
-  loadJobList,
-  loadCategoryList,
-  loadJobDetails,
-} from "../redux/modules/job";
+import { loadJobList } from "../redux/modules/job";
 
 import Nav from "../components/Nav";
 
@@ -18,8 +12,6 @@ import previousCursorBtn from "../assets/img/btn/previousCursor.png";
 import zzimbtn from "../assets/img/btn/ZzimBtn.svg";
 import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
 
-import InfiniteScroll from "react-infinite-scroll-component";
-
 const Job = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +19,6 @@ const Job = () => {
   // const jobDataList = useSelector((state) => state.job.list?.postings);
   const nextCursor = useSelector((state) => state.job.list.nextCursor);
   const previousCursor = useSelector((state) => state.job.list.previousCursor);
-  const page = useSelector((state) => state.job.page);
 
   // console.log(nextCursor);
   // console.log(page);
@@ -63,24 +54,23 @@ const Job = () => {
     dispatch(loadJobList(previousCursor));
   }, []);
 
-  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
-  // 무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한무한
-
   return (
     <MainWrap>
       <Nav navData={navData} />
       <JobWrapper id="para">
         <Outer>
-        <TeamNameList>
-          <UpdateTime>{jobDataUpdate}</UpdateTime>
-          <FilterBtn onClick={() => navigate("/jobCategory")}>
-            추천 조건
-          </FilterBtn>
-        </TeamNameList>
-        <Tooltip>
-        <Tooltip2 src={Tooltipmark} />
-          <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent>
-        </Tooltip>
+          <TeamNameList>
+            <UpdateTime>{jobDataUpdate}</UpdateTime>
+            <FilterBtn onClick={() => navigate("/jobCategory")}>
+              추천 조건
+            </FilterBtn>
+          </TeamNameList>
+          <Tooltip>
+            <Tooltip2 src={Tooltipmark} />
+            <Tooltipcontent>
+              하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!
+            </Tooltipcontent>
+          </Tooltip>
         </Outer>
         {/* <div
           id="scrollableDiv"
@@ -132,12 +122,15 @@ const Job = () => {
         {/* </InfiniteScroll>
         </div> */}
         <div style={{ display: "flex", gap: "6px", padding: "20px" }}>
-          <img src={previousCursorBtn} onClick={getDataBefore}></img>
-          <img src={nextCursorBtn} onClick={getDataNext}></img>
+          <img src={previousCursorBtn} onClick={getDataBefore} alt="버튼" />
+          <img src={nextCursorBtn} onClick={getDataNext} alt="버튼" />
         </div>
-        <ZzimBtn src={zzimbtn} onClick={()=>{
-          navigate("/zzim")
-        }}/>
+        <ZzimBtn
+          src={zzimbtn}
+          onClick={() => {
+            navigate("/zzim");
+          }}
+        />
       </JobWrapper>
     </MainWrap>
   );
@@ -150,40 +143,38 @@ const MainWrap = styled.div`
 const Outer = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const ZzimBtn = styled.img`
   position: fixed;
   right: 16px;
   bottom: 4%;
   opacity: 90%;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
-`
+`;
 
-const Tooltipcontent =styled.div`
+const Tooltipcontent = styled.div`
   color: var(--blue2);
   font-size: 10px;
   display: none;
-`
-const Tooltip =styled.div`
+`;
+const Tooltip = styled.div`
   color: var(--blue2);
   display: flex;
-  margin: 10px 0 ;
+  margin: 10px 0;
   align-items: center;
- 
-`
+`;
 const Tooltip2 = styled.img`
- display: flex;
- margin: 0 8px 0 0;
- &:hover {
-   ~div{
-    display: block;
-   }
+  display: flex;
+  margin: 0 8px 0 0;
+  &:hover {
+    ~ div {
+      display: block;
+    }
   }
- 
-`
+`;
 const JobWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -192,12 +183,6 @@ const JobWrapper = styled.div`
   padding: 0 17px;
   height: calc(100vh - 122px);
   background: #ecf1f8;
-  overflow-y: scroll;
-`;
-
-const CardWrapper = styled.div`
-  height: 500px;
-  margin-top: 10px;
   overflow-y: scroll;
 `;
 

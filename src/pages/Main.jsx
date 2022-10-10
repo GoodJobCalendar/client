@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Link, useNavigate } from "react-router-dom";
-import { getCookie, setCookie } from "../shared/Cookie";
+import { useNavigate } from "react-router-dom";
 
 // 컴포넌트
 import Nav from "../components/Nav";
@@ -10,14 +9,12 @@ import WeekSchedule from "../components/WeekSchedule";
 import MonthSchedule from "./../components/month/MonthSchedule";
 import MonthList from "../components/MonthList";
 import DailyList from "../components/DailyList";
-import SearchData from "./SearchData";
 
 // 이미지
 import zoomin from "../assets/img/icon/zoomin.svg";
 import zoomout from "../assets/img/icon/zoomout.svg";
 import locationGray from "../assets/img/icon/LocationGray.svg";
 import searchImg from "../assets/img/icon/search.svg";
-import needLogin from "../assets/img/illust/needlogin.png";
 import guideImg from "../assets/img/guide.svg";
 
 // 스티커 배경
@@ -41,12 +38,9 @@ function Main() {
 
   const [weekMonth, setWeekMonth] = useState(true);
   const [zoomInOut, setZoomInOut] = useState(true);
-  const [loginOn, setLoginOn] = useState(false);
-  const [guideOn, setGuide] = useState(true);
   const [isActive, setIsActive] = useState(false);
 
   const navData = true;
-  const token = getCookie("token");
 
   //일정등록 이동
   const MoveBtn = () => {
@@ -310,55 +304,6 @@ const GuideBg = styled.div`
     z-index: 999;
     font-size: 20px;
   }
-`;
-const NeedLogin = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(17, 17, 17, 0.3);
-  z-index: 99999;
-`;
-const NeedLoginBtn = styled.button`
-  background-color: var(--blue4);
-  padding: 16px 30px;
-  color: #fff;
-  border-radius: 9px;
-  margin-top: 17px;
-  a {
-    width: 100%;
-    height: 100%;
-  }
-`;
-const NeedLoginModal = styled.div`
-  p {
-    font-weight: 700;
-    color: var(--blue4);
-    margin-bottom: 10px;
-  }
-  span {
-    font-weight: 500;
-    color: var(--blue4);
-    margin-top: 15px;
-  }
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  z-index: 99999;
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
-  border-radius: 21px;
-  padding: 40px 80px;
-  width: 40%;
-  text-align: center;
 `;
 
 const MainWrap = styled.div`

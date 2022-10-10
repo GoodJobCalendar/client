@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getCookie, setCookie } from "../shared/Cookie";
-
-// 컴포넌트
-import { emailCheck } from "../shared/SignUpCheck";
-import { loginDB } from "./../redux/modules/user";
+import { setCookie } from "../shared/cookie";
+import { emailCheck } from "../shared/signUpCheck";
 
 // 카카오
 import { KAKAO_AUTH_URL } from "../shared/api";
@@ -18,12 +14,10 @@ import kakaologo from "../assets/img/icon/kakaobtn.svg";
 import axios from "axios";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errorcheck, setError] = useState();
-  const token = getCookie("token");
 
   // 로그인
   const onKeyPress = (e) => {
