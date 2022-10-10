@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { deleteCookie, setCookie, getCookie } from "../../shared/Cookie";
+import { setCookie, getCookie } from "../../shared/cookie";
 import axios from "axios";
 
 // initialState

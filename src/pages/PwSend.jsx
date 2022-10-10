@@ -4,10 +4,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { emailCheck } from "../shared/SignUpCheck";
+import { emailCheck } from "../shared/signUpCheck";
 import { pwEmailUser } from "../redux/modules/user";
 
-import axios from "axios";
 import apis from "../shared/apis";
 
 const PwSend = () => {
@@ -24,7 +23,7 @@ const PwSend = () => {
   const PwBtn = async () => {
     //빈칸 확인
     if (email === "" || userName === "") {
-      return setError("이메일,이름, 비밀번호 모두 입력해주세요!");
+      return setError("이름, 이메일 모두 입력해주세요!");
     }
     //이메일 형식 체크
     else if (!emailCheck(email)) {

@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { useDispatch } from "react-redux";
-import { logoutUser, __logoutUser } from "./../redux/modules/user";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../shared/cookie";
 
 //이미지
 import calendar_w from "../assets/img/icon/calendar_w.svg";
@@ -14,20 +12,12 @@ import element_c from "../assets/img/icon/element_c.svg";
 import MypageBtn from "../assets/img/icon/MypageBtn.svg";
 import heart from "../assets/img/icon/Heart.svg";
 import needLogin from "../assets/img/illust/needlogin.png";
-import { deleteCookie } from "./../shared/Cookie";
 
 const Nav = (props) => {
   const token = getCookie("token");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [nav, setNav] = useState(props.navData);
   const [loginOn, setLoginOn] = useState(false);
-  // const is_Login = useSelector((state) => state.user.is_login);
-
-  const logOut = () => {
-    deleteCookie("token");
-    setLoginOn(false);
-  };
 
   useEffect(() => {
     if (token) {
@@ -68,21 +58,23 @@ const Nav = (props) => {
             <Line></Line>
           </LineList>
         </Ham> */}
-            <LogOutBtn
-            onClick={()=>{
-              navigate("/mypage")
-            }}
-            >
-              <img src={MypageBtn} alt="마이페이지" />
-            </LogOutBtn>
-            <span 
-            style={{fontSize:"12px",letterSpacing:"0.8px"}}
-            >{nav ? "취준캘린더" : "추천채용"}</span>
-            <LogOutBtn onClick={()=>{
-              navigate("/zzim")
-            }}>
-              <img src={heart} alt="찜페이지" />
-            </LogOutBtn>
+        <LogOutBtn
+          onClick={() => {
+            navigate("/mypage");
+          }}
+        >
+          <img src={MypageBtn} alt="마이페이지" />
+        </LogOutBtn>
+        <span style={{ fontSize: "12px", letterSpacing: "0.8px" }}>
+          {nav ? "취준캘린더" : "추천채용"}
+        </span>
+        <LogOutBtn
+          onClick={() => {
+            navigate("/zzim");
+          }}
+        >
+          <img src={heart} alt="찜페이지" />
+        </LogOutBtn>
       </NavTitle>
       <NavList>
         <NavItem nav={nav}>
@@ -190,20 +182,7 @@ const NavList = styled.ul`
   }
   height: 70px;
 `;
-const Ham = styled.button`
-  background-color: transparent;
-`;
-const LineList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-const Line = styled.li`
-  background: var(--blue1);
-  border-radius: 4px;
-  width: 19px;
-  height: 2px;
-`;
+
 const LogOutBtn = styled.button`
   background-color: transparent;
 `;

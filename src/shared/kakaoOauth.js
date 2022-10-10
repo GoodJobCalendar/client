@@ -5,8 +5,8 @@ import axios from "axios";
 // import { kakaoLoginDB } from "../redux/modules/user";
 
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getCookie, setCookie } from "../shared/Cookie";
+import { useNavigate } from "react-router-dom";
+import { setCookie } from "./cookie";
 const KakaoOauth = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,7 +18,9 @@ const KakaoOauth = (props) => {
   useEffect(() => {
     if (!!code) {
       axios
-        .get(`https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`)
+        .get(
+          `https://goodjobcalendar.shop/api/auth/kakao/callback?code=${code}`
+        )
         .then((response) => {
           setCookie("token", response.data.token, 5);
           navigate("/main");

@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import KakaoOauth from "./shared/KakaoOauth";
+import KakaoOauth from "./shared/kakaoOauth";
 import EmailSend from "./pages/EmailSend";
 import PwSend from "./pages/PwSend";
 import PwCheck from "./pages/PwCheck";
 import SignupSucess from "./pages/SignUpSuccess";
 import PwChangeSuccess from "./pages/PwChangeSuccess";
+import PwChange from "./pages/PwChange";
 import Main from "./pages/Main";
 import Job from "./pages/Job";
 import JobDetail from "./pages/JobDetail";
@@ -18,7 +19,6 @@ import PostDetail from "./pages/PostDetail";
 import Mypage from "./pages/Mypage";
 import NotFound from "./components/NotFound";
 import ZZim from "./pages/ZZim";
-
 
 function Mobile() {
   return (
@@ -33,6 +33,7 @@ function Mobile() {
         <Route path="/pwcheck" element={<PwCheck />} />
         <Route path="/signupsuccess" element={<SignupSucess />} />
         <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
+        <Route path="/pwchange" element={<PwChange />} />
         <Route path="/main" element={<Main />} />
         <Route path="/job" element={<Job />} />
         <Route path="/jobDetail/:id" element={<JobDetail />} />
@@ -41,7 +42,7 @@ function Mobile() {
         <Route path="/postdetail/:scheduleId" element={<PostDetail />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path = "/zzim" element={<ZZim/>}/>
+        <Route path="/zzim" element={<ZZim />} />
       </Routes>
     </MobileWrap>
   );

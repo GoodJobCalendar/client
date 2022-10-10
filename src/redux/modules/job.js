@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { getCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/cookie";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../shared/api";
 

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { emailCheck, passwordCheck } from "../shared/SignUpCheck";
+import { emailCheck, passwordCheck } from "../shared/signUpCheck";
 import { setUser } from "./../redux/modules/user";
 
 // 이미지
@@ -61,7 +61,6 @@ const SignUp = () => {
           userName,
         })
         .then((res) => {
-          dispatch(setUser({ email, password, confirmPassword, userName }));
           navigate("/emailsend");
         })
         .catch((error) => {

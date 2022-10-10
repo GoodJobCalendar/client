@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,26 +14,21 @@ import {
 import buttonText from "../assets/img/btn/buttonText.png";
 import back from "../assets/img/icon/Back.svg";
 import msg from "../assets/img/btn/msg.svg";
-import backbird from "../assets/img/illust/JobDetailBird.svg"
+import backbird from "../assets/img/illust/JobDetailBird.svg";
 import alwaysBird from "../assets/img/illust/notfound.svg";
 import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
 
-import { useState } from "react";
-import axios from "axios";
-import { getCookie } from "../shared/Cookie";
-import { api } from "../shared/api";
 const JobDetail = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const params = useParams();
-  const myToken = getCookie("token");
   const id = params.id;
 
   const jobDetail = useSelector((state) => state.job.details.data);
   console.log(jobDetail);
-  const [deadDate, setDeadDate] = useState(`${jobDetail?.deadline}`)
+  const [deadDate, setDeadDate] = useState(`${jobDetail?.deadline}`);
   console.log(deadDate);
 
   useEffect(() => {
@@ -50,117 +45,105 @@ const JobDetail = () => {
     return dayOfWeek;
   }
 
-  const [isLike, setIsLike] = React.useState(false);
   const [sangsi, setSangsi] = React.useState(false);
-
-  const like = async()=>{
-    api
-      .post(`api/posting/like/${id}`)
-      .then((res) => {
-       console.log(res)
-       setIsLike(!isLike)
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
 
   return (
     <>
-    <MainWrap
-    sangsi={sangsi}
-    >
-      <Header>
-      <MyBack 
-       onClick={()=>{
-        navigate(-1)
-      }}
-      src={back}/>
-      </Header>
-      <MainWrapper>
-      <Tooltip>
-        <Tooltip2 src={Tooltipmark} />
-          {/* <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent> */}
-        </Tooltip>
-        <CompanyWrap>
-          <CompanyName>{jobDetail?.companyName}</CompanyName>
-          <CompanySize>{jobDetail?.companyType}</CompanySize>
-        </CompanyWrap>
-        <JobTitle>{jobDetail?.title}</JobTitle>
+      <MainWrap sangsi={sangsi}>
+        <Header>
+          <MyBack
+            onClick={() => {
+              navigate(-1);
+            }}
+            src={back}
+          />
+        </Header>
+        <MainWrapper>
+          <Tooltip>
+            <Tooltip2 src={Tooltipmark} />
+            {/* <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent> */}
+          </Tooltip>
+          <CompanyWrap>
+            <CompanyName>{jobDetail?.companyName}</CompanyName>
+            <CompanySize>{jobDetail?.companyType}</CompanySize>
+          </CompanyWrap>
+          <JobTitle>{jobDetail?.title}</JobTitle>
 
-        <Line />
-        <JobInfoFlex>
-          <JobInfo>
-            <InfoTitle>모집마감일자</InfoTitle>
-            <InfoDetails style={{ fontWeight: "800" }}>
-              {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
-                ? "상시채용"
-                : jobDetail?.deadline.split(" ")[0] +
-                  " " +
-                  "(" +
-                  getDate(jobDetail?.deadline.split(" ")[0]) +
-                  ")"}
-            </InfoDetails>
-          </JobInfo>
+          <Line />
+          <JobInfoFlex>
+            <JobInfo>
+              <InfoTitle>모집마감일자</InfoTitle>
+              <InfoDetails style={{ fontWeight: "800" }}>
+                {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
+                  ? "상시채용"
+                  : jobDetail?.deadline.split(" ")[0] +
+                    " " +
+                    "(" +
+                    getDate(jobDetail?.deadline.split(" ")[0]) +
+                    ")"}
+              </InfoDetails>
+            </JobInfo>
 
-          <JobInfo>
-            <InfoTitle>지원 자격</InfoTitle>
-            <InfoDetails>{jobDetail?.career}</InfoDetails>
-          </JobInfo>
+            <JobInfo>
+              <InfoTitle>지원 자격</InfoTitle>
+              <InfoDetails>{jobDetail?.career}</InfoDetails>
+            </JobInfo>
 
-          <JobInfo>
-            <InfoTitle>직무</InfoTitle>
-            <InfoDetails>{jobDetail?.job[0]}</InfoDetails>
-          </JobInfo>
+            <JobInfo>
+              <InfoTitle>직무</InfoTitle>
+              <InfoDetails>{jobDetail?.job[0]}</InfoDetails>
+            </JobInfo>
 
-          <JobInfo>
-            <InfoTitle>지역</InfoTitle>
-            <InfoDetails>{jobDetail?.city}</InfoDetails>
-          </JobInfo>
-        </JobInfoFlex>
-        <BackWrap>
-        <BackBird src={backbird}></BackBird>
-        </BackWrap>
-        <BtnWrap>
-          <ZimmbtnWarp
-          >
-          {jobDetail?.isLike ? (
-              <>
-                <MsgText1 to="/zzim">
-                  <p>
-                    <span>스크랩한 모든 공고</span>를
-                    <br />
-                    확인해보세요!
-                  </p>
-                </MsgText1>
-                <MsgImg1 src={msg} alt="캘린더로 스크랩" />
+            <JobInfo>
+              <InfoTitle>지역</InfoTitle>
+              <InfoDetails>{jobDetail?.city}</InfoDetails>
+            </JobInfo>
+          </JobInfoFlex>
+          <BackWrap>
+            <BackBird src={backbird}></BackBird>
+          </BackWrap>
+          <BtnWrap>
+            <ZimmbtnWarp>
+              {jobDetail?.isLike ? (
+                <>
+                  <MsgText1 to="/zzim">
+                    <p>
+                      <span>스크랩한 모든 공고</span>를
+                      <br />
+                      확인해보세요!
+                    </p>
+                  </MsgText1>
+                  <MsgImg1 src={msg} alt="캘린더로 스크랩" />
+                  <BackBtn
+                    scrap={jobDetail?.isLike}
+                    onClick={() => {
+                      dispatch(deleteLike(id));
+                    }}
+                  >
+                    채용공고 찜
+                  </BackBtn>
+                </>
+              ) : (
                 <BackBtn
-                scrap={jobDetail?.isLike}
-                onClick={() => {
-                  dispatch(deleteLike(id));
-                }}>
+                  scrap={jobDetail?.isLike}
+                  onClick={() => {
+                    dispatch(addLike(id));
+                  }}
+                >
                   채용공고 찜
                 </BackBtn>
-              </>
-            ):<BackBtn 
-            scrap={jobDetail?.isLike}
-            onClick={() => {
-              dispatch(addLike(id));
-            }}
-            >
-               채용공고 찜
-            </BackBtn>}
-            
-          </ZimmbtnWarp>
-          {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
-                ? <ScrapBtn1
-                onClick={()=>{
-                  setSangsi(true)
+              )}
+            </ZimmbtnWarp>
+            {jobDetail?.deadline.split(" ")[0] === "2122-01-01" ? (
+              <ScrapBtn1
+                onClick={() => {
+                  setSangsi(true);
                 }}
-                >
-                  캘린더로 스크랩
-                </ScrapBtn1>
-                :  <ScrapBtnWrap>
+              >
+                캘린더로 스크랩
+              </ScrapBtn1>
+            ) : (
+              <ScrapBtnWrap>
                 {jobDetail?.isScrap && (
                   <>
                     <MsgText to="/main">
@@ -171,7 +154,6 @@ const JobDetail = () => {
                       </p>
                     </MsgText>
                     <MsgImg src={msg} alt="캘린더로 스크랩" />
-                    
                   </>
                 )}
                 <ScrapBtn
@@ -182,22 +164,22 @@ const JobDetail = () => {
                 >
                   캘린더로 스크랩
                 </ScrapBtn>
-              </ScrapBtnWrap>}
-         
-        </BtnWrap>
+              </ScrapBtnWrap>
+            )}
+          </BtnWrap>
 
-        <JobKoreabtn
-          onClick={() => {
-            window.open(jobDetail?.url);
-          }}
-        >
-          <img src={buttonText} alt="잡코리아공고링크연결" />
-          자세한 공고 잡코리아에서 확인
-        </JobKoreabtn>
-      </MainWrapper>
-    </MainWrap>
-    {sangsi&&
-    <Always>
+          <JobKoreabtn
+            onClick={() => {
+              window.open(jobDetail?.url);
+            }}
+          >
+            <img src={buttonText} alt="잡코리아공고링크연결" />
+            자세한 공고 잡코리아에서 확인
+          </JobKoreabtn>
+        </MainWrapper>
+      </MainWrap>
+      {sangsi && (
+        <Always>
           <AlwaysModal>
             <img src={alwaysBird} alt="상시채용" />
             <p>
@@ -207,14 +189,14 @@ const JobDetail = () => {
             </p>
             <AlwaysBtn
               onClick={() => {
-                setSangsi(false)
+                setSangsi(false);
               }}
             >
               확인
             </AlwaysBtn>
           </AlwaysModal>
-          </Always>
-    }
+        </Always>
+      )}
     </>
   );
 };
@@ -223,12 +205,9 @@ const MainWrap = styled.div`
   position: relative;
   background: #ecf1f8;
   height: 100vh;
-  >*{
-    filter: 
-  ${(props) =>
-    props.sangsi
-      ? "blur(1.4px)"
-      : "blur(0px)"};}
+  > * {
+    filter: ${(props) => (props.sangsi ? "blur(1.4px)" : "blur(0px)")};
+  }
 `;
 
 const MyBack = styled.img`
@@ -236,7 +215,7 @@ const MyBack = styled.img`
   position: absolute;
   left: 4%;
   top: 33%;
-`
+`;
 
 const Header = styled.div`
   width: 100%;
@@ -245,35 +224,26 @@ const Header = styled.div`
   background-color: var(--blue4);
 `;
 
-const Tooltipcontent =styled.div`
-  color: var(--blue2);
-  font-size: 11px;
-  display: none;
-  position: absolute;
-  right: 34px;
-  top: -15px;
-`
-const Tooltip =styled.div`
+const Tooltip = styled.div`
   color: var(--blue2);
   display: flex;
-  margin: 0 0 15px 0 ;
- align-items: center;
- position: relative;
-`
+  margin: 0 0 15px 0;
+  align-items: center;
+  position: relative;
+`;
 const Tooltip2 = styled.img`
- display: flex;
- margin: 0 8px 19px 0;
- position: absolute;
- width: 18px;
- height: 18px;
- right: 0;
- &:hover {
-   ~div{
-    display: block;
-   }
+  display: flex;
+  margin: 0 8px 19px 0;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 0;
+  &:hover {
+    ~ div {
+      display: block;
+    }
   }
- 
-`
+`;
 
 const MainWrapper = styled.div`
   display: flex;
@@ -363,15 +333,13 @@ const BtnWrap = styled.div`
 const BackWrap = styled.div`
   position: relative;
   height: 40vh;
-`
+`;
 const BackBird = styled.img`
   position: absolute;
   bottom: -26px;
   right: -20px;
   opacity: 0.15;
-`
-
-
+`;
 
 const BackBtn = styled.div`
   width: 157px;
@@ -382,19 +350,11 @@ const BackBtn = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   border: ${(props) =>
-    props.scrap
-      ? "2px solid  transparent"
-      : "2px solid transparent"};
-  background-color: ${(props) =>
-    props.scrap ? "var(--blue4)" : "white"};
+    props.scrap ? "2px solid  transparent" : "2px solid transparent"};
+  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "white")};
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.scrap ? "white" : "#3284ff")};
-`;
-
-const BackBtnImg = styled.img`
-  width: 99px;
-  margin: auto;
 `;
 
 const MsgImg = styled.img`
@@ -425,7 +385,7 @@ const MsgText = styled(Link)`
     font-weight: 700;
     color: var(--blue4);
   }
-  p{
+  p {
     color: var(--blue4);
   }
   z-index: 99;
@@ -445,20 +405,18 @@ const MsgText1 = styled(Link)`
     font-weight: 700;
     color: var(--blue4);
   }
-  p{
+  p {
     color: var(--blue4);
   }
   z-index: 99;
 `;
 const ZimmbtnWarp = styled.div`
   position: relative;
-  filter: blur(0px)!important;
-`
-const ScrapBtnWrap = styled.div`
-   position: relative;
+  filter: blur(0px) !important;
 `;
-
-
+const ScrapBtnWrap = styled.div`
+  position: relative;
+`;
 
 const ScrapBtn = styled.button`
   width: 157px;
@@ -469,11 +427,8 @@ const ScrapBtn = styled.button`
   box-sizing: border-box;
   font-weight: 500;
   border: ${(props) =>
-    props.scrap
-      ? "2px solid  transparent"
-      : "2px solid transparent"};
-  background-color: ${(props) =>
-    props.scrap ? "var(--blue4)" : "white"};
+    props.scrap ? "2px solid  transparent" : "2px solid transparent"};
+  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "white")};
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.scrap ? "white" : "#3284ff")};
@@ -487,7 +442,7 @@ const ScrapBtn1 = styled.button`
   border-radius: 6px;
   box-sizing: border-box;
   font-weight: 500;
-  border: 2px solid  transparent;
+  border: 2px solid transparent;
   background-color: white;
   text-align: center;
   cursor: pointer;
@@ -525,7 +480,7 @@ const AlwaysBtn = styled.button`
   margin-top: 17px;
 `;
 const AlwaysModal = styled.div`
-  img{
+  img {
     width: 119px;
     margin-bottom: 10px;
   }

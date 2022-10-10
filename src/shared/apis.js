@@ -25,8 +25,11 @@ const apis = {
   deletePost: (data, scheduleId) =>
     api.delete(`/api/schedule/${scheduleId}`, data),
   // 인증번호 재발송(비밀번호 변경)
-  sendPwAuthNumber: (data, scheduleId) =>
-    api.delete("/api/auth/lostPassword", data),
+  sendPwAuthNumber: (userName, email) =>
+    api.post("/api/auth/lostPassword", userName, email),
+  // 비밀번호 초기화
+  checkPwAuthNumber: (email, authNumber) =>
+    api.patch("/api/auth/verifyNumberForOld", email, authNumber),
 };
 
 export default apis;
