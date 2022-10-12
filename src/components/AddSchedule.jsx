@@ -427,7 +427,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="var(--blue1)"
                 onChange={colorChange}
               />
-              <Color2 htmlFor="2"></Color2>
+              <Color htmlFor="2" bgColor="var(--point3)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -435,7 +435,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="var(--point3)"
                 onChange={colorChange}
               />
-              <Color3 htmlFor="3"></Color3>
+              <Color htmlFor="3" bgColor="rgba(253, 187, 110, 1)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -443,7 +443,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(253, 187, 110, 1)"
                 onChange={colorChange}
               />
-              <Color4 htmlFor="4"></Color4>
+              <Color htmlFor="4" bgColor="rgba(253, 247, 110, 1)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -451,7 +451,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
-              <Color5 htmlFor="5"></Color5>
+              <Color htmlFor="5" bgColor="rgba(110, 253, 150, 1)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -459,7 +459,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(110,253,150,1)"
                 onChange={colorChange}
               />
-              <Color6 htmlFor="6"></Color6>
+              <Color htmlFor="6" bgColor="rgba(110, 218, 253, 1)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -467,7 +467,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(110,218,253,1)"
                 onChange={colorChange}
               />
-              <Color7 htmlFor="7"></Color7>
+              <Color htmlFor="7" bgColor="rgba(130, 110, 253, 1)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -475,7 +475,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(130,110,253,1)"
                 onChange={colorChange}
               />
-              <Color8 htmlFor="8"></Color8>
+              <Color htmlFor="8" bgColor="var(--gray2)"></Color>
               <Input
                 type="radio"
                 name="color"
@@ -936,6 +936,16 @@ const ColorList = styled.div`
 const Input = styled.input`
   display: none;
 `;
+const Color = styled.label`
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+  overflow: hidden;
+  background-color: ${(props) => props.bgColor};
+`;
 const Color1 = styled.label`
   width: 28px;
   height: 28px;
@@ -945,69 +955,7 @@ const Color1 = styled.label`
   cursor: pointer;
   overflow: hidden;
 `;
-const Color2 = styled.label`
-  background-color: var(--point3);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
-const Color3 = styled.label`
-  background-color: rgba(253, 187, 110, 1);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
-const Color4 = styled.label`
-  background-color: rgba(253, 247, 110, 1);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
-const Color5 = styled.label`
-  background-color: rgba(110, 253, 150, 1);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
-const Color6 = styled.label`
-  background-color: rgba(110, 218, 253, 1);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
-const Color7 = styled.label`
-  background-color: rgba(130, 110, 253, 1);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
-const Color8 = styled.label`
-  background-color: var(--gray2);
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-`;
+
 const StickerImg = styled.img`
   width: 50px;
   height: 50px;
