@@ -19,7 +19,10 @@ const MonthList = () => {
   const [monthList, setMonthList] = useState();
   const monthSchdule = useSelector((state) => state.schedule.month);
   useEffect(() => {
-    setMonthList(Object.entries(monthSchdule));
+    (async () => {
+      const data = await Object.entries(monthSchdule);
+      setMonthList(data);
+    })();
   }, [monthSchdule]);
 
   let [week, mm, day, yy, sTime] = new Date().toString().split(" ");
@@ -38,11 +41,9 @@ const MonthList = () => {
     if (mm === "Dec") return "12";
   };
   const today = `${yy}-${Month(mm)}-${day}`;
+  console.log("구룽", yy);
   const fullDate = (day) => {
-    return `20${day.substr(0, 2)}년 ${day.substr(2, 2)}월 ${day.substr(
-      4,
-      2
-    )}일 `;
+    return `${yy}년 ${day.substr(2, 2)}월 ${day.substr(4, 2)}일 `;
   };
   function getDate(whatDay) {
     const week = [
