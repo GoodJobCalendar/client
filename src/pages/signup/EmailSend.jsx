@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 //이미지
-import mailSendImg from "../assets/img/illust/mailsend.png";
-import apis from "../shared/apis";
+import mailSendImg from "../../assets/img/illust/mailsend.png";
+import apis from "../../shared/apis";
 
 const EmailSend = () => {
   const navigate = useNavigate();

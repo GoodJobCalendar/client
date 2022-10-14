@@ -9,14 +9,14 @@ import {
   addScrap,
   addLike,
   deleteLike,
-} from "../redux/modules/job";
+} from "../../redux/modules/job";
 
-import buttonText from "../assets/img/btn/buttonText.png";
-import back from "../assets/img/icon/Back.svg";
-import msg from "../assets/img/btn/msg.svg";
-import backbird from "../assets/img/illust/JobDetailBird.svg";
-import alwaysBird from "../assets/img/illust/notfound.svg";
-import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
+import buttonText from "../../assets/img/btn/buttonText.png";
+import back from "../../assets/img/icon/Back.svg";
+import msg from "../../assets/img/btn/msg.svg";
+import backbird from "../../assets/img/illust/JobDetailBird.svg";
+import alwaysBird from "../../assets/img/illust/notfound.svg";
+import Tooltipmark from "../../assets/img/icon/Tooltipmark.svg";
 
 const JobDetail = () => {
   const navigate = useNavigate();

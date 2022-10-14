@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { setCookie } from "../shared/cookie";
-import { emailCheck } from "../shared/signUpCheck";
+import { setCookie } from "../../shared/cookie";
+import { emailCheck } from "../../shared/signUpCheck";
 
 // 카카오
-import { KAKAO_AUTH_URL } from "../shared/api";
+import { KAKAO_AUTH_URL } from "../../shared/api";
 
 // 이미지
-import logo from "../assets/img/logo.png";
-import kakaologo from "../assets/img/icon/kakaobtn.svg";
+import logo from "../../assets/img/logo.png";
+import kakaologo from "../../assets/img/icon/kakaobtn.svg";
 import axios from "axios";
 
 const Login = () => {

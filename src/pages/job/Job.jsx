@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadJobList } from "../redux/modules/job";
+import { loadJobList } from "../../redux/modules/job";
 
-import Nav from "../components/Nav";
+import Nav from "../../components/Nav";
 
-import nextCursorBtn from "../assets/img/btn/nextCursor.png";
-import previousCursorBtn from "../assets/img/btn/previousCursor.png";
-import zzimbtn from "../assets/img/btn/ZzimBtn.svg";
-import Tooltipmark from "../assets/img/icon/Tooltipmark.svg";
+import nextCursorBtn from "../../assets/img/btn/nextCursor.png";
+import previousCursorBtn from "../../assets/img/btn/previousCursor.png";
+import zzimbtn from "../../assets/img/btn/ZzimBtn.svg";
+import Tooltipmark from "../../assets/img/icon/Tooltipmark.svg";
 
 const Job = () => {
   const navigate = useNavigate();

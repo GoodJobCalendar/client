@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import apis from "../shared/apis";
+import apis from "../../shared/apis";
 
 const PwChange = () => {
   const navigate = useNavigate();

@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { emailCheck } from "../shared/signUpCheck";
-import { pwEmailUser } from "../redux/modules/user";
+import { emailCheck } from "../../shared/signUpCheck";
+import { pwEmailUser } from "../../redux/modules/user";
 
-import apis from "../shared/apis";
+import apis from "../../shared/apis";
 
 const PwSend = () => {
   const navigate = useNavigate();

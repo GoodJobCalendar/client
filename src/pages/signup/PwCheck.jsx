@@ -5,10 +5,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // 이미지
-import mailSendImg from "../assets/img/illust/mailsend.png";
+import mailSendImg from "../../assets/img/illust/mailsend.png";
 
-import axios from "axios";
-import apis from "../shared/apis";
+import apis from "../../shared/apis";
 
 const PwCheck = () => {
   const navigate = useNavigate();

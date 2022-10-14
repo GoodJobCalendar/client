@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
-import { emailCheck, passwordCheck } from "../shared/signUpCheck";
-import { setUser } from "./../redux/modules/user";
+import { emailCheck, passwordCheck } from "../../shared/signUpCheck";
 
 // 이미지
-import logo from "../assets/img/logo.png";
-import logo_text from "../assets/img/logo_text.svg";
+import logo from "../../assets/img/logo.png";
+import logo_text from "../../assets/img/logo_text.svg";
 
 import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [userName, setUerName] = useState("");
   const [password, setPassword] = useState("");

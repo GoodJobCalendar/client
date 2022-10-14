@@ -51,13 +51,6 @@ const Nav = (props) => {
       )}
 
       <NavTitle>
-        {/* <Ham >
-          <LineList>
-            <Line></Line>
-            <Line></Line>
-            <Line></Line>
-          </LineList>
-        </Ham> */}
         <LogOutBtn
           onClick={() => {
             navigate("/mypage");
