@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { detailPost, __deletePost } from "../redux/modules/schedule";
+import { getCookie } from "../shared/cookie";
+import apis from "./../shared/apis";
+import UpdateSchedule from "../components/calendar/UpdateSchedule";
 
 //스티커 이미지
 import img1 from "../assets/img/sticker/sticker1.png";
@@ -26,12 +29,10 @@ import cover5 from "../assets/img/cover/cover5.png";
 //아이콘 이미지
 import arrow from "../assets/img/icon/Back.svg";
 import update from "../assets/img/icon/Edit.svg";
-import UpdateSchedule from "../components/UpdateSchedule";
 import logomini from "../assets/img/icon/Logo_mini.svg";
 import location from "../assets/img/icon/Location.svg";
 import time from "../assets/img/icon/Time.svg";
-import { getCookie } from "../shared/cookie";
-import apis from "./../shared/apis";
+
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,7 +42,6 @@ const PostDetail = () => {
   const detailInfo = useSelector((state) => state.schedule.detail);
 
   const startDate = `${detailInfo?.date.split(" ")[0].substr(0, 8)}01 00:00:00`;
-  console.log(startDate, "dfdf");
   //뒤로가기
   const moveBtn = () => {
     navigate("/main");
@@ -65,7 +65,6 @@ const PostDetail = () => {
     await apis
       .deletePost({ data, scheduleId })
       .then((res) => {
-        console.log(res, "아아ㅏㅇ아ㅏ아");
         dispatch(__deletePost(scheduleId));
         navigate("/main");
       })

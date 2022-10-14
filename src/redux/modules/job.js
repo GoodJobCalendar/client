@@ -60,7 +60,6 @@ const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
 
 // 추천채용 불러오기
 export const loadJobList = (nextCursor, previousCursor) => {
-  console.log(nextCursor, previousCursor);
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const bucket = {
@@ -70,7 +69,6 @@ export const loadJobList = (nextCursor, previousCursor) => {
     axios
       .get(`https://goodjobcalendar.shop/api/postings`, bucket)
       .then((res) => {
-        console.log("추천채용 불러고기 resdata", res.data);
         dispatch(__loadJobList(res.data));
       })
       .catch((err) => {
@@ -79,25 +77,6 @@ export const loadJobList = (nextCursor, previousCursor) => {
       });
   };
 };
-
-// export const loadJobList = (page) => {
-//   return function (dispatch, getState) {
-//     const myToken = getCookie("token");
-//     const bucket = {
-//       headers: { Authorization: `Bearer ${myToken}` },
-//       params: { page: page },
-//     };
-//     axios
-//       .get(`https://goodjobcalendar.shop/api/postings`, bucket)
-//       .then((res) => {
-//         // console.log("추천채용 불러고기 resdata", res.data.data);
-//         dispatch(__loadJobList(res.data.data));
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//       });
-//   };
-// };
 
 // 추천채용 카테고리별 불러오기
 export const loadCategoryList = () => {
@@ -108,7 +87,6 @@ export const loadCategoryList = () => {
         headers: { Authorization: `Bearer ${myToken}` },
       })
       .then((res) => {
-        // console.log("카테고리별 불러오기 resdata", res.data.data);
         dispatch(__loadCategoryList(res.data.data));
       })
       .catch((err) => {
@@ -131,7 +109,6 @@ export const selectCategory = (categoryData) => {
       headers: { Authorization: `Bearer ${myToken}` },
     })
       .then((res) => {
-        // console.log("카테고리 선택하기 resdata", res.data);
         dispatch(__selectCategory(res.data));
       })
       .catch((err) => {
@@ -257,7 +234,6 @@ export default handleActions(
   {
     [LOAD_JOB_LIST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
         draft.list = action.payload.list;
       }),
     [LOAD_CATEGORY_LIST]: (state, action) =>

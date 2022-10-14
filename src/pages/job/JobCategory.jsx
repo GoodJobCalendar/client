@@ -138,8 +138,7 @@ const JobCategory = () => {
         <SaveBtn
           onClick={() => {
             dispatch(selectCategory(categoryData));
-            window.alert("수정이 완료되었습니다!");
-            navigate("/job");
+            navigate("/main/job");
           }}
         >
           저장

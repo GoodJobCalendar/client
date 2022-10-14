@@ -55,35 +55,10 @@ export const searchMySchedule = (keyword) => {
   };
 };
 
-// export const searchMySchedule = (keyword) => {
-//   return function (dispatch, getState) {
-//     const myToken = getCookie("token");
-//     const bucket = {
-//       headers: {Authorization: `Bearer ${myToken}`},
-//       params: {keyword: keyword},
-//     };
-//     console.log(bucket);
-//     axios
-//       .get("http://175.112.86.142:8088/api/schedule/search", bucket)
-//       .then((res) => {
-//         dispatch(__searchMySchedule(res.data));
-//         console.log("리덕스 콘솔", res.data);
-//       })
-//       .catch((err) => {
-//         console.log("검색하기 에러입니다.: ", err);
-//       });
-//   };
-// };
-
 export default handleActions(
   {
     [SEARCH_MY_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        // console.log("state값", state);
-        // console.log("액션값", action);
-        // console.log("draft", draft);
-        // console.log("draftㅇㅇㅇ", action.payload.search.data);
-        // console.log("ㅇㅇㅇ", initialState);
         draft.search = action.payload.search.data;
       }),
   },

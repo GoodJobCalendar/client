@@ -155,7 +155,6 @@ export const scheduleUpdate = ({
 };
 //일정 삭제
 export const deletePost = (scheduleId, startDate) => {
-  console.log(scheduleId, startDate);
   return function (dispatch, getState) {
     const myToken = getCookie("token");
     const data = {
@@ -165,7 +164,6 @@ export const deletePost = (scheduleId, startDate) => {
     axios
       .delete(`https://goodjobcalendar.shop/api/schedule/${scheduleId}`, data)
       .then((res) => {
-        console.log(res, "아아ㅏㅇ아ㅏ아");
         dispatch(__deletePost(scheduleId));
       })
       .catch((error) => {

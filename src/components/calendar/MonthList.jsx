@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // 이미지
-import img1 from "../assets/img/sticker/sticker1.png";
-import img2 from "../assets/img/sticker/sticker2.png";
-import img3 from "../assets/img/sticker/sticker3.png";
-import img4 from "../assets/img/sticker/sticker4.png";
-import img5 from "../assets/img/sticker/sticker5.png";
-import img6 from "../assets/img/sticker/sticker6.png";
-import img7 from "../assets/img/sticker/sticker7.png";
-import img8 from "../assets/img/sticker/sticker8.png";
-import img9 from "../assets/img/sticker/sticker9.png";
+import img1 from "../../assets/img/sticker/sticker1.png";
+import img2 from "../../assets/img/sticker/sticker2.png";
+import img3 from "../../assets/img/sticker/sticker3.png";
+import img4 from "../../assets/img/sticker/sticker4.png";
+import img5 from "../../assets/img/sticker/sticker5.png";
+import img6 from "../../assets/img/sticker/sticker6.png";
+import img7 from "../../assets/img/sticker/sticker7.png";
+import img8 from "../../assets/img/sticker/sticker8.png";
+import img9 from "../../assets/img/sticker/sticker9.png";
 
 const MonthList = () => {
   const [monthList, setMonthList] = useState();
@@ -41,7 +41,6 @@ const MonthList = () => {
     if (mm === "Dec") return "12";
   };
   const today = `${yy}-${Month(mm)}-${day}`;
-  console.log("구룽", yy);
   const fullDate = (day) => {
     return `${yy}년 ${day.substr(2, 2)}월 ${day.substr(4, 2)}일 `;
   };

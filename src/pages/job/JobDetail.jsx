@@ -27,9 +27,7 @@ const JobDetail = () => {
   const id = params.id;
 
   const jobDetail = useSelector((state) => state.job.details.data);
-  console.log(jobDetail);
   const [deadDate, setDeadDate] = useState(`${jobDetail?.deadline}`);
-  console.log(deadDate);
 
   useEffect(() => {
     dispatch(loadJobDetails(id));

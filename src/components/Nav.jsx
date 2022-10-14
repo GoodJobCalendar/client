@@ -13,10 +13,10 @@ import MypageBtn from "../assets/img/icon/MypageBtn.svg";
 import heart from "../assets/img/icon/Heart.svg";
 import needLogin from "../assets/img/illust/needlogin.png";
 
-const Nav = (props) => {
+const Nav = () => {
   const token = getCookie("token");
   const navigate = useNavigate();
-  const [nav, setNav] = useState(props.navData);
+  const [nav, setNav] = useState(true);
   const [loginOn, setLoginOn] = useState(false);
 
   useEffect(() => {
@@ -71,13 +71,23 @@ const Nav = (props) => {
       </NavTitle>
       <NavList>
         <NavItem nav={nav}>
-          <NavLink to="/main">
+          <NavLink
+            to="calendar"
+            onClick={() => {
+              setNav(true);
+            }}
+          >
             <img src={nav ? calendar_c : calendar_w} alt="캘린더" />
             <span>캘린더</span>
           </NavLink>
         </NavItem>
         <NavItem nav={nav}>
-          <NavLink to="/job">
+          <NavLink
+            to="job"
+            onClick={() => {
+              setNav(false);
+            }}
+          >
             <img src={nav ? element_w : element_c} alt="추천채용" />
             <span>추천채용</span>
           </NavLink>

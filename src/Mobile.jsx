@@ -14,11 +14,12 @@ import Main from "./pages/Main";
 import Job from "./pages/job/Job";
 import JobDetail from "./pages/job/JobDetail";
 import JobCategory from "./pages/job/JobCategory";
-import AddSchedule from "./components/AddSchedule";
+import AddSchedule from "./components/calendar/AddSchedule";
 import PostDetail from "./pages/PostDetail";
 import Mypage from "./pages/Mypage";
-import NotFound from "./components/NotFound";
+import NotFound from "./pages/NotFound";
 import ZZim from "./pages/ZZim";
+import Calendar from "./components/calendar/Calendar";
 
 function Mobile() {
   return (
@@ -34,15 +35,17 @@ function Mobile() {
         <Route path="/signupsuccess" element={<SignupSucess />} />
         <Route path="/pwchangesuccess" element={<PwChangeSuccess />} />
         <Route path="/pwchange" element={<PwChange />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/job" element={<Job />} />
+        <Route path="/main" element={<Main />}>
+          <Route path={`job`} element={<Job />} />
+          <Route path={`calendar`} element={<Calendar />} />
+        </Route>
         <Route path="/jobDetail/:id" element={<JobDetail />} />
         <Route path="/jobCategory" element={<JobCategory />} />
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/postdetail/:scheduleId" element={<PostDetail />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/*" element={<NotFound />} />
         <Route path="/zzim" element={<ZZim />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </MobileWrap>
   );

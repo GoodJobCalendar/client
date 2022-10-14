@@ -24,7 +24,6 @@ const ZZim = () => {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost);
-  console.log(totalPage);
 
   const paginate = currentPage;
   const myToken = getCookie("token");
@@ -42,7 +41,6 @@ const ZZim = () => {
           head
         )
         .then((res) => {
-          console.log(res.data.data);
           setList(res.data.data);
           setTotalPage(Math.ceil(list?.length / postPerPage));
         });
@@ -60,7 +58,6 @@ const ZZim = () => {
         head
       )
       .then((res) => {
-        console.log(res.data.data);
         setList(res.data.data);
         setTotalPage(Math.ceil(list?.length / postPerPage));
         setToggle(false);
@@ -77,7 +74,6 @@ const ZZim = () => {
         head
       )
       .then((res) => {
-        console.log(res.data.data);
         setList(res.data.data);
         setTotalPage(Math.ceil(list?.length / postPerPage));
       });

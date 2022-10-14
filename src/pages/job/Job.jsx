@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,34 +16,15 @@ const Job = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jobDataList = useSelector((state) => state.job.list.data);
-  // const jobDataList = useSelector((state) => state.job.list?.postings);
   const nextCursor = useSelector((state) => state.job.list.nextCursor);
   const previousCursor = useSelector((state) => state.job.list.previousCursor);
 
-  // console.log(nextCursor);
-  // console.log(page);
-
-  const [pages, setpages] = useState();
-  console.log("페이지는 = ", pages);
-  // const [is_loading, setIs_loading] = useState(false);
-  // const [hasMore, sethasMore] = useState(true);
-
   const getDataNext = () => {
-    // let count = pages + 1;
-    // if (jobDataList?.length < 10) {
-    //   return window.alert("마지막 페이지 입니다");
-    // }
     dispatch(loadJobList(nextCursor, 0));
-    // setpages(nextCursor);
   };
 
   const getDataBefore = () => {
-    // let count = pages - 1;
-    // if (pages === 0) {
-    //   return window.alert("첫페이지 입니다");
-    // }
     dispatch(loadJobList(0, previousCursor));
-    // setpages(pages);
   };
 
   const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
@@ -51,12 +32,13 @@ const Job = () => {
   const navData = false;
 
   useEffect(() => {
-    dispatch(loadJobList(previousCursor));
+    (async () => {
+      await dispatch(loadJobList(previousCursor));
+    })();
   }, []);
 
   return (
     <MainWrap>
-      <Nav navData={navData} />
       <JobWrapper id="para">
         <Outer>
           <TeamNameList>
@@ -72,29 +54,6 @@ const Job = () => {
             </Tooltipcontent>
           </Tooltip>
         </Outer>
-        {/* <div
-          id="scrollableDiv"
-          style={{
-            height: "auto",
-            overflow: "scroll",
-            display: "flex",
-            flexDirection: "column-reverse",
-          }}
-        >
-          <InfiniteScroll
-            dataLength={10}
-            // scrollThreshold="0.9"
-            next={getData}
-            hasMore={hasMore}
-            scrollableTarget="scrollableDiv"
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            <CardWrapper> */}
         {jobDataList?.map((tasksData, idx) => {
           return (
             <JobCard
@@ -135,6 +94,8 @@ const Job = () => {
     </MainWrap>
   );
 };
+
+export default Job;
 
 const MainWrap = styled.div`
   position: relative;
@@ -179,10 +140,10 @@ const JobWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(100% - 34px);
   padding: 0 17px;
   height: calc(100vh - 122px);
   background: #ecf1f8;
+  overflow-x: hidden;
   overflow-y: scroll;
 `;
 
@@ -267,26 +228,3 @@ const JobTags = styled.div`
   margin-right: 8px;
   color: #9a9a9a;
 `;
-
-export default Job;
-
-{
-  /* <div>
-{jobDataList?.map((tasksData, idx) => {
-  return (
-    <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
-      <CompanyName>{tasksData.companyName}</CompanyName>
-      <JobTitle>{tasksData.title}</JobTitle>
-      <DetailInfo>
-        <JobTagsWrap>
-          <JobTags>{tasksData.career}</JobTags>
-          <JobTags>{tasksData.companyType}</JobTags>
-        </JobTagsWrap>
-
-        <EndTime>{tasksData.deadline.split(" ")[0] === "2122-01-01" ? "상시채용" : "~" + tasksData.deadline.split(" ")[0]}</EndTime>
-      </DetailInfo>
-    </JobCard>
-  );
-})}
-</div> */
-}

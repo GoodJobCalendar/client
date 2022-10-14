@@ -18,18 +18,24 @@ const Dates = (props) => {
   } = props;
   const dispatch = useDispatch();
   const [monthList, setMonthList] = useState();
+  const [datekey, setDatekey] = useState("");
   const monthSchdule = useSelector((state) => state.schedule.month);
   const zoom = useSelector((state) => state.date.zoom.zoomInOut);
-  let dateKey = `${year}-${String(month).padStart(2, "0")}-${String(
-    elm
-  ).padStart(2, "0")} 00:00:00`;
-
   useEffect(() => {
-    dispatch(activeDate(isActive));
+    (async () => {
+      const data = await Object.entries(monthSchdule);
+      setMonthList(data);
+      const date = `${year}-${String(month).padStart(2, "0")}-${String(
+        elm
+      ).padStart(2, "0")} 00:00:00`;
+      setDatekey(date);
+    })();
+  }, [monthSchdule]);
+  useEffect(() => {
+    (async () => {
+      await dispatch(activeDate(isActive));
+    })();
   }, [isActive]);
-  useEffect(() => {
-    setMonthList(Object.entries(monthSchdule));
-  }, [monthSchdule, dateKey]);
 
   const list =
     monthList &&
@@ -38,7 +44,7 @@ const Dates = (props) => {
         {value[1]?.map((content, index) => {
           if (
             index < 2 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+            content?.date.split(" ")[0] === datekey.split(" ")[0]
           ) {
             return (
               <TextList key={index} color={content.color}>
@@ -53,12 +59,12 @@ const Dates = (props) => {
     if (
       index >= 2 &&
       index < 5 &&
-      content?.date.split(" ")[0] === dateKey.split(" ")[0]
+      content?.date.split(" ")[0] === datekey.split(" ")[0]
     ) {
       return <List key={index} color={content.color}></List>;
     } else if (
       index === 5 &&
-      content?.date.split(" ")[0] === dateKey.split(" ")[0]
+      content?.date.split(" ")[0] === datekey.split(" ")[0]
     ) {
       return (
         <PlusNumber key={index} color={content.color}>
@@ -84,12 +90,12 @@ const Dates = (props) => {
         {value[1]?.map((content, index) => {
           if (
             index <= 2 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+            content?.date.split(" ")[0] === datekey.split(" ")[0]
           ) {
             return <List key={index} color={content.color}></List>;
           } else if (
             index === 3 &&
-            content?.date.split(" ")[0] === dateKey.split(" ")[0]
+            content?.date.split(" ")[0] === datekey.split(" ")[0]
           ) {
             return (
               <PlusNumber key={index} color={content.color}>
@@ -107,7 +113,7 @@ const Dates = (props) => {
         elm={elm}
         zoom={zoom}
         onClick={() => {
-          dispatch(loadDaily(dateKey));
+          dispatch(loadDaily(datekey));
           dispatch(selectDate(year, month, elm));
         }}
       >

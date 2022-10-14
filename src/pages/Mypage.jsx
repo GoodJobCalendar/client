@@ -24,7 +24,6 @@ const Mypage = () => {
       axios
         .get("https://goodjobcalendar.shop/api/auth/userInfo", head)
         .then((res) => {
-          console.log(res.data.data);
           setUserInfo(res.data.data);
           setSocial(res.data.data.type);
           setDate(res.data.data.updatedAt.split("T")[0]);
@@ -39,24 +38,19 @@ const Mypage = () => {
 
   // 비밀번호 변경일
   const strDate1 = date;
-  console.log(strDate1);
   const strDate2 = new Date();
   let year = strDate2.getFullYear(); // 년도
   let month = strDate2.getMonth() + 1; // 월
   let day = strDate2.getDate(); // 날짜
   const today = year + "-" + month + "-" + day;
-  console.log(today);
   const arr1 = strDate1.split("-");
-  console.log(arr1);
   const arr2 = today.split("-");
   const dat1 = new Date(arr1[0], arr1[1], arr1[2]);
-  console.log(arr2);
   const dat2 = new Date(arr2[0], arr2[1], arr2[2]);
 
   const diff = dat2 - dat1;
   const currDay = 24 * 60 * 60 * 1000; // 시 * 분 * 초 * 밀리세컨
   const currMonth = currDay * 30; // 월 만듬
-  console.log(parseInt(diff / currMonth));
 
   return (
     <>

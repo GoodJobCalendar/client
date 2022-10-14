@@ -1,29 +1,33 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { schedulePost } from "../redux/modules/schedule";
+import { scheduleUpdate } from "../../redux/modules/schedule";
 
 // 스티커
-import img1 from "../assets/img/sticker/sticker1.png";
-import img2 from "../assets/img/sticker/sticker2.png";
-import img3 from "../assets/img/sticker/sticker3.png";
-import img4 from "../assets/img/sticker/sticker4.png";
-import img5 from "../assets/img/sticker/sticker5.png";
-import img6 from "../assets/img/sticker/sticker6.png";
-import img7 from "../assets/img/sticker/sticker7.png";
-import img8 from "../assets/img/sticker/sticker8.png";
+import img1 from "../../assets/img/sticker/sticker1.png";
+import img2 from "../../assets/img/sticker/sticker2.png";
+import img3 from "../../assets/img/sticker/sticker3.png";
+import img4 from "../../assets/img/sticker/sticker4.png";
+import img5 from "../../assets/img/sticker/sticker5.png";
+import img6 from "../../assets/img/sticker/sticker6.png";
+import img7 from "../../assets/img/sticker/sticker7.png";
+import img8 from "../../assets/img/sticker/sticker8.png";
+import img9 from "../../assets/img/sticker/sticker9.png";
 
 // 커버 이미지
-import cover1 from "../assets/img/cover/cover1.png";
+import cover1 from "../../assets/img/cover/cover1.png";
+import cover2 from "../../assets/img/cover/cover2.png";
+import cover3 from "../../assets/img/cover/cover3.png";
+import cover4 from "../../assets/img/cover/cover4.png";
+import cover5 from "../../assets/img/cover/cover5.png";
 
 // 아이콘
-import time from "../assets/img/icon/Time.svg";
-import location from "../assets/img/icon/Location.svg";
-import memoimg from "../assets/img/icon/memo.svg";
-import emptyImg from "../assets/img/illust/needlogin.png";
-import arrow from "../assets/img/icon/Back.svg";
+import time from "../../assets/img/icon/Time.svg";
+import location from "../../assets/img/icon/Location.svg";
+import memoimg from "../../assets/img/icon/memo.svg";
+import emptyImg from "../../assets/img/illust/needlogin.png";
+import arrow from "../../assets/img/icon/Back.svg";
 
 //Date Picker
 import DatePicker from "react-datepicker";
@@ -31,9 +35,16 @@ import "date-fns";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddSchedule = ({ value, onChange, ...others }) => {
+const UpdateSchedule = ({
+  scheduleId,
+  updateScheduleShow,
+  setUpdateScheduleShow,
+  detailInfo,
+  value,
+  onChange,
+  ...others
+}) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [empty, setEmpty] = useState(true);
 
   //리스트 토글
@@ -43,23 +54,71 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [dateShow, setDateShow] = useState(true);
   const [timeShow, setTimeShow] = useState(false);
 
-  //작성목록
-  const [color, setColor] = useState("1");
-  const [sticker, setSticker] = useState("1");
-  const [image, setImage] = useState("1");
-  const [companyName, setCompanyName] = useState("");
-  const [title, setTitle] = useState("");
-  const [place, setPlace] = useState("");
-  const [memo, setMemo] = useState("");
-  const [cover, setCover] = useState(cover1);
-  //컬러 미리보기
-  const [colorPick, setColorPick] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+  function coverimage(detailInfo) {
+    if (detailInfo === 1) {
+      return cover1;
+    } else if (detailInfo === 2) {
+      return cover2;
+    } else if (detailInfo === 3) {
+      return cover3;
+    } else if (detailInfo === 4) {
+      return cover4;
+    } else if (detailInfo === 5) {
+      return cover5;
+    }
+  }
 
+  function colorPickOn(detailInfo) {
+    if (detailInfo === 1) {
+      return "var(--blue1)";
+    } else if (detailInfo === 2) {
+      return "var(--point3)";
+    } else if (detailInfo === 3) {
+      return "rgba(253,187,110,1)";
+    } else if (detailInfo === 4) {
+      return "rgba(253,247,110,1)";
+    } else if (detailInfo === 5) {
+      return "rgba(110,253,150,1)";
+    } else if (detailInfo === 6) {
+      return "rgba(110,218,253,1)";
+    } else if (detailInfo === 7) {
+      return "rgba(130,110,253,1)";
+    } else if (detailInfo === 8) {
+      return "var(--gray2)";
+    } else if (detailInfo === 9) {
+      return "var(--blue4)";
+    }
+  }
+  //작성목록
+  const [color, setColor] = useState(detailInfo?.color);
+  const [sticker, setSticker] = useState(String(detailInfo?.sticker));
+  const [image, setImage] = useState(detailInfo?.coverImage);
+  const [companyName, setCompanyName] = useState(detailInfo?.companyName);
+  const [title, setTitle] = useState(detailInfo?.title);
+  const [place, setPlace] = useState(detailInfo?.place);
+  const [memo, setMemo] = useState(detailInfo?.memo);
+
+  const [cover, setCover] = useState(coverimage(detailInfo?.coverImage));
+
+  //컬러 미리보기
+  const [colorPick, setColorPick] = useState(colorPickOn(detailInfo?.color));
+
+  let now = detailInfo?.date;
+  now = now.replace(/-/g, "/");
+  const [startDate, setStartDate] = useState(new Date(now));
+  const hh = detailInfo?.date.split(" ")[1].substr(3, 2);
+  const ttt = detailInfo?.date.split(" ")[1].substr(0, 2);
+  const tt = () => {
+    if (tt > 12) {
+      return "오후";
+    } else {
+      return "오전";
+    }
+  };
   //Time Picker
-  const [selectTime, setSelectTime] = useState("오전");
-  const [selectHour, setSelectHour] = useState("01");
-  const [selectMinute, setSelectMinute] = useState("00");
+  const [selectTime, setSelectTime] = useState(tt(ttt));
+  const [selectHour, setSelectHour] = useState(ttt);
+  const [selectMinute, setSelectMinute] = useState(hh);
 
   //Date Picker
   let [week, month, day, year, sTime] = startDate.toString().split(" ");
@@ -114,7 +173,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   // 뒤로가기
   const moveBtn = () => {
-    navigate("/main");
+    setUpdateScheduleShow(!updateScheduleShow);
   };
   // 컬러 리스트 보이기
   const colorShowBtn = () => {
@@ -123,13 +182,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   // 스티커 리스트 보이기
   const stickerShowBtn = () => {
     setStickerShow(!stickerShow);
-    setCoverShow(false);
+    // setCoverShow(false);
   };
 
   // 커버 이미지 보이기
   const coverShowBtn = () => {
     setCoverShow(!coverShow);
-    setStickerShow(false);
+    // setStickerShow(false);
   };
 
   // 컬러 미리보기 / 컬러 pcik
@@ -144,7 +203,6 @@ const AddSchedule = ({ value, onChange, ...others }) => {
     setSticker(e.target.id);
     // setStickerShow(!stickerShow);
   };
-
   // 커버 이미지 미리보기 / 커버 이미지 pick
   function stickerChangeView(sticker) {
     if (sticker === "1") {
@@ -175,23 +233,16 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   // 커버 이미지 미리보기 / 커버 이미지 pick
   const coverChange = (e) => {
     setCover(e.target.value);
-    setImage(e.target.id);
+    setImage(Number(e.target.id));
     // setCoverShow(!coverShow);
   };
-
   // 일정등록
   const addScheduleBtn = async () => {
-    if (
-      (companyName === "",
-      title === "",
-      allDate === "",
-      place === "",
-      memo === "")
-    ) {
+    if ((companyName === "", title === "", allDate === "", place === "")) {
       setEmpty(!empty);
     } else {
-      dispatch(
-        schedulePost({
+      await dispatch(
+        scheduleUpdate({
           image: Number(image),
           companyName, //필수입력
           title, //필수입력
@@ -200,9 +251,10 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           place, //필수입력
           memo,
           color: Number(color),
+          scheduleId,
         })
       );
-      navigate("/main");
+      setUpdateScheduleShow(!updateScheduleShow);
     }
   };
   const formatDate = (d) => {
@@ -217,12 +269,10 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   };
   const timeShowBtn = () => {
     setDateShow(false);
-
     setTimeShow(!timeShow);
   };
-
   return (
-    <AddSchesuleWrap>
+    <UpdateSchesuleWrap>
       {empty ? (
         ""
       ) : (
@@ -241,7 +291,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           </NeedPostModal>
         </NeedPost>
       )}
-      <Header style={{ backgroundImage: `url(${cover})` }}>
+      <Header>
         <AddFlex>
           <Btn onClick={moveBtn}>
             <img src={arrow} alt="뒤로가기" />
@@ -389,6 +439,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             )}
           </TitleInput>
         </BtnFlex>
+        <Cover src={cover} />
       </Header>
       <AddList>
         <TitleInput>
@@ -398,10 +449,10 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             onChange={(event) => {
               setCompanyName(event.target.value);
             }}
+            value={companyName}
           />
           <StickerView src={stickerChangeView(sticker)} alt="스티커미리보기" />
         </TitleInput>
-
         <TitleInput>
           <InputText
             type="text"
@@ -409,6 +460,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             onChange={(event) => {
               setTitle(event.target.value);
             }}
+            value={title}
           />
           <ColorPicker
             onClick={colorShowBtn}
@@ -418,16 +470,16 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           {colorPickerShow ? (
             <ColorList>
               <Color1 htmlFor="1">
+                <Input
+                  type="radio"
+                  name="color"
+                  id="1"
+                  value="var(--blue1)"
+                  onChange={colorChange}
+                />
                 <ColorCoverLine colorPick={colorPick}></ColorCoverLine>
               </Color1>
-              <Input
-                type="radio"
-                name="color"
-                id="1"
-                value="var(--blue1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="2" bgColor="var(--point3)"></Color>
+              <Color2 htmlFor="2"></Color2>
               <Input
                 type="radio"
                 name="color"
@@ -435,7 +487,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="var(--point3)"
                 onChange={colorChange}
               />
-              <Color htmlFor="3" bgColor="rgba(253, 187, 110, 1)"></Color>
+              <Color3 htmlFor="3"></Color3>
               <Input
                 type="radio"
                 name="color"
@@ -443,7 +495,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(253, 187, 110, 1)"
                 onChange={colorChange}
               />
-              <Color htmlFor="4" bgColor="rgba(253, 247, 110, 1)"></Color>
+              <Color4 htmlFor="4"></Color4>
               <Input
                 type="radio"
                 name="color"
@@ -451,7 +503,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(253, 247, 110, 1)"
                 onChange={colorChange}
               />
-              <Color htmlFor="5" bgColor="rgba(110, 253, 150, 1)"></Color>
+              <Color5 htmlFor="5"></Color5>
               <Input
                 type="radio"
                 name="color"
@@ -459,7 +511,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(110,253,150,1)"
                 onChange={colorChange}
               />
-              <Color htmlFor="6" bgColor="rgba(110, 218, 253, 1)"></Color>
+              <Color6 htmlFor="6"></Color6>
               <Input
                 type="radio"
                 name="color"
@@ -467,7 +519,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(110,218,253,1)"
                 onChange={colorChange}
               />
-              <Color htmlFor="7" bgColor="rgba(130, 110, 253, 1)"></Color>
+              <Color7 htmlFor="7"></Color7>
               <Input
                 type="radio"
                 name="color"
@@ -475,7 +527,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 value="rgba(130,110,253,1)"
                 onChange={colorChange}
               />
-              <Color htmlFor="8" bgColor="var(--gray2)"></Color>
+              <Color8 htmlFor="8"></Color8>
               <Input
                 type="radio"
                 name="color"
@@ -538,7 +590,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             </DateWrap>
           )}
           {timeShow && (
-            <Modal className="modal">
+            <Modal2 className="modal">
               <div className="section">
                 <div className="select-time">
                   <div className="division">
@@ -594,7 +646,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                   </div>
                 </div>
               </div>
-            </Modal>
+            </Modal2>
           )}
           <PlaceText>
             <input
@@ -603,6 +655,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               onChange={(event) => {
                 setPlace(event.target.value);
               }}
+              value={place}
             />
             <img src={location} alt="장소" />
           </PlaceText>
@@ -613,15 +666,16 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               onChange={(event) => {
                 setMemo(event.target.value);
               }}
+              value={memo}
             />
           </TextArea>
         </Pick>
       </AddList>
-    </AddSchesuleWrap>
+    </UpdateSchesuleWrap>
   );
 };
 
-export default AddSchedule;
+export default UpdateSchedule;
 const NeedPost = styled.div`
   position: absolute;
   top: 50%;
@@ -630,7 +684,7 @@ const NeedPost = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(17, 17, 17, 0.3);
-  z-index: 99999;
+  z-index: 999;
 `;
 const NeedPostBtn = styled.button`
   background-color: var(--blue4);
@@ -671,12 +725,16 @@ const NeedPostModal = styled.div`
   width: 45%;
   text-align: center;
 `;
-
-const AddSchesuleWrap = styled.div`
+const UpdateSchesuleWrap = styled.div`
   background-color: var(--blue1);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
   input {
     outline: none;
     padding: 18px;
@@ -685,7 +743,6 @@ const AddSchesuleWrap = styled.div`
     border: 0;
     outline: none;
     font-weight: 500;
-
     :focus {
       outline: none;
     }
@@ -701,9 +758,8 @@ const Btn = styled.button`
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
-  padding: 6px 10px;
   border-radius: 8px;
-  z-index: 99;
+  z-index: 999;
 `;
 const StickerAddBtn = styled.button`
   font-weight: 700;
@@ -761,20 +817,19 @@ const Header = styled.div`
   width: 90%;
   padding: 20px;
   height: 184px;
-  background-size: cover;
-  background-position: bottom;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-repeat: no-repeat;
+  position: relative;
 `;
 const AddFlex = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 99;
+  z-index: 999;
 `;
 const BtnFlex = styled.div`
   width: 100%;
@@ -789,6 +844,7 @@ const InputText = styled.input`
   padding: 10px;
 `;
 const PlaceText = styled.div`
+  margin-top: 16px;
   position: relative;
   img {
     position: absolute;
@@ -817,7 +873,18 @@ const PlaceText = styled.div`
     width: calc(90% - 24px);
     padding-left: 44px !important;
   }
-  background: url(../assets/img/icon/Location.svg) center center no-repeat !important;
+  background: url(../../assets/img/icon/Location.png) center center no-repeat !important;
+`;
+
+const Background = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100vh;
+  z-index: 99;
 `;
 const TextArea = styled.div`
   position: relative;
@@ -878,16 +945,7 @@ const ColorPicker = styled.button`
     border: ${(props) => (props.colorPick ? "" : "1px solid var(--blue4)")};
   }
 `;
-const Background = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100vh;
-  z-index: 99;
-`;
+
 const StickerList = styled.div`
   position: absolute;
   top: 218px;
@@ -919,7 +977,14 @@ const CoverList = styled.div`
   width: 275px;
   z-index: 99;
 `;
-
+const Cover = styled.img`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+`;
 const ColorList = styled.div`
   display: flex;
   justify-content: space-between;
@@ -936,32 +1001,94 @@ const ColorList = styled.div`
 const Input = styled.input`
   display: none;
 `;
-const Color = styled.label`
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  display: block;
-  border: 2px solid var(--gray2);
-  cursor: pointer;
-  overflow: hidden;
-  background-color: ${(props) => props.bgColor};
-`;
 const Color1 = styled.label`
-  width: 28px;
-  height: 28px;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   display: block;
   border: 2px solid var(--gray2);
   cursor: pointer;
   overflow: hidden;
 `;
-
+const Color2 = styled.label`
+  background-color: var(--point3);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
+const Color3 = styled.label`
+  background-color: rgba(253, 187, 110, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
+const Color4 = styled.label`
+  background-color: rgba(253, 247, 110, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
+const Color5 = styled.label`
+  background-color: rgba(110, 253, 150, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
+const Color6 = styled.label`
+  background-color: rgba(110, 218, 253, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
+const Color7 = styled.label`
+  background-color: rgba(130, 110, 253, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
+const Color8 = styled.label`
+  background-color: var(--gray2);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: block;
+  border: 2px solid var(--gray2);
+  cursor: pointer;
+`;
 const StickerImg = styled.img`
   width: 50px;
   height: 50px;
   cursor: pointer;
 `;
-
+const CoverImg = styled.div`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  img {
+    height: 100%;
+  }
+`;
 const StickerPick1 = styled.label`
   width: 50px;
   height: 50px;
@@ -986,12 +1113,9 @@ const CoverPick1 = styled.label`
   cursor: pointer;
   :nth-child(1) {
     border: ${(props) =>
-      props.image === "1"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "1" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.image === "1" ? "700px" : "500px")};
+      props.image === 1 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 1 ? "var(--blue4)" : "var(--gray2)")};
+    font-weight: ${(props) => (props.image === 1 ? "700px" : "500px")};
   }
 `;
 const StickerCoverLine = styled.div`
@@ -1014,7 +1138,7 @@ const ColorCoverLine = styled.div`
 `;
 const CoverLine = styled.div`
   border-bottom: ${(props) =>
-    props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    props.image === 1 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
@@ -1103,29 +1227,20 @@ const CoverPick = styled.label`
   cursor: pointer;
   :nth-child(2) {
     border: ${(props) =>
-      props.image === "2"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "2" ? "var(--blue4)" : "var(--gray2)"};
+      props.image === 2 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 2 ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "2" ? "700px" : "500px")};
   }
   :nth-child(3) {
     border: ${(props) =>
-      props.image === "3"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "3" ? "var(--blue4)" : "var(--gray2)"};
+      props.image === 3 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 3 ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "3" ? "700px" : "500px")};
   }
   :nth-child(4) {
     border: ${(props) =>
-      props.image === "4"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "4" ? "var(--blue4)" : "var(--gray2)"};
+      props.image === 4 ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+    color: ${(props) => (props.image === 4 ? "var(--blue4)" : "var(--gray2)")};
     font-weight: ${(props) => (props.image === "4" ? "700px" : "500px")};
   }
 `;
@@ -1164,7 +1279,6 @@ const DateWrap = styled.div`
       inset 0px 8px 14px rgba(255, 255, 255, 0.3);
     border-radius: 6.83801px;
     border: 0;
-    margin-bottom: 16px;
   }
   .react-datepicker__month-container {
     width: 100%;
@@ -1242,10 +1356,12 @@ const DateHead = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const DateBtns = styled.div`
   display: flex;
   gap: 18px;
 `;
+
 const DateBtn = styled.button`
   color: var(--gray2);
   width: 16px;
@@ -1258,10 +1374,12 @@ const DateBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
+
 const DateMonth = styled.p`
   font-weight: 700;
   font-size: 14px;
 `;
+
 const SelectTimeBtn = styled.button`
   background-color: transparent;
   padding: 10px;
@@ -1269,29 +1387,23 @@ const SelectTimeBtn = styled.button`
   font-size: 20px;
   color: ${(props) => props.color && props.color};
 `;
-const Modal = styled.div`
+const Modal2 = styled.div`
   background-color: var(--blue1);
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
     inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 6.83801px;
   border: none;
-
   height: 150px;
   overflow: hidden;
   padding: 18px;
   text-align: center;
-  margin-bottom: 16px;
 
   .select-time {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: auto;
-
     div {
-      :nth-child(1) {
-        justify-content: center;
-      }
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1303,6 +1415,9 @@ const Modal = styled.div`
       flex: 1;
       text-align: center;
       overflow-y: scroll;
+      :nth-child(1) {
+        justify-content: center;
+      }
     }
   }
 `;
