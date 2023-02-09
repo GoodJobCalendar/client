@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { loadJobList } from "../../redux/modules/job";
-
-import Nav from "../../components/Nav";
-
-import nextCursorBtn from "../../assets/img/btn/nextCursor.png";
-import previousCursorBtn from "../../assets/img/btn/previousCursor.png";
-import zzimbtn from "../../assets/img/btn/ZzimBtn.svg";
-import Tooltipmark from "../../assets/img/icon/Tooltipmark.svg";
+import nextCursorBtn from '../../assets/btn/nextCursor.png';
+import previousCursorBtn from '../../assets/btn/previousCursor.png';
+import zzimbtn from '../../assets/btn/ZzimBtn.svg';
+import Tooltipmark from '../../assets/icon/Tooltipmark.svg';
+import { loadJobList } from './../../modules/job';
 
 const Job = () => {
   const navigate = useNavigate();
@@ -29,8 +26,6 @@ const Job = () => {
 
   const jobDataUpdate = useSelector((state) => state.job.list?.updatedAt);
 
-  const navData = false;
-
   useEffect(() => {
     (async () => {
       await dispatch(loadJobList(previousCursor));
@@ -39,27 +34,20 @@ const Job = () => {
 
   return (
     <MainWrap>
-      <JobWrapper id="para">
+      <JobWrapper id='para'>
         <Outer>
           <TeamNameList>
             <UpdateTime>{jobDataUpdate}</UpdateTime>
-            <FilterBtn onClick={() => navigate("/jobCategory")}>
-              추천 조건
-            </FilterBtn>
+            <FilterBtn onClick={() => navigate('/jobCategory')}>추천 조건</FilterBtn>
           </TeamNameList>
           <Tooltip>
             <Tooltip2 src={Tooltipmark} />
-            <Tooltipcontent>
-              하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!
-            </Tooltipcontent>
+            <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent>
           </Tooltip>
         </Outer>
         {jobDataList?.map((tasksData, idx) => {
           return (
-            <JobCard
-              key={idx}
-              onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}
-            >
+            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.postingId}`)}>
               <CompanyName>{tasksData.companyName}</CompanyName>
               <JobTitle>{tasksData.title}</JobTitle>
               <DetailInfo>
@@ -69,9 +57,9 @@ const Job = () => {
                 </JobTagsWrap>
 
                 <EndTime>
-                  {tasksData.deadline.split(" ")[0] === "2122-01-01"
-                    ? "상시채용"
-                    : "~" + tasksData.deadline.split(" ")[0]}
+                  {tasksData.deadline.split(' ')[0] === '2122-01-01'
+                    ? '상시채용'
+                    : '~' + tasksData.deadline.split(' ')[0]}
                 </EndTime>
               </DetailInfo>
             </JobCard>
@@ -80,14 +68,14 @@ const Job = () => {
         {/* </CardWrapper> */}
         {/* </InfiniteScroll>
         </div> */}
-        <div style={{ display: "flex", gap: "6px", padding: "20px" }}>
-          <img src={previousCursorBtn} onClick={getDataBefore} alt="버튼" />
-          <img src={nextCursorBtn} onClick={getDataNext} alt="버튼" />
+        <div style={{ display: 'flex', gap: '6px', padding: '20px' }}>
+          <img src={previousCursorBtn} onClick={getDataBefore} alt='버튼' />
+          <img src={nextCursorBtn} onClick={getDataNext} alt='버튼' />
         </div>
         <ZzimBtn
           src={zzimbtn}
           onClick={() => {
-            navigate("/zzim");
+            navigate('/zzim');
           }}
         />
       </JobWrapper>
@@ -117,12 +105,12 @@ const ZzimBtn = styled.img`
 `;
 
 const Tooltipcontent = styled.div`
-  color: var(--blue2);
+  color: ${(props) => props.theme.colors.blue2};
   font-size: 10px;
   display: none;
 `;
 const Tooltip = styled.div`
-  color: var(--blue2);
+  color: ${(props) => props.theme.colors.blue2};
   display: flex;
   margin: 10px 0;
   align-items: center;

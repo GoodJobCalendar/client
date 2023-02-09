@@ -1,51 +1,47 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  loadJobList,
-  loadCategoryList,
-  selectCategory,
-} from "../../redux/modules/job";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadJobList, loadCategoryList, selectCategory } from '../../modules/job';
 
-import backBtn from "../../assets/img/icon/Back.svg";
-import open from "../../assets/img/btn/open.png";
-import close from "../../assets/img/btn/close.png";
+import backBtn from '../../assets/icon/Back.svg';
+import open from '../../assets/btn/open.png';
+import close from '../../assets/btn/close.png';
 
 // 상세 지역 import
-import { Seoul } from "../../shared/region";
-import { Gyeonggi } from "../../shared/region";
-import { Incheon } from "../../shared/region";
-import { Daejeon } from "../../shared/region";
-import { Sejong } from "../../shared/region";
-import { Chungnam } from "../../shared/region";
-import { Chungbuk } from "../../shared/region";
-import { Gwangju } from "../../shared/region";
-import { Jeonnam } from "../../shared/region";
-import { Jeonbuk } from "../../shared/region";
-import { Daegu } from "../../shared/region";
-import { Gyeongbuk } from "../../shared/region";
-import { Busan } from "../../shared/region";
-import { Ulsan } from "../../shared/region";
-import { Gyeongnam } from "../../shared/region";
-import { Gangwon } from "../../shared/region";
-import { Jeju } from "../../shared/region";
+import { Seoul } from '../../shared/region';
+import { Gyeonggi } from '../../shared/region';
+import { Incheon } from '../../shared/region';
+import { Daejeon } from '../../shared/region';
+import { Sejong } from '../../shared/region';
+import { Chungnam } from '../../shared/region';
+import { Chungbuk } from '../../shared/region';
+import { Gwangju } from '../../shared/region';
+import { Jeonnam } from '../../shared/region';
+import { Jeonbuk } from '../../shared/region';
+import { Daegu } from '../../shared/region';
+import { Gyeongbuk } from '../../shared/region';
+import { Busan } from '../../shared/region';
+import { Ulsan } from '../../shared/region';
+import { Gyeongnam } from '../../shared/region';
+import { Gangwon } from '../../shared/region';
+import { Jeju } from '../../shared/region';
 
 // 상세 직군 import
-import { 경영·사무 } from "../../shared/jobData";
-import { 마케팅·광고·홍보 } from "../../shared/jobData";
-import { IT·인터넷 } from "../../shared/jobData";
-import { 디자인 } from "../../shared/jobData";
-import { 무역·유통 } from "../../shared/jobData";
-import { 영업·고객상담 } from "../../shared/jobData";
-import { 서비스 } from "../../shared/jobData";
-import { 연구개발·설계 } from "../../shared/jobData";
-import { 생산·제조 } from "../../shared/jobData";
-import { 교육 } from "../../shared/jobData";
-import { 건설 } from "../../shared/jobData";
-import { 의료 } from "../../shared/jobData";
-import { 미디어 } from "../../shared/jobData";
-import { 전문·특수직 } from "../../shared/jobData";
+import { 경영·사무 } from '../../shared/jobData';
+import { 마케팅·광고·홍보 } from '../../shared/jobData';
+import { IT·인터넷 } from '../../shared/jobData';
+import { 디자인 } from '../../shared/jobData';
+import { 무역·유통 } from '../../shared/jobData';
+import { 영업·고객상담 } from '../../shared/jobData';
+import { 서비스 } from '../../shared/jobData';
+import { 연구개발·설계 } from '../../shared/jobData';
+import { 생산·제조 } from '../../shared/jobData';
+import { 교육 } from '../../shared/jobData';
+import { 건설 } from '../../shared/jobData';
+import { 의료 } from '../../shared/jobData';
+import { 미디어 } from '../../shared/jobData';
+import { 전문·특수직 } from '../../shared/jobData';
 
 const JobCategory = () => {
   const navigate = useNavigate();
@@ -56,53 +52,47 @@ const JobCategory = () => {
   const [workAreaToggle, setworkAreaToggle] = React.useState(false);
 
   const tasks = [
-    "전체",
-    "경영·사무",
-    "마케팅·광고·홍보",
-    "IT·인터넷",
-    "디자인",
-    "무역·유통",
-    "영업·고객상담",
-    "서비스",
-    "연구개발·설계",
-    "생산·제조",
-    "교육",
-    "건설",
-    "의료",
-    "미디어",
-    "전문·특수직",
+    '전체',
+    '경영·사무',
+    '마케팅·광고·홍보',
+    'IT·인터넷',
+    '디자인',
+    '무역·유통',
+    '영업·고객상담',
+    '서비스',
+    '연구개발·설계',
+    '생산·제조',
+    '교육',
+    '건설',
+    '의료',
+    '미디어',
+    '전문·특수직',
   ];
 
   const workArea = [
-    "서울",
-    "세종",
-    "광주",
-    "대구",
-    "부산",
-    "제주",
-    "경기",
-    "충남",
-    "전남",
-    "경북",
-    "울산",
-    "강원",
-    "인천",
-    "대전",
-    "충북",
-    "전북",
-    "경남",
-    "전체",
+    '서울',
+    '세종',
+    '광주',
+    '대구',
+    '부산',
+    '제주',
+    '경기',
+    '충남',
+    '전남',
+    '경북',
+    '울산',
+    '강원',
+    '인천',
+    '대전',
+    '충북',
+    '전북',
+    '경남',
+    '전체',
   ];
 
-  const careers = ["신입", "경력", "신입·경력"];
+  const careers = ['신입', '경력', '신입·경력'];
 
-  const CompanyType = [
-    "대기업",
-    "중소/중견기업",
-    "외국계기업",
-    "공기업",
-    "전체",
-  ];
+  const CompanyType = ['대기업', '중소/중견기업', '외국계기업', '공기업', '전체'];
 
   const defaultCategory = useSelector((state) => state.job.category);
   const defaultCategor1y = useSelector((state) => state);
@@ -134,11 +124,11 @@ const JobCategory = () => {
   return (
     <MainWrapper>
       <UpBar>
-        <BackBtn src={backBtn} onClick={() => navigate("/job")} />
+        <BackBtn src={backBtn} onClick={() => navigate(-1)} />
         <SaveBtn
           onClick={() => {
             dispatch(selectCategory(categoryData));
-            navigate("/main/job");
+            navigate('/main/job');
           }}
         >
           저장
@@ -148,11 +138,7 @@ const JobCategory = () => {
       <CategoryTap>
         <TasksBtnWrap onClick={() => setTaskToggle(!taskToggle)}>
           <TasksBtnText>직무</TasksBtnText>
-          {taskToggle === false ? (
-            <TasksBtnImg src={close} />
-          ) : (
-            <TasksBtnImg src={open} />
-          )}
+          {taskToggle === false ? <TasksBtnImg src={close} /> : <TasksBtnImg src={open} />}
         </TasksBtnWrap>
         {taskToggle === false ? (
           <></>
@@ -168,7 +154,7 @@ const JobCategory = () => {
                     setCategoryData({
                       ...categoryData,
                       jobMain: tasksData,
-                      jobSub: "",
+                      jobSub: '',
                     })
                   }
                 >
@@ -186,221 +172,191 @@ const JobCategory = () => {
         <></>
       ) : (
         <DetailJobTagsFlex>
-          {categoryData.jobMain === "전체" ? (
+          {categoryData.jobMain === '전체' ? (
             <DetailJobTags
               categoryData={categoryData.jobSub}
-              tasksData={"전체"}
-              onClick={() =>
-                setCategoryData({ ...categoryData, jobSub: "전체" })
-              }
+              tasksData={'전체'}
+              onClick={() => setCategoryData({ ...categoryData, jobSub: '전체' })}
             >
-              {"전체"}
+              {'전체'}
             </DetailJobTags>
-          ) : categoryData.jobMain === "경영·사무" ? (
+          ) : categoryData.jobMain === '경영·사무' ? (
             경영·사무.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "마케팅·광고·홍보" ? (
+          ) : categoryData.jobMain === '마케팅·광고·홍보' ? (
             마케팅·광고·홍보.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "IT·인터넷" ? (
+          ) : categoryData.jobMain === 'IT·인터넷' ? (
             IT·인터넷.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "디자인" ? (
+          ) : categoryData.jobMain === '디자인' ? (
             디자인.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "무역·유통" ? (
+          ) : categoryData.jobMain === '무역·유통' ? (
             무역·유통.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "영업·고객상담" ? (
+          ) : categoryData.jobMain === '영업·고객상담' ? (
             영업·고객상담.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "서비스" ? (
+          ) : categoryData.jobMain === '서비스' ? (
             서비스.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "연구개발·설계" ? (
+          ) : categoryData.jobMain === '연구개발·설계' ? (
             연구개발·설계.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "생산·제조" ? (
+          ) : categoryData.jobMain === '생산·제조' ? (
             생산·제조.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "교육" ? (
+          ) : categoryData.jobMain === '교육' ? (
             교육.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobMain}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "건설" ? (
+          ) : categoryData.jobMain === '건설' ? (
             건설.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobMain}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "의료" ? (
+          ) : categoryData.jobMain === '의료' ? (
             의료.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "미디어" ? (
+          ) : categoryData.jobMain === '미디어' ? (
             미디어.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
               );
             })
-          ) : categoryData.jobMain === "전문·특수직" ? (
+          ) : categoryData.jobMain === '전문·특수직' ? (
             전문·특수직.map((workAreaData, idx) => {
               return (
                 <DetailJobTags
                   key={idx}
                   categoryData={categoryData.jobSub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, jobSub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, jobSub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailJobTags>
@@ -415,11 +371,7 @@ const JobCategory = () => {
       <CategoryTap>
         <TasksBtnWrap onClick={() => setworkAreaToggle(!workAreaToggle)}>
           <TasksBtnText>근무지역</TasksBtnText>
-          {workAreaToggle === false ? (
-            <TasksBtnImg src={close} />
-          ) : (
-            <TasksBtnImg src={open} />
-          )}
+          {workAreaToggle === false ? <TasksBtnImg src={close} /> : <TasksBtnImg src={open} />}
         </TasksBtnWrap>
         {workAreaToggle === false ? (
           <></>
@@ -435,7 +387,7 @@ const JobCategory = () => {
                     setCategoryData({
                       ...categoryData,
                       cityMain: workAreaData,
-                      citySub: "",
+                      citySub: '',
                     })
                   }
                 >
@@ -453,266 +405,230 @@ const JobCategory = () => {
         <></>
       ) : (
         <DetailWorkAreaTagsFlex>
-          {categoryData.cityMain === "전체" ? (
+          {categoryData.cityMain === '전체' ? (
             <DetailWorkAreaTags
               categoryData={categoryData.citySub}
-              tasksData={"전체"}
-              onClick={() =>
-                setCategoryData({ ...categoryData, citySub: "전체" })
-              }
+              tasksData={'전체'}
+              onClick={() => setCategoryData({ ...categoryData, citySub: '전체' })}
             >
-              {"전체"}
+              {'전체'}
             </DetailWorkAreaTags>
-          ) : categoryData.cityMain === "서울" ? (
+          ) : categoryData.cityMain === '서울' ? (
             Seoul.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "경기" ? (
+          ) : categoryData.cityMain === '경기' ? (
             Gyeonggi.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "인천" ? (
+          ) : categoryData.cityMain === '인천' ? (
             Incheon.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "대전" ? (
+          ) : categoryData.cityMain === '대전' ? (
             Daejeon.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "세종" ? (
+          ) : categoryData.cityMain === '세종' ? (
             Sejong.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "충남" ? (
+          ) : categoryData.cityMain === '충남' ? (
             Chungnam.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "충북" ? (
+          ) : categoryData.cityMain === '충북' ? (
             Chungbuk.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "광주" ? (
+          ) : categoryData.cityMain === '광주' ? (
             Gwangju.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "전남" ? (
+          ) : categoryData.cityMain === '전남' ? (
             Jeonnam.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "전북" ? (
+          ) : categoryData.cityMain === '전북' ? (
             Jeonbuk.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "대구" ? (
+          ) : categoryData.cityMain === '대구' ? (
             Daegu.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "경북" ? (
+          ) : categoryData.cityMain === '경북' ? (
             Gyeongbuk.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "부산" ? (
+          ) : categoryData.cityMain === '부산' ? (
             Busan.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "울산" ? (
+          ) : categoryData.cityMain === '울산' ? (
             Ulsan.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "경남" ? (
+          ) : categoryData.cityMain === '경남' ? (
             Gyeongnam.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "강원" ? (
+          ) : categoryData.cityMain === '강원' ? (
             Gangwon.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
               );
             })
-          ) : categoryData.cityMain === "제주" ? (
+          ) : categoryData.cityMain === '제주' ? (
             Jeju.map((workAreaData, idx) => {
               return (
                 <DetailWorkAreaTags
                   key={idx}
                   categoryData={categoryData.citySub}
                   tasksData={workAreaData}
-                  onClick={() =>
-                    setCategoryData({ ...categoryData, citySub: workAreaData })
-                  }
+                  onClick={() => setCategoryData({ ...categoryData, citySub: workAreaData })}
                 >
                   {workAreaData}
                 </DetailWorkAreaTags>
@@ -732,17 +648,12 @@ const JobCategory = () => {
             return (
               <CareersTags
                 key={idx}
-                categoryData={
-                  categoryData.career === "경력무관"
-                    ? "신입·경력"
-                    : categoryData.career
-                }
+                categoryData={categoryData.career === '경력무관' ? '신입·경력' : categoryData.career}
                 tasksData={careersData}
                 onClick={() =>
                   setCategoryData({
                     ...categoryData,
-                    career:
-                      careersData === "신입·경력" ? "경력무관" : careersData,
+                    career: careersData === '신입·경력' ? '경력무관' : careersData,
                   })
                 }
               >
@@ -763,10 +674,7 @@ const JobCategory = () => {
                 categoryData={categoryData.companyType}
                 tasksData={CompanyTypeData}
                 onClick={() =>
-                  window.alert(
-                    "준비하고 있는 기능입니다!",
-                    setCategoryData({ ...categoryData, companyType: "대기업" })
-                  )
+                  window.alert('준비하고 있는 기능입니다!', setCategoryData({ ...categoryData, companyType: '대기업' }))
                 }
               >
                 {CompanyTypeData}
@@ -780,7 +688,7 @@ const JobCategory = () => {
 };
 
 const MainWrapper = styled.div`
-  background-color: var(--blue1);
+  background-color: ${(props) => props.theme.colors.blue1};
   height: 100vh;
   overflow: hidden;
   overflow-y: scroll;
@@ -855,7 +763,7 @@ const JobTags = styled.div`
   padding: 4px 10px;
   display: inline-block;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
+    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
   border-radius: 6px;
   :nth-child(1) {
     margin-right: calc(100% - 50px);
@@ -865,8 +773,7 @@ const JobTags = styled.div`
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "var(--blue4)"};
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue4}`)};
   cursor: pointer;
 `;
 const JobTagsFlex = styled.div`
@@ -882,14 +789,13 @@ const DetailJobTags = styled.div`
   margin-bottom: 16px;
   margin-right: 20px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
+    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
-  border: 1px solid var(--blue2);
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : '#74A0E3')};
+  border: 1px solid ${(props) => props.theme.colors.blue2};
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -897,14 +803,13 @@ const DetailJobTags = styled.div`
 const WorkAreaTags = styled.div`
   padding: 8px 10px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
+    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
   border-radius: 6px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "var(--blue4)"};
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue4}`)};
   cursor: pointer;
 `;
 
@@ -912,14 +817,13 @@ const DetailWorkAreaTags = styled.div`
   padding: 6px 10px;
   margin: 4px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
+    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "#74A0E3"};
-  border: 1px solid var(--blue2);
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : '#74A0E3')};
+  border: 1px solid ${(props) => props.theme.colors.blue2};
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -945,14 +849,13 @@ const CareersTags = styled.div`
   margin: 4px;
   margin-bottom: 8px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
+    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "var(--blue3)"};
-  border: 1px solid var(--blue2);
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue3}`)};
+  border: 1px solid ${(props) => props.theme.colors.blue2};
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -963,14 +866,13 @@ const CompanyTypeTags = styled.div`
   margin: 4px;
   margin-bottom: 8px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? "var(--blue4)" : "transparent"};
+    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) =>
-    props.categoryData === props.tasksData ? "white" : "var(--blue3)"};
-  border: 1px solid var(--blue2);
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue3}`)};
+  border: 1px solid ${(props) => props.theme.colors.blue2};
   box-sizing: border-box;
   cursor: pointer;
 `;

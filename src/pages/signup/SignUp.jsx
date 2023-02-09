@@ -1,175 +1,157 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
-import { Link, useNavigate } from "react-router-dom";
-
-import { emailCheck, passwordCheck } from "../../shared/signUpCheck";
+import userApi from '../../apis/user';
 
 // 이미지
-import logo from "../../assets/img/logo.png";
-import logo_text from "../../assets/img/logo_text.svg";
+import logo from '../../assets/logo/logo.png';
+import logotext from '../../assets/logo/logo_text.svg';
 
-import axios from "axios";
+// 컴포넌트
+import { FormInput } from '../../components/common/Input';
+import Button from '../../components/common/Button';
+import Form from './../../components/common/Form';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [userName, setUerName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorCheck, setCheck] = useState("");
-  // 회원가입
-  const onKeyPress = (e) => {
-    if (e.key === "Enter") {
-      SignupBtn();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
+
+  const onVaild = async (data) => {
+    const { email, password, confirmPassword, userName } = data;
+    if (password !== confirmPassword) {
+      await setError('passwordchk', { message: '비밀번호가 일치하지 않습니다.' });
     }
+    await userApi
+      .signUp({
+        email,
+        password,
+        confirmPassword,
+        userName,
+      })
+      .then(() => {
+        navigate('/authnumbercheck');
+      })
+      .catch((error) => {
+        console.error(error);
+        setError('extraError', { message: error.response.data.msg }, { shouldFocus: true });
+      });
   };
-  const SignupBtn = async (e) => {
-    e.preventDefault();
-    //빈칸 확인
-    if (
-      email === "" ||
-      userName === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
-      return setCheck("이메일,이름, 비밀번호 모두 입력해주세요!");
-    }
-    //이메일 형식 체크
-    else if (!emailCheck(email)) {
-      return setCheck("이메일 형식이 아닙니다.");
-    }
-    //비밀번호 형식 체크
-    else if (!passwordCheck(password)) {
-      return setCheck(
-        "비밀번호를 6~15자, 숫자, 대·소문자를 포함하여 입력해주세요."
+  const errorText = (errors) => {
+    if (errors) {
+      const { email, password, confirmPassword, userName, extraError } = errors;
+      return (
+        userName?.message || email?.message || password?.message || confirmPassword?.message || extraError?.message
       );
     }
-    //비밀번호 확인
-    else if (confirmPassword && password !== confirmPassword) {
-      return setCheck("비밀번호가 일치하지 않습니다.");
-    } else {
-      //회원가입
-      await axios
-        .post("https://goodjobcalendar.shop/api/auth/local", {
-          email,
-          password,
-          confirmPassword,
-          userName,
-        })
-        .then((res) => {
-          navigate("/emailsend");
-        })
-        .catch((error) => {
-          console.error(error);
-          setCheck(error.response.data.msg);
-        });
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onVaild();
     }
   };
   return (
     <SignUpWrap>
       <header>
-        <Flex>
-          <img src={logo} alt="로고" />
-          <img src={logo_text} alt="로고" />
-        </Flex>
-
+        <Logo>
+          <Img src={logo} alt='로고' />
+          <Img src={logotext} alt='로고' />
+        </Logo>
         <Title>회원가입을 환영합니다.</Title>
         <SubTitle>
-          당신의 <span>취준메이트,</span>
-          <br />
+          <p>
+            당신의 <span>취준메이트,</span>
+          </p>
           굿잡캘린더와 함께해보세요!
         </SubTitle>
       </header>
       <InputWrap>
-        <input
-          type="text"
-          placeholder="이름"
-          onChange={(event) => {
-            setUerName(event.target.value);
-          }}
-        />
-        <EmailCheck
-          type="email"
-          placeholder="이메일"
-          email={email}
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="비밀번호"
-          password={password}
-          confirmPassword={confirmPassword}
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-        />
-        <PassWord
-          type="password"
-          placeholder="비밀번호 확인"
-          password={password}
-          confirmPassword={confirmPassword}
-          onChange={(event) => {
-            setConfirmPassword(event.target.value);
-          }}
-          onKeyPress={onKeyPress}
-        />
-        {<Check>{errorCheck}&nbsp;</Check>}
-        <SignUpBtn onClick={SignupBtn}>이메일 인증받고 가입하기</SignUpBtn>
+        <SignUpForm onSubmit={handleSubmit(onVaild)}>
+          <FormInput
+            type='text'
+            placeholder='이름'
+            form={{ ...register('userName', { required: '이름을 입력해주세요.' }) }}
+          />
+          <Email
+            type='email'
+            placeholder='이메일'
+            mailCheck={errors?.email}
+            form={{
+              ...register('email', {
+                required: '이메일을 입력해주세요.',
+                pattern: {
+                  value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                  message: '이메일 형식이 아닙니다.',
+                },
+              }),
+            }}
+          />
+          <FormInput
+            type='password'
+            placeholder='비밀번호'
+            pwCheck={errors?.password}
+            form={{
+              ...register('password', {
+                required: '비밀번호를 입력해주세요.',
+                pattern: {
+                  value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d`~!@#$%^&*()-_=+ "'{}]{6,15}$/,
+                  message: '비밀번호를 6~15자, 숫자, 대·소문자를 포함하여 입력해주세요.',
+                },
+              }),
+            }}
+          />
+          <PassWord
+            type='password'
+            placeholder='비밀번호 확인'
+            pwCheck={errors?.confirmPassword}
+            form={{
+              ...register('confirmPassword', {
+                required: '비밀번호 확인을 입력해주세요.',
+                pattern: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d`~!@#$%^&*()-_=+ "'{}]{6,15}$/,
+              }),
+            }}
+            onKeyPress={onKeyPress}
+          />
+          {errorText(errors) && <Check>{errorText(errors)}</Check>}
+          <SignUpBtn>이메일 인증받고 가입하기</SignUpBtn>
+        </SignUpForm>
       </InputWrap>
-      <Footer>
-        <p>
-          이미가입하셨다면? <Link to="/login">로그인</Link>
-        </p>
-      </Footer>
+      <Container>
+        <p>이미가입하셨다면?</p>
+        <button
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          로그인
+        </button>
+      </Container>
     </SignUpWrap>
   );
 };
 
 export default SignUp;
+
 const SignUpWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   height: 100vh;
   padding: 0 35px;
-  background-color: var(--blue1);
-  input {
-    outline: none;
-    padding: 18px 23px;
-    background: #ffffff;
-    border: 1px solid var(--blue2);
-    border-radius: 6px;
-    font-weight: 500;
-    :focus {
-      ::placeholder {
-        opacity: 0;
-      }
-    }
-    ::placeholder {
-      color: var(--blue3);
-      font-weight: 500;
-    }
-  }
+  padding-top: 89px;
+  background-color: ${(props) => props.theme.colors.blue1};
 `;
-const InputWrap = styled.main`
+
+const Logo = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
+  gap: 6px;
 `;
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 9px;
+const Img = styled.img`
   height: 24px;
-  img {
-    :nth-child(1) {
-      height: 100%;
-    }
-  }
 `;
 const Title = styled.h1`
   font-weight: 600;
@@ -177,68 +159,66 @@ const Title = styled.h1`
   margin-top: 25px;
   margin-bottom: 9px;
 `;
-const SubTitle = styled.p`
+const SubTitle = styled.div`
   font-weight: 500;
   font-size: 14px;
-  color: var(--gray4);
+  color: ${(props) => props.theme.colors.gray4};
   margin-bottom: 43px;
   span {
     font-weight: 700;
-    color: var(--gray4);
+    color: inherit;
   }
 `;
-const SignUpBtn = styled.button`
-  background: var(--blue4);
-  border-radius: 6px;
-  padding: 17px 0;
+
+const InputWrap = styled.main`
   width: 100%;
+`;
+
+const SignUpForm = styled(Form)`
+  gap: 8px;
+`;
+
+const SignUpBtn = styled(Button)`
+  background-color: ${(props) => props.theme.colors.blue4};
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 78px;
-  font-weight: 400;
-  color: #fff !important;
+  color: #fff;
 `;
-const EmailCheck = styled.input`
-  border: ${(props) =>
-    props.mailCheckState && props.mailCheckState !== 201
-      ? "1px solid var(--point3)"
-      : ""}!important;
-  color: ${(props) =>
-    props.mailCheckState && props.mailCheckState !== 201
-      ? "var(--point3)"
-      : ""};
+
+const Email = styled(FormInput)`
+  border: ${(props) => props.mailCheck && `1px solid ${(props) => props.theme.colors.point3}`};
+  color: ${(props) => props.mailCheck && `${(props) => props.theme.colors.point3}`};
 `;
-const PassWord = styled.input`
-  border: ${(props) =>
-    props.confirmPassword && props.password !== props.confirmPassword
-      ? "1px solid var(--point3)"
-      : ""}!important;
-  color: ${(props) =>
-    props.password && props.password !== props.confirmPassword
-      ? "var(--point3)"
-      : ""};
+const PassWord = styled(FormInput)`
+  border: ${(props) => props.pwCheck && `1px solid ${(props) => props.theme.colors.point3}`};
+  color: ${(props) => props.pwCheck && `${(props) => props.theme.colors.point3}`};
 `;
 const Check = styled.p`
   text-align: center;
-  color: var(--blue3);
+  color: ${(props) => props.theme.colors.blue3};
   font-weight: 600;
   font-size: 14px;
   padding-top: 30px;
   padding-bottom: 24px;
 `;
-const Footer = styled.footer`
-  border-top: 1px solid var(--blue2);
+
+const Container = styled.footer`
+  border-top: 1px solid ${(props) => props.theme.colors.blue2};
   padding: 15px 0;
+  display: flex;
+  justify-content: center;
   p {
     font-weight: 400;
     font-size: 14px;
     text-align: center;
     color: #5f9fff;
-    a {
-      font-weight: 600;
-      font-size: 14px;
-      margin-left: 11px;
-    }
+  }
+  button {
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 11px;
+    color: ${(props) => props.theme.colors.blue4};
   }
 `;

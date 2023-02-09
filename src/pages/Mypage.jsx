@@ -1,33 +1,30 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
-import { getCookie, deleteCookie, setCookie } from "../shared/cookie";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
+import { getCookie, deleteCookie, setCookie } from '../shared/cookie';
 // css
-import styled from "styled-components";
-import backBtn from "../assets/img/icon/Back.svg";
-import mypagebird from "../assets/img/illust/mypagebird.svg";
-import mypagebird2 from "../assets/img/illust/mypagebird2.svg";
+import styled from 'styled-components';
+import backBtn from '../assets/icon/Back.svg';
+import mypagebird from '../assets/illust/mypagebird.svg';
+import mypagebird2 from '../assets/illust/mypagebird2.svg';
+import userApi from './../apis/user';
 
 const Mypage = () => {
-  const myToken = getCookie("token");
   const navigate = useNavigate();
   const [social, setSocial] = useState();
   const [userInfo, setUserInfo] = useState();
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     const myinfo = async () => {
-      const head = {
-        headers: { Authorization: `Bearer ${myToken}` },
-      };
-      axios
-        .get("https://goodjobcalendar.shop/api/auth/userInfo", head)
+      await userApi
+        .getUserInfo()
         .then((res) => {
           setUserInfo(res.data.data);
           setSocial(res.data.data.type);
-          setDate(res.data.data.updatedAt.split("T")[0]);
-          setCookie("email", res.data.data.email);
+          setDate(res.data.data.updatedAt.split('T')[0]);
+          setCookie('email', res.data.data.email);
         })
         .catch((err) => {
           console.error(err);
@@ -42,9 +39,9 @@ const Mypage = () => {
   let year = strDate2.getFullYear(); // 년도
   let month = strDate2.getMonth() + 1; // 월
   let day = strDate2.getDate(); // 날짜
-  const today = year + "-" + month + "-" + day;
-  const arr1 = strDate1.split("-");
-  const arr2 = today.split("-");
+  const today = year + '-' + month + '-' + day;
+  const arr1 = strDate1.split('-');
+  const arr2 = today.split('-');
   const dat1 = new Date(arr1[0], arr1[1], arr1[2]);
   const dat2 = new Date(arr2[0], arr2[1], arr2[2]);
 
@@ -66,17 +63,17 @@ const Mypage = () => {
           <>
             <MyImg src={mypagebird2}></MyImg>
             <MyBubble
-              style={{ width: "162px", left: "105px" }}
+              style={{ width: '162px', left: '105px' }}
               onClick={() => {
-                navigate("/Job");
+                navigate('/Job');
               }}
             >
-              {" "}
+              {' '}
               <span
                 style={{
-                  fontWeight: "700",
-                  marginLeft: "3px",
-                  color: "var(--blue4)",
+                  fontWeight: '700',
+                  marginLeft: '3px',
+                  color: `${(props) => props.theme.colors.blue4}`,
                 }}
               >
                 채용공고 담으러 가기
@@ -88,15 +85,15 @@ const Mypage = () => {
             <MyImg src={mypagebird}></MyImg>
             <MyBubble
               onClick={() => {
-                navigate("/Zzim");
+                navigate('/Zzim');
               }}
             >
-              총 {userInfo?.countLikePostings}개{" "}
+              총 {userInfo?.countLikePostings}개{' '}
               <span
                 style={{
-                  fontWeight: "700",
-                  marginLeft: "3px",
-                  color: "var(--blue4)",
+                  fontWeight: '700',
+                  marginLeft: '3px',
+                  color: `${(props) => props.theme.colors.blue4}`,
                 }}
               >
                 보러가기
@@ -107,14 +104,14 @@ const Mypage = () => {
       </MyNavWrap>
       <Outer>
         <PersonalInfo>
-          {social === "kakao" ? (
+          {social === 'kakao' ? (
             <>
               <PersonalTitle>카카오 간편 로그인 이용중</PersonalTitle>
               <Email>{userInfo?.email}</Email>
               <LogoutBtn
                 onClick={() => {
-                  deleteCookie("token");
-                  navigate("/");
+                  deleteCookie('token');
+                  navigate('/');
                 }}
               >
                 로그아웃
@@ -124,21 +121,19 @@ const Mypage = () => {
             <>
               <PersonalTitle>Email</PersonalTitle>
               <Email>{userInfo?.email}</Email>
-              <PersonalTitle style={{ marginTop: "16px" }}>
-                비밀번호
-              </PersonalTitle>
+              <PersonalTitle style={{ marginTop: '16px' }}>비밀번호</PersonalTitle>
               <ModiWrap>
                 <ModifyDate>
                   비밀번호 바꾼지
-                  <p style={{ color: "var(--blue4)", margin: "0 10px" }}>
+                  <p style={{ color: `${(props) => props.theme.colors.blue4}`, margin: '0 10px' }}>
                     {parseInt(diff / currMonth)}개월
-                  </p>{" "}
+                  </p>{' '}
                   이 지났어요!
                 </ModifyDate>
                 <ModifyBtn
                   onClick={() => {
                     // navigate("/pwChange")
-                    alert("현재 준비중 입니다.");
+                    alert('현재 준비중 입니다.');
                   }}
                 >
                   수정
@@ -146,8 +141,8 @@ const Mypage = () => {
               </ModiWrap>
               <LogoutBtn
                 onClick={() => {
-                  deleteCookie("token");
-                  navigate("/");
+                  deleteCookie('token');
+                  navigate('/');
                 }}
               >
                 로그아웃
@@ -164,7 +159,7 @@ const Mypage = () => {
 export default Mypage;
 
 const Outer = styled.div`
-  background-color: var(--blue1);
+  background-color: ${(props) => props.theme.colors.blue1};
   height: 40.2vh;
 `;
 
@@ -178,7 +173,7 @@ const PersonalInfo = styled.div`
 const PersonalTitle = styled.div`
   font-weight: 500;
   font-size: 12px;
-  color: var(--blue4);
+  color: ${(props) => props.theme.colors.blue4};
   height: 22px;
 `;
 
@@ -206,10 +201,10 @@ const ModifyDate = styled.div`
   padding-left: 20px;
 `;
 const ModifyBtn = styled.div`
-  color: var(--blue3);
+  color: ${(props) => props.theme.colors.blue3};
   width: 55px;
   height: 48px;
-  border: 1px var(--blue3) solid;
+  border: 1px solid ${(props) => props.theme.colors.blue3};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,8 +214,8 @@ const ModifyBtn = styled.div`
 const LogoutBtn = styled.div`
   /* width: 341px; */
   height: 54px;
-  border: 1px var(--blue4) solid;
-  background-color: var(--blue4);
+  border: 1px ${(props) => props.theme.colors.blue4} solid;
+  background-color: ${(props) => props.theme.colors.blue4};
   margin-top: 36px;
   border-radius: 6px;
   display: flex;
@@ -245,7 +240,7 @@ const MyBubble = styled.div`
   height: 35px;
   background-color: white;
   border-radius: 8px;
-  color: var(--blue4);
+  color: ${(props) => props.theme.colors.blue4};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -260,7 +255,7 @@ const MyBubble = styled.div`
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     border-bottom: 0px solid transparent;
-    content: "";
+    content: '';
     position: absolute;
     top: 34px;
   }
@@ -269,7 +264,7 @@ const MyBubble = styled.div`
 const MyNavWrap = styled.div`
   width: 100%;
   height: 20vh;
-  background-color: var(--blue4);
+  background-color: ${(props) => props.theme.colors.blue4};
   display: flex;
   flex-direction: column;
   position: relative;

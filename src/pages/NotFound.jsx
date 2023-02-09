@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import notfound from "../assets/img/illust/notfound.svg";
+import React from 'react';
+import styled from 'styled-components';
+import notfound from '../assets/illust/notfound.svg';
 
 const NotFound = () => {
   return (
     <NotFoundWrap>
       <NotFoundContent>
-        <NotFoundImg src={notfound} alt="404페이지오류" />
+        <NotFoundImg src={notfound} alt='404페이지오류' />
         <NotFoundTitle>404 not found</NotFoundTitle>
         <NotFoundText>페이지를 찾을 수 없어요!</NotFoundText>
       </NotFoundContent>
@@ -17,7 +17,7 @@ const NotFound = () => {
 export default NotFound;
 
 const NotFoundWrap = styled.div`
-  background-color: var(--blue1);
+  background-color: ${(props) => props.theme.colors.blue1};
   width: 100%;
   height: 100%;
   position: relative;
