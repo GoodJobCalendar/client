@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import {
-  loadJobDetails,
-  addScrap,
-  addLike,
-  deleteLike,
-} from "../../redux/modules/job";
+import { loadJobDetails, addScrap, addLike, deleteLike } from '../../modules/job';
 
-import buttonText from "../../assets/img/btn/buttonText.png";
-import back from "../../assets/img/icon/Back.svg";
-import msg from "../../assets/img/btn/msg.svg";
-import backbird from "../../assets/img/illust/JobDetailBird.svg";
-import alwaysBird from "../../assets/img/illust/notfound.svg";
-import Tooltipmark from "../../assets/img/icon/Tooltipmark.svg";
+import buttonText from '../../assets/btn/buttonText.png';
+import back from '../../assets/icon/Back.svg';
+import msg from '../../assets/btn/msg.svg';
+import backbird from '../../assets/illust/JobDetailBird.svg';
+import alwaysBird from '../../assets/illust/notfound.svg';
+import Tooltipmark from '../../assets/icon/Tooltipmark.svg';
 
 const JobDetail = () => {
   const navigate = useNavigate();
@@ -36,7 +31,7 @@ const JobDetail = () => {
   function getDate(whatDay) {
     //날짜문자열 형식은 자유로운 편
 
-    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    const week = ['일', '월', '화', '수', '목', '금', '토'];
 
     const dayOfWeek = week[new Date(whatDay).getDay()];
 
@@ -59,7 +54,6 @@ const JobDetail = () => {
         <MainWrapper>
           <Tooltip>
             <Tooltip2 src={Tooltipmark} />
-            {/* <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent> */}
           </Tooltip>
           <CompanyWrap>
             <CompanyName>{jobDetail?.companyName}</CompanyName>
@@ -71,14 +65,10 @@ const JobDetail = () => {
           <JobInfoFlex>
             <JobInfo>
               <InfoTitle>모집마감일자</InfoTitle>
-              <InfoDetails style={{ fontWeight: "800" }}>
-                {jobDetail?.deadline.split(" ")[0] === "2122-01-01"
-                  ? "상시채용"
-                  : jobDetail?.deadline.split(" ")[0] +
-                    " " +
-                    "(" +
-                    getDate(jobDetail?.deadline.split(" ")[0]) +
-                    ")"}
+              <InfoDetails style={{ fontWeight: '800' }}>
+                {jobDetail?.deadline.split(' ')[0] === '2122-01-01'
+                  ? '상시채용'
+                  : jobDetail?.deadline.split(' ')[0] + ' ' + '(' + getDate(jobDetail?.deadline.split(' ')[0]) + ')'}
               </InfoDetails>
             </JobInfo>
 
@@ -104,14 +94,14 @@ const JobDetail = () => {
             <ZimmbtnWarp>
               {jobDetail?.isLike ? (
                 <>
-                  <MsgText1 to="/zzim">
+                  <MsgText1 to='/zzim'>
                     <p>
                       <span>스크랩한 모든 공고</span>를
                       <br />
                       확인해보세요!
                     </p>
                   </MsgText1>
-                  <MsgImg1 src={msg} alt="캘린더로 스크랩" />
+                  <MsgImg1 src={msg} alt='캘린더로 스크랩' />
                   <BackBtn
                     scrap={jobDetail?.isLike}
                     onClick={() => {
@@ -132,7 +122,7 @@ const JobDetail = () => {
                 </BackBtn>
               )}
             </ZimmbtnWarp>
-            {jobDetail?.deadline.split(" ")[0] === "2122-01-01" ? (
+            {jobDetail?.deadline.split(' ')[0] === '2122-01-01' ? (
               <ScrapBtn1
                 onClick={() => {
                   setSangsi(true);
@@ -144,14 +134,14 @@ const JobDetail = () => {
               <ScrapBtnWrap>
                 {jobDetail?.isScrap && (
                   <>
-                    <MsgText to="/main">
+                    <MsgText to='/main/calendar'>
                       <p>
                         <span>취준 캘린더</span>에서
                         <br />
                         확인해보세요!
                       </p>
                     </MsgText>
-                    <MsgImg src={msg} alt="캘린더로 스크랩" />
+                    <MsgImg src={msg} alt='캘린더로 스크랩' />
                   </>
                 )}
                 <ScrapBtn
@@ -171,7 +161,7 @@ const JobDetail = () => {
               window.open(jobDetail?.url);
             }}
           >
-            <img src={buttonText} alt="잡코리아공고링크연결" />
+            <img src={buttonText} alt='잡코리아공고링크연결' />
             자세한 공고 잡코리아에서 확인
           </JobKoreabtn>
         </MainWrapper>
@@ -179,7 +169,7 @@ const JobDetail = () => {
       {sangsi && (
         <Always>
           <AlwaysModal>
-            <img src={alwaysBird} alt="상시채용" />
+            <img src={alwaysBird} alt='상시채용' />
             <p>
               <span>상시채용공고</span>는
               <br />
@@ -204,7 +194,7 @@ const MainWrap = styled.div`
   background: #ecf1f8;
   height: 100vh;
   > * {
-    filter: ${(props) => (props.sangsi ? "blur(1.4px)" : "blur(0px)")};
+    filter: ${(props) => (props.sangsi ? 'blur(1.4px)' : 'blur(0px)')};
   }
 `;
 
@@ -213,6 +203,7 @@ const MyBack = styled.img`
   position: absolute;
   left: 4%;
   top: 33%;
+  cursor: pointer;
 `;
 
 const Header = styled.div`
@@ -347,12 +338,11 @@ const BackBtn = styled.div`
   border-radius: 6px;
   box-sizing: border-box;
   font-weight: 500;
-  border: ${(props) =>
-    props.scrap ? "2px solid  transparent" : "2px solid transparent"};
-  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "white")};
+  border: ${(props) => (props.scrap ? '2px solid  transparent' : '2px solid transparent')};
+  background-color: ${(props) => (props.scrap ? `var(--blue4)` : 'white')};
   text-align: center;
   cursor: pointer;
-  color: ${(props) => (props.scrap ? "white" : "#3284ff")};
+  color: ${(props) => (props.scrap ? 'white' : '#3284ff')};
 `;
 
 const MsgImg = styled.img`
@@ -424,12 +414,11 @@ const ScrapBtn = styled.button`
   border-radius: 6px;
   box-sizing: border-box;
   font-weight: 500;
-  border: ${(props) =>
-    props.scrap ? "2px solid  transparent" : "2px solid transparent"};
-  background-color: ${(props) => (props.scrap ? "var(--blue4)" : "white")};
+  border: ${(props) => (props.scrap ? '2px solid  transparent' : '2px solid transparent')};
+  background-color: ${(props) => (props.scrap ? `var(--blue4)` : 'white')};
   text-align: center;
   cursor: pointer;
-  color: ${(props) => (props.scrap ? "white" : "#3284ff")};
+  color: ${(props) => (props.scrap ? 'white' : '#3284ff')};
 `;
 
 const ScrapBtn1 = styled.button`
@@ -501,8 +490,7 @@ const AlwaysModal = styled.div`
   align-items: center;
   background-color: #fff;
   z-index: 99999;
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
   padding: 40px 30px;
   width: 50%;

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 // 이미지
-import guideImg from "../../assets/img/guide.svg";
+import guideImg from '../../assets/bg/guide.png';
 const Guide = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+  const HAS_VISITED_BEFORE = localStorage.getItem('hasVisitedBefore');
 
   useEffect(() => {
     const handleShowModal = () => {
@@ -16,7 +16,7 @@ const Guide = () => {
       if (!HAS_VISITED_BEFORE) {
         let expires = new Date();
         expires = expires.setHours(expires.getHours() + 24);
-        localStorage.setItem("hasVisitedBefore", expires);
+        localStorage.setItem('hasVisitedBefore', expires);
         setShowModal(true);
       }
     };
@@ -30,7 +30,7 @@ const Guide = () => {
       {showModal ? (
         <GuideBg onClick={handleClose}>
           <button onClick={handleClose}>x</button>
-          <GuideImg src={guideImg} alt="가이드" />
+          <GuideImg src={guideImg} alt='가이드' />
         </GuideBg>
       ) : null}
     </>

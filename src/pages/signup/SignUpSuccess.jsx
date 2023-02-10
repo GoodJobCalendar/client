@@ -1,18 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import signUpImg from "../../assets/img/illust/signupsuccess.png";
+import React from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import signUpImg from '../../assets/illust/signupsuccess.png';
+import Button from '../../components/common/Button';
 
 //회원이름
-const SignupSucess = () => {
+const SignUpSuccess = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.user);
 
   return (
     <EmailWrap>
       <Header>
-        <Banner src={signUpImg} alt="배너" />
+        <Banner src={signUpImg} alt='배너' />
         <TitleText>
           <Title>회원가입이 완료되었어요!</Title>
           <SubTitle>
@@ -24,7 +25,7 @@ const SignupSucess = () => {
       <Main>
         <SignUpBtn
           onClick={() => {
-            navigate("/login");
+            navigate('/login');
           }}
         >
           로그인하기
@@ -34,7 +35,7 @@ const SignupSucess = () => {
   );
 };
 
-export default SignupSucess;
+export default SignUpSuccess;
 const EmailWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,15 +94,8 @@ const Main = styled.main`
   justify-content: center;
   text-align: center;
 `;
-const SignUpBtn = styled.button`
+const SignUpBtn = styled(Button)`
   background: var(--blue4);
-  border-radius: 6px;
-  padding: 17px 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 400;
-  color: #fff !important;
+  color: #fff;
   margin-top: 68px;
 `;

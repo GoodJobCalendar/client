@@ -1,38 +1,39 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
 // 리덕스
-import { searchMySchedule } from "../../redux/modules/search";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 // 이미지
-import searchImg from "../../assets/img/icon/search.svg";
-const SearchBox = ({ search, setSearch }) => {
+import searchImg from '../../assets/icon/search.svg';
+import { searchMySchedule } from './../../modules/search';
+
+const SearchBox = ({ searchText, setSearchText }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   //일정등록 이동
-  const MoveBtn = () => {
-    navigate("/addschedule");
+  const OnclickLink = () => {
+    navigate('/addschedule');
   };
 
+  // 검색어
   const scheduleSearchEvent = (event) => {
-    setSearch(event.target.value);
+    setSearchText(event.target.value);
   };
+
   useEffect(() => {
-    dispatch(searchMySchedule(search));
-  }, [search]);
+    dispatch(searchMySchedule(searchText));
+  }, [searchText]);
+
   return (
     <FixBox>
       <Search>
-        <input
-          type="text"
-          placeholder="일정 상세 검색"
-          onChange={scheduleSearchEvent}
-        />
-        <img src={searchImg} alt="돋보기 아이콘" />
+        <SearchInput type='text' placeholder='일정 상세 검색' onChange={scheduleSearchEvent} />
+        <SearchImg src={searchImg} alt='돋보기 아이콘' />
       </Search>
 
-      <AddButtoon onClick={MoveBtn}>+</AddButtoon>
+      <AddButtoon onClick={OnclickLink}>+</AddButtoon>
     </FixBox>
   );
 };
@@ -55,27 +56,28 @@ const FixBox = styled.div`
 `;
 const Search = styled.label`
   position: relative;
-  input {
-    width: 243px;
-    border: 1px solid var(--blue2);
-    border-radius: 32px;
-    padding: 18px 0;
-    padding-left: 27px;
-    ::placeholder {
-      font-weight: 500;
-      font-size: 16px;
-      color: var(--blue3);
-    }
-    &:focus {
-      outline: none;
-      border: 0;
-    }
+`;
+
+const SearchImg = styled.img`
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+`;
+const SearchInput = styled.input`
+  width: 243px;
+  border: 1px solid var(--blue2);
+  border-radius: 32px;
+  padding: 18px 0;
+  padding-left: 27px;
+  ::placeholder {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--blue3);
   }
-  img {
-    position: absolute;
-    top: 50%;
-    right: 22px;
-    transform: translateY(-50%);
+  &:focus {
+    outline: none;
+    border: 0;
   }
 `;
 const AddButtoon = styled.button`
