@@ -2,11 +2,12 @@ import { api } from './instance/defaultInstance';
 const jobApi = {
   // 추천채용 카테고리 변경
   changeCategory: (career, companyType, cityMain, citySub, jobMain, jobSub) =>
-    api.patch('/api/posting/category', career, companyType, cityMain, citySub, jobMain, jobSub),
+    api.patch('/api/posting/category', { career, companyType, cityMain, citySub, jobMain, jobSub }),
   // 추천채용 카테고리 조회
   getJobCategory: () => api.get('/api/posting/category'),
   // 추천채용 조회 (카테고리 검색)
-  getJobs: (bucket) => api.get('/api/posting', bucket),
+  getJobs: (nextCursor, previousCursor) =>
+    api.get(`/api/postings?nextCursor=${nextCursor}&previousCursor=${previousCursor}`),
   // 추천채용 상세조회
   getDetailJob: (postingId) => api.get(`/api/posting/${postingId}`),
   // 채용공고 스크랩
