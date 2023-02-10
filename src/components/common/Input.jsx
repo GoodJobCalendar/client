@@ -15,11 +15,11 @@ const InputComponent = styled.input`
   outline: none;
   padding: 18px 23px;
   background-color: #ffffff;
-  border: 1px solid ${(props) => props.theme.colors.blue2};
+  border: 1px solid var(--blue2);
   border-radius: 6px;
   font-weight: 500;
   ::placeholder {
-    color: ${(props) => props.theme.colors.blue3};
+    color: var(--blue3);
     font-weight: 500;
   }
 `;

@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailPost, __deletePost } from '../modules/schedule';
-import { getCookie } from '../shared/cookie';
-import UpdateSchedule from '../components/calendar/UpdateSchedule';
 
 //스티커 이미지
 import img1 from '../assets/sticker/sticker1.png';
@@ -32,6 +30,7 @@ import logomini from '../assets/icon/Logo_mini.svg';
 import location from '../assets/icon/Location.svg';
 import time from '../assets/icon/Time.svg';
 import scheduleApi from '../apis/schedule';
+import UpdateSchedule from './UpdateSchedule';
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -41,7 +40,6 @@ const PostDetail = () => {
 
   const detailInfo = useSelector((state) => state.schedule.detail);
 
-  const startDate = `${detailInfo?.date.split(' ')[0].substr(0, 8)}01 00:00:00`;
   //뒤로가기
   const moveBtn = () => {
     navigate(-1);
@@ -55,17 +53,12 @@ const PostDetail = () => {
   useEffect(() => {
     dispatch(detailPost(scheduleId));
   }, []);
-  const myToken = getCookie('token');
 
-  const deleteSchedule = async () => {
-    const data = {
-      headers: { Authorization: `Bearer ${myToken}` },
-      params: { startDate: startDate },
-    };
+  const onClickdeleteSchedule = async () => {
+    console.log(scheduleId);
     await scheduleApi
-      .deletePost({ data, scheduleId })
+      .deleteSchedule(scheduleId)
       .then((res) => {
-        dispatch(__deletePost(scheduleId));
         navigate(-1);
       })
       .catch((error) => {
@@ -150,7 +143,7 @@ const PostDetail = () => {
           </Text>
           {detailInfo?.memo && <Text>{detailInfo?.memo}</Text>}
         </TextWrap>
-        <Delete onClick={deleteSchedule}>일정 삭제하기</Delete>
+        <Delete onClick={onClickdeleteSchedule}>일정 삭제하기</Delete>
         {detailInfo?.memo === null && (
           <Move
             onClick={() => {
@@ -177,7 +170,7 @@ const PostDetail = () => {
 export default PostDetail;
 
 const PostDailWrap = styled.div`
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
   height: 100vh;
   font-weight: 500;
   padding: 0 16px;
@@ -208,7 +201,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
 `;
 const Compony = styled.div`
   padding: 20px;
@@ -252,14 +245,14 @@ const Color = styled.div`
   width: 20px;
   height: 100%;
   background-color: ${(props) => props.color === 1 && '#fff'};
-  background-color: ${(props) => props.color === 2 && `${(props) => props.theme.colors.point3}`};
+  background-color: ${(props) => props.color === 2 && `var(--point3)`};
   background-color: ${(props) => props.color === 3 && ' rgba(253, 187, 110, 1)'};
   background-color: ${(props) => props.color === 4 && 'rgba(253, 247, 110, 1)'};
   background-color: ${(props) => props.color === 5 && ' rgba(110, 253, 150, 1)'};
   background-color: ${(props) => props.color === 6 && 'rgba(110, 218, 253, 1)'};
   background-color: ${(props) => props.color === 7 && 'rgba(130, 110, 253, 1)'};
-  background-color: ${(props) => props.color === 8 && `${(props) => props.theme.colors.gray2}`};
-  background-color: ${(props) => props.color === 9 && `${(props) => props.theme.colors.blue4}`};
+  background-color: ${(props) => props.color === 8 && `var(--gray2)`};
+  background-color: ${(props) => props.color === 9 && `var(--blue4)`};
   position: absolute;
   left: 0;
   top: 0;
@@ -293,7 +286,7 @@ const Delete = styled.button`
   width: 100%;
   padding: 18px;
   color: #fff;
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   border-radius: 6px;
   margin-top: 25px;
 `;
@@ -301,7 +294,7 @@ const Move = styled.button`
   width: 100%;
   padding: 18px;
   color: #fff;
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   border-radius: 6px;
   margin-top: 25px;
   display: flex;

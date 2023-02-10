@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { loadMonth } from "../../redux/modules/schedule";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { loadMonth } from '../../modules/schedule';
 
 const Head = (props) => {
   const { year, month, setYear, setMonth } = props;
@@ -31,15 +31,17 @@ const Head = (props) => {
     const y = year - 1;
     setYear(y);
   };
-  const monthNumber = String(month).padStart(2, "0");
-  const fullDate = `${year}-${monthNumber}-01 00:00:00`;
+  const monthNumber = String(month).padStart(2, '0');
+  const startDate = `${year}-${monthNumber}-01 00:00:00`;
 
   useEffect(() => {
-    dispatch(loadMonth(fullDate));
+    (async () => {
+      await dispatch(loadMonth(startDate));
+    })();
   }, [month]);
 
   // 오늘날짜소환!
-  const DAY = ["일", "월", "화", "수", "목", "금", "토"];
+  const DAY = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
     <Form>
@@ -55,7 +57,7 @@ const Head = (props) => {
           <BtnBox>
             <Btn onClick={monthMius}>&lt;</Btn>
             <Month>
-              <p>{String(month).padStart(2, "0")}월</p>
+              <p>{String(month).padStart(2, '0')}월</p>
             </Month>
             <Btn onClick={monthPlus}>&gt;</Btn>
           </BtnBox>

@@ -17,7 +17,7 @@ const NotFound = () => {
 export default NotFound;
 
 const NotFoundWrap = styled.div`
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
   width: 100%;
   height: 100%;
   position: relative;

@@ -30,7 +30,7 @@ const FooterWrap = styled.footer`
 const Atherlogin = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   margin-top: 72px;
   margin-bottom: 16px;
 `;

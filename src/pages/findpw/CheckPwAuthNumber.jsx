@@ -13,7 +13,7 @@ import Button from '../../components/common/Button';
 import userApi from '../../apis/user';
 import Form from '../../components/common/Form';
 
-const CheckSignUpAuthNumber = () => {
+const CheckPwAuthNumber = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.user);
   const {
@@ -91,7 +91,7 @@ const CheckSignUpAuthNumber = () => {
   );
 };
 
-export default CheckSignUpAuthNumber;
+export default CheckPwAuthNumber;
 const PwWrap = styled.div`
   height: 100vh;
   padding: 0 35px;
@@ -118,7 +118,7 @@ const Title = styled.h1`
 const SubTitle = styled.p`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.gray4};
+  color: var(--gray4);
   margin-top: 16px;
 `;
 const Banner = styled.img`
@@ -131,7 +131,7 @@ const Main = styled.main`
 `;
 
 const PwChangeBtn = styled(Button)`
-  background: ${(props) => props.theme.colors.blue4};
+  background: var(--blue4);
   width: 100%;
   color: #fff;
   margin-bottom: 8px;
@@ -139,7 +139,7 @@ const PwChangeBtn = styled(Button)`
 const ErrorCheck = styled.span`
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   text-align: center;
   margin-top: 39px;
   margin-bottom: 24px;
@@ -147,7 +147,7 @@ const ErrorCheck = styled.span`
 const Email = styled.p`
   font-weight: 800;
   font-size: 16px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   text-align: center;
   margin-bottom: 55px;
 `;
@@ -155,10 +155,10 @@ const Input = styled(FormInput)`
   ${(props) =>
     props.errorcheck &&
     css`
-      border: 2px solid ${(props) => props.theme.colors.point3};
-      color: ${(props) => props.theme.colors.point3};
+      border: 2px solid var(--point3);
+      color: var(--point3);
       ::placeholder {
-        color: ${(props) => props.theme.colors.point3};
+        color: var(--point3);
       }
     `}
   margin-bottom: 72px;

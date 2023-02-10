@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { getCookie, deleteCookie, setCookie } from '../shared/cookie';
+import { deleteCookie, setCookie } from '../shared/cookie';
 // css
 import styled from 'styled-components';
 import backBtn from '../assets/icon/Back.svg';
@@ -65,15 +64,14 @@ const Mypage = () => {
             <MyBubble
               style={{ width: '162px', left: '105px' }}
               onClick={() => {
-                navigate('/Job');
+                navigate('main/Job');
               }}
             >
-              {' '}
               <span
                 style={{
                   fontWeight: '700',
                   marginLeft: '3px',
-                  color: `${(props) => props.theme.colors.blue4}`,
+                  color: `var(--blue4)`,
                 }}
               >
                 채용공고 담으러 가기
@@ -93,7 +91,7 @@ const Mypage = () => {
                 style={{
                   fontWeight: '700',
                   marginLeft: '3px',
-                  color: `${(props) => props.theme.colors.blue4}`,
+                  color: `var(--blue4)`,
                 }}
               >
                 보러가기
@@ -125,10 +123,8 @@ const Mypage = () => {
               <ModiWrap>
                 <ModifyDate>
                   비밀번호 바꾼지
-                  <p style={{ color: `${(props) => props.theme.colors.blue4}`, margin: '0 10px' }}>
-                    {parseInt(diff / currMonth)}개월
-                  </p>{' '}
-                  이 지났어요!
+                  <p style={{ color: `var(--blue4)`, margin: '0 10px' }}>{parseInt(diff / currMonth)}개월</p> 이
+                  지났어요!
                 </ModifyDate>
                 <ModifyBtn
                   onClick={() => {
@@ -159,7 +155,7 @@ const Mypage = () => {
 export default Mypage;
 
 const Outer = styled.div`
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
   height: 40.2vh;
 `;
 
@@ -173,7 +169,7 @@ const PersonalInfo = styled.div`
 const PersonalTitle = styled.div`
   font-weight: 500;
   font-size: 12px;
-  color: ${(props) => props.theme.colors.blue4};
+  color: var(--blue4);
   height: 22px;
 `;
 
@@ -201,10 +197,10 @@ const ModifyDate = styled.div`
   padding-left: 20px;
 `;
 const ModifyBtn = styled.div`
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   width: 55px;
   height: 48px;
-  border: 1px solid ${(props) => props.theme.colors.blue3};
+  border: 1px solid var(--blue3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,8 +210,8 @@ const ModifyBtn = styled.div`
 const LogoutBtn = styled.div`
   /* width: 341px; */
   height: 54px;
-  border: 1px ${(props) => props.theme.colors.blue4} solid;
-  background-color: ${(props) => props.theme.colors.blue4};
+  border: 1px var(--blue4) solid;
+  background-color: var(--blue4);
   margin-top: 36px;
   border-radius: 6px;
   display: flex;
@@ -240,7 +236,7 @@ const MyBubble = styled.div`
   height: 35px;
   background-color: white;
   border-radius: 8px;
-  color: ${(props) => props.theme.colors.blue4};
+  color: var(--blue4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,7 +260,7 @@ const MyBubble = styled.div`
 const MyNavWrap = styled.div`
   width: 100%;
   height: 20vh;
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -276,6 +272,7 @@ const MyBack = styled.img`
   position: absolute;
   left: 4%;
   top: 8%;
+  cursor: pointer;
 `;
 
 const MyImg = styled.img`
@@ -283,8 +280,8 @@ const MyImg = styled.img`
   height: 100px;
   position: absolute;
   bottom: 0;
-  right: 50%;
+  left: 50%;
   border: none;
   border-radius: 50%;
-  transform: translate(52%, 3%);
+  transform: translateX(-50%);
 `;

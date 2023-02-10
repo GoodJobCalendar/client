@@ -20,13 +20,13 @@ const LoginMain = () => {
     setError,
   } = useForm();
 
-  const onVaild = async (data) => {
+  const onVaild = (data) => {
     const { email, password } = data;
-    await userApi
+    userApi
       .login({ email, password })
       .then((response) => {
         setCookie('token', response.data.token, 5);
-        navigate('/main');
+        navigate('/main/calendar');
       })
       .catch((error) => {
         console.error(error);
@@ -99,10 +99,10 @@ const EmailInput = styled(FormInput)`
   ${(props) =>
     props.mailCheck &&
     css`
-      border: 2px solid ${(props) => props.theme.colors.point3};
-      color: ${(props) => props.theme.colors.point3};
+      border: 2px solid var(--point3);
+      color: var(--point3);
       ::placeholder {
-        color: ${(props) => props.theme.colors.point3};
+        color: var(--point3);
       }
     `}
 `;
@@ -110,10 +110,10 @@ const PwInput = styled(FormInput)`
   ${(props) =>
     props.pwCheck &&
     css`
-      border: 2px solid ${(props) => props.theme.colors.point3};
-      color: ${(props) => props.theme.colors.point3};
+      border: 2px solid var(--point3);
+      color: var(--point3);
       ::placeholder {
-        color: ${(props) => props.theme.colors.point3};
+        color: var(--point3);
       }
     `}
 `;
@@ -121,7 +121,7 @@ const PwInput = styled(FormInput)`
 const ErrorCheck = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   text-align: center;
   margin-top: 39px;
   margin-bottom: 24px;
@@ -129,15 +129,15 @@ const ErrorCheck = styled.p`
 const PwCheck = styled(Button)`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   gap: 7px;
   line-height: 17px;
   span {
     font-weight: 600;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
 `;
 const LoginBtn = styled(Button)`
-  background: ${(props) => props.theme.colors.blue4};
+  background: var(--blue4);
   color: #fff;
 `;

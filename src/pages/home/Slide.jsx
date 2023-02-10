@@ -81,22 +81,22 @@ const SlideWrap = styled.main`
     .swiper-pagination-bullet {
       width: 10px;
       height: 10px;
-      background-color: ${(props) => props.theme.colors.blue2};
+      background-color: var(--blue2);
       opacity: 1;
     }
     .swiper-pagination-bullet-active {
-      background-color: ${(props) => props.theme.colors.blue4};
+      background-color: var(--blue4);
     }
   }
 `;
 const SlideText = styled.p`
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue4};
+  color: var(--blue4);
   font-weight: 500;
   margin-top: 30px;
   > span {
     font-weight: 700;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
 `;
 const SlideBox = styled.div`

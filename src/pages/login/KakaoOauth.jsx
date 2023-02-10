@@ -14,7 +14,7 @@ const KakaoOauth = () => {
         .kakao({ code })
         .then((response) => {
           setCookie('token', response.data.token, 5);
-          navigate('/main');
+          navigate('/main/calendar');
         })
         .catch((error) => {
           console.error(error);

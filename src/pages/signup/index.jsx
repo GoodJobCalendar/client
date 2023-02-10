@@ -12,7 +12,7 @@ import logotext from '../../assets/logo/logo_text.svg';
 // 컴포넌트
 import { FormInput } from '../../components/common/Input';
 import Button from '../../components/common/Button';
-import Form from './../../components/common/Form';
+import Form from '../../components/common/Form';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const SignUp = () => {
         userName,
       })
       .then(() => {
-        navigate('/authnumbercheck');
+        navigate('/checksignupauthnumber');
       })
       .catch((error) => {
         console.error(error);
@@ -143,7 +143,7 @@ const SignUpWrap = styled.div`
   height: 100vh;
   padding: 0 35px;
   padding-top: 89px;
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
 `;
 
 const Logo = styled.div`
@@ -162,7 +162,7 @@ const Title = styled.h1`
 const SubTitle = styled.div`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.gray4};
+  color: var(--gray4);
   margin-bottom: 43px;
   span {
     font-weight: 700;
@@ -179,7 +179,7 @@ const SignUpForm = styled(Form)`
 `;
 
 const SignUpBtn = styled(Button)`
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -188,16 +188,16 @@ const SignUpBtn = styled(Button)`
 `;
 
 const Email = styled(FormInput)`
-  border: ${(props) => props.mailCheck && `1px solid ${(props) => props.theme.colors.point3}`};
-  color: ${(props) => props.mailCheck && `${(props) => props.theme.colors.point3}`};
+  border: ${(props) => props.mailCheck && `1px solid var(--point3)`};
+  color: ${(props) => props.mailCheck && `var(--point3)`};
 `;
 const PassWord = styled(FormInput)`
-  border: ${(props) => props.pwCheck && `1px solid ${(props) => props.theme.colors.point3}`};
-  color: ${(props) => props.pwCheck && `${(props) => props.theme.colors.point3}`};
+  border: ${(props) => props.pwCheck && `1px solid var(--point3)`};
+  color: ${(props) => props.pwCheck && `var(--point3)`};
 `;
 const Check = styled.p`
   text-align: center;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   font-weight: 600;
   font-size: 14px;
   padding-top: 30px;
@@ -205,7 +205,7 @@ const Check = styled.p`
 `;
 
 const Container = styled.footer`
-  border-top: 1px solid ${(props) => props.theme.colors.blue2};
+  border-top: 1px solid var(--blue2);
   padding: 15px 0;
   display: flex;
   justify-content: center;
@@ -219,6 +219,6 @@ const Container = styled.footer`
     font-weight: 600;
     font-size: 14px;
     margin-left: 11px;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
 `;

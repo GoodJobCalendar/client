@@ -26,15 +26,10 @@ const ZZim = () => {
     const getZzim = async () => {
       const condition = 'scrapping';
       const orderBy = 'asc';
-      await jobApi
-        .getLikeList({
-          condition,
-          orderBy,
-        })
-        .then((res) => {
-          setList(res.data.data);
-          setTotalPage(Math.ceil(list?.length / postPerPage));
-        });
+      await jobApi.getLikeList(condition, orderBy).then((res) => {
+        setList(res.data.data);
+        setTotalPage(Math.ceil(list?.length / postPerPage));
+      });
     };
     getZzim();
   }, []);
@@ -42,30 +37,20 @@ const ZZim = () => {
   const getZzim1 = async () => {
     const condition = 'scrapping';
     const orderBy = 'asc';
-    await jobApi
-      .getLikeList({
-        condition,
-        orderBy,
-      })
-      .then((res) => {
-        setList(res.data.data);
-        setTotalPage(Math.ceil(list?.length / postPerPage));
-        setToggle(false);
-      });
+    await jobApi.getLikeList(condition, orderBy).then((res) => {
+      setList(res.data.data);
+      setTotalPage(Math.ceil(list?.length / postPerPage));
+      setToggle(false);
+    });
   };
 
   const getZzimDead = async () => {
     const condition = 'deadline';
     const orderBy = 'asc';
-    await jobApi
-      .getLikeList({
-        condition,
-        orderBy,
-      })
-      .then((res) => {
-        setList(res.data.data);
-        setTotalPage(Math.ceil(list?.length / postPerPage));
-      });
+    await jobApi.getLikeList(condition, orderBy).then((res) => {
+      setList(res.data.data);
+      setTotalPage(Math.ceil(list?.length / postPerPage));
+    });
   };
 
   return (
@@ -78,7 +63,7 @@ const ZZim = () => {
         <Scrap toggle={toggle} onClick={getZzim1}>
           스크랩순
         </Scrap>
-        <div style={{ color: `${(props) => props.theme.colors.gray3}` }}>|</div>
+        <div style={{ color: `var(--gray3)` }}>|</div>
         <Deadline
           toggle={toggle}
           onClick={() => {
@@ -121,7 +106,7 @@ const ZZim = () => {
 export default ZZim;
 
 const MainWrapper = styled.div`
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
   height: 100vh;
   overflow: hidden;
 `;
@@ -165,12 +150,10 @@ const MiddleButton = styled.div`
 `;
 
 const Scrap = styled.div`
-  color: ${(props) =>
-    props.toggle ? `${(props) => props.theme.colors.gray4}` : `${(props) => props.theme.colors.blue4}`};
+  color: ${(props) => (props.toggle ? `var(--gray4)` : `var(--blue4)`)};
 `;
 const Deadline = styled.div`
-  color: ${(props) =>
-    props.toggle ? `${(props) => props.theme.colors.blue4}` : `${(props) => props.theme.colors.gray3}`};
+  color: ${(props) => (props.toggle ? `var(--blue4)` : `var(--gray3)`)};
 `;
 
 const JobCardWrap = styled.div`

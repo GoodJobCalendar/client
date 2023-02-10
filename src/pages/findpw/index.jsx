@@ -11,7 +11,7 @@ import userApi from '../../apis/user';
 // 컴포넌트
 import { FormInput } from '../../components/common/Input';
 import Button from '../../components/common/Button';
-import Form from './../../components/common/Form';
+import Form from '../../components/common/Form';
 
 const FindPassword = () => {
   const navigate = useNavigate();
@@ -112,7 +112,7 @@ const Title = styled.h1`
 const SubTitle = styled.p`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.gray4};
+  color: var(--gray4);
   margin-top: 16px;
 `;
 
@@ -123,10 +123,10 @@ const UserNameInput = styled(FormInput)`
   ${(props) =>
     props.userNamecheck &&
     css`
-      border: 2px solid ${(props) => props.theme.colors.point3};
-      color: ${(props) => props.theme.colors.point3};
+      border: 2px solid var(--point3);
+      color: var(--point3);
       ::placeholder {
-        color: ${(props) => props.theme.colors.point3};
+        color: var(--point3);
       }
     `}
 `;
@@ -134,22 +134,22 @@ const EmailInput = styled(FormInput)`
   ${(props) =>
     props.emailcheck &&
     css`
-      border: 2px solid ${(props) => props.theme.colors.point3};
-      color: ${(props) => props.theme.colors.point3};
+      border: 2px solid var(--point3);
+      color: var(--point3);
       ::placeholder {
-        color: ${(props) => props.theme.colors.point3};
+        color: var(--point3);
       }
     `}
 `;
 const PwCheckEmailSendBtn = styled(Button)`
-  background: ${(props) => props.theme.colors.blue4};
+  background: var(--blue4);
   color: #fff;
   margin-top: 80px;
 `;
 const ErrorCheck = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.point3};
+  color: var(--point3);
   margin: 40px 0;
   text-align: center;
 `;

@@ -22,7 +22,7 @@ const Splash = () => {
 export default Splash;
 
 const SplashScreenWrap = styled.div`
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   position: absolute;
   top: 0;
   left: 0;

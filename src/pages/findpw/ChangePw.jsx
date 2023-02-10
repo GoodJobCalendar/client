@@ -116,7 +116,7 @@ const Title = styled.div`
 const SubTitle = styled.div`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.gray4};
+  color: var(--gray4);
   margin-top: 8px;
 `;
 const Main = styled.main`
@@ -126,20 +126,20 @@ const Main = styled.main`
   text-align: center;
 `;
 const SignUpBtn = styled(Button)`
-  background: ${(props) => props.theme.colors.blue4};
+  background: var(--blue4);
   color: #fff;
   margin-bottom: 8px;
 `;
 const ErrorCheck = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   text-align: center;
   margin-top: 39px;
   margin-bottom: 24px;
 `;
 
 const PassWord = styled(FormInput)`
-  border: ${(props) => props.pwCheck && `1px solid ${(props) => props.theme.colors.point3}`};
-  color: ${(props) => props.pwCheck && `${(props) => props.theme.colors.point3}`};
+  border: ${(props) => props.pwCheck && `1px solid var(--point3)`};
+  color: ${(props) => props.pwCheck && `var(--point3)`};
 `;

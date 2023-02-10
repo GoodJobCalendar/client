@@ -128,7 +128,7 @@ const JobCategory = () => {
         <SaveBtn
           onClick={() => {
             dispatch(selectCategory(categoryData));
-            navigate('/main/job');
+            navigate(-1);
           }}
         >
           저장
@@ -688,7 +688,7 @@ const JobCategory = () => {
 };
 
 const MainWrapper = styled.div`
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
   height: 100vh;
   overflow: hidden;
   overflow-y: scroll;
@@ -763,7 +763,7 @@ const JobTags = styled.div`
   padding: 4px 10px;
   display: inline-block;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
+    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
   border-radius: 6px;
   :nth-child(1) {
     margin-right: calc(100% - 50px);
@@ -773,7 +773,7 @@ const JobTags = styled.div`
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue4}`)};
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `var(--blue4)`)};
   cursor: pointer;
 `;
 const JobTagsFlex = styled.div`
@@ -789,13 +789,13 @@ const DetailJobTags = styled.div`
   margin-bottom: 16px;
   margin-right: 20px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
+    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
   color: ${(props) => (props.categoryData === props.tasksData ? 'white' : '#74A0E3')};
-  border: 1px solid ${(props) => props.theme.colors.blue2};
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -803,13 +803,13 @@ const DetailJobTags = styled.div`
 const WorkAreaTags = styled.div`
   padding: 8px 10px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
+    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
   border-radius: 6px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue4}`)};
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `var(--blue4)`)};
   cursor: pointer;
 `;
 
@@ -817,13 +817,13 @@ const DetailWorkAreaTags = styled.div`
   padding: 6px 10px;
   margin: 4px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
+    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
   color: ${(props) => (props.categoryData === props.tasksData ? 'white' : '#74A0E3')};
-  border: 1px solid ${(props) => props.theme.colors.blue2};
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -849,13 +849,13 @@ const CareersTags = styled.div`
   margin: 4px;
   margin-bottom: 8px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
+    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue3}`)};
-  border: 1px solid ${(props) => props.theme.colors.blue2};
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `var(--blue3)`)};
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -866,13 +866,13 @@ const CompanyTypeTags = styled.div`
   margin: 4px;
   margin-bottom: 8px;
   background: ${(props) =>
-    props.categoryData === props.tasksData ? `${(props) => props.theme.colors.blue4}` : 'transparent'};
+    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
   font-size: 12px;
-  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `${(props) => props.theme.colors.blue3}`)};
-  border: 1px solid ${(props) => props.theme.colors.blue2};
+  color: ${(props) => (props.categoryData === props.tasksData ? 'white' : `var(--blue3)`)};
+  border: 1px solid var(--blue2);
   box-sizing: border-box;
   cursor: pointer;
 `;

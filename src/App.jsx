@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './styles/theme';
 import GlobalStyle from './styles/globalStyle';
 
-import Container from './pages/Container';
+import Web from './pages/Web';
 import Router from './router/Router';
 
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
       <BrowserView>
-        <Container />
+        <Web />
       </BrowserView>
       <MobileView>
         <Router />

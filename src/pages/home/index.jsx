@@ -70,7 +70,7 @@ const Title = styled.p`
   font-size: 14px;
   margin-top: 12px;
   margin-bottom: 4.6px;
-  color: ${(props) => props.theme.colors.blue4};
+  color: var(--blue4);
 `;
 
 const Container = styled.footer`
@@ -81,7 +81,7 @@ const Container = styled.footer`
 
 const SignUpBtn = styled(Button)`
   background-color: #ffffff;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
 `;
 
 const KaKaoBtn = styled(Button)`
@@ -98,6 +98,6 @@ const KaKaoBtn = styled(Button)`
   }
 `;
 const LoginBtn = styled(Button)`
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   color: #fff;
 `;

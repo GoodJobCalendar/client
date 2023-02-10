@@ -5,7 +5,7 @@ import bgLeft from '../assets/bg/bg_left.png';
 import bgRight from '../assets/bg/bg_right.png';
 import styled from 'styled-components';
 
-const Container = () => {
+const Web = () => {
   return (
     <BrowserBg>
       <MobileBg>
@@ -17,12 +17,12 @@ const Container = () => {
   );
 };
 
-export default Container;
+export default Web;
 const BrowserBg = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   position: relative;
   > img:first-child {
     position: absolute;
@@ -41,7 +41,7 @@ const MobileBg = styled.div`
   height: 100vh;
   overflow-y: scroll;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39), -26px 6px 90px rgba(73, 73, 73, 0.58);
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
   position: absolute;
   top: 50%;
   left: 50%;

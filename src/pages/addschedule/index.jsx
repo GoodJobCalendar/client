@@ -1,35 +1,34 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { schedulePost } from "../../redux/modules/schedule";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { schedulePost } from '../../modules/schedule';
 
 // 스티커
-import img1 from "../../assets/img/sticker/sticker1.png";
-import img2 from "../../assets/img/sticker/sticker2.png";
-import img3 from "../../assets/img/sticker/sticker3.png";
-import img4 from "../../assets/img/sticker/sticker4.png";
-import img5 from "../../assets/img/sticker/sticker5.png";
-import img6 from "../../assets/img/sticker/sticker6.png";
-import img7 from "../../assets/img/sticker/sticker7.png";
-import img8 from "../../assets/img/sticker/sticker8.png";
+import img1 from '../../assets/sticker/sticker1.png';
+import img2 from '../../assets/sticker/sticker2.png';
+import img3 from '../../assets/sticker/sticker3.png';
+import img4 from '../../assets/sticker/sticker4.png';
+import img5 from '../../assets/sticker/sticker5.png';
+import img6 from '../../assets/sticker/sticker6.png';
+import img7 from '../../assets/sticker/sticker7.png';
+import img8 from '../../assets/sticker/sticker8.png';
 
 // 커버 이미지
-import cover1 from "../../assets/img/cover/cover1.png";
+import cover1 from '../../assets/cover/cover1.png';
 
 // 아이콘
-import time from "../../assets/img/icon/Time.svg";
-import location from "../../assets/img/icon/Location.svg";
-import memoimg from "../../assets/img/icon/memo.svg";
-import emptyImg from "../../assets/img/illust/needlogin.png";
-import arrow from "../../assets/img/icon/Back.svg";
+import time from '../../assets/icon/Time.svg';
+import location from '../../assets/icon/Location.svg';
+import memoimg from '../../assets/icon/memo.svg';
+import emptyImg from '../../assets/illust/needlogin.png';
+import arrow from '../../assets/icon/Back.svg';
 
 //Date Picker
-import DatePicker from "react-datepicker";
-import "date-fns";
-import ko from "date-fns/locale/ko";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'date-fns';
+import ko from 'date-fns/locale/ko';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
@@ -44,77 +43,62 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   const [timeShow, setTimeShow] = useState(false);
 
   //작성목록
-  const [color, setColor] = useState("1");
-  const [sticker, setSticker] = useState("1");
-  const [image, setImage] = useState("1");
-  const [companyName, setCompanyName] = useState("");
-  const [title, setTitle] = useState("");
-  const [place, setPlace] = useState("");
-  const [memo, setMemo] = useState("");
+  const [color, setColor] = useState('1');
+  const [sticker, setSticker] = useState('1');
+  const [image, setImage] = useState('1');
+  const [companyName, setCompanyName] = useState('');
+  const [title, setTitle] = useState('');
+  const [place, setPlace] = useState('');
+  const [memo, setMemo] = useState('');
   const [cover, setCover] = useState(cover1);
   //컬러 미리보기
-  const [colorPick, setColorPick] = useState("");
+  const [colorPick, setColorPick] = useState('');
   const [startDate, setStartDate] = useState(new Date());
 
   //Time Picker
-  const [selectTime, setSelectTime] = useState("오전");
-  const [selectHour, setSelectHour] = useState("01");
-  const [selectMinute, setSelectMinute] = useState("00");
+  const [selectTime, setSelectTime] = useState('오전');
+  const [selectHour, setSelectHour] = useState('01');
+  const [selectMinute, setSelectMinute] = useState('00');
 
   //Date Picker
-  let [week, month, day, year, sTime] = startDate.toString().split(" ");
+  let [week, month, day, year, sTime] = startDate.toString().split(' ');
   let Week = (week) => {
-    if (week === "Sun") return "일";
-    if (week === "Mon") return "월";
-    if (week === "Tue") return "화";
-    if (week === "Wed") return "수";
-    if (week === "Thu") return "목";
-    if (week === "Fri") return "금";
-    if (week === "Sat") return "토";
+    if (week === 'Sun') return '일';
+    if (week === 'Mon') return '월';
+    if (week === 'Tue') return '화';
+    if (week === 'Wed') return '수';
+    if (week === 'Thu') return '목';
+    if (week === 'Fri') return '금';
+    if (week === 'Sat') return '토';
   };
   let Month = (month) => {
-    if (month === "Jan") return "01";
-    if (month === "Feb") return "02";
-    if (month === "Mar") return "03";
-    if (month === "Apr") return "04";
-    if (month === "May") return "05";
-    if (month === "Jun") return "06";
-    if (month === "Jul") return "07";
-    if (month === "Aug") return "08";
-    if (month === "Sep") return "09";
-    if (month === "Oct") return "10";
-    if (month === "Nov") return "11";
-    if (month === "Dec") return "12";
+    if (month === 'Jan') return '01';
+    if (month === 'Feb') return '02';
+    if (month === 'Mar') return '03';
+    if (month === 'Apr') return '04';
+    if (month === 'May') return '05';
+    if (month === 'Jun') return '06';
+    if (month === 'Jul') return '07';
+    if (month === 'Aug') return '08';
+    if (month === 'Sep') return '09';
+    if (month === 'Oct') return '10';
+    if (month === 'Nov') return '11';
+    if (month === 'Dec') return '12';
   };
 
   //Time Picker
-  const division = ["오전", "오후"];
-  const hourSelect = [
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-  ];
-  const minuteSelect = ["00", "10", "20", "30", "40", "50"];
+  const division = ['오전', '오후'];
+  const hourSelect = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  const minuteSelect = ['00', '10', '20', '30', '40', '50'];
 
   //오후 시간 선택시 12더하기
-  const hour = String(
-    Number(selectHour) + Number(selectTime === "오후" ? 12 : 0)
-  ).padStart(2, "0");
+  const hour = String(Number(selectHour) + Number(selectTime === '오후' ? 12 : 0)).padStart(2, '0');
   // 날짜
   const allDate = `${year}-${Month(month)}-${day} ${hour}:${selectMinute}:00`;
 
   // 뒤로가기
   const moveBtn = () => {
-    navigate("/main");
+    navigate('/main/calendar');
   };
   // 컬러 리스트 보이기
   const colorShowBtn = () => {
@@ -147,28 +131,28 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   // 커버 이미지 미리보기 / 커버 이미지 pick
   function stickerChangeView(sticker) {
-    if (sticker === "1") {
+    if (sticker === '1') {
       return img1;
     }
-    if (sticker === "2") {
+    if (sticker === '2') {
       return img2;
     }
-    if (sticker === "3") {
+    if (sticker === '3') {
       return img3;
     }
-    if (sticker === "4") {
+    if (sticker === '4') {
       return img4;
     }
-    if (sticker === "5") {
+    if (sticker === '5') {
       return img5;
     }
-    if (sticker === "6") {
+    if (sticker === '6') {
       return img6;
     }
-    if (sticker === "7") {
+    if (sticker === '7') {
       return img7;
     }
-    if (sticker === "8") {
+    if (sticker === '8') {
       return img8;
     }
   }
@@ -181,16 +165,10 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
   // 일정등록
   const addScheduleBtn = async () => {
-    if (
-      (companyName === "",
-      title === "",
-      allDate === "",
-      place === "",
-      memo === "")
-    ) {
+    if ((companyName === '', title === '', allDate === '', place === '', memo === '')) {
       setEmpty(!empty);
     } else {
-      dispatch(
+      await dispatch(
         schedulePost({
           image: Number(image),
           companyName, //필수입력
@@ -200,9 +178,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           place, //필수입력
           memo,
           color: Number(color),
-        })
+        }),
       );
-      navigate("/main");
+      navigate('/main/calendar');
     }
   };
   const formatDate = (d) => {
@@ -220,16 +198,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
 
     setTimeShow(!timeShow);
   };
-
   return (
     <AddSchesuleWrap>
-      {empty ? (
-        ""
-      ) : (
+      {!empty && (
         <NeedPost>
           <NeedPostModal>
             <p>빈칸 작성 필요</p>
-            <img src={emptyImg} alt="빈칸 작성 필요" />
+            <img src={emptyImg} alt='빈칸 작성 필요' />
             <span>빈칸을 모두 입력해주세요.</span>
             <NeedPostBtn
               onClick={() => {
@@ -244,7 +219,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
       <Header style={{ backgroundImage: `url(${cover})` }}>
         <AddFlex>
           <Btn onClick={moveBtn}>
-            <img src={arrow} alt="뒤로가기" />
+            <img src={arrow} alt='뒤로가기' />
           </Btn>
           <Btn onClick={addScheduleBtn}>저장</Btn>
         </AddFlex>
@@ -256,83 +231,42 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             {stickerShow ? (
               <Background>
                 <StickerList>
-                  <StickerPick1 htmlFor="1" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="1"
-                      onChange={stickerChange}
-                      sticker={sticker}
-                    />
+                  <StickerPick1 htmlFor='1' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='1' onChange={stickerChange} sticker={sticker} />
                     <StickerCoverLine sticker={sticker}></StickerCoverLine>
                   </StickerPick1>
-                  <StickerPick htmlFor="2" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="2"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='2' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='2' onChange={stickerChange} />
                     <StickerImg src={img2} />
                   </StickerPick>
-                  <StickerPick htmlFor="3" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="3"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='3' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='3' onChange={stickerChange} />
                     <StickerImg src={img3} />
                   </StickerPick>
-                  <StickerPick htmlFor="4" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="4"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='4' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='4' onChange={stickerChange} />
                     <StickerImg src={img4} />
                   </StickerPick>
-                  <StickerPick htmlFor="5" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="5"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='5' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='5' onChange={stickerChange} />
                     <StickerImg src={img5} />
                   </StickerPick>
-                  <StickerPick htmlFor="6" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="6"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='6' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='6' onChange={stickerChange} />
                     <StickerImg src={img6} />
                   </StickerPick>
-                  <StickerPick htmlFor="7" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="7"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='7' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='7' onChange={stickerChange} />
                     <StickerImg src={img7} />
                   </StickerPick>
-                  <StickerPick htmlFor="8" sticker={sticker}>
-                    <Input
-                      type="radio"
-                      name="sticker"
-                      id="8"
-                      onChange={stickerChange}
-                    />
+                  <StickerPick htmlFor='8' sticker={sticker}>
+                    <Input type='radio' name='sticker' id='8' onChange={stickerChange} />
                     <StickerImg src={img8} />
                   </StickerPick>
                 </StickerList>
               </Background>
             ) : (
-              ""
+              ''
             )}
           </TitleInput>
           <TitleInput>
@@ -342,42 +276,42 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             {coverShow ? (
               <Background>
                 <CoverList>
-                  <CoverPick1 htmlFor="1" image={image}>
+                  <CoverPick1 htmlFor='1' image={image}>
                     <Input
-                      type="radio"
-                      name="cover"
-                      id="1"
-                      value="https://ifh.cc/g/T7qvdv.png"
+                      type='radio'
+                      name='cover'
+                      id='1'
+                      value='https://ifh.cc/g/T7qvdv.png'
                       onChange={coverChange}
                     />
                     <CoverLine image={image}></CoverLine>
                   </CoverPick1>
-                  <CoverPick htmlFor="2" image={image}>
+                  <CoverPick htmlFor='2' image={image}>
                     <Input
-                      type="radio"
-                      name="cover"
-                      id="2"
-                      value="https://ifh.cc/g/Skyf8V.png"
+                      type='radio'
+                      name='cover'
+                      id='2'
+                      value='https://ifh.cc/g/Skyf8V.png'
                       onChange={coverChange}
                     />
                     응원
                   </CoverPick>
-                  <CoverPick htmlFor="3" image={image}>
+                  <CoverPick htmlFor='3' image={image}>
                     <Input
-                      type="radio"
-                      name="cover"
-                      id="3"
-                      value="https://ifh.cc/g/3HVMOb.png"
+                      type='radio'
+                      name='cover'
+                      id='3'
+                      value='https://ifh.cc/g/3HVMOb.png'
                       onChange={coverChange}
                     />
                     출근
                   </CoverPick>
-                  <CoverPick htmlFor="4" image={image}>
+                  <CoverPick htmlFor='4' image={image}>
                     <Input
-                      type="radio"
-                      name="cover"
-                      id="4"
-                      value="https://ifh.cc/g/7nH36H.png"
+                      type='radio'
+                      name='cover'
+                      id='4'
+                      value='https://ifh.cc/g/7nH36H.png'
                       onChange={coverChange}
                     />
                     일
@@ -385,7 +319,7 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                 </CoverList>
               </Background>
             ) : (
-              ""
+              ''
             )}
           </TitleInput>
         </BtnFlex>
@@ -393,114 +327,59 @@ const AddSchedule = ({ value, onChange, ...others }) => {
       <AddList>
         <TitleInput>
           <InputText
-            type="text"
-            placeholder="회사 이름"
+            type='text'
+            placeholder='회사 이름'
             onChange={(event) => {
               setCompanyName(event.target.value);
             }}
           />
-          <StickerView src={stickerChangeView(sticker)} alt="스티커미리보기" />
+          <StickerView src={stickerChangeView(sticker)} alt='스티커미리보기' />
         </TitleInput>
 
         <TitleInput>
           <InputText
-            type="text"
-            placeholder="제목"
+            type='text'
+            placeholder='제목'
             onChange={(event) => {
               setTitle(event.target.value);
             }}
           />
-          <ColorPicker
-            onClick={colorShowBtn}
-            colorPick={colorPick}
-            colorPickerShow={colorPickerShow}
-          />
+          <ColorPicker onClick={colorShowBtn} colorPick={colorPick} colorPickerShow={colorPickerShow} />
           {colorPickerShow ? (
             <ColorList>
-              <Color1 htmlFor="1">
+              <Color1 htmlFor='1'>
                 <ColorCoverLine colorPick={colorPick}></ColorCoverLine>
               </Color1>
-              <Input
-                type="radio"
-                name="color"
-                id="1"
-                value="var(--blue1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="2" bgColor="var(--point3)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="2"
-                value="var(--point3)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="3" bgColor="rgba(253, 187, 110, 1)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="3"
-                value="rgba(253, 187, 110, 1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="4" bgColor="rgba(253, 247, 110, 1)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="4"
-                value="rgba(253, 247, 110, 1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="5" bgColor="rgba(110, 253, 150, 1)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="5"
-                value="rgba(110,253,150,1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="6" bgColor="rgba(110, 218, 253, 1)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="6"
-                value="rgba(110,218,253,1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="7" bgColor="rgba(130, 110, 253, 1)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="7"
-                value="rgba(130,110,253,1)"
-                onChange={colorChange}
-              />
-              <Color htmlFor="8" bgColor="var(--gray2)"></Color>
-              <Input
-                type="radio"
-                name="color"
-                id="8"
-                value="rgba(154, 154, 154, 1)"
-                onChange={colorChange}
-              />
+              <Input type='radio' name='color' id='1' value='var(--blue1)' onChange={colorChange} />
+              <Color htmlFor='2' bgColor='var(--point3)'></Color>
+              <Input type='radio' name='color' id='2' value='var(--point3)' onChange={colorChange} />
+              <Color htmlFor='3' bgColor='rgba(253, 187, 110, 1)'></Color>
+              <Input type='radio' name='color' id='3' value='rgba(253, 187, 110, 1)' onChange={colorChange} />
+              <Color htmlFor='4' bgColor='rgba(253, 247, 110, 1)'></Color>
+              <Input type='radio' name='color' id='4' value='rgba(253, 247, 110, 1)' onChange={colorChange} />
+              <Color htmlFor='5' bgColor='rgba(110, 253, 150, 1)'></Color>
+              <Input type='radio' name='color' id='5' value='rgba(110,253,150,1)' onChange={colorChange} />
+              <Color htmlFor='6' bgColor='rgba(110, 218, 253, 1)'></Color>
+              <Input type='radio' name='color' id='6' value='rgba(110,218,253,1)' onChange={colorChange} />
+              <Color htmlFor='7' bgColor='rgba(130, 110, 253, 1)'></Color>
+              <Input type='radio' name='color' id='7' value='rgba(130,110,253,1)' onChange={colorChange} />
+              <Color htmlFor='8' bgColor='var(--gray2)'></Color>
+              <Input type='radio' name='color' id='8' value='rgba(154, 154, 154, 1)' onChange={colorChange} />
             </ColorList>
           ) : (
-            ""
+            ''
           )}
         </TitleInput>
         <DateContainer>
           <p>
-            <img src={time} alt="" />
+            <img src={time} alt='' />
             일정
           </p>
           <DateFlex>
-            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(
-              month
-            )}월 ${day}일 (${Week(week)})`}</DateOpenBtn>
-            <TimeOpenBtn
-              onClick={timeShowBtn}
-              timeShow={timeShow}
-            >{`${hour}:${selectMinute}`}</TimeOpenBtn>
+            <DateOpenBtn onClick={dateShowBtn} dateShow={dateShow}>{`${Month(month)}월 ${day}일 (${Week(
+              week,
+            )})`}</DateOpenBtn>
+            <TimeOpenBtn onClick={timeShowBtn} timeShow={timeShow}>{`${hour}:${selectMinute}`}</TimeOpenBtn>
           </DateFlex>
         </DateContainer>
         <Pick>
@@ -509,26 +388,20 @@ const AddSchedule = ({ value, onChange, ...others }) => {
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                dateFormat="yyyy-MM-dd (eee)"
+                dateFormat='yyyy-MM-dd (eee)'
                 showPopperArrow={false}
                 inline
                 locale={ko}
                 popperModifiers={{ preventOverflow: { enabled: true } }}
-                popperPlacement="auto"
+                popperPlacement='auto'
                 shouldCloseOnSelect={true}
-                renderCustomHeader={({
-                  date,
-                  decreaseMonth,
-                  increaseMonth,
-                }) => (
-                  <div className="datepickerHeader">
+                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+                  <div className='datepickerHeader'>
                     <DateHead>
-                      <DateYear>{formatDate(date).split(" ")[0]}</DateYear>
+                      <DateYear>{formatDate(date).split(' ')[0]}</DateYear>
                       <DateBtns>
                         <DateBtn onClick={decreaseMonth}> &lt;</DateBtn>
-                        <DateMonth className="fomrmatDate">
-                          {formatDate(date).split(" ")[1]}월
-                        </DateMonth>
+                        <DateMonth className='fomrmatDate'>{formatDate(date).split(' ')[1]}월</DateMonth>
                         <DateBtn onClick={increaseMonth}>&gt;</DateBtn>
                       </DateBtns>
                     </DateHead>
@@ -538,13 +411,12 @@ const AddSchedule = ({ value, onChange, ...others }) => {
             </DateWrap>
           )}
           {timeShow && (
-            <Modal className="modal">
-              <div className="section">
-                <div className="select-time">
-                  <div className="division">
+            <Modal className='modal'>
+              <div className='section'>
+                <div className='select-time'>
+                  <div className='division'>
                     {division.map((e, idx) => {
-                      const color =
-                        selectTime === e ? "var(--black)" : "var(--gray2)";
+                      const color = selectTime === e ? 'var(--black)' : 'var(--gray2)';
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -558,10 +430,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                       );
                     })}
                   </div>
-                  <div className="hour">
+                  <div className='hour'>
                     {hourSelect.map((e, idx) => {
-                      const color =
-                        selectHour === e ? "var(--black)" : "var(--gray2)";
+                      const color = selectHour === e ? 'var(--black)' : 'var(--gray2)';
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -575,10 +446,9 @@ const AddSchedule = ({ value, onChange, ...others }) => {
                       );
                     })}
                   </div>
-                  <div className="minute">
+                  <div className='minute'>
                     {minuteSelect.map((e, idx) => {
-                      const color =
-                        selectMinute === e ? "var(--black)" : "var(--gray2)";
+                      const color = selectMinute === e ? 'var(--black)' : 'var(--gray2)';
                       return (
                         <SelectTimeBtn
                           key={idx}
@@ -598,18 +468,18 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           )}
           <PlaceText>
             <input
-              type="text"
-              placeholder="장소"
+              type='text'
+              placeholder='장소'
               onChange={(event) => {
                 setPlace(event.target.value);
               }}
             />
-            <img src={location} alt="장소" />
+            <img src={location} alt='장소' />
           </PlaceText>
           <TextArea>
-            <img src={memoimg} alt="메모" />
+            <img src={memoimg} alt='메모' />
             <textarea
-              placeholder="메모"
+              placeholder='메모'
               onChange={(event) => {
                 setMemo(event.target.value);
               }}
@@ -664,8 +534,7 @@ const NeedPostModal = styled.div`
   align-items: center;
   background-color: #fff;
   z-index: 99999;
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
   padding: 40px 80px;
   width: 45%;
@@ -700,9 +569,6 @@ const Btn = styled.button`
   font-weight: 700;
   color: #fff;
   background-color: transparent;
-  border: 1px solid #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
   z-index: 99;
 `;
 const StickerAddBtn = styled.button`
@@ -712,11 +578,9 @@ const StickerAddBtn = styled.button`
   padding: 6px 10px;
   border-radius: 8px;
   background-color: transparent;
-  color: ${(props) => (props.stickerShow === true ? "var(--point1)" : " #fff")};
+  color: ${(props) => (props.stickerShow === true ? 'var(--point1)' : ' #fff')};
   border: ${(props) =>
-    props.stickerShow === true
-      ? "1px solid var(--point1) !important"
-      : " 1px solid #fff !important"};
+    props.stickerShow === true ? '1px solid var(--point1) !important' : ' 1px solid #fff !important'};
 `;
 const AddBtn = styled.button`
   font-weight: 700;
@@ -726,11 +590,9 @@ const AddBtn = styled.button`
   padding: 6px 10px;
   border-radius: 8px;
   background-color: transparent;
-  color: ${(props) => (props.coverShow === true ? "var(--point1)" : " #fff")};
+  color: ${(props) => (props.coverShow === true ? 'var(--point1)' : ' #fff')};
   border: ${(props) =>
-    props.coverShow === true
-      ? "1px solid var(--point1) !important"
-      : " 1px solid #fff !important"};
+    props.coverShow === true ? '1px solid var(--point1) !important' : ' 1px solid #fff !important'};
 `;
 const AddList = styled.section`
   background-color: var(--blue1);
@@ -858,16 +720,15 @@ const StickerView = styled.img`
 const ColorPicker = styled.button`
   width: 18px;
   height: 18px;
-  background-color: ${(props) =>
-    props.colorPick ? props.colorPick : "var(--blue4)"};
+  background-color: ${(props) => (props.colorPick ? props.colorPick : 'var(--blue4)')};
   border-radius: 100%;
   border: 5px solid var(--gray1);
   position: absolute;
   right: 8%;
-  top: ${(props) => (props.colorPickerShow ? "19%" : "50%")};
+  top: ${(props) => (props.colorPickerShow ? '19%' : '50%')};
   transform: translateY(-50%);
   ::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -875,7 +736,7 @@ const ColorPicker = styled.button`
     width: 24px;
     height: 24px;
     border-radius: 100%;
-    border: ${(props) => (props.colorPick ? "" : "1px solid var(--blue4)")};
+    border: ${(props) => (props.colorPick ? '' : '1px solid var(--blue4)')};
   }
 `;
 const Background = styled.div`
@@ -929,8 +790,7 @@ const ColorList = styled.div`
   border-radius: 6px;
   margin-top: 16px;
   background: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   z-index: 99;
 `;
 const Input = styled.input`
@@ -969,13 +829,9 @@ const StickerPick1 = styled.label`
   border-radius: 10px;
   cursor: pointer;
   :nth-child(1) {
-    border: ${(props) =>
-      props.sticker === "1"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "1" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "1" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '1' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '1' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '1' ? '700px' : '500px')};
   }
 `;
 const CoverPick1 = styled.label`
@@ -985,36 +841,25 @@ const CoverPick1 = styled.label`
   border-radius: 10px;
   cursor: pointer;
   :nth-child(1) {
-    border: ${(props) =>
-      props.image === "1"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "1" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.image === "1" ? "700px" : "500px")};
+    border: ${(props) => (props.image === '1' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.image === '1' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.image === '1' ? '700px' : '500px')};
   }
 `;
 const StickerCoverLine = styled.div`
-  border-bottom: ${(props) =>
-    props.sticker === "1"
-      ? "2px solid var(--blue4)"
-      : "2px solid var(--gray2)"};
+  border-bottom: ${(props) => (props.sticker === '1' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
 `;
 const ColorCoverLine = styled.div`
-  border-bottom: ${(props) =>
-    props.colorPick === "1"
-      ? "2px solid var(--blue4)"
-      : "2px solid var(--gray2)"};
+  border-bottom: ${(props) => (props.colorPick === '1' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
 `;
 const CoverLine = styled.div`
-  border-bottom: ${(props) =>
-    props.image === "1" ? "2px solid var(--blue4)" : "2px solid var(--gray2)"};
+  border-bottom: ${(props) => (props.image === '1' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
   width: 150%;
   transform: rotate(45deg);
   transform-origin: top left;
@@ -1029,67 +874,39 @@ const StickerPick = styled.label`
   align-items: center;
   cursor: pointer;
   :nth-child(2) {
-    border: ${(props) =>
-      props.sticker === "2"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "2" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "2" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '2' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '2' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '2' ? '700px' : '500px')};
   }
   :nth-child(3) {
-    border: ${(props) =>
-      props.sticker === "3"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "3" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "3" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '3' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '3' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '3' ? '700px' : '500px')};
   }
   :nth-child(4) {
-    border: ${(props) =>
-      props.sticker === "4"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "4" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "4" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '4' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '4' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '4' ? '700px' : '500px')};
   }
   :nth-child(5) {
-    border: ${(props) =>
-      props.sticker === "5"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "5" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "5" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '5' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '5' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '5' ? '700px' : '500px')};
   }
   :nth-child(6) {
-    border: ${(props) =>
-      props.sticker === "6"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "6" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "6" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '6' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '6' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '6' ? '700px' : '500px')};
   }
   :nth-child(7) {
-    border: ${(props) =>
-      props.sticker === "7"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "7" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "7" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '7' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '7' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '7' ? '700px' : '500px')};
   }
   :nth-child(8) {
-    border: ${(props) =>
-      props.sticker === "8"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.sticker === "8" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.sticker === "8" ? "700px" : "500px")};
+    border: ${(props) => (props.sticker === '8' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.sticker === '8' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.sticker === '8' ? '700px' : '500px')};
   }
 `;
 const CoverPick = styled.label`
@@ -1102,46 +919,32 @@ const CoverPick = styled.label`
   align-items: center;
   cursor: pointer;
   :nth-child(2) {
-    border: ${(props) =>
-      props.image === "2"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "2" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.image === "2" ? "700px" : "500px")};
+    border: ${(props) => (props.image === '2' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.image === '2' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.image === '2' ? '700px' : '500px')};
   }
   :nth-child(3) {
-    border: ${(props) =>
-      props.image === "3"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "3" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.image === "3" ? "700px" : "500px")};
+    border: ${(props) => (props.image === '3' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.image === '3' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.image === '3' ? '700px' : '500px')};
   }
   :nth-child(4) {
-    border: ${(props) =>
-      props.image === "4"
-        ? "2px solid var(--blue4)"
-        : "2px solid var(--gray2)"};
-    color: ${(props) =>
-      props.image === "4" ? "var(--blue4)" : "var(--gray2)"};
-    font-weight: ${(props) => (props.image === "4" ? "700px" : "500px")};
+    border: ${(props) => (props.image === '4' ? '2px solid var(--blue4)' : '2px solid var(--gray2)')};
+    color: ${(props) => (props.image === '4' ? 'var(--blue4)' : 'var(--gray2)')};
+    font-weight: ${(props) => (props.image === '4' ? '700px' : '500px')};
   }
 `;
 const TimeOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
   padding: 7px 10px;
-  background-color: ${(props) =>
-    props.timeShow ? "var(--blue1)" : "transparent"};
+  background-color: ${(props) => (props.timeShow ? 'var(--blue1)' : 'transparent')};
   border-radius: 35px;
 `;
 const DateOpenBtn = styled.button`
   font-weight: 500;
   color: var(--blue3);
-  background-color: ${(props) =>
-    props.dateShow ? "var(--blue1)" : "transparent"};
+  background-color: ${(props) => (props.dateShow ? 'var(--blue1)' : 'transparent')};
   padding: 7px 10px;
   border-radius: 35px;
 `;
@@ -1160,8 +963,7 @@ const DateWrap = styled.div`
     width: calc(100% - 40px);
     padding: 17px 20px;
     background: var(--blue1);
-    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-      inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
     border-radius: 6.83801px;
     border: 0;
     margin-bottom: 16px;
@@ -1271,8 +1073,7 @@ const SelectTimeBtn = styled.button`
 `;
 const Modal = styled.div`
   background-color: var(--blue1);
-  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32),
-    inset 0px 8px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 6.83801px;
   border: none;
 

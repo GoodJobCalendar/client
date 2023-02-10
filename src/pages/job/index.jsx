@@ -105,12 +105,12 @@ const ZzimBtn = styled.img`
 `;
 
 const Tooltipcontent = styled.div`
-  color: ${(props) => props.theme.colors.blue2};
+  color: var(--blue2);
   font-size: 10px;
   display: none;
 `;
 const Tooltip = styled.div`
-  color: ${(props) => props.theme.colors.blue2};
+  color: var(--blue2);
   display: flex;
   margin: 10px 0;
   align-items: center;

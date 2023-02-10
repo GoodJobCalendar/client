@@ -54,7 +54,6 @@ const JobDetail = () => {
         <MainWrapper>
           <Tooltip>
             <Tooltip2 src={Tooltipmark} />
-            {/* <Tooltipcontent>하트를 누르면 채용공고 찜 목록을 확인할 수 있어요!</Tooltipcontent> */}
           </Tooltip>
           <CompanyWrap>
             <CompanyName>{jobDetail?.companyName}</CompanyName>
@@ -204,17 +203,18 @@ const MyBack = styled.img`
   position: absolute;
   left: 4%;
   top: 33%;
+  cursor: pointer;
 `;
 
 const Header = styled.div`
   width: 100%;
   height: 8vh;
   position: relative;
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
 `;
 
 const Tooltip = styled.div`
-  color: v ${(props) => props.theme.colors.blue2};
+  color: var(--blue2);
   display: flex;
   margin: 0 0 15px 0;
   align-items: center;
@@ -239,7 +239,7 @@ const MainWrapper = styled.div`
   flex-direction: column;
   height: 83vh;
   width: calc(100% - 48px);
-  background: ${(props) => props.theme.colors.blue1};
+  background: var(--blue1);
   padding: 40px 24px;
 `;
 
@@ -339,7 +339,7 @@ const BackBtn = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   border: ${(props) => (props.scrap ? '2px solid  transparent' : '2px solid transparent')};
-  background-color: ${(props) => (props.scrap ? `${(props) => props.theme.colors.blue4}` : 'white')};
+  background-color: ${(props) => (props.scrap ? `var(--blue4)` : 'white')};
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.scrap ? 'white' : '#3284ff')};
@@ -366,15 +366,15 @@ const MsgText = styled(Link)`
   transform: translateX(-50%);
   font-weight: 400;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   width: 100%;
   text-align: center;
   span {
     font-weight: 700;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
   p {
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
   z-index: 99;
 `;
@@ -386,15 +386,15 @@ const MsgText1 = styled(Link)`
   transform: translateX(-50%);
   font-weight: 400;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   width: 100%;
   text-align: center;
   span {
     font-weight: 700;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
   p {
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
   z-index: 99;
 `;
@@ -415,7 +415,7 @@ const ScrapBtn = styled.button`
   box-sizing: border-box;
   font-weight: 500;
   border: ${(props) => (props.scrap ? '2px solid  transparent' : '2px solid transparent')};
-  background-color: ${(props) => (props.scrap ? `${(props) => props.theme.colors.blue4}` : 'white')};
+  background-color: ${(props) => (props.scrap ? `var(--blue4)` : 'white')};
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.scrap ? 'white' : '#3284ff')};
@@ -433,7 +433,7 @@ const ScrapBtn1 = styled.button`
   background-color: white;
   text-align: center;
   cursor: pointer;
-  color: ${(props) => props.theme.colors.blue4};
+  color: var(--blue4);
   z-index: 1;
 `;
 
@@ -460,7 +460,7 @@ const Always = styled.div`
   z-index: 99999;
 `;
 const AlwaysBtn = styled.button`
-  background-color: ${(props) => props.theme.colors.blue4};
+  background-color: var(--blue4);
   padding: 16px 60px;
   color: #fff;
   border-radius: 9px;
@@ -473,12 +473,12 @@ const AlwaysModal = styled.div`
   }
   p {
     font-weight: 500;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
     letter-spacing: 0.9px;
   }
   span {
     font-weight: 700;
-    color: ${(props) => props.theme.colors.blue4};
+    color: var(--blue4);
   }
   position: absolute;
   top: 50%;

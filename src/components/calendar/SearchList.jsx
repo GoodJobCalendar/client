@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { searchMySchedule } from "../../redux/modules/search";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchMySchedule } from '../../modules/search';
+import styled from 'styled-components';
 
 // 스티커 배경
-import img2 from "../../assets/img/sticker/sticker2.png";
-import img3 from "../../assets/img/sticker/sticker3.png";
-import img4 from "../../assets/img/sticker/sticker4.png";
-import img5 from "../../assets/img/sticker/sticker5.png";
-import img6 from "../../assets/img/sticker/sticker6.png";
-import img7 from "../../assets/img/sticker/sticker7.png";
-import img8 from "../../assets/img/sticker/sticker8.png";
+import img2 from '../../assets/sticker/sticker2.png';
+import img3 from '../../assets/sticker/sticker3.png';
+import img4 from '../../assets/sticker/sticker4.png';
+import img5 from '../../assets/sticker/sticker5.png';
+import img6 from '../../assets/sticker/sticker6.png';
+import img7 from '../../assets/sticker/sticker7.png';
+import img8 from '../../assets/sticker/sticker8.png';
 
 // 이미지
-import locationGray from "../../assets/img/icon/LocationGray.svg";
+import locationGray from '../../assets/icon/LocationGray.svg';
 
 const SearchList = ({ search }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const SearchList = ({ search }) => {
     return acc + cur;
   }, 0);
   function getDate(whatDay) {
-    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    const week = ['일', '월', '화', '수', '목', '금', '토'];
 
     const dayOfWeek = week[new Date(whatDay).getDay()];
 
@@ -44,8 +44,8 @@ const SearchList = ({ search }) => {
       </UpBar>
       <SearchHr />
       {searchDataList?.map((tasksData, idx) => {
-        const dayData = tasksData[0].split("");
-        const year = "20" + dayData[0] + dayData[1];
+        const dayData = tasksData[0].split('');
+        const year = '20' + dayData[0] + dayData[1];
         const month = dayData[2] + dayData[3];
         const day = dayData[4] + dayData[5];
         const today = new Date();
@@ -55,18 +55,8 @@ const SearchList = ({ search }) => {
         return (
           <SearchDataWrapper key={idx}>
             <SearchDataDayWrap>
-              <SearchDataDay>
-                {year +
-                  "년 " +
-                  month +
-                  "월 " +
-                  day +
-                  "일 " +
-                  "(" +
-                  getDate(dday) +
-                  ")"}
-              </SearchDataDay>
-              <SearchDataDDay>{"d" + (0 - result)}</SearchDataDDay>
+              <SearchDataDay>{year + '년 ' + month + '월 ' + day + '일 ' + '(' + getDate(dday) + ')'}</SearchDataDay>
+              <SearchDataDDay>{'d' + (0 - result)}</SearchDataDDay>
             </SearchDataDayWrap>
             <SearchDataCardWrap>
               {tasksData[1].map((data, idx) => {
@@ -77,13 +67,11 @@ const SearchList = ({ search }) => {
                         <SearchDataColor color={data.color} />
                         <SearchDataTitleWrap>
                           <SearchDataTime>
-                            {data.date.split(" ")[1].split(":")[0] +
-                              ":" +
-                              data.date.split(" ")[1].split(":")[1]}
+                            {data.date.split(' ')[1].split(':')[0] + ':' + data.date.split(' ')[1].split(':')[1]}
                           </SearchDataTime>
                           <SearchDataTitle>
                             {data.title.split(search)[0]}
-                            <span style={{ color: "#4F32FF" }}>{search}</span>
+                            <span style={{ color: '#4F32FF' }}>{search}</span>
                             {data.title.split(search)[1]}
                           </SearchDataTitle>
                         </SearchDataTitleWrap>
@@ -217,18 +205,18 @@ const SearchDataColor = styled.div`
   height: 39.25px;
   background: ${(props) =>
     props.color === 1
-      ? "#16E611"
+      ? '#16E611'
       : props.color === 2
-      ? "rgba(253, 187, 110, 1)"
+      ? 'rgba(253, 187, 110, 1)'
       : props.color === 3
-      ? "rgba(253, 247, 110, 1)"
+      ? 'rgba(253, 247, 110, 1)'
       : props.color === 4
-      ? "rgba(253, 247, 110, 1)"
+      ? 'rgba(253, 247, 110, 1)'
       : props.color === 5
-      ? "rgba(253, 247, 110, 1)"
+      ? 'rgba(253, 247, 110, 1)'
       : props.color === 6
-      ? "rgba(253, 247, 110, 1)"
-      : "rgba(154, 154, 154, 1)"};
+      ? 'rgba(253, 247, 110, 1)'
+      : 'rgba(154, 154, 154, 1)'};
 `;
 
 const SearchDataTitleWrap = styled.div`

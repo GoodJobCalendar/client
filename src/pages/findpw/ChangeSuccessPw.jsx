@@ -29,7 +29,7 @@ const EmailWrap = styled.div`
   justify-content: center;
   height: 100vh;
   padding: 0 35px;
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
 `;
 const Header = styled.header`
   position: relative;
@@ -52,7 +52,7 @@ const Title = styled.h1`
 const SubTitle = styled.p`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.gray4};
+  color: var(--gray4);
   margin-top: 16px;
 `;
 const Banner = styled.img`
@@ -66,7 +66,7 @@ const Main = styled.main`
   text-align: center;
 `;
 const SignUpBtn = styled(Button)`
-  background: ${(props) => props.theme.colors.blue4};
+  background: var(--blue4);
   margin-bottom: 78px;
   font-weight: 400;
   color: #fff;

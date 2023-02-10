@@ -25,7 +25,7 @@ const LoginWrap = styled.div`
   height: 100vh;
   padding: 0 35px;
   padding-top: 121px;
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
 `;
 const Header = styled.header`
   img {

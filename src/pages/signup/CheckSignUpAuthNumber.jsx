@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 //이미지
 import mailSendImg from '../../assets/illust/mailsend.png';
-import apis from '../../shared/apis';
+import userApi from '../../apis/user';
 
 const CheckSignUpAuthNumber = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const CheckSignUpAuthNumber = () => {
   };
   // 이메일 인증 메일 전송
   const MailsendBtn = async () => {
-    await apis
+    await userApi
       .sendEmailAuthNumber({
         email: userInfo.email,
         password: userInfo.password,
@@ -37,7 +37,7 @@ const CheckSignUpAuthNumber = () => {
   };
   // 인증번호 확인 & 회원가입완료
   const AuthNumberCheckBtn = async () => {
-    await apis
+    await userApi
       .checkEmailAuthNumber({
         authNumber: Number(authNumber),
         email: userInfo.email,
@@ -93,7 +93,7 @@ const EmailWrap = styled.div`
   justify-content: center;
   height: 100vh;
   padding: 0 35px;
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: var(--blue1);
 `;
 const Header = styled.header`
   position: relative;
@@ -124,7 +124,7 @@ const Title = styled.h1`
 const SubTitle = styled.p`
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.gray4};
+  color: var(--gray4);
   margin-top: 16px;
 `;
 
@@ -137,7 +137,7 @@ const Main = styled.main`
 const Email = styled.p`
   font-weight: 800;
   font-size: 16px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   text-align: center;
   margin-bottom: 55px;
 `;
@@ -145,21 +145,21 @@ const Input = styled.input`
   outline: none;
   padding: 18px 23px;
   background: #ffffff;
-  border: 1px solid ${(props) => props.theme.colors.blue2};
+  border: 1px solid var(--blue2);
   margin-bottom: ${(props) => (props.errorcheck ? '' : '72px')};
   border-radius: 6px;
   ${(props) =>
     props.errorcheck &&
     css`
-  border:2px solid ${(props) => props.theme.colors.blue3};
-  color: ${(props) => props.theme.colors.blue3};
+  border:2px solid var(--blue3);
+  color: var(--blue3);
   color
   `}
   ::placeholder {
-    color: ${(props) => props.theme.colors.blue3};
+    color: var(--blue3);
     font-weight: 500;
     font-size: 16px;
-    color: ${(props) => (props.errorcheck && props.errorcheck !== '' ? `${(props) => props.theme.colors.blue3}` : '')};
+    color: ${(props) => (props.errorcheck && props.errorcheck !== '' ? `var(--blue3)` : '')};
   }
   :focus {
     ::placeholder {
@@ -170,13 +170,13 @@ const Input = styled.input`
 const ErrorCheck = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: var(--blue3);
   text-align: center;
   margin-top: 39px;
   margin-bottom: 24px;
 `;
 const SignUpBtn = styled.button`
-  background: ${(props) => props.theme.colors.blue4};
+  background: var(--blue4);
   border-radius: 6px;
   padding: 17px 0;
   width: 100%;

@@ -2,24 +2,26 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './../pages/home';
 import Login from './../pages/login';
-import SignUp from '../pages/signup/SignUp';
+import SignUp from '../pages/signup';
 import KakaoOauth from './../pages/login/KakaoOauth';
-import FindPassword from '../pages/findpw/FindPw';
+import FindPassword from '../pages/findpw';
 import PwCheck from '../pages/findpw/CheckPwAuthNumber';
-import CheckSignUpAuthNumber from './../pages/findpw/CheckPwAuthNumber';
+import CheckPwAuthNumber from './../pages/findpw/CheckPwAuthNumber';
 import ChangeSuccessPw from '../pages/findpw/ChangeSuccessPw';
 import SignUpSuccess from './../pages/signup/SignUpSuccess';
 import ChangePw from './../pages/findpw/ChangePw';
 import JobDetail from './../pages/job/JobDetail';
 import JobCategory from './../pages/job/JobCategory';
-import AddSchedule from './../components/calendar/addschedule';
 import PostDetail from './../pages/PostDetail';
 import Mypage from './../pages/Mypage';
 import ZZim from '../pages/ZZim';
 import NotFound from './../pages/NotFound';
-import Main from '../pages/Main';
-import Calendar from './../components/calendar/Calendar';
 import Job from '../pages/job';
+import Calendar from './../components/calendar';
+import CheckSignUpAuthNumber from '../pages/signup/CheckSignUpAuthNumber';
+import Main from '../pages/Mobile';
+import UpdateSchedule from './../pages/UpdateSchedule';
+import AddSchedule from '../pages/addschedule';
 
 function Router() {
   return (
@@ -30,17 +32,19 @@ function Router() {
       <Route path='/api/auth/kakao/callback' element={<KakaoOauth />} />
       <Route path='/findpw' element={<FindPassword />} />
       <Route path='/pwcheck' element={<PwCheck />} />
+      <Route path='/checkpwauthnumber' element={<CheckPwAuthNumber />} />
       <Route path='/checksignupauthnumber' element={<CheckSignUpAuthNumber />} />
       <Route path='/changesuccesspw' element={<ChangeSuccessPw />} />
       <Route path='/signupsuccess' element={<SignUpSuccess />} />
       <Route path='/changepw' element={<ChangePw />} />
       <Route path='/main' element={<Main />}>
-        <Route path={`calendar`} element={<Calendar />} />
         <Route path={`job`} element={<Job />} />
+        <Route path={`calendar`} element={<Calendar />} />
       </Route>
       <Route path='/jobDetail/:id' element={<JobDetail />} />
       <Route path='/jobCategory' element={<JobCategory />} />
       <Route path='/addschedule' element={<AddSchedule />} />
+      <Route path='/updateschedule' element={<UpdateSchedule />} />
       <Route path='/postdetail/:scheduleId' element={<PostDetail />} />
       <Route path='/mypage' element={<Mypage />} />
       <Route path='/zzim' element={<ZZim />} />
