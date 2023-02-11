@@ -1,20 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Router } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import rootReducer from './modules';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import rootReducer from './modules';
+import GlobalStyle from './styles/globalStyle';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <GlobalStyle />
+      <BrowserView>
+        <App />
+      </BrowserView>
+      <MobileView>
+        <Router />
+      </MobileView>
     </BrowserRouter>
   </Provider>,
 );

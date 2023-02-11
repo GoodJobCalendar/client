@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { active, select } from '../../modules/date';
-import { loadDaily } from '../../modules/schedule';
+import { active, select } from '../../../modules/date';
+import { loadDaily } from '../../../modules/schedule';
 
 const Dates = (props) => {
   const { lastDate, firstDate, elm, findToday, month, year, idx, setIsActive, isActive } = props;

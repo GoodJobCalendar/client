@@ -9,14 +9,8 @@ const Guide = () => {
 
   useEffect(() => {
     const handleShowModal = () => {
-      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
-        return;
-      }
-
       if (!HAS_VISITED_BEFORE) {
-        let expires = new Date();
-        expires = expires.setHours(expires.getHours() + 24);
-        localStorage.setItem('hasVisitedBefore', expires);
+        localStorage.setItem('hasVisitedBefore', true);
         setShowModal(true);
       }
     };
@@ -29,7 +23,7 @@ const Guide = () => {
     <>
       {showModal ? (
         <GuideBg onClick={handleClose}>
-          <button onClick={handleClose}>x</button>
+          <GuideBtn onClick={handleClose}>x</GuideBtn>
           <GuideImg src={guideImg} alt='가이드' />
         </GuideBg>
       ) : null}
@@ -39,29 +33,29 @@ const Guide = () => {
 
 export default Guide;
 
+const GuideBg = styled.div`
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+`;
+const GuideBtn = styled.button`
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  color: #fff !important;
+  z-index: 999;
+  font-size: 20px;
+  background-color: transparent;
+`;
 const GuideImg = styled.img`
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-`;
-const GuideBg = styled.div`
-  background-color: rgba(0, 0, 0, 0.9);
-  position: relative;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-  width: 100%;
-  height: 100vh;
-  button {
-    position: absolute;
-    top: 10%;
-    right: 10%;
-    color: #fff !important;
-    z-index: 999;
-    font-size: 20px;
-    background-color: transparent;
-  }
 `;

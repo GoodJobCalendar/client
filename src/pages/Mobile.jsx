@@ -4,12 +4,10 @@ import styled from 'styled-components';
 
 // 컴포넌트
 import Nav from '../components/Nav';
-import Guide from '../components/calendar/Guide';
 
 function Mobile() {
   return (
     <MainWrap>
-      <Guide />
       <Nav />
       <Outlet />
     </MainWrap>

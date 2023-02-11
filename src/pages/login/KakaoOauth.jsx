@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { setCookie } from '../../shared/Cookie';
+import { setCookie } from '../../shared/cookie';
 import userApi from './../../apis/user';
 
 const KakaoOauth = () => {
