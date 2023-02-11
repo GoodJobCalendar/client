@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { setCookie } from '../shared/Cookie';
+import { setCookie } from '../shared/cookie';
 import scheduleApi from '../apis/schedule';
 
 // initialState
@@ -93,7 +93,7 @@ export function __loadDaily(payload) {
 
 //개인일정 작성
 export const schedulePost = ({ image, companyName, title, sticker, color, date, place, memo }) => {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     scheduleApi
       .postSchedule({ image, companyName, title, sticker, color, date, place, memo })
       .then((res) => {
@@ -108,7 +108,7 @@ export const schedulePost = ({ image, companyName, title, sticker, color, date, 
 
 //개인일정 수정
 export const scheduleUpdate = ({ scheduleId, image, companyName, title, sticker, color, date, place, memo }) => {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     scheduleApi
       .modifySchedule(scheduleId, { image, companyName, title, sticker, color, date, place, memo })
       .then((res) => {
@@ -121,7 +121,7 @@ export const scheduleUpdate = ({ scheduleId, image, companyName, title, sticker,
 };
 //일정 삭제
 export const deletePost = (scheduleId) => {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     scheduleApi
       .deleteSchedule(scheduleId)
       .then((res) => {
@@ -134,7 +134,7 @@ export const deletePost = (scheduleId) => {
 };
 //일정상세 조회
 export const detailPost = (scheduleId) => {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     scheduleApi
       .getDetailSchedule(scheduleId)
       .then((res) => {
@@ -148,7 +148,7 @@ export const detailPost = (scheduleId) => {
 
 // 일정월별조회
 export const loadMonth = (startDate) => {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     scheduleApi
       .getMonthlySchedules(startDate)
       .then((res) => {
@@ -162,7 +162,7 @@ export const loadMonth = (startDate) => {
 
 // 일정일별조회
 export const loadDaily = (startDate) => {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     scheduleApi
       .getDailySchedules(startDate)
       .then((res) => {
