@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { getCookie } from '../shared/Cookie';
+import { getCookie } from '../shared/cookie';
 
 //이미지
 import calendar_w from '../assets/icon/calendar_w.svg';
@@ -12,24 +12,17 @@ import element_c from '../assets/icon/element_c.svg';
 import MypageBtn from '../assets/icon/MypageBtn.svg';
 import heart from '../assets/icon/Heart.svg';
 import needLogin from '../assets/illust/needlogin.png';
+import Guide from './calendar/Guide';
 
 const Nav = () => {
   const token = getCookie('token');
   const navigate = useNavigate();
   const [nav, setNav] = useState(true);
-  const [loginOn, setLoginOn] = useState(false);
-
-  useEffect(() => {
-    if (token) {
-      setLoginOn(true);
-    }
-  }, [token]);
 
   return (
     <NavWrap>
-      {loginOn ? (
-        ''
-      ) : (
+      <Guide />
+      {!token && (
         <NeedLogin>
           <NeedLoginModal>
             <p>로그인 필요</p>

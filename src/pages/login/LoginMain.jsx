@@ -2,8 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
-import { setCookie } from '../../shared/Cookie';
+import { setCookie } from '../../shared/cookie';
 
 // 컴포넌트
 import { FormInput } from '../../components/common/Input';

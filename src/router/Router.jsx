@@ -19,7 +19,7 @@ import NotFound from './../pages/NotFound';
 import Job from '../pages/job';
 import Calendar from './../components/calendar';
 import CheckSignUpAuthNumber from '../pages/signup/CheckSignUpAuthNumber';
-import Main from '../pages/Mobile';
+import Mobile from '../pages/Mobile';
 import UpdateSchedule from './../pages/UpdateSchedule';
 import AddSchedule from '../pages/addschedule';
 
@@ -37,7 +37,7 @@ function Router() {
       <Route path='/changesuccesspw' element={<ChangeSuccessPw />} />
       <Route path='/signupsuccess' element={<SignUpSuccess />} />
       <Route path='/changepw' element={<ChangePw />} />
-      <Route path='/main' element={<Main />}>
+      <Route path='/main' element={<Mobile />}>
         <Route path={`job`} element={<Job />} />
         <Route path={`calendar`} element={<Calendar />} />
       </Route>

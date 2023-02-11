@@ -52,7 +52,7 @@ const FixBox = styled.div`
   align-items: center;
   box-shadow: 0px -7px 11px rgba(50, 132, 255, 0.1);
   background-color: #fff;
-  z-index: 999;
+  z-index: 99;
 `;
 const Search = styled.label`
   position: relative;

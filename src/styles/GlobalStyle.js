@@ -12,12 +12,6 @@ const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
     display: none;
   }
-  // 버튼 초기화
-  button {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-  }
   :root{
   --gray1:#EFEFEF;
   --gray2:#D1D1D1;
@@ -31,7 +25,11 @@ const GlobalStyle = createGlobalStyle`
   --point1:#5BFAD3; // 민트
   --point2:#4F32FF; // 파랑
   --point3:#FD6E6E; // 빨강
-}
+  }
+  button{
+    outline: none;
+    border: none;
+  }
 }
 `;
 

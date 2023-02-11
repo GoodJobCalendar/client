@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { loadMonth } from '../../modules/schedule';
+import { useDispatch } from 'react-redux';
+import { loadMonth } from '../../../modules/schedule';
 
 const Head = (props) => {
   const { year, month, setYear, setMonth } = props;
@@ -48,19 +48,19 @@ const Head = (props) => {
       <Nav>
         <BtnWrap>
           <YearBtnBox>
-            <Btn onClick={yearMius}>&lt;</Btn>
+            <YearBtn onClick={yearMius}>&lt;</YearBtn>
             <Year>
               <p>{year}</p>
             </Year>
-            <Btn onClick={yearPlus}>&gt;</Btn>
+            <YearBtn onClick={yearPlus}>&gt;</YearBtn>
           </YearBtnBox>
-          <BtnBox>
-            <Btn onClick={monthMius}>&lt;</Btn>
+          <MonthBtnBox>
+            <MonthBtn onClick={monthMius}>&lt;</MonthBtn>
             <Month>
               <p>{String(month).padStart(2, '0')}월</p>
             </Month>
-            <Btn onClick={monthPlus}>&gt;</Btn>
-          </BtnBox>
+            <MonthBtn onClick={monthPlus}>&gt;</MonthBtn>
+          </MonthBtnBox>
         </BtnWrap>
       </Nav>
       <Days>
@@ -114,31 +114,30 @@ const YearBtnBox = styled.div`
   display: flex;
   align-items: center;
   gap: 23px;
-  button {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--blue3);
-    background-color: transparent;
-  }
 `;
-const BtnBox = styled.div`
+const YearBtn = styled.button`
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--blue3);
+  background-color: transparent;
+  text-align: center;
+  cursor: pointer;
+`;
+const MonthBtnBox = styled.div`
   display: flex;
   align-items: center;
   margin: 30px 0;
   gap: 25px;
-  button {
-    font-size: 22px;
-    color: var(--blue4);
-    line-height: 30px;
-    background-color: transparent;
-  }
 `;
-const Btn = styled.button`
+const MonthBtn = styled.button`
+  font-size: 22px;
+  color: var(--blue4);
+  line-height: 30px;
   text-align: center;
   cursor: pointer;
-  color: var(--blue3);
   background-color: transparent;
 `;
+
 const Days = styled.div`
   display: flex;
   background-color: #fff;

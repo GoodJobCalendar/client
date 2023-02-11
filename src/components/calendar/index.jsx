@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 // 컴포넌트
-import MonthSchedule from '../month/MonthSchedule';
+import MonthSchedule from './month/MonthSchedule';
 import MonthList from './MonthList';
 import DailyList from './DailyList';
 import SearchBox from './SearchBox';

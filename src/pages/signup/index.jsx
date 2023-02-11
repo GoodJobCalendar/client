@@ -123,16 +123,16 @@ const SignUp = () => {
           <SignUpBtn>이메일 인증받고 가입하기</SignUpBtn>
         </SignUpForm>
       </InputWrap>
-      <Container>
-        <p>이미가입하셨다면?</p>
-        <button
+      <Footer>
+        <FooterText>이미가입하셨다면?</FooterText>
+        <FooterBtn
           onClick={() => {
             navigate('/login');
           }}
         >
           로그인
-        </button>
-      </Container>
+        </FooterBtn>
+      </Footer>
     </SignUpWrap>
   );
 };
@@ -204,21 +204,21 @@ const Check = styled.p`
   padding-bottom: 24px;
 `;
 
-const Container = styled.footer`
+const Footer = styled.footer`
   border-top: 1px solid var(--blue2);
   padding: 15px 0;
   display: flex;
   justify-content: center;
-  p {
-    font-weight: 400;
-    font-size: 14px;
-    text-align: center;
-    color: #5f9fff;
-  }
-  button {
-    font-weight: 600;
-    font-size: 14px;
-    margin-left: 11px;
-    color: var(--blue4);
-  }
+`;
+const FooterBtn = styled.button`
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 11px;
+  color: var(--blue4);
+`;
+const FooterText = styled.p`
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: #5f9fff;
 `;
