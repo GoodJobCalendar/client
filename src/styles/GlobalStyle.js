@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-const GlobalStyle = createGlobalStyle`
+import { createGlobalStyle } from 'styled-components';
 
+const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
@@ -8,42 +8,31 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none; 
     color: var(--black);
     font-family: 'Pretendard';
-
-}
-:root{
+    // 스크롤바 없애기
+    ::-webkit-scrollbar {
+    display: none;
+  }
+  // 버튼 초기화
+  button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  :root{
   --gray1:#EFEFEF;
   --gray2:#D1D1D1;
   --gray3:#9A9A9A;
   --gray4:#777777;
   --black:#111111;
-
   --blue1:#ECF1F8;
   --blue2:#A6C9FF;
   --blue3:#74A0E3;
   --blue4:#3284FF;
-
   --point1:#5BFAD3; // 민트
   --point2:#4F32FF; // 파랑
   --point3:#FD6E6E; // 빨강
 }
-*::-webkit-scrollbar {
-    display: none;
-  }
-  button{
-    border: 0;
-    cursor: pointer;
-  }
-  a{
-    color: inherit;
-  }
-  input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
-input:focus {
-      ::placeholder {
-        opacity: 0;
-      }
-    }
-
 `;
+
 export default GlobalStyle;

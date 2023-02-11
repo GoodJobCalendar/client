@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { detailPost, __deletePost } from "../redux/modules/schedule";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { detailPost } from '../modules/schedule';
 
 //스티커 이미지
-import img1 from "../assets/img/sticker/sticker1.png";
-import img2 from "../assets/img/sticker/sticker2.png";
-import img3 from "../assets/img/sticker/sticker3.png";
-import img4 from "../assets/img/sticker/sticker4.png";
-import img5 from "../assets/img/sticker/sticker5.png";
-import img6 from "../assets/img/sticker/sticker6.png";
-import img7 from "../assets/img/sticker/sticker7.png";
-import img8 from "../assets/img/sticker/sticker8.png";
-import img9 from "../assets/img/sticker/sticker9.png";
+import img1 from '../assets/sticker/sticker1.png';
+import img2 from '../assets/sticker/sticker2.png';
+import img3 from '../assets/sticker/sticker3.png';
+import img4 from '../assets/sticker/sticker4.png';
+import img5 from '../assets/sticker/sticker5.png';
+import img6 from '../assets/sticker/sticker6.png';
+import img7 from '../assets/sticker/sticker7.png';
+import img8 from '../assets/sticker/sticker8.png';
+import img9 from '../assets/sticker/sticker9.png';
 
 //커버 이미지
-import cover1 from "../assets/img/cover/cover1.png";
-import cover2 from "../assets/img/cover/cover2.png";
-import cover3 from "../assets/img/cover/cover3.png";
-import cover4 from "../assets/img/cover/cover4.png";
-import cover5 from "../assets/img/cover/cover5.png";
+import cover1 from '../assets/cover/cover1.png';
+import cover2 from '../assets/cover/cover2.png';
+import cover3 from '../assets/cover/cover3.png';
+import cover4 from '../assets/cover/cover4.png';
+import cover5 from '../assets/cover/cover5.png';
 
 //아이콘 이미지
-import arrow from "../assets/img/icon/Back.svg";
-import update from "../assets/img/icon/Edit.svg";
-import UpdateSchedule from "../components/UpdateSchedule";
-import logomini from "../assets/img/icon/Logo_mini.svg";
-import location from "../assets/img/icon/Location.svg";
-import time from "../assets/img/icon/Time.svg";
-import { getCookie } from "../shared/cookie";
-import apis from "./../shared/apis";
+import arrow from '../assets/icon/Back.svg';
+import update from '../assets/icon/Edit.svg';
+import logomini from '../assets/icon/Logo_mini.svg';
+import location from '../assets/icon/Location.svg';
+import time from '../assets/icon/Time.svg';
+import scheduleApi from '../apis/schedule';
+import UpdateSchedule from './UpdateSchedule';
+
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,11 +40,9 @@ const PostDetail = () => {
 
   const detailInfo = useSelector((state) => state.schedule.detail);
 
-  const startDate = `${detailInfo?.date.split(" ")[0].substr(0, 8)}01 00:00:00`;
-  console.log(startDate, "dfdf");
   //뒤로가기
   const moveBtn = () => {
-    navigate("/main");
+    navigate(-1);
   };
 
   //수정하기
@@ -55,19 +53,12 @@ const PostDetail = () => {
   useEffect(() => {
     dispatch(detailPost(scheduleId));
   }, []);
-  const myToken = getCookie("token");
 
-  const deleteSchedule = async () => {
-    const data = {
-      headers: { Authorization: `Bearer ${myToken}` },
-      params: { startDate: startDate },
-    };
-    await apis
-      .deletePost({ data, scheduleId })
+  const onClickdeleteSchedule = async () => {
+    await scheduleApi
+      .deleteSchedule(scheduleId)
       .then((res) => {
-        console.log(res, "아아ㅏㅇ아ㅏ아");
-        dispatch(__deletePost(scheduleId));
-        navigate("/main");
+        navigate(-1);
       })
       .catch((error) => {
         console.error(error);
@@ -78,15 +69,11 @@ const PostDetail = () => {
       <Header>
         <BtnFlex>
           <Btn onClick={moveBtn}>
-            <img src={arrow} alt="뒤로가기" />
+            <img src={arrow} alt='뒤로가기' />
           </Btn>
           {}
           <Btn onClick={updateScheduleBtn}>
-            <img
-              src={update}
-              alt="수정하기"
-              style={{ opacity: detailInfo?.memo === null && "0" }}
-            />
+            <img src={update} alt='수정하기' style={{ opacity: detailInfo?.memo === null && '0' }} />
           </Btn>
         </BtnFlex>
         <Cover
@@ -101,7 +88,7 @@ const PostDetail = () => {
               ? cover4
               : detailInfo?.coverImage === 5
               ? cover5
-              : ""
+              : ''
           }
         />
         <Sticker
@@ -124,7 +111,7 @@ const PostDetail = () => {
               ? img8
               : detailInfo?.sticker === 9
               ? img9
-              : ""
+              : ''
           }
         />
       </Header>
@@ -137,34 +124,32 @@ const PostDetail = () => {
           </Title>
           <DateWrap>
             <TimeTitle>
-              <img src={time} alt="일정아이콘" />
+              <img src={time} alt='일정아이콘' />
               일정
             </TimeTitle>
             <Date>
               <li>
-                {detailInfo?.date.split(" ")[0].split("-")[1]}월{" "}
-                {detailInfo?.date.split(" ")[0].split("-")[2]}일
+                {detailInfo?.date.split(' ')[0].split('-')[1]}월 {detailInfo?.date.split(' ')[0].split('-')[2]}일
               </li>
               <li>
-                {detailInfo?.date.split(" ")[1].split(":")[0]}시{" "}
-                {detailInfo?.date.split(" ")[1].split(":")[1]}분
+                {detailInfo?.date.split(' ')[1].split(':')[0]}시 {detailInfo?.date.split(' ')[1].split(':')[1]}분
               </li>
             </Date>
           </DateWrap>
           <Text>
-            <img src={location} alt="장소아이콘" />
+            <img src={location} alt='장소아이콘' />
             {detailInfo?.place}
           </Text>
           {detailInfo?.memo && <Text>{detailInfo?.memo}</Text>}
         </TextWrap>
-        <Delete onClick={deleteSchedule}>일정 삭제하기</Delete>
+        <Delete onClick={onClickdeleteSchedule}>일정 삭제하기</Delete>
         {detailInfo?.memo === null && (
           <Move
             onClick={() => {
               window.open(detailInfo?.url);
             }}
           >
-            <img src={logomini} alt="잡코리아로고" />
+            <img src={logomini} alt='잡코리아로고' />
             자세한 공고 잡코리아에서 확인
           </Move>
         )}
@@ -258,17 +243,15 @@ const TimeTitle = styled.p`
 const Color = styled.div`
   width: 20px;
   height: 100%;
-  background-color: ${(props) => props.color === 1 && "#fff"};
-  background-color: ${(props) => props.color === 2 && "var(--point3)"};
-  background-color: ${(props) =>
-    props.color === 3 && " rgba(253, 187, 110, 1)"};
-  background-color: ${(props) => props.color === 4 && "rgba(253, 247, 110, 1)"};
-  background-color: ${(props) =>
-    props.color === 5 && " rgba(110, 253, 150, 1)"};
-  background-color: ${(props) => props.color === 6 && "rgba(110, 218, 253, 1)"};
-  background-color: ${(props) => props.color === 7 && "rgba(130, 110, 253, 1)"};
-  background-color: ${(props) => props.color === 8 && "var(--gray2)"};
-  background-color: ${(props) => props.color === 9 && "var(--blue4)"};
+  background-color: ${(props) => props.color === 1 && '#fff'};
+  background-color: ${(props) => props.color === 2 && `var(--point3)`};
+  background-color: ${(props) => props.color === 3 && ' rgba(253, 187, 110, 1)'};
+  background-color: ${(props) => props.color === 4 && 'rgba(253, 247, 110, 1)'};
+  background-color: ${(props) => props.color === 5 && ' rgba(110, 253, 150, 1)'};
+  background-color: ${(props) => props.color === 6 && 'rgba(110, 218, 253, 1)'};
+  background-color: ${(props) => props.color === 7 && 'rgba(130, 110, 253, 1)'};
+  background-color: ${(props) => props.color === 8 && `var(--gray2)`};
+  background-color: ${(props) => props.color === 9 && `var(--blue4)`};
   position: absolute;
   left: 0;
   top: 0;

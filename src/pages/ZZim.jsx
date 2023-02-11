@@ -1,15 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import backBtn from "../assets/img/icon/Back.svg";
-import nextCursorBtn from "../assets/img/btn/nextCursor.png";
-import previousCursorBtn from "../assets/img/btn/previousCursor.png";
-import { useEffect } from "react";
-import axios from "axios";
-import { getCookie } from "../shared/cookie";
-import { useState } from "react";
-import { api } from "../shared/api";
-import Pagination from "../components/Pagination";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import backBtn from '../assets/icon/Back.svg';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import Pagination from '../components/Pagination';
+import jobApi from '../apis/job';
 
 const ZZim = () => {
   const navigate = useNavigate();
@@ -24,63 +20,37 @@ const ZZim = () => {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost);
-  console.log(totalPage);
-
-  const paginate = currentPage;
-  const myToken = getCookie("token");
 
   // 스크랩목록
   useEffect(() => {
-    const myToken = getCookie("token");
     const getZzim = async () => {
-      const head = {
-        headers: { Authorization: `Bearer ${myToken}` },
-      };
-      await axios
-        .get(
-          "https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",
-          head
-        )
-        .then((res) => {
-          console.log(res.data.data);
-          setList(res.data.data);
-          setTotalPage(Math.ceil(list?.length / postPerPage));
-        });
+      const condition = 'scrapping';
+      const orderBy = 'asc';
+      await jobApi.getLikeList(condition, orderBy).then((res) => {
+        setList(res.data.data);
+        setTotalPage(Math.ceil(list?.length / postPerPage));
+      });
     };
     getZzim();
   }, []);
 
   const getZzim1 = async () => {
-    const head = {
-      headers: { Authorization: `Bearer ${myToken}` },
-    };
-    await axios
-      .get(
-        "https://goodjobcalendar.shop/api/posting/likes?condition=scrapping&orderBy=asc",
-        head
-      )
-      .then((res) => {
-        console.log(res.data.data);
-        setList(res.data.data);
-        setTotalPage(Math.ceil(list?.length / postPerPage));
-        setToggle(false);
-      });
+    const condition = 'scrapping';
+    const orderBy = 'asc';
+    await jobApi.getLikeList(condition, orderBy).then((res) => {
+      setList(res.data.data);
+      setTotalPage(Math.ceil(list?.length / postPerPage));
+      setToggle(false);
+    });
   };
 
   const getZzimDead = async () => {
-    const head = {
-      headers: { Authorization: `Bearer ${myToken}` },
-    };
-    await axios
-      .get(
-        "https://goodjobcalendar.shop/api/posting/likes?condition=deadline&orderBy=asc",
-        head
-      )
-      .then((res) => {
-        console.log(res.data.data);
-        setList(res.data.data);
-        setTotalPage(Math.ceil(list?.length / postPerPage));
-      });
+    const condition = 'deadline';
+    const orderBy = 'asc';
+    await jobApi.getLikeList(condition, orderBy).then((res) => {
+      setList(res.data.data);
+      setTotalPage(Math.ceil(list?.length / postPerPage));
+    });
   };
 
   return (
@@ -93,7 +63,7 @@ const ZZim = () => {
         <Scrap toggle={toggle} onClick={getZzim1}>
           스크랩순
         </Scrap>
-        <div style={{ color: "var(--gray3)" }}>|</div>
+        <div style={{ color: `var(--gray3)` }}>|</div>
         <Deadline
           toggle={toggle}
           onClick={() => {
@@ -107,10 +77,7 @@ const ZZim = () => {
       <JobCardWrap>
         {currentPosts?.map((tasksData, idx) => {
           return (
-            <JobCard
-              key={idx}
-              onClick={() => navigate(`/jobDetail/${tasksData.id}`)}
-            >
+            <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.id}`)}>
               <CompanyName>{tasksData.companyName}</CompanyName>
               <JobTitle>{tasksData.title}</JobTitle>
               <DetailInfo>
@@ -120,9 +87,9 @@ const ZZim = () => {
                 </JobTagsWrap>
 
                 <EndTime>
-                  {tasksData.deadline.split("T")[0] === "2121-12-31"
-                    ? "상시채용"
-                    : "~" + tasksData.deadline.split("T")[0]}
+                  {tasksData.deadline.split('T')[0] === '2121-12-31'
+                    ? '상시채용'
+                    : '~' + tasksData.deadline.split('T')[0]}
                 </EndTime>
               </DetailInfo>
             </JobCard>
@@ -130,11 +97,7 @@ const ZZim = () => {
         })}
       </JobCardWrap>
       <BottomWrap>
-        <Pagination
-          postPerPage={postPerPage}
-          totalPosts={list?.length}
-          setCurrentPage={setCurrentPage}
-        />
+        <Pagination postPerPage={postPerPage} totalPosts={list?.length} setCurrentPage={setCurrentPage} />
       </BottomWrap>
     </MainWrapper>
   );
@@ -187,16 +150,10 @@ const MiddleButton = styled.div`
 `;
 
 const Scrap = styled.div`
-  color: ${(props) => (props.toggle ? "var(--gray4)" : "var(--blue4)")};
+  color: ${(props) => (props.toggle ? `var(--gray4)` : `var(--blue4)`)};
 `;
 const Deadline = styled.div`
-  color: ${(props) => (props.toggle ? "var(--blue4)" : "var(--gray3)")};
-`;
-
-const BottomBox = styled.div`
-  position: fixed;
-  bottom: 30px;
-  left: 23px;
+  color: ${(props) => (props.toggle ? `var(--blue4)` : `var(--gray3)`)};
 `;
 
 const JobCardWrap = styled.div`
