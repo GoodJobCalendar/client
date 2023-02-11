@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FormInput } from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import Form from '../../components/common/Form';
 import userApi from '../../apis/user';
+import { __pwUser } from '../../modules/user';
 
 const ChangePw = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.pwInfo);
 
   const {
     register,
@@ -19,16 +21,21 @@ const ChangePw = () => {
     setError,
   } = useForm();
 
-  const onClickPwChange = async (data) => {
+  const onClickPwChange = (data) => {
     const { password, confirmPassword } = data;
-    await userApi
-      .pwChange({
+    if (password !== confirmPassword) {
+      setError('passwordchk', { message: '비밀번호가 일치하지 않습니다.' });
+    }
+    userApi
+      .changePw({
         email: userInfo.email,
         newPassword: password,
         confirmNewPassword: confirmPassword,
       })
-      .then(() => {
-        navigate('/changesuccesspw');
+      .then((res) => {
+        if (res !== undefined) {
+          navigate('/changesuccesspw');
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -42,8 +49,8 @@ const ChangePw = () => {
   };
   const errorText = (errors) => {
     if (errors) {
-      const { password, confirmPassword, extraError } = errors;
-      return password?.message || confirmPassword?.message || extraError?.message;
+      const { password, confirmPassword, passwordchk, extraError } = errors;
+      return password?.message || confirmPassword?.message || passwordchk?.message || extraError?.message;
     }
   };
 
@@ -57,10 +64,10 @@ const ChangePw = () => {
       </Header>
       <Main>
         <Form onSubmit={handleSubmit(onClickPwChange)}>
-          <FormInput
+          <ConfirmPassword
             type='password'
             placeholder='비밀번호'
-            pwCheck={errors?.password}
+            pwCheck={errors?.password || errors?.passwordchk}
             form={{
               ...register('password', {
                 required: '비밀번호를 입력해주세요.',
@@ -74,7 +81,7 @@ const ChangePw = () => {
           <PassWord
             type='password'
             placeholder='비밀번호 확인'
-            pwCheck={errors?.confirmPassword}
+            confirmPasswordCheck={errors?.confirmPassword || errors?.passwordchk}
             form={{
               ...register('confirmPassword', {
                 required: '비밀번호 확인을 입력해주세요.',
@@ -95,7 +102,10 @@ const ChangePw = () => {
 export default ChangePw;
 
 const PwWrap = styled.div`
-  width: 100%;
+  height: 100vh;
+  padding: 0 35px;
+  padding-top: 152px;
+  background-color: var(--blue1);
 `;
 const Header = styled.header`
   position: relative;
@@ -129,6 +139,7 @@ const SignUpBtn = styled(Button)`
   background: var(--blue4);
   color: #fff;
   margin-bottom: 8px;
+  margin-top: 145px;
 `;
 const ErrorCheck = styled.p`
   font-weight: 600;
@@ -139,7 +150,17 @@ const ErrorCheck = styled.p`
   margin-bottom: 24px;
 `;
 
-const PassWord = styled(FormInput)`
+const ConfirmPassword = styled(FormInput)`
   border: ${(props) => props.pwCheck && `1px solid var(--point3)`};
   color: ${(props) => props.pwCheck && `var(--point3)`};
+  ::placeholder {
+    color: ${(props) => props.pwCheck && `var(--point3)`};
+  }
+`;
+const PassWord = styled(FormInput)`
+  border: ${(props) => props.confirmPasswordCheck && `1px solid var(--point3)`};
+  color: ${(props) => props.confirmPasswordCheck && `var(--point3)`};
+  ::placeholder {
+    color: ${(props) => props.confirmPasswordCheck && `var(--point3)`};
+  }
 `;

@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { pwEmailUser } from '../../modules/user';
 import userApi from '../../apis/user';
+import { __pwUser } from '../../modules/user';
 
 // 컴포넌트
 import { FormInput } from '../../components/common/Input';
@@ -31,8 +31,8 @@ const FindPassword = () => {
         email,
       })
       .then((res) => {
-        dispatch(pwEmailUser(email, userName));
-        navigate('/pwcheck');
+        dispatch(__pwUser({ email, userName }));
+        navigate('/checkpwauthnumber');
       })
       .catch((error) => {
         console.error(error);

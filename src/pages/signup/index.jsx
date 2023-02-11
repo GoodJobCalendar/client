@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import userApi from '../../apis/user';
+import { __signUpUser } from '../../modules/user';
 
 // 이미지
 import logo from '../../assets/logo/logo.png';
@@ -15,6 +17,7 @@ import Button from '../../components/common/Button';
 import Form from '../../components/common/Form';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     register,
@@ -36,6 +39,7 @@ const SignUp = () => {
         userName,
       })
       .then(() => {
+        dispatch(__signUpUser({ email, password, confirmPassword, userName }));
         navigate('/checksignupauthnumber');
       })
       .catch((error) => {
