@@ -88,7 +88,6 @@ const UpdateSchedule = ({
       return 'var(--blue4)';
     }
   }
-  console.log(detailInfo, '확인');
   //작성목록
   const [color, setColor] = useState(detailInfo?.color);
   const [sticker, setSticker] = useState(String(detailInfo?.sticker));

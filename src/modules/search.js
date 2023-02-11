@@ -33,7 +33,6 @@ const __searchMySchedule = createAction(SEARCH_MY_SCHEDULE, (search) => ({
 }));
 
 // 미들웨어
-
 export const searchMySchedule = (keyword) => {
   return function (dispatch, getState) {
     scheduleApi
@@ -51,7 +50,6 @@ export const search = handleActions(
   {
     [SEARCH_MY_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
         draft.search = action.payload.search.data;
       }),
   },

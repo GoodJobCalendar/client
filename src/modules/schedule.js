@@ -38,23 +38,6 @@ const initialState = {
       },
     ],
   },
-  weekly: {
-    220830: [
-      {
-        color: 1,
-        companyName: '현대오토에버㈜',
-        coverImage: 1,
-        date: '2121-12-31 15:00:00',
-        memo: null,
-        place: '서울 강남구',
-        postingId: 2406,
-        scheduleId: 54,
-        sticker: 1,
-        title: 'App개발 경력 채용',
-        type: 'auto',
-      },
-    ],
-  },
 };
 
 // action
@@ -63,8 +46,8 @@ const SCHEDULE_UPDATE = 'schedule/SCHEDULE_UPDATE';
 const LIST_DETAIL = 'schedule/LIST_DETAIL';
 const LIST_DELETE = 'schedule/LIST_DELETE';
 const MONTH_LIST = 'schedule/MONTH_LIST';
-const WEEK_LIST = 'schedule/WEEK_LIST';
 const DAILY_LIST = 'schedule/DAILY_LIST';
+const SCHEDULE_KEYWORD = 'schedule/SCHEDULE_KEYWORD';
 
 // action creator
 export function __schedulePost(payload) {
@@ -82,22 +65,21 @@ export function __detailPost(payload) {
 export function __loadMonth(payload) {
   return { type: MONTH_LIST, payload };
 }
-export function __loadWeekly(payload) {
-  return { type: WEEK_LIST, payload };
-}
 export function __loadDaily(payload) {
   return { type: DAILY_LIST, payload };
+}
+export function __scheduleKeyword(payload) {
+  return { type: SCHEDULE_KEYWORD, payload };
 }
 
 //middleware
 
 //개인일정 작성
 export const schedulePost = ({ image, companyName, title, sticker, color, date, place, memo }) => {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     scheduleApi
       .postSchedule({ image, companyName, title, sticker, color, date, place, memo })
       .then((res) => {
-        console.log('다시', res.data.data);
         dispatch(loadMonth(`${res.data.data.date.split(' ')[0].substr(0, 7)}-01 00:00:00`));
       })
       .catch((err) => {
@@ -108,7 +90,7 @@ export const schedulePost = ({ image, companyName, title, sticker, color, date, 
 
 //개인일정 수정
 export const scheduleUpdate = ({ scheduleId, image, companyName, title, sticker, color, date, place, memo }) => {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     scheduleApi
       .modifySchedule(scheduleId, { image, companyName, title, sticker, color, date, place, memo })
       .then((res) => {
@@ -121,7 +103,7 @@ export const scheduleUpdate = ({ scheduleId, image, companyName, title, sticker,
 };
 //일정 삭제
 export const deletePost = (scheduleId) => {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     scheduleApi
       .deleteSchedule(scheduleId)
       .then((res) => {
@@ -134,7 +116,7 @@ export const deletePost = (scheduleId) => {
 };
 //일정상세 조회
 export const detailPost = (scheduleId) => {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     scheduleApi
       .getDetailSchedule(scheduleId)
       .then((res) => {
@@ -148,7 +130,7 @@ export const detailPost = (scheduleId) => {
 
 // 일정월별조회
 export const loadMonth = (startDate) => {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     scheduleApi
       .getMonthlySchedules(startDate)
       .then((res) => {
@@ -162,7 +144,7 @@ export const loadMonth = (startDate) => {
 
 // 일정일별조회
 export const loadDaily = (startDate) => {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     scheduleApi
       .getDailySchedules(startDate)
       .then((res) => {
@@ -202,14 +184,14 @@ export default function schedule(state = initialState, action) {
         draft.month = action.payload;
       });
     }
-    case WEEK_LIST: {
-      return produce(state, (draft) => {
-        draft.weekly = action.payload;
-      });
-    }
     case DAILY_LIST: {
       return produce(state, (draft) => {
         draft.daily = action.payload;
+      });
+    }
+    case SCHEDULE_KEYWORD: {
+      return produce(state, (draft) => {
+        draft.keyword = action.payload;
       });
     }
     default:

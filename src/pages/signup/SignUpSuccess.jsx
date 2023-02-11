@@ -8,7 +8,7 @@ import Button from '../../components/common/Button';
 //회원이름
 const SignUpSuccess = () => {
   const navigate = useNavigate();
-  const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.signUpInfo);
 
   return (
     <EmailWrap>
