@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { setCookie } from '../../shared/cookie';
+import { setCookie } from '../../shared/Cookie';
 
 // 컴포넌트
 import { FormInput } from '../../components/common/Input';

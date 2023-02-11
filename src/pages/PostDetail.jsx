@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailPost, __deletePost } from '../modules/schedule';
+import { detailPost } from '../modules/schedule';
 
 //스티커 이미지
 import img1 from '../assets/sticker/sticker1.png';
@@ -55,7 +55,6 @@ const PostDetail = () => {
   }, []);
 
   const onClickdeleteSchedule = async () => {
-    console.log(scheduleId);
     await scheduleApi
       .deleteSchedule(scheduleId)
       .then((res) => {
