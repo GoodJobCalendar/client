@@ -7,11 +7,11 @@ import userApi from './../../apis/user';
 const KakaoOauth = () => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get('code');
-
+  console.log(code, '확인');
   useEffect(() => {
     if (!!code) {
       userApi
-        .kakao({ code })
+        .kakao(code)
         .then((response) => {
           setCookie('token', response.data.token, 5);
           navigate('/main/calendar');
