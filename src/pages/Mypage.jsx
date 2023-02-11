@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { deleteCookie, setCookie } from '../shared/cookie';
+import { deleteCookie, setCookie } from '../shared/Cookie';
 // css
 import styled from 'styled-components';
 import backBtn from '../assets/icon/Back.svg';

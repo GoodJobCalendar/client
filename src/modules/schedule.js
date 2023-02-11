@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { setCookie } from '../shared/cookie';
+import { setCookie } from '../shared/Cookie';
 import scheduleApi from '../apis/schedule';
 
 // initialState

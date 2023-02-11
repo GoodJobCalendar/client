@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from '../../shared/cookie';
+import { getCookie } from '../../shared/Cookie';
 
 //1. axios 인터셉터 생성
 export const api = axios.create({

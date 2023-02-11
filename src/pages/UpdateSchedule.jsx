@@ -951,16 +951,6 @@ const StickerImg = styled.img`
   height: 50px;
   cursor: pointer;
 `;
-const CoverImg = styled.div`
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
-  border-radius: 10px;
-  cursor: pointer;
-  img {
-    height: 100%;
-  }
-`;
 const StickerPick1 = styled.label`
   width: 50px;
   height: 50px;

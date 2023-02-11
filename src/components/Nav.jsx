@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { getCookie } from '../shared/cookie';
+import { getCookie } from '../shared/Cookie';
 
 //이미지
 import calendar_w from '../assets/icon/calendar_w.svg';
