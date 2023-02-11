@@ -19,9 +19,9 @@ const LoginMain = () => {
     setError,
   } = useForm();
 
-  const onVaild = (data) => {
+  const onVaild = async (data) => {
     const { email, password } = data;
-    userApi
+    await userApi
       .login({ email, password })
       .then((response) => {
         setCookie('token', response.data.token, 5);
@@ -78,7 +78,7 @@ const LoginMain = () => {
           onKeyPress={onKeyPress}
         />
         {errorText(errors) && <ErrorCheck>{errorText(errors)}</ErrorCheck>}
-        <LoginBtn onClick={onVaild}>로그인</LoginBtn>
+        <LoginBtn>로그인</LoginBtn>
       </Form>
       <PwCheck onClick={() => navigate('/findpw')}>
         비밀번호를 혹시 잊어버리셨나요?

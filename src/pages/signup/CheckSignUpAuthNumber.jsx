@@ -14,7 +14,7 @@ const CheckSignUpAuthNumber = () => {
   const [authNumber, setAuthNumber] = useState();
   const [errorcheck, setError] = useState('');
 
-  const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.signUpInfo);
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
       MailsendBtn();
@@ -186,4 +186,5 @@ const SignUpBtn = styled.button`
   font-weight: 400;
   color: #fff !important;
   margin-bottom: 8px;
+  cursor: pointer;
 `;

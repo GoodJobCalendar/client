@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import passwordChangeImg from '../../assets/illust/passwordchange.png';
 import Button from '../../components/common/Button';
+
 const ChangeSuccessPw = () => {
+  const navigate = useNavigate();
   return (
     <EmailWrap>
       <Header>
@@ -14,9 +16,7 @@ const ChangeSuccessPw = () => {
         </TitleText>
       </Header>
       <Main>
-        <SignUpBtn>
-          <Link to='/login'>로그인하기</Link>
-        </SignUpBtn>
+        <SignUpBtn onClick={() => navigate('/login')}>로그인하기</SignUpBtn>
       </Main>
     </EmailWrap>
   );

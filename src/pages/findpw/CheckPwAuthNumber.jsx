@@ -1,8 +1,11 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import userApi from '../../apis/user';
+import { __pwUser } from '../../modules/user';
 
 // 이미지
 import mailSendImg from '../../assets/illust/mailsend.png';
@@ -10,12 +13,12 @@ import mailSendImg from '../../assets/illust/mailsend.png';
 // 컴포넌트
 import { FormInput } from '../../components/common/Input';
 import Button from '../../components/common/Button';
-import userApi from '../../apis/user';
 import Form from '../../components/common/Form';
 
 const CheckPwAuthNumber = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.pwInfo);
   const {
     register,
     handleSubmit,
@@ -31,7 +34,8 @@ const CheckPwAuthNumber = () => {
         authNumber: Number(authNumber),
       })
       .then(() => {
-        navigate('/pwchange');
+        dispatch(__pwUser({ email: userInfo?.email }));
+        navigate('/changepw');
       })
       .catch((error) => {
         console.error(error);
@@ -42,7 +46,7 @@ const CheckPwAuthNumber = () => {
   // 인증번호 재발송
   const MailReSendBtn = async () => {
     await userApi
-      .SendPwAuthNumber({
+      .sendPwAuthNumber({
         email: userInfo?.email,
         userName: userInfo?.userName,
       })
@@ -75,13 +79,11 @@ const CheckPwAuthNumber = () => {
             form={{ ...register('authNumber', { required: '인증번호를 입력해주세요.' }) }}
             errorcheck={errors?.authNumber}
           />
-          {errorText(errors) ? (
+          {errorText(errors) && (
             <>
               <ErrorCheck>{errorText(errors)}</ErrorCheck>
               <PwChangeBtn onClick={MailReSendBtn}>인증메일 재발송하기</PwChangeBtn>
             </>
-          ) : (
-            ''
           )}
 
           <PwChangeBtn>비밀번호 변경하기</PwChangeBtn>
