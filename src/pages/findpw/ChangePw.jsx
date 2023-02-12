@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FormInput } from '../../components/common/Input';
-import Button from '../../components/common/Button';
 import Form from '../../components/common/Form';
 import userApi from '../../apis/user';
-import { __pwUser } from '../../modules/user';
+import Button from './../../components/common/Button';
 
 const ChangePw = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.pwInfo);
 

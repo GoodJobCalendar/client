@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { schedulePost } from '../../modules/schedule';
 
 // 스티커
 import img1 from '../../assets/sticker/sticker1.png';
@@ -29,6 +28,8 @@ import DatePicker from 'react-datepicker';
 import 'date-fns';
 import ko from 'date-fns/locale/ko';
 import 'react-datepicker/dist/react-datepicker.css';
+import { loadMonth } from '../../modules/schedule';
+import scheduleApi from '../../apis/schedule';
 
 const AddSchedule = ({ value, onChange, ...others }) => {
   const dispatch = useDispatch();
@@ -164,12 +165,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
   };
 
   // 일정등록
-  const addScheduleBtn = async () => {
+  const addScheduleBtn = async (e) => {
+    e.preventDefault();
     if ((companyName === '', title === '', allDate === '', place === '', memo === '')) {
       setEmpty(!empty);
     } else {
-      await dispatch(
-        schedulePost({
+      await scheduleApi
+        .postSchedule({
           image: Number(image),
           companyName, //필수입력
           title, //필수입력
@@ -178,8 +180,13 @@ const AddSchedule = ({ value, onChange, ...others }) => {
           place, //필수입력
           memo,
           color: Number(color),
-        }),
-      );
+        })
+        .then((res) => {
+          dispatch(loadMonth(`${res.data.data.date.split(' ')[0].substr(0, 7)}-01 00:00:00`));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
       navigate('/main/calendar');
     }
   };
@@ -570,6 +577,7 @@ const Btn = styled.button`
   color: #fff;
   background-color: transparent;
   z-index: 99;
+  cursor: pointer;
 `;
 const StickerAddBtn = styled.button`
   font-weight: 700;

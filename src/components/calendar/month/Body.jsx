@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Dates from "./Dates";
+import React from 'react';
+import styled from 'styled-components';
+import Dates from './Dates';
 
 const Body = (props) => {
   const { totalDate, today, month, year, isActive, setIsActive } = props;
@@ -21,12 +21,7 @@ const Body = (props) => {
             lastDate={lastDate}
             firstDate={firstDate}
             elm={elm}
-            findToday={
-              getYear === year &&
-              findToday === idx &&
-              month === getMonth &&
-              findToday
-            }
+            findToday={getYear === year && findToday === idx && month === getMonth && findToday}
             month={month}
             year={year}
             isActive={isActive}

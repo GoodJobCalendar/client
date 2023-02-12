@@ -1,5 +1,4 @@
 import { produce } from 'immer';
-import { setCookie } from '../shared/cookie';
 import scheduleApi from '../apis/schedule';
 
 // initialState
@@ -71,22 +70,6 @@ export function __loadDaily(payload) {
 export function __scheduleKeyword(payload) {
   return { type: SCHEDULE_KEYWORD, payload };
 }
-
-//middleware
-
-//개인일정 작성
-export const schedulePost = ({ image, companyName, title, sticker, color, date, place, memo }) => {
-  return function (dispatch, getState) {
-    scheduleApi
-      .postSchedule({ image, companyName, title, sticker, color, date, place, memo })
-      .then((res) => {
-        dispatch(loadMonth(`${res.data.data.date.split(' ')[0].substr(0, 7)}-01 00:00:00`));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-};
 
 //개인일정 수정
 export const scheduleUpdate = ({ scheduleId, image, companyName, title, sticker, color, date, place, memo }) => {
@@ -162,8 +145,6 @@ export default function schedule(state = initialState, action) {
   switch (action.type) {
     case SCHEDULE_UPDATE: {
       return produce(state, (draft) => {
-        setCookie('is_login', 'true');
-        draft.is_login = true;
         function a() {
           if (state.detail.scheduleId === action.payload.scheduleId) {
             return action.payload;

@@ -221,7 +221,8 @@ const UpdateSchedule = ({
     // setCoverShow(!coverShow);
   };
   // 일정등록
-  const addScheduleBtn = async () => {
+  const addScheduleBtn = async (e) => {
+    e.preventDefault();
     if ((companyName === '', title === '', allDate === '', place === '')) {
       setEmpty(!empty);
     } else {
@@ -566,6 +567,7 @@ const NeedPost = styled.div`
   z-index: 999;
 `;
 const NeedPostBtn = styled.button`
+  cursor: pointer;
   background-color: var(--blue4);
   padding: 16px 30px;
   color: #fff;
@@ -632,13 +634,14 @@ const UpdateSchesuleWrap = styled.div`
   }
 `;
 const Btn = styled.button`
+  cursor: pointer;
   font-weight: 700;
   color: #fff;
   background-color: transparent;
-
   z-index: 999;
 `;
 const StickerAddBtn = styled.button`
+  cursor: pointer;
   font-weight: 700;
   font-size: 12px;
   border: 1px solid #fff !important;

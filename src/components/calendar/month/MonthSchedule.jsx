@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Head from "./Head";
-import Body from "./Body";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import Head from './Head';
+import Body from './Body';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { __numberDate } from '../../../modules/date';
 
 const MonthSchedule = ({ setIsActive, isActive }) => {
+  const dispatch = useDispatch();
   let DATE = new Date(); // Sun Aug 21 2022 23:42:11 GMT+0900 (한국 표준시)
   const YEAR = DATE.getFullYear(); // 2022
   const MONTH = DATE.getMonth() + 1; // 8
@@ -25,7 +28,7 @@ const MonthSchedule = ({ setIsActive, isActive }) => {
     let PVLD = [];
     if (PrevDay !== 6) {
       for (let i = 0; i < PrevDay + 1; i++) {
-        PVLD.unshift(`  `);
+        PVLD.unshift(PrevDay - i);
       }
     }
     //다음 날짜 만들기
@@ -34,13 +37,15 @@ const MonthSchedule = ({ setIsActive, isActive }) => {
       if (i === 0) {
         return TLD;
       }
-      TLD.push(`  `);
+      TLD.push(i);
     }
 
     //현재날짜
     let TD = [];
     TD = [...Array(ThisDate + 1).keys()].slice(1);
-    return PVLD.concat(TD, TLD);
+    const totalDate = PVLD.concat(TD, TLD);
+    dispatch(__numberDate({ prev: PVLD.length, next: TLD.length, total: totalDate.length }));
+    return totalDate;
   };
 
   useEffect(() => {
@@ -53,12 +58,7 @@ const MonthSchedule = ({ setIsActive, isActive }) => {
 
   return (
     <MonthWrap>
-      <Head
-        year={Number(year)}
-        month={Number(month)}
-        setMonth={setMonth}
-        setYear={setYear}
-      />
+      <Head year={Number(year)} month={Number(month)} setMonth={setMonth} setYear={setYear} />
       <Body
         totalDate={totalDate}
         today={today}
