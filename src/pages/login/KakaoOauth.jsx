@@ -11,7 +11,7 @@ const KakaoOauth = () => {
   useEffect(() => {
     if (!!code) {
       userApi
-        .kakao(code)
+        .kakao({ code })
         .then((response) => {
           setCookie('token', response.data.token, 5);
           navigate('/main/calendar');
