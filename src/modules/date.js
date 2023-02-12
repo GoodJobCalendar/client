@@ -1,14 +1,25 @@
 import { produce } from 'immer';
 
-const initialState = {};
+const initialState = {
+  zoom: {
+    zoomInOut: true,
+  },
+  active: {
+    isActive: false,
+  },
+};
 
 // action
+const NUMBER_DATE = 'date/NUMBER_DATE';
 const ZOOM_DATE = 'date/ZOOM_DATE';
 const ACTIVE_DATE = 'date/ACTIVE_DATE';
 const SELECT_DATE = 'date/SELECT_DATE';
 const DAY_DATE = 'date/DAY_DATE';
 
 // action creator
+export function __numberDate(payload) {
+  return { type: NUMBER_DATE, payload };
+}
 export function __zoomDate(payload) {
   return { type: ZOOM_DATE, payload };
 }
@@ -56,6 +67,11 @@ export const day = (dayDate) => {
 //reducer
 export default function date(state = initialState, action) {
   switch (action.type) {
+    case NUMBER_DATE: {
+      return produce(state, (draft) => {
+        draft.date = action.payload;
+      });
+    }
     case ZOOM_DATE: {
       return produce(state, (draft) => {
         draft.zoom = action.payload;

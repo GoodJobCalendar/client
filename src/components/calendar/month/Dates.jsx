@@ -5,6 +5,10 @@ import { active, select } from '../../../modules/date';
 import { loadDaily } from '../../../modules/schedule';
 
 const Dates = (props) => {
+  const prevNum = useSelector((state) => state.date.date).prev;
+  const nextNum = useSelector((state) => state.date.date).next;
+  const total = useSelector((state) => state.date.date).total;
+
   const { lastDate, firstDate, elm, findToday, month, year, idx, setIsActive, isActive } = props;
   const dispatch = useDispatch();
   const [monthList, setMonthList] = useState();
@@ -90,18 +94,22 @@ const Dates = (props) => {
         }}
       >
         <DateNum idx={idx} lastDate={lastDate} firstDate={firstDate} findToday={findToday}>
-          <TodayInput
-            id={idx}
-            type='radio'
-            name='day'
-            isActive={isActive}
-            onClick={() => {
-              setIsActive(!isActive);
-            }}
-          />
-          <CheckDay findToday={findToday} htmlFor={idx}>
-            {String(elm).padStart(2, '0')}
-          </CheckDay>
+          {idx > prevNum && idx < total - nextNum && (
+            <>
+              <TodayInput
+                id={idx}
+                type='radio'
+                name='day'
+                isActive={isActive}
+                onClick={() => {
+                  setIsActive(!isActive);
+                }}
+              />
+              <CheckDay findToday={findToday} htmlFor={idx}>
+                {String(elm).padStart(2, '0')}
+              </CheckDay>
+            </>
+          )}
         </DateNum>
         {zoom ? (
           <CircleLists>{list3}</CircleLists>
