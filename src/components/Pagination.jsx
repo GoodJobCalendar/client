@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import nextCursorBtn from '../assets/btn/nextCursor.png';
-import previousCursorBtn from '../assets/btn/previousCursor.png';
 
 function Pagination({ postPerPage, totalPosts, paginate, setCurrentPage }) {
   const pageNumbers = [];
@@ -17,10 +15,7 @@ function Pagination({ postPerPage, totalPosts, paginate, setCurrentPage }) {
         {pageNumbers.map((number) => (
           <PageNumber key={number}>
             <PageButton onClick={() => setCurrentPage(number)}>{number}</PageButton>
-            <BottomBox>
-              {/* <img src={previousCursorBtn} alt="이전" onClick={() => setCurrentPage(number -1)}/>
-          <img src={nextCursorBtn} onClick={() => setCurrentPage(number +1)}alt="이후"/> */}
-            </BottomBox>
+            <BottomBox></BottomBox>
           </PageNumber>
         ))}
       </PageLists>
