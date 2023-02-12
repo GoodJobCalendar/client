@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //컴포넌트
 import Slide from './Slide';
 import Splash from './Splash';
+import KaKaoLoginBtn from '../../components/KaKaoLoginBtn';
 import Button from '../../components/common/Button';
-import { KAKAO_AUTH_URL } from './../../shared/kakaoOauth';
 
 // 이미지
 import logo from '../../assets/logo/logo.png';
 import logotext from '../../assets/logo/logo_text.svg';
-import kakaologo from '../../assets/btn/kakaobtn.svg';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,12 +32,7 @@ const Home = () => {
         >
           이메일로 시작
         </SignUpBtn>
-        <KaKaoBtn>
-          <Link to={KAKAO_AUTH_URL}>
-            <img src={kakaologo} alt='카카오로고' />
-            <p>카카오톡 간편 로그인</p>
-          </Link>
-        </KaKaoBtn>
+        <KaKaoLoginBtn />
         <LoginBtn
           onClick={() => {
             navigate('/login');
@@ -84,19 +78,6 @@ const SignUpBtn = styled(Button)`
   color: var(--blue3);
 `;
 
-const KaKaoBtn = styled(Button)`
-  background: #f8e041;
-  margin: 8px 0;
-  > a {
-    font-weight: 400;
-    width: 100%;
-    color: #371f1e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-  }
-`;
 const LoginBtn = styled(Button)`
   background-color: var(--blue4);
   color: #fff;
