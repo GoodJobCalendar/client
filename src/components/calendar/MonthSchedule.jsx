@@ -3,7 +3,7 @@ import Head from './Head';
 import Body from './Body';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { __numberDate } from '../../../modules/date';
+import { __numberDate } from '../../modules/date';
 
 const MonthSchedule = ({ setIsActive, isActive }) => {
   const dispatch = useDispatch();

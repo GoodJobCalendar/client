@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 // 컴포넌트
-import MonthSchedule from './month/MonthSchedule';
+import MonthSchedule from './MonthSchedule';
 import MonthList from './MonthList';
 import DailyList from './DailyList';
 import SearchBox from './SearchBox';
@@ -12,7 +12,7 @@ import SearchList from './SearchList';
 // 이미지
 import zoomin from '../../assets/icon/zoomin.svg';
 import zoomout from '../../assets/icon/zoomout.svg';
-import { zoom } from './../../modules/date';
+import { zoom, __zoomDate } from './../../modules/date';
 
 const Calendar = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Calendar = () => {
 
   // 월간달력 줌인 줌아웃
   useEffect(() => {
-    dispatch(zoom(zoomInOut));
+    dispatch(__zoomDate(zoomInOut));
   }, [zoomInOut]);
 
   const CalendarZoom = () => {

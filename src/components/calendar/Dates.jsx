@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { active, select } from '../../../modules/date';
-import { loadDaily } from '../../../modules/schedule';
+import { active, select, __activeDate, __selectDate } from '../../modules/date';
+import { loadDaily } from '../../modules/schedule';
 
 const Dates = (props) => {
   const prevNum = useSelector((state) => state.date.date).prev;
@@ -14,7 +14,7 @@ const Dates = (props) => {
   const [monthList, setMonthList] = useState();
   const [datekey, setDatekey] = useState('');
   const monthSchdule = useSelector((state) => state.schedule.month);
-  const zoom = useSelector((state) => state.date.zoom.zoomInOut);
+  const zoom = useSelector((state) => state.date.zoom);
   useEffect(() => {
     (async () => {
       const data = await Object.entries(monthSchdule);
@@ -25,7 +25,7 @@ const Dates = (props) => {
   }, [monthSchdule]);
   useEffect(() => {
     (async () => {
-      await dispatch(active(isActive));
+      await dispatch(__activeDate(isActive));
     })();
   }, [isActive]);
 
@@ -90,7 +90,7 @@ const Dates = (props) => {
         zoom={zoom}
         onClick={() => {
           dispatch(loadDaily(datekey));
-          dispatch(select(year, month, elm));
+          dispatch(__selectDate({ year, month, elm }));
         }}
       >
         <DateNum idx={idx} lastDate={lastDate} firstDate={firstDate} findToday={findToday}>

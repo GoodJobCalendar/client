@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchMySchedule, __searchMySchedule } from '../../modules/search';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 // 스티커 배경
