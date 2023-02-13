@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 // 이미지
 import searchImg from '../../assets/icon/search.svg';
-import { searchMySchedule } from './../../modules/search';
+import { __searchKeyword, __searchMySchedule } from './../../modules/search';
+import scheduleApi from '../../apis/schedule';
 
-const SearchBox = ({ searchText, setSearchText }) => {
+const SearchBox = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,12 +20,17 @@ const SearchBox = ({ searchText, setSearchText }) => {
 
   // 검색어
   const scheduleSearchEvent = (event) => {
-    setSearchText(event.target.value);
+    const keyword = event.target.value;
+    scheduleApi
+      .getSearchList(keyword)
+      .then((res) => {
+        dispatch(__searchKeyword(keyword));
+        dispatch(__searchMySchedule(res.data));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
-
-  useEffect(() => {
-    dispatch(searchMySchedule(searchText));
-  }, [searchText]);
 
   return (
     <FixBox>

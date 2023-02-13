@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 
@@ -16,21 +16,23 @@ import { zoom } from './../../modules/date';
 
 const Calendar = () => {
   const dispatch = useDispatch();
+  const searchKeyword = useSelector((state) => state.search.searchKeyword);
+
   const [isActive, setIsActive] = useState(false);
   const [zoomInOut, setZoomInOut] = useState(true);
-  const [searchText, setSearchText] = useState('');
 
   // 월간달력 줌인 줌아웃
   useEffect(() => {
     dispatch(zoom(zoomInOut));
   }, [zoomInOut]);
+
   const CalendarZoom = () => {
     setZoomInOut(!zoomInOut);
   };
   return (
     <>
-      <SearchBox setSearchText={setSearchText} search={searchText} />
-      {searchText === '' ? (
+      <SearchBox />
+      {searchKeyword === '' ? (
         <ContentWrap>
           <ToggleBtn>
             {zoomInOut ? (
@@ -47,7 +49,7 @@ const Calendar = () => {
           {isActive ? <DailyList /> : <MonthList />}
         </ContentWrap>
       ) : (
-        <SearchList search={searchText} />
+        <SearchList />
       )}
     </>
   );

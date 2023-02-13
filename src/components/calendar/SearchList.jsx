@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchMySchedule } from '../../modules/search';
+import { searchMySchedule, __searchMySchedule } from '../../modules/search';
 import styled from 'styled-components';
 
 // 스티커 배경
@@ -15,8 +15,8 @@ import img8 from '../../assets/sticker/sticker8.png';
 // 이미지
 import locationGray from '../../assets/icon/LocationGray.svg';
 
-const SearchList = ({ search }) => {
-  const dispatch = useDispatch();
+const SearchList = ({ searchText }) => {
+  const searchKeyword = useSelector((state) => state.search.searchKeyword);
   const searchData = useSelector((state) => state.search.search);
 
   const searchDataList = Object.entries(searchData);
@@ -33,13 +33,10 @@ const SearchList = ({ search }) => {
 
     return dayOfWeek;
   }
-  useEffect(() => {
-    dispatch(searchMySchedule(search));
-  }, [search]);
   return (
     <SearchWrapper>
       <UpBar>
-        <SearchInfo>{'" ' + search + ' "'} 검색결과</SearchInfo>
+        <SearchInfo>{'" ' + searchKeyword + ' "'} 검색결과</SearchInfo>
         <SearchInfo>{dataArraySum} 건</SearchInfo>
       </UpBar>
       <SearchHr />
@@ -70,9 +67,9 @@ const SearchList = ({ search }) => {
                             {data.date.split(' ')[1].split(':')[0] + ':' + data.date.split(' ')[1].split(':')[1]}
                           </SearchDataTime>
                           <SearchDataTitle>
-                            {data.title.split(search)[0]}
-                            <span style={{ color: '#4F32FF' }}>{search}</span>
-                            {data.title.split(search)[1]}
+                            {data.title.split(searchText)[0]}
+                            <span style={{ color: '#4F32FF' }}>{searchText}</span>
+                            {data.title.split(searchText)[1]}
                           </SearchDataTitle>
                         </SearchDataTitleWrap>
                       </MainData>
