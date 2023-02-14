@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import KaKaoLoginBtn from './../../components/KaKaoLoginBtn';
+import KaKaoLoginBtn from './../../components/common/KaKaoLoginBtn';
 
 const Footer = () => {
   return (
