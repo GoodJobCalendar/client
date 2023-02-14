@@ -1,41 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import styled from 'styled-components';
-
 // 컴포넌트
-import MonthSchedule from './MonthSchedule';
-import MonthList from './MonthList';
-import DailyList from './DailyList';
 import SearchBox from './SearchBox';
 import SearchList from './SearchList';
+import MonthSchedule from './scheduler';
+import ScheduleList from './schedulelist';
+
 // 이미지
 import zoomin from '../../assets/icon/zoomin.svg';
 import zoomout from '../../assets/icon/zoomout.svg';
-import { zoom, __zoomDate } from './../../modules/date';
+
+import { __zoomDate } from './../../modules/date';
 
 const Calendar = () => {
   const dispatch = useDispatch();
   const searchKeyword = useSelector((state) => state.search.searchKeyword);
-
-  const [isActive, setIsActive] = useState(false);
-  const [zoomInOut, setZoomInOut] = useState(true);
-
-  // 월간달력 줌인 줌아웃
-  useEffect(() => {
-    dispatch(__zoomDate(zoomInOut));
-  }, [zoomInOut]);
+  const zoom = useSelector((state) => state.date.zoom);
 
   const CalendarZoom = () => {
-    setZoomInOut(!zoomInOut);
+    dispatch(__zoomDate(!zoom));
   };
+
   return (
     <>
       <SearchBox />
       {searchKeyword === '' ? (
         <ContentWrap>
           <ToggleBtn>
-            {zoomInOut ? (
+            {zoom ? (
               <button onClick={CalendarZoom}>
                 <img src={zoomin} alt='월별달력확대' />
               </button>
@@ -45,8 +39,8 @@ const Calendar = () => {
               </button>
             )}
           </ToggleBtn>
-          <MonthSchedule isActive={isActive} setIsActive={setIsActive} />
-          {isActive ? <DailyList /> : <MonthList />}
+          <MonthSchedule />
+          <ScheduleList />
         </ContentWrap>
       ) : (
         <SearchList />
