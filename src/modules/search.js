@@ -3,7 +3,8 @@ import { produce } from 'immer';
 import scheduleApi from '../apis/schedule';
 
 // 액션
-const SEARCH_MY_SCHEDULE = 'SEARCH_MY_SCHEDULE';
+const SEARCH_MY_SCHEDULE = 'search/SEARCH_MY_SCHEDULE';
+const SEARCH_KEWORD = 'search/SEARCH_KEWORD';
 
 // 초기값
 const initialState = {
@@ -24,33 +25,23 @@ const initialState = {
       },
     ],
   },
+  searchKeyword: '',
 };
 
 // 액션 생성 함수
 
-const __searchMySchedule = createAction(SEARCH_MY_SCHEDULE, (search) => ({
-  search,
-}));
-
-// 미들웨어
-export const searchMySchedule = (keyword) => {
-  return function (dispatch, getState) {
-    scheduleApi
-      .getSearchList(keyword)
-      .then((res) => {
-        dispatch(__searchMySchedule(res.data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-};
+export const __searchMySchedule = createAction(SEARCH_MY_SCHEDULE, (search) => search);
+export const __searchKeyword = createAction(SEARCH_KEWORD, (keyword) => keyword);
 
 export const search = handleActions(
   {
     [SEARCH_MY_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        draft.search = action.payload.search.data;
+        draft.search = action.payload.data;
+      }),
+    [SEARCH_KEWORD]: (state, action) =>
+      produce(state, (draft) => {
+        draft.searchKeyword = action.payload;
       }),
   },
   initialState,

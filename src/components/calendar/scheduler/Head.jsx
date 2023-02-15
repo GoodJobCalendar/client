@@ -1,46 +1,47 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadMonth } from '../../../modules/schedule';
+import { __changeMonth, __changeYear } from '../../../modules/date';
 
-const Head = (props) => {
-  const { year, month, setYear, setMonth } = props;
+const Head = () => {
   const dispatch = useDispatch();
+  const month = useSelector((state) => state.date.changeMonth);
+  const year = useSelector((state) => state.date.changeYear);
 
   const monthPlus = () => {
-    setMonth(month + 1);
+    dispatch(__changeMonth(month + 1));
     if (month > 11) {
-      setMonth(1);
+      dispatch(__changeMonth(1));
       const y = Number(year) + 1;
-      setYear(y);
+      dispatch(__changeYear(y));
     }
   };
   const monthMius = () => {
-    setMonth(month - 1);
+    dispatch(__changeMonth(month - 1));
     if (month < 2) {
-      setMonth(12);
+      dispatch(__changeMonth(12));
       const y = Number(year) - 1;
-      setYear(y);
+      dispatch(__changeYear(y));
     }
   };
   const yearPlus = () => {
     const y = year + 1;
-    setYear(y);
+    dispatch(__changeYear(y));
   };
   const yearMius = () => {
     const y = year - 1;
-    setYear(y);
+    dispatch(__changeYear(y));
   };
   const monthNumber = String(month).padStart(2, '0');
-  const startDate = `${year}-${monthNumber}-01 00:00:00`;
 
   useEffect(() => {
     (async () => {
+      const startDate = `${year}-${monthNumber}-01 00:00:00`;
       await dispatch(loadMonth(startDate));
     })();
-  }, [month]);
+  }, [year, month]);
 
-  // 오늘날짜소환!
   const DAY = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
@@ -138,7 +139,7 @@ const MonthBtn = styled.button`
   background-color: transparent;
 `;
 
-const Days = styled.div`
+const Days = styled.ul`
   display: flex;
   background-color: #fff;
   border-radius: 7px 7px 0 0;
