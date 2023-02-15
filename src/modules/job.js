@@ -11,7 +11,6 @@ const ADD_SCRAP = 'ADD_SCRAP';
 
 // 초기값
 const initialState = {
-  job: {},
   category: {
     data: {
       career: '경력무관',
@@ -22,9 +21,7 @@ const initialState = {
       jobSub: '전체',
     },
   },
-  select: [],
   list: [],
-
   details: {
     career: '',
     city: '',
@@ -52,8 +49,6 @@ const __loadJobDetails = createAction(LOAD_JOB_DETAILS, (details) => ({
   details,
 }));
 const __addScrap = createAction(ADD_SCRAP, (postingId) => ({ postingId }));
-
-// 미들웨어
 
 // 추천채용 불러오기
 

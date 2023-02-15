@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 //컴포넌트
 import Slide from './Slide';
 import Splash from './Splash';
-import KaKaoLoginBtn from '../../components/KaKaoLoginBtn';
+import KaKaoLoginBtn from '../../components/common/KaKaoLoginBtn';
 import Button from '../../components/common/Button';
 
 // 이미지

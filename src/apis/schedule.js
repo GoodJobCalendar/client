@@ -15,7 +15,7 @@ const scheduleApi = {
   // 일간일정조회
   getDailySchedules: (startDate) => api.get(`/api/schedule/daily?startDate=${startDate}`),
   // 키워드 검색
-  getSearchList: (params) => api.get('/api/schedule/search', params),
+  getSearchList: (keyword) => api.get(`/api/schedule/search?keyword=${keyword}`),
 };
 
 export default scheduleApi;

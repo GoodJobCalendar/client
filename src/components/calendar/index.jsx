@@ -1,39 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-
+import React from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 // 컴포넌트
-import MonthSchedule from './month/MonthSchedule';
-import MonthList from './MonthList';
-import DailyList from './DailyList';
 import SearchBox from './SearchBox';
 import SearchList from './SearchList';
+import MonthSchedule from './scheduler';
+import ScheduleList from './schedulelist';
+
 // 이미지
 import zoomin from '../../assets/icon/zoomin.svg';
 import zoomout from '../../assets/icon/zoomout.svg';
-import { zoom } from './../../modules/date';
+
+import { __zoomDate } from './../../modules/date';
 
 const Calendar = () => {
   const dispatch = useDispatch();
-  const [isActive, setIsActive] = useState(false);
-  const [zoomInOut, setZoomInOut] = useState(true);
-  const [searchText, setSearchText] = useState('');
+  const searchKeyword = useSelector((state) => state.search.searchKeyword);
+  const zoom = useSelector((state) => state.date.zoom);
 
-  // 월간달력 줌인 줌아웃
-  useEffect(() => {
-    dispatch(zoom(zoomInOut));
-  }, [zoomInOut]);
   const CalendarZoom = () => {
-    setZoomInOut(!zoomInOut);
+    dispatch(__zoomDate(!zoom));
   };
+
   return (
     <>
-      <SearchBox setSearchText={setSearchText} search={searchText} />
-      {searchText === '' ? (
+      <SearchBox />
+      {searchKeyword === '' ? (
         <ContentWrap>
           <ToggleBtn>
-            {zoomInOut ? (
+            {zoom ? (
               <button onClick={CalendarZoom}>
                 <img src={zoomin} alt='월별달력확대' />
               </button>
@@ -43,11 +39,11 @@ const Calendar = () => {
               </button>
             )}
           </ToggleBtn>
-          <MonthSchedule isActive={isActive} setIsActive={setIsActive} />
-          {isActive ? <DailyList /> : <MonthList />}
+          <MonthSchedule />
+          <ScheduleList />
         </ContentWrap>
       ) : (
-        <SearchList search={searchText} />
+        <SearchList />
       )}
     </>
   );
