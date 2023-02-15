@@ -22,12 +22,15 @@ const DayText = ({ value, content }) => {
 
   const getDday = (content) => {
     const selectedDate = new Date(content.split(' ')[0]);
-    if (selectedDate - TODAYDATE > 0) {
-      return `D-${Math.floor((selectedDate - TODAYDATE) / (1000 * 60 * 60 * 24))}`;
-    } else if (selectedDate - TODAYDATE !== 0) {
-      return `D+${Math.floor((TODAYDATE - selectedDate) / (1000 * 60 * 60 * 24))}`;
+    const dDayResult = Math.floor(selectedDate / (1000 * 60 * 60 * 24)) - Math.floor(TODAYDATE / (1000 * 60 * 60 * 24));
+    if (dDayResult > 0) {
+      return `D-${dDayResult}`;
     } else {
-      return 'D-day';
+      if (dDayResult < 0) {
+        return `D+${Math.floor(TODAYDATE / (1000 * 60 * 60 * 24)) - Math.floor(selectedDate / (1000 * 60 * 60 * 24))}`;
+      } else {
+        return 'D-day';
+      }
     }
   };
   return (
