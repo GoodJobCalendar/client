@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { detailPost } from '../modules/schedule';
 
 //스티커 이미지
-import img1 from '../assets/sticker/sticker1.png';
 import img2 from '../assets/sticker/sticker2.png';
 import img3 from '../assets/sticker/sticker3.png';
 import img4 from '../assets/sticker/sticker4.png';
@@ -14,7 +13,6 @@ import img5 from '../assets/sticker/sticker5.png';
 import img6 from '../assets/sticker/sticker6.png';
 import img7 from '../assets/sticker/sticker7.png';
 import img8 from '../assets/sticker/sticker8.png';
-import img9 from '../assets/sticker/sticker9.png';
 
 //커버 이미지
 import cover1 from '../assets/cover/cover1.png';
@@ -93,9 +91,7 @@ const PostDetail = () => {
         />
         <Sticker
           src={
-            detailInfo?.sticker === 1
-              ? img1
-              : detailInfo?.sticker === 2
+            detailInfo?.sticker === 2
               ? img2
               : detailInfo?.sticker === 3
               ? img3
@@ -107,11 +103,7 @@ const PostDetail = () => {
               ? img6
               : detailInfo?.sticker === 7
               ? img7
-              : detailInfo?.sticker === 8
-              ? img8
-              : detailInfo?.sticker === 9
-              ? img9
-              : ''
+              : detailInfo?.sticker === 8 && img8
           }
         />
       </Header>

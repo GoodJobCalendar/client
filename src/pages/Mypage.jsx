@@ -53,7 +53,7 @@ const Mypage = () => {
       <MyNavWrap>
         <MyBack
           onClick={() => {
-            navigate(-1);
+            navigate('/main/calendar');
           }}
           src={backBtn}
         />
