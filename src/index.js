@@ -10,7 +10,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './modules';
 import GlobalStyle from './styles/globalStyle';
-import Mobile from './pages/Mobile';
+import Router from './router/Router';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +22,7 @@ root.render(
         <App />
       </BrowserView>
       <MobileView>
-        <Mobile />
+        <Router />
       </MobileView>
     </BrowserRouter>
   </Provider>,
