@@ -17,11 +17,11 @@ import Mypage from './../pages/Mypage';
 import ZZim from '../pages/ZZim';
 import NotFound from './../pages/NotFound';
 import Job from '../pages/job';
-import Calendar from './../components/calendar';
 import CheckSignUpAuthNumber from '../pages/signup/CheckSignUpAuthNumber';
 import Mobile from '../pages/Mobile';
 import UpdateSchedule from './../pages/UpdateSchedule';
 import AddSchedule from '../pages/addschedule';
+import Calendar from './../pages/calendar/index';
 
 function Router() {
   return (
