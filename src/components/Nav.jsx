@@ -12,7 +12,7 @@ import element_c from '../assets/icon/element_c.svg';
 import MypageBtn from '../assets/icon/MypageBtn.svg';
 import heart from '../assets/icon/Heart.svg';
 import needLogin from '../assets/illust/needlogin.png';
-import Guide from './calendar/Guide';
+import Guide from '../pages/calendar/Guide';
 
 const Nav = () => {
   const token = getCookie('token');
