@@ -18,10 +18,10 @@ import ZZim from '../pages/ZZim';
 import NotFound from './../pages/NotFound';
 import Job from '../pages/job';
 import CheckSignUpAuthNumber from '../pages/signup/CheckSignUpAuthNumber';
-import Mobile from '../pages/Mobile';
+import Main from '../pages/Main';
 import UpdateSchedule from './../pages/UpdateSchedule';
 import AddSchedule from '../pages/addschedule';
-import Calendar from './../pages/calendar/index';
+import Calendar from './../pages/calendar';
 
 function Router() {
   return (
@@ -37,7 +37,7 @@ function Router() {
       <Route path='/changesuccesspw' element={<ChangeSuccessPw />} />
       <Route path='/signupsuccess' element={<SignUpSuccess />} />
       <Route path='/changepw' element={<ChangePw />} />
-      <Route path='/main' element={<Mobile />}>
+      <Route path='/main' element={<Main />}>
         <Route path={`job`} element={<Job />} />
         <Route path={`calendar`} element={<Calendar />} />
       </Route>
