@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 // 스티커 배경
 import img2 from '../../assets/sticker/sticker2.png';
@@ -58,38 +59,41 @@ const SearchList = ({ searchText }) => {
               {tasksData[1].map((data, idx) => {
                 return (
                   <SearchDataCard key={idx}>
-                    <MainDataWrap>
-                      <MainData>
-                        <SearchDataColor color={data.color} />
-                        <SearchDataTitleWrap>
-                          <SearchDataTime>
-                            {data.date.split(' ')[1].split(':')[0] + ':' + data.date.split(' ')[1].split(':')[1]}
-                          </SearchDataTime>
-                          <SearchDataTitle>
-                            {data.title.split(searchText)[0]}
-                            <span style={{ color: '#4F32FF' }}>{searchText}</span>
-                            {data.title.split(searchText)[1]}
-                          </SearchDataTitle>
-                        </SearchDataTitleWrap>
-                      </MainData>
-                      <Sticker
-                        src={
-                          data.sticker === 2
-                            ? img2
-                            : data.sticker === 3
-                            ? img3
-                            : data.sticker === 4
-                            ? img4
-                            : data.sticker === 5
-                            ? img5
-                            : data.sticker === 6
-                            ? img6
-                            : data.sticker === 7
-                            ? img7
-                            : img8
-                        }
-                      ></Sticker>
-                    </MainDataWrap>
+                    <Link to={`/postdetail/${data?.scheduleId}`}>
+                      <MainDataWrap>
+                        <MainData>
+                          <SearchDataColor color={data.color} />
+                          <SearchDataTitleWrap>
+                            <SearchDataTime>
+                              {data.date.split(' ')[1].split(':')[0] + ':' + data.date.split(' ')[1].split(':')[1]}
+                            </SearchDataTime>
+                            <SearchDataTitle>
+                              {data.title.split(searchText)[0]}
+                              <span style={{ color: '#4F32FF' }}>{searchText}</span>
+                              {data.title.split(searchText)[1]}
+                            </SearchDataTitle>
+                          </SearchDataTitleWrap>
+                        </MainData>
+                        <Sticker
+                          src={
+                            data.sticker === 2
+                              ? img2
+                              : data.sticker === 3
+                              ? img3
+                              : data.sticker === 4
+                              ? img4
+                              : data.sticker === 5
+                              ? img5
+                              : data.sticker === 6
+                              ? img6
+                              : data.sticker === 7
+                              ? img7
+                              : img8
+                          }
+                        ></Sticker>
+                      </MainDataWrap>
+                    </Link>
+
                     <Hr />
                     <MemoBox>{data.memo}</MemoBox>
                     <LocationBox>
@@ -114,16 +118,16 @@ const SearchWrapper = styled.div`
   padding-bottom: 78px;
   display: flex;
   flex-direction: column;
-  width: calc(100% -34px);
+  width: 100%;
   background: #ecf1f8;
-  height: calc(100vh - 253px);
+  height: 100vh;
   overflow-y: scroll;
 `;
 
 const UpBar = styled.div`
   display: flex;
   justify-content: space-between;
-  width: calc(100% -32px);
+  width: 100%;
   padding: 18px 16px;
   border-bottom: 1px solid var(--blue2);
 `;
@@ -170,6 +174,9 @@ const SearchDataDDay = styled.p`
 `;
 
 const SearchDataCardWrap = styled.div`
+  a {
+    display: block;
+  }
   width: 342px;
   height: auto;
   margin: 0px auto;
@@ -258,24 +265,20 @@ const MemoBox = styled.div`
   background: #efefef;
   border-radius: 2px;
   width: 292px;
-  height: 15px;
   margin: 8px auto;
   font-weight: 500;
   font-size: 12px;
   color: #9a9a9a;
-  line-height: 15px;
 `;
 
 const LocationBox = styled.div`
   padding: 5px 8px;
   border-radius: 2px;
   width: 292px;
-  height: 15px;
   margin: 8px auto;
   font-weight: 500;
   font-size: 12px;
   color: #9a9a9a;
-  line-height: 15px;
 `;
 
 const LocationImg = styled.img`

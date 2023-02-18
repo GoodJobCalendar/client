@@ -162,7 +162,6 @@ export default PostDetail;
 
 const PostDailWrap = styled.div`
   background-color: var(--blue1);
-  height: 100vh;
   font-weight: 500;
   padding: 0 16px;
 `;
@@ -183,7 +182,7 @@ const Sticker = styled.img`
   z-index: 2;
 `;
 const Header = styled.div`
-  width: 90%;
+  width: 100%;
   padding: 20px;
   height: 184px;
   background-size: contain;

@@ -26,7 +26,7 @@ const ScheduleList = () => {
   }, [isActive, dailySchedule, monthSchdule]);
 
   return (
-    <Container>
+    <>
       {sheduleList &&
         sheduleList?.map((value, idx) => (
           <ScheduleListWrap key={idx}>
@@ -40,15 +40,12 @@ const ScheduleList = () => {
             })}
           </ScheduleListWrap>
         ))}
-    </Container>
+    </>
   );
 };
 
 export default ScheduleList;
 
-const Container = styled.div`
-  padding-bottom: 78px;
-`;
 const ScheduleListWrap = styled.div`
   display: flex;
   flex-direction: column;

@@ -46,11 +46,16 @@ const Home = () => {
 
 export default Home;
 const LoginWrap = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   text-align: center;
   padding: 0 30px;
   padding-top: 100px;
+  > header {
+    width: 100%;
+  }
 `;
 const LogoImg = styled.img`
   width: 43px;
@@ -74,7 +79,7 @@ const Container = styled.footer`
 `;
 
 const SignUpBtn = styled(Button)`
-  background-color: #ffffff;
+  background-color: #fff;
   color: var(--blue3);
 `;
 
