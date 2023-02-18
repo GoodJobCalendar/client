@@ -47,7 +47,7 @@ const SearchBox = () => {
 export default SearchBox;
 
 const FixBox = styled.div`
-  width: calc(100% - 24px);
+  width: 100%;
   padding: 9px 12px;
   position: fixed;
   bottom: 0;

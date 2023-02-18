@@ -7,8 +7,8 @@ export const Input = ({ className, type, placeholder, onChange }) => {
 export const FormInput = ({ className, type, placeholder, form }) => {
   return <InputComponent className={className} type={type} placeholder={placeholder} {...form} />;
 };
-export const AddScheduleInput = ({ className, type, placeholder, form }) => {
-  return <AddScheduleInputComponent className={className} type={type} placeholder={placeholder} {...form} />;
+export const AddScheduleInput = ({ className, type, placeholder, onChange }) => {
+  return <AddScheduleInputComponent className={className} type={type} placeholder={placeholder} onChange={onChange} />;
 };
 
 const InputComponent = styled.input`
@@ -24,6 +24,7 @@ const InputComponent = styled.input`
   }
 `;
 const AddScheduleInputComponent = styled.input`
+  width: 100%;
   outline: none;
   padding: 18px;
   background: #fff;

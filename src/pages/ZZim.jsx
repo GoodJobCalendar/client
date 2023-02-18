@@ -55,26 +55,29 @@ const ZZim = () => {
 
   return (
     <MainWrapper>
-      <UpBar>
-        <BackBtn src={backBtn} onClick={() => navigate(-1)} />
-        <Main>공고찜</Main>
-      </UpBar>
-      <MiddleButton>
-        <Scrap toggle={toggle} onClick={getZzim1}>
-          스크랩순
-        </Scrap>
-        <div style={{ color: `var(--gray3)` }}>|</div>
-        <Deadline
-          toggle={toggle}
-          onClick={() => {
-            setToggle(true);
-            getZzimDead();
-          }}
-        >
-          날짜순
-        </Deadline>
-      </MiddleButton>
+      <Header>
+        <UpBar>
+          <BackBtn src={backBtn} onClick={() => navigate(-1)} />
+          <Main>공고찜</Main>
+        </UpBar>
+      </Header>
+
       <JobCardWrap>
+        <MiddleButton>
+          <Scrap toggle={toggle} onClick={getZzim1}>
+            스크랩순
+          </Scrap>
+          <div style={{ color: `var(--gray3)` }}>|</div>
+          <Deadline
+            toggle={toggle}
+            onClick={() => {
+              setToggle(true);
+              getZzimDead();
+            }}
+          >
+            날짜순
+          </Deadline>
+        </MiddleButton>
         {currentPosts?.map((tasksData, idx) => {
           return (
             <JobCard key={idx} onClick={() => navigate(`/jobDetail/${tasksData.id}`)}>
@@ -111,11 +114,13 @@ const MainWrapper = styled.div`
   overflow: hidden;
 `;
 
-const UpBar = styled.div`
+const Header = styled.div`
+  padding: 18px 21px;
+  background-color: var(--blue4);
   height: 56px;
-  background: #3284ff;
+`;
+const UpBar = styled.div`
   display: flex;
-  position: fixed;
   width: 100%;
 `;
 
@@ -123,7 +128,6 @@ const BackBtn = styled.img`
   width: 14px;
   height: 14px;
   cursor: pointer;
-  position: fixed;
   left: 4%;
   top: 20px;
 `;
@@ -138,9 +142,8 @@ const Main = styled.div`
 
 const MiddleButton = styled.div`
   display: flex;
-  width: 113px;
-  padding: 24px 16px 24px 256px;
-  margin-top: 56px;
+  justify-content: flex-end;
+  margin: 24px 0;
   gap: 8px;
   div {
     font-weight: 500;
@@ -160,6 +163,7 @@ const JobCardWrap = styled.div`
   height: 80vh;
   /* border: 1px red solid; */
   overflow-y: scroll;
+  padding: 0 16px;
 `;
 
 const JobCard = styled.div`
@@ -168,7 +172,6 @@ const JobCard = styled.div`
   margin: 6px auto;
   cursor: pointer;
   padding: 21px 22px 20px 19px;
-  width: 302px;
 `;
 
 const CompanyName = styled.div`

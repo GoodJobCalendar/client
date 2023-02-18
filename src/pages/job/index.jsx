@@ -69,8 +69,12 @@ const Job = () => {
         {/* </InfiniteScroll>
         </div> */}
         <div style={{ display: 'flex', gap: '6px', padding: '20px' }}>
-          <img src={previousCursorBtn} onClick={getDataBefore} alt='버튼' />
-          <img src={nextCursorBtn} onClick={getDataNext} alt='버튼' />
+          <button onClick={getDataBefore}>
+            <img src={previousCursorBtn} alt='버튼' />
+          </button>
+          <button onClick={getDataNext}>
+            <img src={nextCursorBtn} alt='버튼' />
+          </button>
         </div>
         <ZzimBtn
           src={zzimbtn}
@@ -129,10 +133,11 @@ const JobWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 17px;
-  height: calc(100vh - 122px);
+  height: 100vh;
   background: #ecf1f8;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding-bottom: 130px;
 `;
 
 const TeamNameList = styled.div`

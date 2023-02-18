@@ -695,13 +695,12 @@ const MainWrapper = styled.div`
 `;
 
 const UpBar = styled.div`
-  width: auto;
-  height: 41px;
   background: #3284ff;
-  display: inline-block;
-  padding: 63px 24px 0px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 51px;
+  padding: 0 18px;
 `;
 
 const BackBtn = styled.img`
@@ -762,8 +761,7 @@ const TasksBtnImg = styled.img`
 const JobTags = styled.div`
   padding: 4px 10px;
   display: inline-block;
-  background: ${(props) =>
-    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
+  background: ${(props) => (props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent')};
   border-radius: 6px;
   :nth-child(1) {
     margin-right: calc(100% - 50px);
@@ -788,8 +786,7 @@ const DetailJobTags = styled.div`
   padding: 6px 10px;
   margin-bottom: 16px;
   margin-right: 20px;
-  background: ${(props) =>
-    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
+  background: ${(props) => (props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent')};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
@@ -802,8 +799,7 @@ const DetailJobTags = styled.div`
 
 const WorkAreaTags = styled.div`
   padding: 8px 10px;
-  background: ${(props) =>
-    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
+  background: ${(props) => (props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent')};
   border-radius: 6px;
   font-size: 14px;
   line-height: 20px;
@@ -816,8 +812,7 @@ const WorkAreaTags = styled.div`
 const DetailWorkAreaTags = styled.div`
   padding: 6px 10px;
   margin: 4px;
-  background: ${(props) =>
-    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
+  background: ${(props) => (props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent')};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
@@ -835,7 +830,7 @@ const WorkAreaTagsFlex = styled.div`
   padding: 24px 0;
 `;
 const DetailWorkAreaTagsFlex = styled.div`
-  width: calc(100% - 32px);
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -848,8 +843,7 @@ const CareersTags = styled.div`
   padding: 6px 10px;
   margin: 4px;
   margin-bottom: 8px;
-  background: ${(props) =>
-    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
+  background: ${(props) => (props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent')};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
@@ -865,8 +859,7 @@ const CompanyTypeTags = styled.div`
   padding: 4px 10px;
   margin: 4px;
   margin-bottom: 8px;
-  background: ${(props) =>
-    props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent'};
+  background: ${(props) => (props.categoryData === props.tasksData ? `var(--blue4)` : 'transparent')};
   border-radius: 8px;
   line-height: 20px;
   font-weight: 700;
