@@ -1,30 +1,33 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import emptyImg from '../../assets/illust/needlogin.png';
+import { __emptyContent } from '../../modules/posting';
 
-import emptyImg from '../../../assets/illust/needlogin.png';
+const NeedPostModal = () => {
+  const dispatch = useDispatch();
 
-const EmptyInputModal = ({ setEmpty }) => {
   return (
-    <NeedPost>
-      <NeedPostModal>
+    <NeedPostContainer>
+      <NeedPostModalWrap>
         <p>빈칸 작성 필요</p>
         <img src={emptyImg} alt='빈칸 작성 필요' />
         <span>빈칸을 모두 입력해주세요.</span>
         <NeedPostBtn
           onClick={() => {
-            setEmpty(null);
+            dispatch(__emptyContent(false));
           }}
         >
           계속 작성하기
         </NeedPostBtn>
-      </NeedPostModal>
-    </NeedPost>
+      </NeedPostModalWrap>
+    </NeedPostContainer>
   );
 };
 
-export default EmptyInputModal;
+export default NeedPostModal;
 
-const NeedPost = styled.div`
+const NeedPostContainer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -45,7 +48,7 @@ const NeedPostBtn = styled.button`
     height: 100%;
   }
 `;
-const NeedPostModal = styled.div`
+const NeedPostModalWrap = styled.div`
   p {
     font-weight: 700;
     color: var(--blue4);
@@ -68,7 +71,7 @@ const NeedPostModal = styled.div`
   z-index: 99999;
   box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);
   border-radius: 21px;
-  padding: 40px 80px;
-  width: 45%;
+  padding: 40px 0;
+  width: 254px;
   text-align: center;
 `;
