@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getCookie } from '../../shared/cookie';
-
 //1. axios 인터셉터 생성
 export const api = axios.create({
   baseURL: process.env.REACT_APP_AUTH_BASE_URL,
@@ -33,5 +32,9 @@ api.interceptors.response.use(
   },
   (error) => {
     console.error(error);
+    if (error.response.status === 500) {
+      window.alert('로그인 유효시간이 만료되었습니다');
+      window.location.href = 'https://goodjobcalendar.com/login';
+    }
   },
 );
