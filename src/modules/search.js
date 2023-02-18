@@ -1,6 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
-import scheduleApi from '../apis/schedule';
 
 // 액션
 const SEARCH_MY_SCHEDULE = 'search/SEARCH_MY_SCHEDULE';
@@ -8,23 +7,7 @@ const SEARCH_KEWORD = 'search/SEARCH_KEWORD';
 
 // 초기값
 const initialState = {
-  search: {
-    220830: [
-      {
-        color: 1,
-        companyName: '현대오토에버㈜',
-        coverImage: 1,
-        date: '2121-12-31 15:00:00',
-        memo: null,
-        place: '서울 강남구',
-        postingId: 2406,
-        scheduleId: 54,
-        sticker: 1,
-        title: 'App개발 경력 채용',
-        type: 'auto',
-      },
-    ],
-  },
+  search: {},
   searchKeyword: '',
 };
 

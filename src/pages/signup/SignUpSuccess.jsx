@@ -17,7 +17,7 @@ const SignUpSuccess = () => {
         <TitleText>
           <Title>회원가입이 완료되었어요!</Title>
           <SubTitle>
-            {userInfo.userName} 유저님의 취준 여정에 <br />
+            {userInfo?.userName} 유저님의 취준 여정에 <br />
             굿잡캘린더가 함께 할게요!
           </SubTitle>
         </TitleText>

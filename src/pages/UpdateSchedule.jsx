@@ -745,8 +745,7 @@ const PlaceText = styled.div`
       font-weight: 500;
       font-size: 16px;
     }
-    width: 100%;
-    width: calc(90% - 24px);
+    width: 90%;
     padding-left: 44px !important;
   }
   background: url(../assets/icon/Location.png) center center no-repeat !important;
@@ -771,7 +770,7 @@ const TextArea = styled.div`
     left: 18px;
   }
   textarea {
-    width: calc(90% - 24px);
+    width: 90%;
     padding: 18px;
     padding-left: 44px !important;
     border: 0;
@@ -1091,7 +1090,7 @@ const DateYear = styled.p`
 `;
 const DateWrap = styled.div`
   .react-datepicker {
-    width: calc(100% - 40px);
+    width: 100%;
     padding: 17px 20px;
     background: var(--blue1);
     box-shadow: 0px 14px 24px -4px rgba(117, 146, 189, 0.32), inset 0px 8px 14px rgba(255, 255, 255, 0.3);

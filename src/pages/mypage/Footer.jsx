@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Github from '../assets/icon/Github.svg';
-import Behance from '../assets/icon/Behance.svg';
-import Notion from '../assets/icon/Notion.svg';
+import Github from '../../assets/icon/Github.svg';
+import Behance from '../../assets/icon/Behance.svg';
+import Notion from '../../assets/icon/Notion.svg';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -21,16 +22,28 @@ const Footer = () => {
         </FootInner>
         <Hr />
         <FooterIcon>
-          <a href='https://github.com/rtg1014/goodjob_BE' target='_blank'>
+          <button
+            onClick={() => {
+              window.open('https://github.com/rtg1014/goodjob_BE');
+            }}
+          >
             <img src={Github} alt='githubicon' />
-          </a>
-          <a href='https://github.com/YoujungSon/Good-Job-Calender' target='_blank'>
+          </button>
+          <button
+            onClick={() => {
+              window.open('https://github.com/YoujungSon/Good-Job-Calender');
+            }}
+          >
             <img src={Github} alt='githubicon' />
-          </a>
+          </button>
           <img src={Behance} alt='behanceicon' />
-          <a target='_blank' href='https://marked-chemistry-398.notion.site/3f8a1983d30844b3b8b812a7e3d995f0'>
+          <button
+            onClick={() => {
+              window.open('https://marked-chemistry-398.notion.site/3f8a1983d30844b3b8b812a7e3d995f0');
+            }}
+          >
             <img src={Notion} alt='notionicon' />
-          </a>
+          </button>
         </FooterIcon>
         <FooterCopy>Copyright ©CATLAB.All rights reserved</FooterCopy>
       </FootSmallWrap>
@@ -42,7 +55,6 @@ export default Footer;
 
 const FootWrap = styled.div`
   background-color: #111111;
-  height: 34vh;
   padding: 28px;
   /* overflow-y: hidden; */
 `;

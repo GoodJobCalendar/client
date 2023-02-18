@@ -13,7 +13,7 @@ import ChangePw from './../pages/findpw/ChangePw';
 import JobDetail from './../pages/job/JobDetail';
 import JobCategory from './../pages/job/JobCategory';
 import PostDetail from './../pages/PostDetail';
-import Mypage from './../pages/Mypage';
+import Mypage from './../pages/mypage';
 import ZZim from '../pages/ZZim';
 import NotFound from './../pages/NotFound';
 import Job from '../pages/job';

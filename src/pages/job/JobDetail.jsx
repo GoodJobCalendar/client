@@ -222,11 +222,10 @@ const Tooltip = styled.div`
 `;
 const Tooltip2 = styled.img`
   display: flex;
-  margin: 0 8px 19px 0;
-  position: absolute;
+  justify-content: flex-end;
   width: 18px;
   height: 18px;
-  right: 0;
+
   &:hover {
     ~ div {
       display: block;
@@ -238,14 +237,14 @@ const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 83vh;
-  width: calc(100% - 48px);
+  width: 100%;
   background: var(--blue1);
-  padding: 40px 24px;
+  padding: 40px 16px;
 `;
 
 const CompanyWrap = styled.div`
-  height: 23px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   line-height: 24px;
   margin-bottom: 12px;
@@ -259,10 +258,7 @@ const CompanyName = styled.div`
 
 const CompanySize = styled.div`
   width: auto;
-  height: 23px;
   padding: 3px 6px;
-  gap: 10px;
-  margin-right: 5px;
   background: #a6c9ff;
   border-radius: 19px;
   font-weight: 500;
@@ -270,24 +266,22 @@ const CompanySize = styled.div`
   color: #ffffff;
 `;
 
-const JobTitle = styled.div`
+const JobTitle = styled.p`
   width: 100%;
-  padding: 15px 0;
   font-weight: 500;
   font-size: 20px;
   display: -webkit-box;
-  word-wrap: break-word;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
   text-overflow: ellipsis;
+  word-wrap: break-word;
 `;
 
 const Line = styled.div`
   width: 100%;
   border: 1px solid #d1d1d1;
   margin-bottom: 28px;
-  margin-top: 5px;
+  margin-top: 20px;
 `;
 
 const JobInfo = styled.div`

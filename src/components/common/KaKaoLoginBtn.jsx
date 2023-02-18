@@ -22,15 +22,16 @@ export default KaKaoLoginBtn;
 
 const KaKaoBtn = styled(Button)`
   background: #f8e041;
+  outline: none;
+  border-radius: 6px;
+  width: 100%;
+  padding: 17px 0;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 8px;
   margin: 8px 0;
-  > a {
-    font-weight: 400;
-    width: 100%;
-    color: #371f1e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-  }
+  color: #371f1e;
 `;
