@@ -25,15 +25,7 @@
 ### 🍀 Service Architecture
 ![image](https://user-images.githubusercontent.com/88040809/182815061-b112eccc-a957-4913-be7d-4597f96c7166.png)
 
-
-# ⚓️ Links
-- Project homepage: https://goodjobcalendar.com
-- BackEnd github : https://github.com/Magiof/goodjob_BE
-- FrontEnd github : https://github.com/YoujungSon/Good-Job-Calender
-
-<hr>
-
-## 👪 Member
+### 👪 Member
 <p dir="auto"><a href="https://github.com/YoujungSon"><img width="120" src="https://img.shields.io/badge/React-%EC%86%90%EC%9C%A0%EC%A0%95-yellow" style="max-width: 100%;"></a></p>
 <p dir="auto"><a href="https://github.com/kyeongbong"><img width="120" src="https://img.shields.io/badge/React-%EC%9D%B4%EA%B2%BD%ED%83%9C-green"     style="max-width: 100%;"></a></p>
 <p dir="auto"><a href="https://github.com/horang-e"><img width="120" src="https://img.shields.io/badge/React-%EC%B5%9C%EC%84%9C%ED%98%84-blue"     style="max-width: 100%;"></a></p>
