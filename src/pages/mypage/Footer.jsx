@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Github from '../../assets/icon/Github.svg';
 import Behance from '../../assets/icon/Behance.svg';
 import Notion from '../../assets/icon/Notion.svg';
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (

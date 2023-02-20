@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailPost } from '../modules/schedule';
+import { detailPost, __scheduleIdGet, __updateShow } from '../modules/schedule';
 
 //스티커 이미지
 import img2 from '../assets/sticker/sticker2.png';
@@ -19,7 +19,6 @@ import cover1 from '../assets/cover/cover1.png';
 import cover2 from '../assets/cover/cover2.png';
 import cover3 from '../assets/cover/cover3.png';
 import cover4 from '../assets/cover/cover4.png';
-import cover5 from '../assets/cover/cover5.png';
 
 //아이콘 이미지
 import arrow from '../assets/icon/Back.svg';
@@ -27,15 +26,15 @@ import update from '../assets/icon/Edit.svg';
 import logomini from '../assets/icon/Logo_mini.svg';
 import location from '../assets/icon/Location.svg';
 import time from '../assets/icon/Time.svg';
+
 import scheduleApi from '../apis/schedule';
-import UpdateSchedule from './UpdateSchedule';
+import UpdateSchedule from './updateschedule';
 
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { scheduleId } = useParams();
-  const [updateScheduleShow, setUpdateScheduleShow] = useState(false);
-
+  const updateShow = useSelector((state) => state.schedule.updateShow);
   const detailInfo = useSelector((state) => state.schedule.detail);
 
   //뒤로가기
@@ -45,11 +44,12 @@ const PostDetail = () => {
 
   //수정하기
   const updateScheduleBtn = () => {
-    setUpdateScheduleShow(!updateScheduleShow);
+    dispatch(__updateShow(!updateShow));
   };
 
   useEffect(() => {
     dispatch(detailPost(scheduleId));
+    dispatch(__scheduleIdGet(scheduleId));
   }, []);
 
   const onClickdeleteSchedule = async () => {
@@ -82,11 +82,7 @@ const PostDetail = () => {
               ? cover2
               : detailInfo?.coverImage === 3
               ? cover3
-              : detailInfo?.coverImage === 4
-              ? cover4
-              : detailInfo?.coverImage === 5
-              ? cover5
-              : ''
+              : detailInfo?.coverImage === 4 && cover4
           }
         />
         <Sticker
@@ -146,14 +142,7 @@ const PostDetail = () => {
           </Move>
         )}
       </PostDailWrap>
-      {updateScheduleShow && (
-        <UpdateSchedule
-          scheduleId={scheduleId}
-          updateScheduleShow={updateScheduleShow}
-          setUpdateScheduleShow={setUpdateScheduleShow}
-          detailInfo={detailInfo}
-        />
-      )}
+      {updateShow && <UpdateSchedule />}
     </>
   );
 };

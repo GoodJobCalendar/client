@@ -6,12 +6,13 @@ import DatePicker from 'react-datepicker';
 import 'date-fns';
 import ko from 'date-fns/locale/ko';
 import 'react-datepicker/dist/react-datepicker.css';
-import { __formatDate, __selectDate, __textDate } from '../../modules/posting';
-import { useDispatch } from 'react-redux';
+import { __formatDate, __selectDate, __textDate } from '../../modules/update';
+import { useSelector, useDispatch } from 'react-redux';
 
 const DatePickerInput = () => {
   const dispatch = useDispatch();
-  const [selectDate, setSelectDate] = useState(new Date());
+  const detail = useSelector((state) => state.schedule.detail);
+  const [selectDate, setSelectDate] = useState(new Date(detail?.date));
 
   const changeDate = (d) => {
     const date = new Date(d);
@@ -51,10 +52,10 @@ const DatePickerInput = () => {
     dispatch(__formatDate(formatDate));
   };
   useEffect(() => {
-    onChangeDate(new Date());
+    onChangeDate(new Date(detail?.date));
   }, []);
   return (
-    <AddDateWrap>
+    <DateWrap>
       <DatePicker
         selected={selectDate}
         onChange={(date) => {
@@ -81,7 +82,7 @@ const DatePickerInput = () => {
           </div>
         )}
       />
-    </AddDateWrap>
+    </DateWrap>
   );
 };
 
@@ -92,7 +93,7 @@ const DateYear = styled.p`
   font-size: 14px;
   color: var(--gray3);
 `;
-const AddDateWrap = styled.div`
+const DateWrap = styled.div`
   .react-datepicker {
     width: 100%;
     padding: 17px 20px;

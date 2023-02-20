@@ -19,9 +19,9 @@ import NotFound from './../pages/NotFound';
 import Job from '../pages/job';
 import CheckSignUpAuthNumber from '../pages/signup/CheckSignUpAuthNumber';
 import Main from '../pages/Main';
-import UpdateSchedule from './../pages/UpdateSchedule';
 import AddSchedule from '../pages/addschedule';
 import Calendar from './../pages/calendar';
+import UpdateSchedule from './../pages/updateschedule';
 
 function Router() {
   return (
