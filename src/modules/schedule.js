@@ -1,10 +1,23 @@
 import { produce } from 'immer';
 import scheduleApi from '../apis/schedule';
-
+import {
+  __colorInfo,
+  __companyNameInfo,
+  __imageInfo,
+  __memoInfo,
+  __placeInfo,
+  __selectHour,
+  __selectMinute,
+  __selectTime,
+  __stickerInfo,
+  __titleInfo,
+} from './update';
 // initialState
 const initialState = {
   month: {},
   daily: {},
+  updateShow: false,
+  scheduleId: null,
 };
 
 // action
@@ -15,6 +28,8 @@ const LIST_DELETE = 'schedule/LIST_DELETE';
 const MONTH_LIST = 'schedule/MONTH_LIST';
 const DAILY_LIST = 'schedule/DAILY_LIST';
 const SCHEDULE_KEYWORD = 'schedule/SCHEDULE_KEYWORD';
+const UPDATE_SHOW = 'schedule/UPDATE_SHOW';
+const SCHEDULEID_GET = 'schedule/SCHEDULEID_GET';
 
 // action creator
 export function __schedulePost(payload) {
@@ -37,6 +52,12 @@ export function __loadDaily(payload) {
 }
 export function __scheduleKeyword(payload) {
   return { type: SCHEDULE_KEYWORD, payload };
+}
+export function __updateShow(payload) {
+  return { type: UPDATE_SHOW, payload };
+}
+export function __scheduleIdGet(payload) {
+  return { type: SCHEDULEID_GET, payload };
 }
 
 //개인일정 수정
@@ -71,7 +92,22 @@ export const detailPost = (scheduleId) => {
     scheduleApi
       .getDetailSchedule(scheduleId)
       .then((res) => {
-        dispatch(__detailPost(res.data.data));
+        const dataList = res.data.data;
+        dispatch(__detailPost(dataList));
+        if (dataList.date.split(' ')[1].split(':')[0] > 12) {
+          dispatch(__selectTime('오후'));
+        } else {
+          dispatch(__selectTime('오전'));
+        }
+        dispatch(__selectHour(dataList.date.split(' ')[1].split(':')[0]));
+        dispatch(__selectMinute(dataList.date.split(' ')[1].split(':')[1]));
+        dispatch(__imageInfo(String(dataList.coverImage)));
+        dispatch(__companyNameInfo(dataList.companyName));
+        dispatch(__titleInfo(dataList.title));
+        dispatch(__stickerInfo(String(dataList.sticker)));
+        dispatch(__colorInfo(String(dataList.color)));
+        dispatch(__placeInfo(dataList.place));
+        dispatch(__memoInfo(dataList.memo));
       })
       .catch((error) => {
         console.error(error);
@@ -141,6 +177,16 @@ export default function schedule(state = initialState, action) {
     case SCHEDULE_KEYWORD: {
       return produce(state, (draft) => {
         draft.keyword = action.payload;
+      });
+    }
+    case UPDATE_SHOW: {
+      return produce(state, (draft) => {
+        draft.updateShow = action.payload;
+      });
+    }
+    case SCHEDULEID_GET: {
+      return produce(state, (draft) => {
+        draft.scheduleId = action.payload;
       });
     }
     default:
