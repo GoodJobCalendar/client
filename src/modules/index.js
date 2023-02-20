@@ -5,6 +5,7 @@ import schedule from './schedule';
 import { search } from './search';
 import user from './user';
 import posting from './posting';
+import update from './update';
 
 const rootReducer = combineReducers({
   date,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   search,
   user,
   posting,
+  update,
 });
 
 export default rootReducer;
