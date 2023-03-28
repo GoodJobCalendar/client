@@ -45,8 +45,8 @@ const Head = () => {
   const DAY = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
-    <Form>
-      <Nav>
+    <HeadContainer>
+      <HeadWrap>
         <BtnWrap>
           <YearBtnBox>
             <YearBtn onClick={yearMius}>&lt;</YearBtn>
@@ -63,25 +63,25 @@ const Head = () => {
             <MonthBtn onClick={monthPlus}>&gt;</MonthBtn>
           </MonthBtnBox>
         </BtnWrap>
-      </Nav>
+      </HeadWrap>
       <Days>
         {DAY.map((elm, idx) => {
           return <Day key={idx}>{elm}</Day>;
         })}
       </Days>
-    </Form>
+    </HeadContainer>
   );
 };
 
-const Form = styled.section`
+const HeadContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
   border-radius: 2px;
 `;
-const Nav = styled.section`
+const HeadWrap = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 const Year = styled.h2`
