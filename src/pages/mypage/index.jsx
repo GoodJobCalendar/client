@@ -144,7 +144,6 @@ const MyPageWrap = styled.div`
   flex-direction: column;
   align-items: space-between;
   justify-content: center;
-  height: 100vh;
 `;
 const MyNavWrap = styled.div`
   width: 100%;

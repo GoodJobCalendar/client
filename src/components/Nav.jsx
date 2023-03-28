@@ -167,6 +167,10 @@ const NavList = styled.ul`
 
 const LogOutBtn = styled.button`
   background-color: transparent;
+  img {
+    width: 17px;
+    height: 17px;
+  }
 `;
 const NavLink = styled(Link)`
   box-sizing: border-box;
@@ -176,6 +180,10 @@ const NavLink = styled(Link)`
   justify-content: center;
   align-items: center;
   font-size: 12px;
+  img {
+    width: 21px;
+    height: 21px;
+  }
 `;
 const NavItem = styled.li`
   flex: 1;

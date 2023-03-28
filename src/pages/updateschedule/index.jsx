@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 // 스티커
@@ -18,11 +18,12 @@ import memoimg from '../../assets/icon/memo.svg';
 import { __companyNameInfo, __memoInfo, __placeInfo, __titleInfo } from '../../modules/update';
 
 import ColorInput from './ColorInput';
-import DatePickerInput from './DatePickerInput';
-import TimePickerInput from './TimePickerInput';
 import NeedPostModal from './NeedPostModal';
 import Header from './Header';
 import { AddScheduleInput } from '../../components/common/Input';
+
+const DatePickerInput = lazy(() => import('./DatePickerInput'));
+const TimePickerInput = lazy(() => import('./TimePickerInput'));
 
 const UpdateSchedule = () => {
   const dispatch = useDispatch();
