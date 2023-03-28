@@ -1,13 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import SignUp from './../pages/signup/index';
-import FindPassword from './../pages/findpw/index';
+import SignUp from './../pages/signup';
+import FindPassword from './../pages/findpw';
 import CheckPwAuthNumber from '../pages/findpw/CheckPwAuthNumber';
 import ChangePw from './../pages/findpw/ChangePw';
-import Job from './../pages/job/index';
-import Calendar from './../pages/calendar/index';
-import AddSchedule from './../pages/addschedule/index';
-import UpdateSchedule from '../pages/updateschedule';
+import Job from './../pages/job';
+import Calendar from './../pages/calendar';
 import Splash from '../pages/home/Splash';
 
 const Home = lazy(() => import('./../pages/home'));
@@ -24,6 +22,8 @@ const ZZim = lazy(() => import('../pages/ZZim'));
 const NotFound = lazy(() => import('./../pages/NotFound'));
 const CheckSignUpAuthNumber = lazy(() => import('../pages/signup/CheckSignUpAuthNumber'));
 const Main = lazy(() => import('../pages/Main'));
+const UpdateSchedule = lazy(() => import('../pages/updateschedule'));
+const AddSchedule = lazy(() => import('../pages/addschedule'));
 
 function Router() {
   return (
