@@ -34,4 +34,8 @@ const KaKaoBtn = styled(Button)`
   gap: 8px;
   margin: 8px 0;
   color: #371f1e;
+  img {
+    width: 18px;
+    height: 16px;
+  }
 `;

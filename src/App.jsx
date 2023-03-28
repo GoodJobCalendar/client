@@ -11,8 +11,8 @@ const App = () => {
       <MobileBg>
         <Router />
       </MobileBg>
-      <img src={bgLeft} alt='배경이미지왼쪽' />
-      <img src={bgRight} alt='배경이미지오른쪽' />
+      <LeftImg src={bgLeft} alt='배경이미지왼쪽' />
+      <RightImg src={bgRight} alt='배경이미지오른쪽' />
     </BrowserBg>
   );
 };
@@ -25,16 +25,18 @@ const BrowserBg = styled.div`
   overflow: hidden;
   background-color: var(--blue4);
   position: relative;
-  > img:first-child {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-  > img:last-child {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
+`;
+const LeftImg = styled.img`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 880px;
+  height: 100%;
+`;
+const RightImg = styled.img`
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;
 const MobileBg = styled.div`
   min-width: 375px;
