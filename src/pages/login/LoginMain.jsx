@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { setCookie } from '../../shared/cookie';
 
 // 컴포넌트
@@ -19,24 +20,17 @@ const LoginMain = () => {
     setError,
   } = useForm();
 
-  const onVaild = async (data) => {
+  const onVaild = (data) => {
     const { email, password } = data;
-    await userApi
+    userApi
       .login({ email, password })
       .then((response) => {
         setCookie('token', response.data.token, 5);
         navigate('/main/calendar');
       })
       .catch((error) => {
-        console.error(error);
-        setError(error.response.data.msg);
+        setError('extraError', { message: error.response.data.msg }, { shouldFocus: true });
       });
-  };
-  const errorText = (errors) => {
-    if (errors) {
-      const { email, password, extraError } = errors;
-      return email?.message || password?.message || extraError?.message;
-    }
   };
   // 로그인
   const onKeyPress = (e) => {
@@ -44,7 +38,7 @@ const LoginMain = () => {
       onVaild();
     }
   };
-
+  console.log(errors);
   return (
     <InputWrap>
       <Form onSubmit={handleSubmit(onVaild)}>
@@ -77,7 +71,19 @@ const LoginMain = () => {
           }}
           onKeyPress={onKeyPress}
         />
-        {errorText(errors) && <ErrorCheck>{errorText(errors)}</ErrorCheck>}
+        {errors?.email && (
+          <ErrorMessage errors={errors} name='email' render={({ message }) => <ErrorCheck>{message}</ErrorCheck>} />
+        )}
+        {errors?.password && (
+          <ErrorMessage errors={errors} name='password' render={({ message }) => <ErrorCheck>{message}</ErrorCheck>} />
+        )}
+        {errors?.extraError && (
+          <ErrorMessage
+            errors={errors}
+            name='extraError'
+            render={({ message }) => <ErrorCheck>{message}</ErrorCheck>}
+          />
+        )}
         <LoginBtn>로그인</LoginBtn>
       </Form>
       <PwCheck onClick={() => navigate('/findpw')}>

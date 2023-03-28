@@ -30,8 +30,9 @@ const LeftImg = styled.img`
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 880px;
+  max-width: 1024px;
   height: 100%;
+  max-height: 1080px;
 `;
 const RightImg = styled.img`
   position: absolute;
