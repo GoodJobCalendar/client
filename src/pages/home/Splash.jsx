@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import styled, { css } from 'styled-components';
 
 // 이미지
 import logo_w from '../../assets/logo/logo_w.svg';
@@ -7,6 +7,11 @@ import logotext_w from '../../assets/logo/logo_text_w.svg';
 import cover from '../../assets/bg/splash.png';
 
 const Splash = () => {
+  useEffect(() => {
+    const image = new Image();
+    image.src = logo_w;
+  }, []);
+
   return (
     <SplashScreenWrap>
       <SplashScreen>
@@ -18,9 +23,7 @@ const Splash = () => {
     </SplashScreenWrap>
   );
 };
-
 export default Splash;
-
 const SplashScreenWrap = styled.div`
   background-color: var(--blue4);
   position: absolute;
@@ -44,11 +47,16 @@ const SplashScreenWrap = styled.div`
   }
   z-index: 999;
 `;
+
 const SplashScreenBgImg = styled.img`
   position: absolute;
   top: 32%;
   right: 0;
+  ${({ src }) => css`
+    content: url(${src});
+  `}
 `;
+
 const SplashScreen = styled.div`
   position: absolute;
   top: 40%;
@@ -61,10 +69,12 @@ const SplashScreen = styled.div`
     margin-bottom: 13px;
   }
 `;
+
 const SplashScreenLogoImg = styled.img`
   width: 120px;
   height: 120px;
 `;
+
 const SplashScreenLogoTextImg = styled.img`
   width: 180px;
   height: 38px;
