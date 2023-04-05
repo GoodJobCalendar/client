@@ -189,7 +189,6 @@ const NavItem = styled.li`
   flex: 1;
 `;
 const PageTitle = styled.p`
-  font-size: 12px;
   letter-spacing: 0.8px;
   color: #fff;
 `;

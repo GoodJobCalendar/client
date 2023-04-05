@@ -4,9 +4,9 @@ import SignUp from './../pages/signup';
 import FindPassword from './../pages/findpw';
 import CheckPwAuthNumber from '../pages/findpw/CheckPwAuthNumber';
 import ChangePw from './../pages/findpw/ChangePw';
-import Job from './../pages/job';
 import Calendar from './../pages/calendar';
 import Splash from '../pages/home/Splash';
+import Job from '../pages/job';
 
 const Home = lazy(() => import('./../pages/home'));
 const Login = lazy(() => import('./../pages/login'));
